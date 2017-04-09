@@ -1,8 +1,5 @@
 import React from 'react'
-import {
-  Route,
-  Link,
-} from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 
 const Home = () => <div>hello</div>
 const About = () => <div>about</div>

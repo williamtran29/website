@@ -1,32 +1,17 @@
+import path from 'path'
 import Koa from 'koa'
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import { StaticRouter } from 'react-router'
-import App from 'client/App'
+import morgan from 'koa-morgan'
+import favicon from 'koa-favicon'
+import serve from 'koa-static'
+import config from 'server/config'
+import ssr from 'server/ssr'
 
 const app = new Koa()
 
-// response
-app.use(({ request, response }) => {
-  const context = {}
-  const html = ReactDOMServer.renderToString(
-    <StaticRouter
-      location={request.url}
-      context={context}
-    >
-      <App />
-    </StaticRouter>,
-  )
+const PUBLIC = path.join(__dirname, '../../public')
 
-  if (context.url) {
-    response.status = 301
-    response.headers = { Location: context.url }
-  } else {
-    response.body = `
-      <!doctype html>
-      <div id="app">${html}</div>
-    `
-  }
-})
-
+app.use(morgan(config.get('server.logFormat')))
+app.use(favicon(path.join(PUBLIC, 'favicon.ico')))
+app.use(serve(PUBLIC))
+app.use(ssr())
 app.listen(8000)

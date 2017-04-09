@@ -1,14 +1,16 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const AssetsPlugin = require('assets-webpack-plugin')
 
+const DIST_PATH = path.join(__dirname, 'public/dist')
 const production = process.env.NODE_ENV === 'production'
+const prodPlugins = plugins => production ? plugins : []
 
 module.exports = {
   entry: path.join(__dirname, 'src/client/main.js'),
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'main.js',
+    path: DIST_PATH,
+    filename: production ? '[name]-bundle-[hash].js' : '[name].js',
   },
   resolve: {
     extensions: ['.js'],
@@ -36,12 +38,11 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      minimize: production,
-      debug: false,
-    }),
-    ...(production ? [new webpack.optimize.UglifyJsPlugin()] : []),
-    new HtmlWebpackPlugin({ title: 'Smooth Code' }),
+    ...prodPlugins([
+      new webpack.LoaderOptionsPlugin({ minimize: true }),
+      new AssetsPlugin({ path: DIST_PATH }),
+      // new webpack.optimize.UglifyJsPlugin(),
+    ]),
   ],
   devServer: {
     proxy: {
