@@ -1,54 +1,96 @@
-const path = require('path')
-const webpack = require('webpack')
-const AssetsPlugin = require('assets-webpack-plugin')
+import path from 'path'
+import webpack from 'webpack'
+import AssetsPlugin from 'assets-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
-const DIST_PATH = path.join(__dirname, 'public/dist')
+const DIST_PATH = path.resolve(__dirname, 'public/dist')
 const production = process.env.NODE_ENV === 'production'
-const prodPlugins = plugins => production ? plugins : []
+const development = process.env.NODE_ENV === 'development'
 
 module.exports = {
-  entry: path.join(__dirname, 'src/client/main.js'),
+  context: path.resolve(__dirname, 'src/client'),
+  entry: [
+    ...(development ? [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:8080',
+      'webpack/hot/only-dev-server',
+    ] : []),
+    './main.js',
+  ],
   output: {
     path: DIST_PATH,
     filename: production ? '[name]-bundle-[hash].js' : '[name].js',
+    publicPath: '/dist/',
   },
   resolve: {
     extensions: ['.js'],
+    modules: ['node_modules', 'src'],
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              'react',
+              ['env', {
+                modules: false,
+                targets: {
+                  browsers: ['last 2 versions'],
+                },
+              }],
+            ],
+            plugins: [
+              'syntax-trailing-function-commas',
+              'transform-object-rest-spread',
+              'transform-class-properties',
+              ...(development ? ['react-hot-loader/babel'] : []),
+            ],
+          },
+        },
       },
       {
         test: /\.scss$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          {
-            loader: 'sass-loader',
-            options: {
-              includePaths: ['./node_modules'],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader' },
+            {
+              loader: 'sass-loader',
+              options: {
+                includePaths: ['./node_modules'],
+              },
             },
-          },
-        ],
+          ],
+        }),
       },
     ],
   },
   plugins: [
-    ...prodPlugins([
+    new ExtractTextPlugin(production ? '[name]-bundle-[hash].css' : '[name].css'),
+    ...(production ? [
       new webpack.LoaderOptionsPlugin({ minimize: true }),
       new AssetsPlugin({ path: DIST_PATH }),
       // new webpack.optimize.UglifyJsPlugin(),
+    ] : [
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NamedModulesPlugin(),
     ]),
   ],
-  devServer: {
-    proxy: {
-      '*': {
-        target: 'http://localhost:8000',
+  ...(development ? {
+    devServer: {
+      hot: true,
+      contentBase: DIST_PATH,
+      publicPath: '/dist/',
+      proxy: {
+        '*': {
+          target: 'http://localhost:8000',
+        },
       },
     },
-  },
+  } : {}),
 }

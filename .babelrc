@@ -3,7 +3,7 @@
     "react",
     ["env", {
       "targets": {
-        "browsers": ["last 2 versions"]
+        "node": "current"
       }
     }]
   ],
@@ -14,5 +14,5 @@
     "syntax-trailing-function-commas",
     "transform-object-rest-spread",
     "transform-class-properties"
-  ]
+  ],
 }

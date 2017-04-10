@@ -21,7 +21,8 @@ const getAssets = async () => {
 
   assets = {
     main: {
-      js: 'main.js',
+      js: '/dist/main.js',
+      css: '/dist/main.css',
     },
   }
   return assets
@@ -44,10 +45,11 @@ export default () => async ({ request, response }) => {
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="${assets.main.css}" media="all" rel="stylesheet">
   </head>
   <body>
     <div id="main">${html}</div>
-    <script src="/dist/${assets.main.js}"></script>
+    <script src="${assets.main.js}"></script>
   </body>
 </html>
     `

@@ -1,9 +1,10 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
-import App from './App'
+import App from 'client/App'
 
 export default () => (
   <BrowserRouter>
+    ell
     <App />
   </BrowserRouter>
 )
