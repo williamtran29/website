@@ -1,28 +1,32 @@
 import React from 'react'
-import Anchor from 'grommet/components/Anchor'
-import Box from 'grommet/components/Box'
-import Header from 'grommet/components/Header'
-import Menu from 'grommet/components/Menu'
-import TechnologyIcon from 'grommet/components/icons/base/Technology'
 import { Link } from 'react-router-dom'
+import NavItem from 'client/NavItem'
 
 export default () => (
-  <Header justify="center" colorIndex="neutral-4">
-    <Box
-      size={{ width: { max: 'xxlarge' } }}
-      direction="row"
-      responsive={false}
-      justify="start"
-      align="center"
-      pad={{ horizontal: 'medium' }}
-      flex="grow"
+  <nav className="navbar navbar-toggleable-sm navbar-inverse bg-inverse fixed-top">
+    <button
+      className="navbar-toggler navbar-toggler-right"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
     >
-      <TechnologyIcon colorIndex="brand" size="large" />
-      <Box pad="small" />
-      <Menu label="Label" inline direction="row" flex="grow">
-        <Anchor to="/" tag={Link}>Formations</Anchor>
-        <Anchor to="/about" tag={Link}>Nous contacter</Anchor>
-      </Menu>
-    </Box>
-  </Header>
+      <span className="navbar-toggler-icon" />
+    </button>
+    <Link to="/" className="navbar-brand">
+      Smooth Code
+    </Link>
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className="navbar-nav">
+        <NavItem exact to="/">
+          Home
+        </NavItem>
+        <NavItem to="/about">
+          About
+        </NavItem>
+      </ul>
+    </div>
+  </nav>
 )

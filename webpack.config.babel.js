@@ -23,7 +23,7 @@ module.exports = {
     publicPath: '/dist/',
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.json'],
     modules: ['node_modules', 'src'],
   },
   devtool: 'inline-source-map',
@@ -72,6 +72,12 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin(production ? '[name]-bundle-[hash].css' : '[name].css'),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Tether: 'tether',
+    }),
     ...(production ? [
       new webpack.LoaderOptionsPlugin({ minimize: true }),
       new AssetsPlugin({ path: DIST_PATH }),

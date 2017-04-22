@@ -1,10 +1,8 @@
 import React from 'react'
-// import GrommetApp from 'grommet/components/App'
 import { Route } from 'react-router-dom'
-import Header from './Header'
-
-const Home = () => <div>hello</div>
-const About = () => <div>about</div>
+import Header from 'client/Header'
+import Home from 'client/Home'
+import About from 'client/About'
 
 export default () => (
   <div>

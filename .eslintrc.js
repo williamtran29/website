@@ -24,6 +24,7 @@ module.exports = {
     'react/forbid-prop-types': 'off',
 
     'import/prefer-default-export': 'off',
+    'no-mixed-operators': 'off',
   },
   settings: {
     'import/resolver': {
