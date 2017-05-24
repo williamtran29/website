@@ -1,13 +1,14 @@
+import 'glamor/reset'
 import React from 'react'
 import { Route } from 'react-router-dom'
-import Header from 'client/Header'
 import Home from 'client/Home'
-import About from 'client/About'
+import Story from 'client/Story'
+import Trainings from 'client/Trainings'
 
 export default () => (
   <div>
-    <Header />
     <Route exact path="/" component={Home} />
-    <Route path="/about" component={About} />
+    <Route path="/story" component={Story} />
+    <Route path="/trainings" component={Trainings} />
   </div>
 )

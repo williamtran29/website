@@ -1,7 +1,6 @@
 import path from 'path'
 import webpack from 'webpack'
 import AssetsPlugin from 'assets-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 const DIST_PATH = path.resolve(__dirname, 'public/dist')
 const production = process.env.NODE_ENV === 'production'
@@ -10,11 +9,13 @@ const development = process.env.NODE_ENV === 'development'
 module.exports = {
   context: path.resolve(__dirname, 'src/client'),
   entry: [
-    ...(development ? [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server',
-    ] : []),
+    ...(development
+      ? [
+        'react-hot-loader/patch',
+        'webpack-dev-server/client?http://localhost:8080',
+        'webpack/hot/only-dev-server',
+      ]
+      : []),
     './main.js',
   ],
   output: {
@@ -37,12 +38,15 @@ module.exports = {
           options: {
             presets: [
               'react',
-              ['env', {
-                modules: false,
-                targets: {
-                  browsers: ['last 2 versions'],
+              [
+                'env',
+                {
+                  modules: false,
+                  targets: {
+                    browsers: ['last 2 versions'],
+                  },
                 },
-              }],
+              ],
             ],
             plugins: [
               'syntax-trailing-function-commas',
@@ -53,50 +57,35 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            { loader: 'css-loader' },
-            {
-              loader: 'sass-loader',
-              options: {
-                includePaths: ['./node_modules'],
-              },
-            },
-          ],
-        }),
-      },
     ],
   },
   plugins: [
-    new ExtractTextPlugin(production ? '[name]-bundle-[hash].css' : '[name].css'),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Tether: 'tether',
     }),
-    ...(production ? [
-      new webpack.LoaderOptionsPlugin({ minimize: true }),
-      new AssetsPlugin({ path: DIST_PATH }),
-      // new webpack.optimize.UglifyJsPlugin(),
-    ] : [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
-    ]),
+    ...(production
+      ? [
+        new webpack.LoaderOptionsPlugin({ minimize: true }),
+        new AssetsPlugin({ path: DIST_PATH }),
+          // new webpack.optimize.UglifyJsPlugin(),
+      ]
+      : [new webpack.HotModuleReplacementPlugin(), new webpack.NamedModulesPlugin()]),
   ],
-  ...(development ? {
-    devServer: {
-      hot: true,
-      contentBase: DIST_PATH,
-      publicPath: '/dist/',
-      proxy: {
-        '*': {
-          target: 'http://localhost:8000',
+  ...(development
+    ? {
+      devServer: {
+        hot: true,
+        contentBase: DIST_PATH,
+        publicPath: '/dist/',
+        proxy: {
+          '*': {
+            target: 'http://localhost:8000',
+          },
         },
       },
-    },
-  } : {}),
+    }
+    : {}),
 }

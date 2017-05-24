@@ -1,19 +1,16 @@
 import React from 'react'
-import Card3D from './Card3D'
+import glamorous from 'glamorous'
+import Header from 'client/Header'
+
+const Cover = glamorous.div({
+  backgroundImage: "url('/images/home-cover.png')",
+  backgroundSize: 'cover',
+  height: 700,
+})
 
 export default () => (
-  <div className="container-fluid">
-    <div className="row">
-      <div className="col grid-img" />
-      <div className="col">
-        foo
-      </div>
-    </div>
-    <div className="row">
-      <div className="col">
-        <Card3D />
-      </div>
-      <div className="col grid-img" />
-    </div>
+  <div>
+    <Header transparent />
+    <Cover />
   </div>
 )

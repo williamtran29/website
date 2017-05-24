@@ -1,5 +1,6 @@
 import path from 'path'
 import fs from 'mz/fs'
+import { renderStatic } from 'glamor/server'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
@@ -22,18 +23,20 @@ const getAssets = async () => {
   assets = {
     main: {
       js: '/dist/main.js',
-      css: '/dist/main.css',
     },
   }
+
   return assets
 }
 
 export default () => async ({ request, response }) => {
   const context = {}
-  const html = ReactDOMServer.renderToString(
-    <StaticRouter location={request.url} context={context}>
-      <App />
-    </StaticRouter>,
+  const { html, css, ids } = renderStatic(() =>
+    ReactDOMServer.renderToString(
+      <StaticRouter location={request.url} context={context}>
+        <App />
+      </StaticRouter>,
+    ),
   )
 
   if (context.url) {
@@ -45,10 +48,14 @@ export default () => async ({ request, response }) => {
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="${assets.main.css}" media="all" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style type="text/css">
+      ${css}
+    </style>
   </head>
   <body>
     <div id="main">${html}</div>
+    <script>window._glam = ${JSON.stringify(ids)}</script>
     <script src="${assets.main.js}"></script>
   </body>
 </html>
