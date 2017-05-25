@@ -106,7 +106,6 @@ const NavLink = glamorous(props => <Link {...omit(props, ['raised'])} />)(
 )
 
 const LogoLink = glamorous(Link)({
-  width: 150,
   flex: '0 0 150px',
   marginRight: 'auto',
   color: 'white',
@@ -133,7 +132,7 @@ const Header = compose(
 )(({ onToggle, toggled, transparent }) => (
   <Nav transparent={transparent}>
     <LogoLink to="/">
-      <Logo width={150} />
+      <Logo />
     </LogoLink>
     <Links show={toggled} transparent={transparent}>
       <NavLink to="/trainings">
