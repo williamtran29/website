@@ -28,7 +28,7 @@
     "glamor": "^2.20.25",
     "glamor-reset": "^3.0.0-1",
     "glamor-server": "^3.0.0-1",
-    "glamorous": "^3.15.1",
+    "glamorous": "^3.16.0",
     "jquery": "^3.2.1",
     "koa": "^2.2.0",
     "koa-favicon": "^2.0.0",
@@ -39,14 +39,16 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-hot-loader": "next",
+    "react-icons": "^2.2.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "webpack": "^2.6.0"
+    "recompact": "^3.0.2",
+    "webpack": "^2.6.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint-config-airbnb": "^15.0.1",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
     "nodemon": "^1.11.0",
