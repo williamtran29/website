@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'mz/fs'
-import { renderStatic } from 'glamor/server'
+import { renderStaticOptimized } from 'glamor/server'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
@@ -31,7 +31,7 @@ const getAssets = async () => {
 
 export default () => async ({ request, response }) => {
   const context = {}
-  const { html, css, ids } = renderStatic(() =>
+  const { html, css, ids } = renderStaticOptimized(() =>
     ReactDOMServer.renderToString(
       <StaticRouter location={request.url} context={context}>
         <App />
