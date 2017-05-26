@@ -19,9 +19,7 @@ exports[`Input  should render an input 1`] = `
 }
 
 .css-d10fgx:focus,
-[data-css-d10fgx]:focus,
-.css-d10fgx[data-simulate-focus],
-[data-css-d10fgx][data-simulate-focus] {
+[data-css-d10fgx]:focus {
   border-color: #BD4932;
   outline: 0;
 }

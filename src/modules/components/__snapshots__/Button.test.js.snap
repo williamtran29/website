@@ -22,17 +22,13 @@ exports[`Button should render a button 1`] = `
 }
 
 .css-tf2nfx:hover,
-[data-css-tf2nfx]:hover,
-.css-tf2nfx[data-simulate-hover],
-[data-css-tf2nfx][data-simulate-hover] {
+[data-css-tf2nfx]:hover {
   background-color: #6c2a1d;
   outline: none;
 }
 
 .css-tf2nfx:focus,
-[data-css-tf2nfx]:focus,
-.css-tf2nfx[data-simulate-focus],
-[data-css-tf2nfx][data-simulate-focus] {
+[data-css-tf2nfx]:focus {
   background-color: #6c2a1d;
   outline: none;
 }
@@ -67,17 +63,13 @@ exports[`Button should render a specific component 1`] = `
 }
 
 .css-10m27ti:hover,
-[data-css-10m27ti]:hover,
-.css-10m27ti[data-simulate-hover],
-[data-css-10m27ti][data-simulate-hover] {
+[data-css-10m27ti]:hover {
   background-color: #6c2a1d;
   outline: none;
 }
 
 .css-10m27ti:focus,
-[data-css-10m27ti]:focus,
-.css-10m27ti[data-simulate-focus],
-[data-css-10m27ti][data-simulate-focus] {
+[data-css-10m27ti]:focus {
   background-color: #6c2a1d;
   outline: none;
 }

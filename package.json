@@ -66,6 +66,7 @@
   "devDependencies": {
     "@storybook/react": "^3.0.0-rc.0",
     "babel-eslint": "^7.2.3",
+    "codecov": "^2.2.0",
     "enzyme": "^2.8.2",
     "enzyme-to-json": "^1.5.1",
     "eslint-config-airbnb": "^15.0.1",
@@ -86,7 +87,10 @@
     "modulePaths": [
       "<rootDir>/src"
     ],
-    "snapshotSerializers": ["enzyme-to-json/serializer", "jest-glamor-react/dist/serializer"],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer",
+      "jest-glamor-react/dist/serializer"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>/src/test/setupTestFrameworkScriptFile.js",
     "coverageDirectory": "./coverage/"
   }
