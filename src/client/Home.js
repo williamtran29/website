@@ -14,6 +14,7 @@ const Cover = glamorous.div({
   alignItems: 'center',
   justifyContent: 'center',
   textAlign: 'center',
+  padding: '0 10px',
 })
 
 const Title = glamorous.h1({

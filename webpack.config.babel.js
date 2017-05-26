@@ -1,6 +1,8 @@
 import path from 'path'
 import webpack from 'webpack'
 import AssetsPlugin from 'assets-webpack-plugin'
+import CompressionPlugin from 'compression-webpack-plugin'
+import iltorb from 'iltorb'
 
 const DIST_PATH = path.resolve(__dirname, 'public/dist')
 const production = process.env.NODE_ENV === 'production'
@@ -36,24 +38,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              'react',
-              [
-                'env',
-                {
-                  modules: false,
-                  targets: {
-                    browsers: ['last 2 versions'],
-                  },
-                },
-              ],
-            ],
-            plugins: [
-              'syntax-trailing-function-commas',
-              'transform-object-rest-spread',
-              'transform-class-properties',
-              ...(development ? ['react-hot-loader/babel'] : []),
-            ],
+            forceEnv: 'browser',
+            plugins: [...(development ? ['react-hot-loader/babel'] : [])],
           },
         },
       },
@@ -66,11 +52,30 @@ module.exports = {
       'window.jQuery': 'jquery',
       Tether: 'tether',
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    }),
     ...(production
       ? [
         new webpack.LoaderOptionsPlugin({ minimize: true }),
         new AssetsPlugin({ path: DIST_PATH }),
-          // new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.UglifyJsPlugin(),
+        new CompressionPlugin({
+          algorithm: 'gzip',
+          asset: '[path].gz[query]',
+          test: /\.js$/,
+          threshold: 10240,
+          minRatio: 0.8,
+        }),
+        new CompressionPlugin({
+          algorithm: (content, options, callback) => {
+            iltorb.compress(content, callback)
+          },
+          asset: '[path].br[query]',
+          test: /\.js$/,
+          threshold: 10240,
+          minRatio: 0.8,
+        }),
       ]
       : [new webpack.HotModuleReplacementPlugin(), new webpack.NamedModulesPlugin()]),
   ],
