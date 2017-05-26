@@ -4,8 +4,17 @@ import React from 'react'
 import { ThemeProvider } from 'glamorous'
 import { storiesOf, action } from '@storybook/react'
 import theme from 'client/theme'
-import Button from 'modules/components/Button'
+import components from 'modules/components'
+
+const themeDecorator = getStory => <ThemeProvider theme={theme}>{getStory()}</ThemeProvider>
 
 storiesOf('Button', module)
-  .addDecorator(getStory => <ThemeProvider theme={theme}>{getStory()}</ThemeProvider>)
-  .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
+  .addDecorator(themeDecorator)
+  .add('with text', () => (
+    <components.Button onClick={action('clicked')}>Hello Button</components.Button>
+  ))
+
+storiesOf('Input', module).addDecorator(themeDecorator).add('basic', () => <components.Input />)
+storiesOf('Textarea', module)
+  .addDecorator(themeDecorator)
+  .add('basic', () => <components.Textarea rows={10} cols={50} />)
