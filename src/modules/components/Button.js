@@ -4,7 +4,10 @@ import glamorous from 'glamorous'
 
 const Button = glamorous(
   ({ component: Component = 'button', ...props }) => <Component {...props} />,
-  { rootEl: 'button' },
+  {
+    forwardProps: ['component', 'to'],
+    rootEl: 'button',
+  },
 )(
   {
     borderRadius: 3,
