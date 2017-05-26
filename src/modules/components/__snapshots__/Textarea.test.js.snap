@@ -18,9 +18,7 @@ exports[`Textarea  should render a textarea 1`] = `
 }
 
 .css-1ufv8qp:focus,
-[data-css-1ufv8qp]:focus,
-.css-1ufv8qp[data-simulate-focus],
-[data-css-1ufv8qp][data-simulate-focus] {
+[data-css-1ufv8qp]:focus {
   border-color: #BD4932;
   outline: 0;
 }
