@@ -48,10 +48,9 @@ export default () => async ({ request, response }) => {
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <style type="text/css">
-      ${css}
-    </style>
+    <style type="text/css">${css}</style>
   </head>
   <body>
     <div id="main">${html}</div>

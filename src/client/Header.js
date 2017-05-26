@@ -1,5 +1,6 @@
 import React from 'react'
 import { compose, withHandlers, withState } from 'recompact'
+import presets from 'glamor-media-query-presets'
 import omit from 'lodash/omit'
 import { Link } from 'react-router-dom'
 import glamorous from 'glamorous'
@@ -13,12 +14,12 @@ const Nav = glamorous.nav(
     alignItems: 'center',
     justifyContent: 'space-around',
     padding: '0 10px',
-    backgroundColor: '#BD4932',
     color: 'white',
     position: 'relative',
   },
-  ({ transparent }) => ({
-    ...(transparent
+  (props, theme) => ({
+    backgroundColor: theme.colors.primary,
+    ...(props.transparent
       ? {
         position: 'absolute',
         backgroundColor: 'transparent',
@@ -44,9 +45,8 @@ const Links = glamorous.div(
     opacity: 0,
     zIndex: 1,
     transition: 'opacity 300ms, transform 300ms',
-    backgroundColor: '#BD4932',
     paddingBottom: '10px',
-    '@media(min-width: 700px)': {
+    [presets.Tablet]: {
       position: 'initial',
       display: 'flex',
       flex: '1 1 600px',
@@ -58,13 +58,14 @@ const Links = glamorous.div(
       paddingBottom: 0,
     },
   },
-  ({ show, transparent }) => ({
-    ...(transparent
+  (props, theme) => ({
+    backgroundColor: theme.colors.primary,
+    ...(props.transparent
       ? {
         backgroundColor: 'transparent',
       }
       : null),
-    ...(show
+    ...(props.show
       ? {
         transform: 'translateY(calc(100% + 40px))',
         opacity: 1,
@@ -75,7 +76,6 @@ const Links = glamorous.div(
 
 const NavLink = glamorous(props => <Link {...omit(props, ['raised'])} />)(
   {
-    fontFamily: "'Roboto', sans-serif",
     lineHeight: '28px',
     fontSize: 18,
     textDecoration: 'none',
@@ -87,18 +87,18 @@ const NavLink = glamorous(props => <Link {...omit(props, ['raised'])} />)(
     ':hover': {
       color: 'white',
     },
-    '@media(min-width: 700px)': {
+    [presets.Tablet]: {
       margin: '0',
     },
   },
-  ({ raised }) => ({
-    ...(raised
+  (props, theme) => ({
+    ...(props.raised
       ? {
         borderRadius: '3px',
         border: '1px solid white',
         ':hover': {
           backgroundColor: 'white',
-          color: '#BD4932',
+          color: theme.colors.primary,
         },
       }
       : {}),
@@ -118,7 +118,7 @@ const MenuToggle = glamorous(FaBars)({
   height: 20,
   width: 'auto',
   cursor: 'pointer',
-  '@media(min-width: 700px)': {
+  [presets.Tablet]: {
     display: 'none',
   },
   zIndex: 2,
