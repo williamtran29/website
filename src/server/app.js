@@ -44,7 +44,11 @@ const PUBLIC = path.join(__dirname, '../../public')
 app.use(bodyParser())
 app.use(etag())
 app.use(compress({ filter: contentType => /text/i.test(contentType) }))
-app.use(morgan(config.get('server.logFormat')))
+
+if (config.get('env') !== 'test') {
+  app.use(morgan(config.get('server.logFormat')))
+}
+
 app.use(favicon(path.join(PUBLIC, 'favicon.ico')))
 app.use(serve(PUBLIC, { immutable: true, maxage: 31536000000 }))
 app.use(router.routes())

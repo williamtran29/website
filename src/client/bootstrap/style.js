@@ -1,4 +1,4 @@
-import 'glamor-reset'
+import 'glamor/reset'
 import { css } from 'glamor'
 import theme from 'client/theme'
 

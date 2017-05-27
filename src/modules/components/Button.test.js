@@ -7,6 +7,12 @@ describe('Button', () => {
     expect(shallowWithTheme(<Button>Hello</Button>).shallow()).toMatchSnapshotWithGlamor()
   })
 
+  it('should render accept margin', () => {
+    expect(
+      shallowWithTheme(<Button margin={10}>Hello</Button>).shallow(),
+    ).toMatchSnapshotWithGlamor()
+  })
+
   it('should render a specific component', () => {
     expect(
       shallowWithTheme(<Button component="a">Hello</Button>).shallow(),

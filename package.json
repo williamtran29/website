@@ -38,8 +38,6 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "glamor": "^2.20.25",
     "glamor-media-query-presets": "^1.0.0",
-    "glamor-reset": "^3.0.0-1",
-    "glamor-server": "^3.0.0-1",
     "glamorous": "^3.18.1",
     "graphql": "^0.10.1",
     "graphql-server-koa": "^0.7.2",
