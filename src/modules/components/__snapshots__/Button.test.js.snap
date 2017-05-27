@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button should render a button 1`] = `
-.css-tf2nfx,
-[data-css-tf2nfx] {
+.css-tbcygz,
+[data-css-tbcygz] {
   -webkit-transition: background-color 200ms;
   border-radius: 3px;
   height: 38px;
@@ -10,39 +10,77 @@ exports[`Button should render a button 1`] = `
   text-align: center;
   font-size: 16px;
   line-height: 38px;
-  white-space: nowrap;
   display: inline-block;
+  color: white;
   cursor: pointer;
   transition: background-color 200ms;
   text-decoration: none;
   border: 0;
   background-color: #BD4932;
-  children: Hello;
-  color: white;
+  white-space: nowrap;
 }
 
-.css-tf2nfx:hover,
-[data-css-tf2nfx]:hover {
+.css-tbcygz:hover,
+[data-css-tbcygz]:hover {
   background-color: #6c2a1d;
   outline: none;
 }
 
-.css-tf2nfx:focus,
-[data-css-tf2nfx]:focus {
+.css-tbcygz:focus,
+[data-css-tbcygz]:focus {
   background-color: #6c2a1d;
   outline: none;
 }
 
 <button
-  className="css-tf2nfx"
+  className="css-tbcygz"
 >
   Hello
 </button>
 `;
 
 exports[`Button should render a specific component 1`] = `
-.css-10m27ti,
-[data-css-10m27ti] {
+.css-tbcygz,
+[data-css-tbcygz] {
+  -webkit-transition: background-color 200ms;
+  border-radius: 3px;
+  height: 38px;
+  padding: 0 30px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 38px;
+  display: inline-block;
+  color: white;
+  cursor: pointer;
+  transition: background-color 200ms;
+  text-decoration: none;
+  border: 0;
+  background-color: #BD4932;
+  white-space: nowrap;
+}
+
+.css-tbcygz:hover,
+[data-css-tbcygz]:hover {
+  background-color: #6c2a1d;
+  outline: none;
+}
+
+.css-tbcygz:focus,
+[data-css-tbcygz]:focus {
+  background-color: #6c2a1d;
+  outline: none;
+}
+
+<a
+  className="css-tbcygz"
+>
+  Hello
+</a>
+`;
+
+exports[`Button should render accept margin 1`] = `
+.css-qekui8,
+[data-css-qekui8] {
   -webkit-transition: background-color 200ms;
   border-radius: 3px;
   height: 38px;
@@ -57,26 +95,25 @@ exports[`Button should render a specific component 1`] = `
   text-decoration: none;
   border: 0;
   background-color: #BD4932;
-  component: a;
-  children: Hello;
+  margin: 10px;
   color: white;
 }
 
-.css-10m27ti:hover,
-[data-css-10m27ti]:hover {
+.css-qekui8:hover,
+[data-css-qekui8]:hover {
   background-color: #6c2a1d;
   outline: none;
 }
 
-.css-10m27ti:focus,
-[data-css-10m27ti]:focus {
+.css-qekui8:focus,
+[data-css-qekui8]:focus {
   background-color: #6c2a1d;
   outline: none;
 }
 
-<a
-  className="css-10m27ti"
+<button
+  className="css-qekui8"
 >
   Hello
-</a>
+</button>
 `;

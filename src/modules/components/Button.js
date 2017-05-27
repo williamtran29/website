@@ -34,7 +34,7 @@ const Button = glamorous(
       backgroundColor: darken(0.2, theme.colors.primary),
       outline: 'none',
     },
-    ...props,
+    margin: props.margin,
   }),
 )
 
