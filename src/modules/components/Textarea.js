@@ -13,10 +13,10 @@ const Textarea = glamorous.textarea(
   },
   (props, theme) => ({
     fontFamily: theme.fontFamilies.primary,
-    borderColor: theme.colors.gray,
+    borderColor: props.error ? theme.colors.error : theme.colors.gray,
     color: theme.colors.grayDark,
     ':focus': {
-      borderColor: theme.colors.primary,
+      borderColor: props.error ? theme.colors.error : theme.colors.grayDark,
       outline: 0,
     },
   }),

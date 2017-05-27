@@ -1,9 +1,9 @@
 import React from 'react'
 import { shallowWithTheme } from 'test/testUtils'
-import components from './'
+import Textarea from './Textarea'
 
 describe('Textarea ', () => {
   it('should render a textarea', () => {
-    expect(shallowWithTheme(<components.Textarea />)).toMatchSnapshotWithGlamor()
+    expect(shallowWithTheme(<Textarea />)).toMatchSnapshotWithGlamor()
   })
 })

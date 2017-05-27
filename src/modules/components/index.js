@@ -1,9 +1,3 @@
-import Button from './Button'
-import Input from './Input'
-import Textarea from './Textarea'
-
-export default {
-  Button,
-  Input,
-  Textarea,
-}
+export { default as Button } from './Button'
+export { default as Input } from './Input'
+export { default as Textarea } from './Textarea'

@@ -4,7 +4,7 @@ import React from 'react'
 import { ThemeProvider } from 'glamorous'
 import { storiesOf, action } from '@storybook/react'
 import theme from 'client/theme'
-import components from 'modules/components'
+import * as components from 'modules/components'
 
 const themeDecorator = getStory => <ThemeProvider theme={theme}>{getStory()}</ThemeProvider>
 

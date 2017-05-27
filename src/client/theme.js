@@ -3,6 +3,7 @@ export default {
     primary: '#BD4932',
     gray: '#CCC',
     grayDark: '#333',
+    error: '#FF4718',
   },
   fontFamilies: {
     primary: "'Roboto', sans-serif",

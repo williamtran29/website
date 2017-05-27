@@ -1,9 +1,14 @@
 import React from 'react'
 import glamorous from 'glamorous'
 import Header from 'client/Header'
-import components from 'modules/components'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { provideStore } from 'client/contactStore'
+import { Control, Form, Errors, actions } from 'react-redux-form'
+import { required } from 'modules/validators'
+import * as components from 'modules/components'
 
-const Form = glamorous.form({
+const StyledForm = glamorous(Form)({
   display: 'flex',
   flexDirection: 'column',
   padding: '20px',
@@ -22,22 +27,45 @@ const FormRow = glamorous.div({
   },
 })
 
-export default () => (
+const StyledErrors = glamorous(Errors)({}, (props, theme) => ({
+  color: theme.colors.error,
+  fontSize: 14,
+  margin: '10px 0',
+}))
+
+const mapProps = {
+  error: props => props.fieldValue.touched && !props.fieldValue.valid,
+}
+
+const errorMessages = {
+  required: 'Ce champs est requis',
+  typeMismatch: 'Email invalide',
+}
+
+const ContactForm = ({ onSubmit }) => (
   <div>
     <Header />
-    <Form>
+    <StyledForm onSubmit={onSubmit} model="contact">
       <glamorous.Div display="flex" flex="1">
         <FormRow>
           <label htmlFor="name">
             Nom
           </label>
-          <components.Input type="text" name="name" id="name" />
+          <Control
+            component={components.Input}
+            model=".name"
+            id="name"
+            validators={{ required }}
+            mapProps={mapProps}
+          />
+          <StyledErrors show="touched" model=".name" messages={errorMessages} />
         </FormRow>
         <FormRow>
           <label htmlFor="company">
             Société
           </label>
-          <components.Input type="text" name="company" id="company" />
+          <Control component={components.Input} model=".company" id="company" mapProps={mapProps} />
+          <StyledErrors show="touched" model=".company" messages={errorMessages} />
         </FormRow>
       </glamorous.Div>
       <glamorous.Div display="flex" flex="1">
@@ -45,22 +73,48 @@ export default () => (
           <label htmlFor="email">
             Email
           </label>
-          <components.Input type="text" name="email" id="email" />
+          <Control
+            type="email"
+            component={components.Input}
+            model=".email"
+            id="email"
+            mapProps={mapProps}
+            validators={{ required }}
+          />
+          <StyledErrors show="touched" model=".email" messages={errorMessages} />
         </FormRow>
         <FormRow>
           <label htmlFor="phone">
             Téléphone
           </label>
-          <components.Input type="text" name="phone" id="phone" />
+          <Control component={components.Input} model=".phone" id="phone" mapProps={mapProps} />
+          <StyledErrors show="touched" model=".phone" messages={errorMessages} />
         </FormRow>
       </glamorous.Div>
       <FormRow>
         <label htmlFor="message">
           Message
         </label>
-        <components.Textarea name="message" id="message" rows={5} />
+        <Control
+          component={components.Textarea}
+          model=".message"
+          id="message"
+          rows={5}
+          mapProps={mapProps}
+          validators={{ required }}
+        />
+        <StyledErrors show="touched" model=".message" messages={errorMessages} />
       </FormRow>
-      <components.Button margin={10}>Envoyer</components.Button>
-    </Form>
+      <components.Button margin={10} type="submit">Envoyer</components.Button>
+    </StyledForm>
   </div>
 )
+
+export default compose(
+  provideStore,
+  connect(null, dispatch => ({
+    onSubmit() {
+      dispatch(actions.submit('contact', Promise.resolve({})))
+    },
+  })),
+)(ContactForm)
