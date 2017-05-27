@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Textarea  should render a textarea 1`] = `
-.css-1ufv8qp,
-[data-css-1ufv8qp] {
+.css-n45klb,
+[data-css-n45klb] {
   -webkit-transition: border-color 200ms;
   border-radius: 3px;
   padding: 5px 10px;
@@ -17,13 +17,13 @@ exports[`Textarea  should render a textarea 1`] = `
   border-width: 1px;
 }
 
-.css-1ufv8qp:focus,
-[data-css-1ufv8qp]:focus {
-  border-color: #BD4932;
+.css-n45klb:focus,
+[data-css-n45klb]:focus {
+  border-color: #333;
   outline: 0;
 }
 
 <textarea
-  className="css-1ufv8qp"
+  className="css-n45klb"
 />
 `;
