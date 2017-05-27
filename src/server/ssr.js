@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'mz/fs'
-import { renderStaticOptimized } from 'glamor/server'
+import { renderStaticOptimized } from 'glamor-server'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
