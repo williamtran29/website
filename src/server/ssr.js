@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'mz/fs'
-import { renderStaticOptimized } from 'glamor/server'
+import { ServerStyleSheet } from 'styled-components'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
@@ -31,8 +31,9 @@ const getAssets = async () => {
 
 export default () => async ({ request, response }) => {
   const context = {}
-  const { html, css, ids } = renderStaticOptimized(() =>
-    ReactDOMServer.renderToString(
+  const sheet = new ServerStyleSheet()
+  const html = ReactDOMServer.renderToString(
+    sheet.collectStyles(
       <StaticRouter location={request.url} context={context}>
         <App />
       </StaticRouter>,
@@ -50,11 +51,10 @@ export default () => async ({ request, response }) => {
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <style type="text/css">${css}</style>
+    ${sheet.getStyleTags()}
   </head>
   <body>
     <div id="main">${html}</div>
-    <script>window._glam = ${JSON.stringify(ids)}</script>
     <script src="${assets.main.js}"></script>
   </body>
 </html>

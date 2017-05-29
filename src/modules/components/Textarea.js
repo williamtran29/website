@@ -1,25 +1,22 @@
-import glamorous from 'glamorous'
+import styled from 'styled-components'
+import theme from 'style/theme'
 
-const Textarea = glamorous.textarea(
-  {
-    borderRadius: 3,
-    display: 'inline-block',
-    padding: '5px 10px',
-    fontSize: 15,
-    lineHeight: 1.4,
-    transition: 'border-color 200ms',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-  },
-  (props, theme) => ({
-    fontFamily: theme.fontFamilies.primary,
-    borderColor: props.error ? theme.colors.error : theme.colors.gray,
-    color: theme.colors.grayDark,
-    ':focus': {
-      borderColor: props.error ? theme.colors.error : theme.colors.grayDark,
-      outline: 0,
-    },
-  }),
-)
+const Textarea = styled.textarea`
+  border-radius: 3px;
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 15px;
+  line-height: 1.4;
+  transition: border-color 200ms;
+  border-width: 1px;
+  border-style: solid;
+  font-family: ${theme.fontFamilies.primary};
+  border-color: ${props => (props.error ? theme.colors.danger : theme.colors.gray)};
+  color: ${theme.colors.grayDark};
+  &:focus: {
+    border-color: ${props => (props.error ? theme.colors.danger : theme.colors.grayDark)};
+    outline: 0;
+  }
+`
 
 export default Textarea

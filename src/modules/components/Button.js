@@ -1,41 +1,26 @@
-import React from 'react'
+import styled from 'styled-components'
 import { darken } from 'polished'
-import glamorous from 'glamorous'
+import theme from 'style/theme'
 
-const Button = glamorous(
-  ({ component: Component = 'button', ...props }) => <Component {...props} />,
-  {
-    forwardProps: ['component', 'to'],
-    rootEl: 'button',
-  },
-)(
-  {
-    borderRadius: 3,
-    display: 'inline-block',
-    height: 38,
-    padding: '0 30px',
-    textAlign: 'center',
-    fontSize: 16,
-    lineHeight: '38px',
-    whiteSpace: 'nowrap',
-    color: 'white',
-    cursor: 'pointer',
-    transition: 'background-color 200ms',
-    textDecoration: 'none',
-    border: 0,
-  },
-  (props, theme) => ({
-    backgroundColor: theme.colors.primary,
-    ':hover': {
-      backgroundColor: darken(0.2, theme.colors.primary),
-      outline: 'none',
-    },
-    ':focus': {
-      backgroundColor: darken(0.2, theme.colors.primary),
-      outline: 'none',
-    },
-    margin: props.margin,
-  }),
-)
+const Button = styled.button`
+  border-radius: 3px;
+  display: inline-block;;
+  height: 38px;
+  padding: 0 30px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 38px;
+  white-space: nowrap;;
+  color: white;
+  cursor: pointer;
+  transition: background-color 200ms;
+  text-decoration: none;
+  border: 0;
+  background-color: ${theme.colors.primary};
+  &:hover, &:focus {
+    background-color: ${darken(0.2, theme.colors.primary)};
+    outline: none;
+  }
+`
 
 export default Button

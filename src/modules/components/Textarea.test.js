@@ -1,9 +1,11 @@
 import React from 'react'
-import { shallowWithTheme } from 'test/testUtils'
+import { shallow } from 'enzyme'
+import toJson from 'enzyme-to-json'
 import Textarea from './Textarea'
 
 describe('Textarea ', () => {
   it('should render a textarea', () => {
-    expect(shallowWithTheme(<Textarea />)).toMatchSnapshotWithGlamor()
+    const wrapper = shallow(<Textarea />)
+    expect(toJson(wrapper)).toMatchSnapshot()
   })
 })

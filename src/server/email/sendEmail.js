@@ -8,6 +8,7 @@ async function sendEmail({ from, to, subject, textContent }) {
   const toEmail = new helper.Email(to)
   const content = new helper.Content('text/plain', textContent)
   const mail = new helper.Mail(fromEmail, subject, toEmail, content)
+  return Promise.resolve()
   const request = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',

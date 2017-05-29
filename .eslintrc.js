@@ -10,6 +10,9 @@ module.exports = {
     jest: true,
     browser: true,
   },
+  globals: {
+    shallow: true,
+  },
   rules: {
     'max-len': ['error', 100, 2, { ignoreUrls: true }],
     semi: ['error', 'never'],

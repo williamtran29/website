@@ -1,5 +1,6 @@
 import React from 'react'
-import glamorous from 'glamorous'
+import styled from 'styled-components'
+import theme from 'style/theme'
 import Header from 'client/Header'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
@@ -8,30 +9,56 @@ import { Control, Form, Errors, actions } from 'react-redux-form'
 import { required } from 'modules/validators'
 import * as components from 'modules/components'
 
-const StyledForm = glamorous(Form)({
-  display: 'flex',
-  flexDirection: 'column',
-  padding: '20px',
-  width: '100%',
-  maxWidth: 800,
-  margin: '0 auto',
-})
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+  max-width: 800;
+  margin: '0 auto';
+`
 
-const FormRow = glamorous.div({
-  display: 'flex',
-  flex: '1 0 auto',
-  flexDirection: 'column',
-  margin: '10px',
-  '& label': {
-    marginBottom: '5px',
-  },
-})
+const FormGroup = styled.div`
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  margin: 10px;
+  label {
+    margin-bottom: '5px';
+  }
+`
 
-const StyledErrors = glamorous(Errors)({}, (props, theme) => ({
-  color: theme.colors.error,
-  fontSize: 14,
-  margin: '10px 0',
-}))
+const FormRow = styled.div`
+  display: flex;
+  flex: 1;
+`
+
+const StyledErrors = styled(Errors)`
+  color: ${theme.colors.danger};
+  font-size: 14px;
+  margin: 10px 0;
+`
+
+const AlertMessage = connect(state => ({
+  status: state.forms.contact.$form.pending
+    ? 'PENDING'
+    : state.forms.contact.$form.errors === true
+        ? 'ERROR'
+        : state.forms.contact.$form.validity === true ? 'SUCCESS' : null,
+}))(({ status }) => {
+  switch (status) {
+    case 'ERROR':
+      return <components.Alert ui="danger">Erreur, veuillez rééessayer.</components.Alert>
+    case 'SUCCESS':
+      return (
+        <components.Alert ui="success">
+          Merci, nous vous répondrons dans les plus brefs délais !
+        </components.Alert>
+      )
+    default:
+      return null
+  }
+})
 
 const mapProps = {
   error: props => props.fieldValue.touched && !props.fieldValue.valid,
@@ -46,8 +73,9 @@ const ContactForm = ({ onSubmit }) => (
   <div>
     <Header />
     <StyledForm onSubmit={onSubmit} model="contact">
-      <glamorous.Div display="flex" flex="1">
-        <FormRow>
+      <AlertMessage />
+      <FormRow>
+        <FormGroup>
           <label htmlFor="name">
             Nom
           </label>
@@ -59,17 +87,17 @@ const ContactForm = ({ onSubmit }) => (
             mapProps={mapProps}
           />
           <StyledErrors show="touched" model=".name" messages={errorMessages} />
-        </FormRow>
-        <FormRow>
+        </FormGroup>
+        <FormGroup>
           <label htmlFor="company">
             Société
           </label>
           <Control component={components.Input} model=".company" id="company" mapProps={mapProps} />
           <StyledErrors show="touched" model=".company" messages={errorMessages} />
-        </FormRow>
-      </glamorous.Div>
-      <glamorous.Div display="flex" flex="1">
-        <FormRow>
+        </FormGroup>
+      </FormRow>
+      <FormRow>
+        <FormGroup>
           <label htmlFor="email">
             Email
           </label>
@@ -82,16 +110,16 @@ const ContactForm = ({ onSubmit }) => (
             validators={{ required }}
           />
           <StyledErrors show="touched" model=".email" messages={errorMessages} />
-        </FormRow>
-        <FormRow>
+        </FormGroup>
+        <FormGroup>
           <label htmlFor="phone">
             Téléphone
           </label>
           <Control component={components.Input} model=".phone" id="phone" mapProps={mapProps} />
           <StyledErrors show="touched" model=".phone" messages={errorMessages} />
-        </FormRow>
-      </glamorous.Div>
-      <FormRow>
+        </FormGroup>
+      </FormRow>
+      <FormGroup>
         <label htmlFor="message">
           Message
         </label>
@@ -104,17 +132,41 @@ const ContactForm = ({ onSubmit }) => (
           validators={{ required }}
         />
         <StyledErrors show="touched" model=".message" messages={errorMessages} />
-      </FormRow>
-      <components.Button margin={10} type="submit">Envoyer</components.Button>
+      </FormGroup>
+      <components.Button type="submit">Envoyer</components.Button>
     </StyledForm>
   </div>
 )
 
+const fetchContact = async (values) => {
+  try {
+    const result = await fetch('/api/contact', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+    if (result.statusCode !== 200) {
+      throw new Error('Error while fetching contact')
+    }
+  } catch (error) {
+    return Promise.reject(false)
+  }
+
+  return true
+}
+
 export default compose(
   provideStore,
-  connect(null, dispatch => ({
-    onSubmit() {
-      dispatch(actions.submit('contact', Promise.resolve({})))
-    },
-  })),
+  connect(
+    state => ({
+      form: state.contact,
+    }),
+    dispatch => ({
+      onSubmit(values) {
+        dispatch(actions.submit('contact', fetchContact(values)))
+      },
+    }),
+  ),
 )(ContactForm)

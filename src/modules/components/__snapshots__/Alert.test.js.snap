@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Alert should render a div 1`] = `
+<styled.div
+  ui="danger"
+>
+  Hello
+</styled.div>
+`;
+
+exports[`Alert should render with ui: success 1`] = `
+<styled.div
+  ui="success"
+>
+  Hello
+</styled.div>
+`;

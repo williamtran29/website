@@ -18,3 +18,7 @@ storiesOf('Input', module).addDecorator(themeDecorator).add('basic', () => <comp
 storiesOf('Textarea', module)
   .addDecorator(themeDecorator)
   .add('basic', () => <components.Textarea rows={10} cols={50} />)
+storiesOf('Alert', module)
+  .addDecorator(themeDecorator)
+  .add('danger', () => <components.Alert ui="danger">Something is wrong!</components.Alert>)
+  .add('success', () => <components.Alert ui="success">Something is good!</components.Alert>)
