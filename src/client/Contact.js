@@ -24,13 +24,14 @@ const FormGroup = styled.div`
   flex-direction: column;
   margin: 10px;
   label {
-    margin-bottom: '5px';
+    margin-bottom: 5px;
   }
 `
 
 const FormRow = styled.div`
   display: flex;
   flex: 1;
+  margin: 0 -10px;
 `
 
 const StyledErrors = styled(Errors)`
@@ -119,20 +120,22 @@ const ContactForm = ({ onSubmit }) => (
           <StyledErrors show="touched" model=".phone" messages={errorMessages} />
         </FormGroup>
       </FormRow>
-      <FormGroup>
-        <label htmlFor="message">
-          Message
-        </label>
-        <Control
-          component={components.Textarea}
-          model=".message"
-          id="message"
-          rows={5}
-          mapProps={mapProps}
-          validators={{ required }}
-        />
-        <StyledErrors show="touched" model=".message" messages={errorMessages} />
-      </FormGroup>
+      <FormRow>
+        <FormGroup>
+          <label htmlFor="message">
+            Message
+          </label>
+          <Control
+            component={components.Textarea}
+            model=".message"
+            id="message"
+            rows={5}
+            mapProps={mapProps}
+            validators={{ required }}
+          />
+          <StyledErrors show="touched" model=".message" messages={errorMessages} />
+        </FormGroup>
+      </FormRow>
       <components.Button type="submit">Envoyer</components.Button>
     </StyledForm>
   </div>
