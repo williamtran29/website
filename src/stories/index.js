@@ -1,24 +1,15 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import 'client/bootstrap/style'
+import 'style/bootstrap'
 import React from 'react'
-import { ThemeProvider } from 'glamorous'
 import { storiesOf, action } from '@storybook/react'
-import theme from 'client/theme'
 import * as components from 'modules/components'
 
-const themeDecorator = getStory => <ThemeProvider theme={theme}>{getStory()}</ThemeProvider>
+storiesOf('Button', module).add('with text', () => (
+  <components.Button onClick={action('clicked')}>Hello Button</components.Button>
+))
 
-storiesOf('Button', module)
-  .addDecorator(themeDecorator)
-  .add('with text', () => (
-    <components.Button onClick={action('clicked')}>Hello Button</components.Button>
-  ))
-
-storiesOf('Input', module).addDecorator(themeDecorator).add('basic', () => <components.Input />)
-storiesOf('Textarea', module)
-  .addDecorator(themeDecorator)
-  .add('basic', () => <components.Textarea rows={10} cols={50} />)
+storiesOf('Input', module).add('basic', () => <components.Input />)
+storiesOf('Textarea', module).add('basic', () => <components.Textarea rows={10} cols={50} />)
 storiesOf('Alert', module)
-  .addDecorator(themeDecorator)
   .add('danger', () => <components.Alert ui="danger">Something is wrong!</components.Alert>)
   .add('success', () => <components.Alert ui="success">Something is good!</components.Alert>)
