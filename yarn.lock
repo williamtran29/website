@@ -126,7 +126,7 @@
     "@types/keygrip" "*"
     "@types/node" "*"
 
-"@types/graphql@^0.9.0":
+"@types/graphql@^0.9.0", "@types/graphql@^0.9.1":
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.9.1.tgz#b04ebe84bc997cc60dbea2ed4d0d4342c737f99d"
 
@@ -3285,25 +3285,25 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.4, graceful-fs@^4.1.6:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-graphql-server-core@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/graphql-server-core/-/graphql-server-core-0.7.0.tgz#a658b3b0704f8a19b24254b64bef6b3d0ddce8ba"
+graphql-server-core@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/graphql-server-core/-/graphql-server-core-0.8.0.tgz#44cb0bc91c47fccbd1f6ccd60fcfaca4684c9fe3"
   optionalDependencies:
     "@types/graphql" "^0.9.0"
 
-graphql-server-koa@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/graphql-server-koa/-/graphql-server-koa-0.7.2.tgz#94a575a5e5e7f4252ed5aaddac45c15552357456"
+graphql-server-koa@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/graphql-server-koa/-/graphql-server-koa-0.8.0.tgz#e92794111c1a54232ee34aecabcbd51d422c80c1"
   dependencies:
-    graphql-server-core "^0.7.0"
-    graphql-server-module-graphiql "^0.7.2"
+    graphql-server-core "^0.8.0"
+    graphql-server-module-graphiql "^0.8.0"
   optionalDependencies:
-    "@types/graphql" "^0.9.0"
+    "@types/graphql" "^0.9.1"
     "@types/koa" "^2.0.39"
 
-graphql-server-module-graphiql@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/graphql-server-module-graphiql/-/graphql-server-module-graphiql-0.7.2.tgz#aa1f2a26eadbf7127c1b077e633d5086da52b330"
+graphql-server-module-graphiql@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/graphql-server-module-graphiql/-/graphql-server-module-graphiql-0.8.0.tgz#469c2dd2a8aeb9bb50971b283a11cc0876d3d281"
 
 graphql@^0.10.1:
   version "0.10.1"
@@ -4194,12 +4194,6 @@ jest-snapshot@^20.0.3:
     jest-util "^20.0.3"
     natural-compare "^1.4.0"
     pretty-format "^20.0.3"
-
-jest-styled-components@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/jest-styled-components/-/jest-styled-components-2.2.0.tgz#7c0748c07979b090ede10220ffa67ab9057b4e8e"
-  dependencies:
-    css "^2.2.1"
 
 jest-util@^19.0.2:
   version "19.0.2"
