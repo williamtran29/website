@@ -10,17 +10,18 @@ const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_E
   : compose
 /* eslint-enable no-underscore-dangle */
 
-const store = createStore(
-  combineForms({
-    contact: {
-      name: '',
-      company: '',
-      email: '',
-      phone: '',
-      message: '',
-    },
-  }),
-  composeEnhancers(applyMiddleware(thunk)),
-)
-
-export const provideStore = Component => () => <Provider store={store}><Component /></Provider>
+export const provideStore = Component => () => {
+  const store = createStore(
+    combineForms({
+      contact: {
+        name: '',
+        company: '',
+        email: '',
+        phone: '',
+        message: '',
+      },
+    }),
+    composeEnhancers(applyMiddleware(thunk)),
+  )
+  return <Provider store={store}><Component /></Provider>
+}
