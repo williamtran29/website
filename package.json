@@ -11,6 +11,7 @@
     "build:server": "rm -rf lib/ && cp -R src/ lib/ && babel -d lib src",
     "build:client": "rm -rf public/dist && webpack",
     "build-storybook": "build-storybook",
+    "ci": "yarn lint && NODE_ENV=test yarn db:load && yarn test -- --coverage && codecov",
     "db:console": "docker-compose run postgres psql --host postgres --username postgres",
     "db:create": "babel-node scripts/db/create.js",
     "db:drop": "babel-node scripts/db/drop.js",
@@ -24,9 +25,9 @@
     "dev:client": "webpack-dev-server",
     "dev:server": "nodemon src/server/main.js",
     "heroku-postbuild": "yarn build",
-    "lint": "eslint . --cache",
+    "lint": "eslint .",
     "storybook": "start-storybook -p 6006",
-    "test": "yarn lint && jest --coverage && codecov"
+    "test": "jest"
   },
   "engines": {
     "node": "8.0.0"
