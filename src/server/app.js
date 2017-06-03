@@ -18,8 +18,7 @@ import { schema, rootValue } from 'server/graphql'
 const app = new Koa()
 const router = new Router()
 
-router.use(error())
-router.post('/api/contact', async (ctx) => {
+router.post('/api/contact', async ctx => {
   const { name, company, email, phone, message } = ctx.request.body
   await sendEmail({
     from: email,
@@ -41,6 +40,7 @@ ${message}
 
 const PUBLIC = path.join(__dirname, '../../public')
 
+app.use(error())
 app.use(bodyParser())
 app.use(etag())
 app.use(compress({ filter: contentType => /text/i.test(contentType) }))

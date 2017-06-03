@@ -14,7 +14,8 @@ const Nav = styled.nav`
   padding: 0 10px;
   color: white;
   position: ${({ transparent }) => (transparent ? 'absolute' : 'relative')};
-  background-color: ${({ transparent }) => (transparent ? 'transparent' : theme.colors.primary)};
+  background-color: ${({ transparent }) =>
+    transparent ? 'transparent' : theme.colors.primary};
   left: 0;
   right: 0;
 `
@@ -29,12 +30,14 @@ const Links = styled.div`
   right: 0;
   top: calc(-100% - 70px);
   will-change: transform, opacity;
-  transform: ${props => (props.show ? 'translateY(calc(100% + 40px))' : 'translateY(0)')};
+  transform: ${props =>
+    props.show ? 'translateY(calc(100% + 40px))' : 'translateY(0)'};
   opacity: ${props => (props.show ? 1 : 0)};
   z-index: 1;
   transition: opacity 300ms, transform 300ms;
   padding-bottom: 10px;
-  background-color: ${props => (props.transparent ? 'transparent' : theme.colors.primary)};
+  background-color: ${props =>
+    props.transparent ? 'transparent' : theme.colors.primary};
   @media (min-width: 700px) {
     position: initial;
     display: flex;
@@ -98,7 +101,7 @@ const Header = compose(
   withHandlers({
     onToggle: ({ setToggled, toggled }) => () => setToggled(!toggled),
   }),
-)(({ onToggle, toggled, transparent }) => (
+)(({ onToggle, toggled, transparent }) =>
   <Nav transparent={transparent}>
     <LogoLink to="/">
       <Logo />
@@ -115,7 +118,7 @@ const Header = compose(
       </RaisedNavLink>
     </Links>
     <MenuToggle onClick={onToggle} />
-  </Nav>
-))
+  </Nav>,
+)
 
 export default Header

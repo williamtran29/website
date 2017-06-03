@@ -6,11 +6,10 @@ import Story from 'client/Story'
 import Trainings from 'client/Trainings'
 import Contact from 'client/Contact'
 
-export default () => (
+export default () =>
   <div>
     <Route exact path="/" component={Home} />
     <Route path="/story" component={Story} />
     <Route path="/trainings" component={Trainings} />
     <Route path="/contact" component={Contact} />
   </div>
-)

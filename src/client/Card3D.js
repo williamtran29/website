@@ -7,7 +7,7 @@ class Card3D extends Component {
     glareStyle: {},
   }
 
-  handleMouseMove = (event) => {
+  handleMouseMove = event => {
     const $card = $(event.currentTarget)
     const w = $card.innerWidth()
     const h = $card.innerHeight()

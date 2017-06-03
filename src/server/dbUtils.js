@@ -13,10 +13,16 @@ async function getTruncateQuery(knex) {
       [],
     )
 
-    const disableTriggers = tables.map(table => `ALTER TABLE ${table} DISABLE TRIGGER ALL`)
+    const disableTriggers = tables.map(
+      table => `ALTER TABLE ${table} DISABLE TRIGGER ALL`,
+    )
     const deletes = tables.map(table => `DELETE FROM ${table}`)
-    const enableTriggers = tables.map(table => `ALTER TABLE ${table} ENABLE TRIGGER ALL`)
-    truncateQuery = [...disableTriggers, ...deletes, ...enableTriggers].join(';')
+    const enableTriggers = tables.map(
+      table => `ALTER TABLE ${table} ENABLE TRIGGER ALL`,
+    )
+    truncateQuery = [...disableTriggers, ...deletes, ...enableTriggers].join(
+      ';',
+    )
   }
 
   return truncateQuery
