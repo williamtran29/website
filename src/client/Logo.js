@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react'
 
-const Logo = ({ className }) => (
+const Logo = ({ className }) =>
   <svg
     preserveAspectRatio="xMidYMid meet"
     style={{ verticalAlign: 'middle' }}
@@ -14,6 +14,5 @@ const Logo = ({ className }) => (
       fillRule="evenodd"
     />
   </svg>
-)
 
 export default Logo

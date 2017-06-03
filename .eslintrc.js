@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: 'airbnb',
+  extends: ['airbnb', 'prettier', 'prettier/react'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 7,
@@ -14,21 +14,13 @@ module.exports = {
     shallow: true,
   },
   rules: {
-    'max-len': ['error', 100, 2, { ignoreUrls: true }],
-    semi: ['error', 'never'],
     'no-shadow': 'off',
-    'no-param-reassign': 'off',
     'no-nested-ternary': 'off',
-    'no-use-before-define': ['error', { functions: false, classes: false }],
-    'no-confusing-arrow': 'off',
 
     'react/jsx-filename-extension': ['error', { extensions: ['.js'] }],
     'react/prop-types': 'off',
-    'react/require-default-props': 'off',
-    'react/forbid-prop-types': 'off',
 
     'import/prefer-default-export': 'off',
-    'no-mixed-operators': 'off',
   },
   settings: {
     'import/resolver': {

@@ -35,7 +35,7 @@ const Subtitle = styled.p`
 
 const LinkButton = Button.withComponent(Link)
 
-export default () => (
+export default () =>
   <div>
     <Header transparent />
     <Cover>
@@ -50,4 +50,3 @@ export default () => (
       </LinkButton>
     </Cover>
   </div>
-)

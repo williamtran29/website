@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import recompact from 'recompact'
 import theme from 'style/theme'
 import Header from 'client/Header'
-import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { provideStore } from 'client/contactStore'
 import { Control, Form, Errors, actions } from 'react-redux-form'
 import { required } from 'modules/validators'
 import * as components from 'modules/components'
@@ -41,15 +40,19 @@ const StyledErrors = styled(Errors)`
 `
 
 const AlertMessage = connect(state => ({
-  status: state.forms.contact.$form.pending
+  status: state.forms.forms.contact.$form.pending
     ? 'PENDING'
-    : state.forms.contact.$form.errors === true
-        ? 'ERROR'
-        : state.forms.contact.$form.validity === true ? 'SUCCESS' : null,
+    : state.forms.forms.contact.$form.errors === true
+      ? 'ERROR'
+      : state.forms.forms.contact.$form.validity === true ? 'SUCCESS' : null,
 }))(({ status }) => {
   switch (status) {
     case 'ERROR':
-      return <components.Alert ui="danger">Erreur, veuillez rééessayer.</components.Alert>
+      return (
+        <components.Alert ui="danger">
+          Erreur, veuillez rééessayer.
+        </components.Alert>
+      )
     case 'SUCCESS':
       return (
         <components.Alert ui="success">
@@ -70,10 +73,10 @@ const errorMessages = {
   typeMismatch: 'Email invalide',
 }
 
-const ContactForm = ({ onSubmit }) => (
+const ContactForm = ({ onSubmit }) =>
   <div>
     <Header />
-    <StyledForm onSubmit={onSubmit} model="contact">
+    <StyledForm onSubmit={onSubmit} model="forms.contact">
       <AlertMessage />
       <FormRow>
         <FormGroup>
@@ -93,8 +96,17 @@ const ContactForm = ({ onSubmit }) => (
           <label htmlFor="company">
             Société
           </label>
-          <Control component={components.Input} model=".company" id="company" mapProps={mapProps} />
-          <StyledErrors show="touched" model=".company" messages={errorMessages} />
+          <Control
+            component={components.Input}
+            model=".company"
+            id="company"
+            mapProps={mapProps}
+          />
+          <StyledErrors
+            show="touched"
+            model=".company"
+            messages={errorMessages}
+          />
         </FormGroup>
       </FormRow>
       <FormRow>
@@ -110,14 +122,27 @@ const ContactForm = ({ onSubmit }) => (
             mapProps={mapProps}
             validators={{ required }}
           />
-          <StyledErrors show="touched" model=".email" messages={errorMessages} />
+          <StyledErrors
+            show="touched"
+            model=".email"
+            messages={errorMessages}
+          />
         </FormGroup>
         <FormGroup>
           <label htmlFor="phone">
             Téléphone
           </label>
-          <Control component={components.Input} model=".phone" id="phone" mapProps={mapProps} />
-          <StyledErrors show="touched" model=".phone" messages={errorMessages} />
+          <Control
+            component={components.Input}
+            model=".phone"
+            id="phone"
+            mapProps={mapProps}
+          />
+          <StyledErrors
+            show="touched"
+            model=".phone"
+            messages={errorMessages}
+          />
         </FormGroup>
       </FormRow>
       <FormRow>
@@ -133,15 +158,18 @@ const ContactForm = ({ onSubmit }) => (
             mapProps={mapProps}
             validators={{ required }}
           />
-          <StyledErrors show="touched" model=".message" messages={errorMessages} />
+          <StyledErrors
+            show="touched"
+            model=".message"
+            messages={errorMessages}
+          />
         </FormGroup>
       </FormRow>
       <components.Button type="submit">Envoyer</components.Button>
     </StyledForm>
   </div>
-)
 
-const fetchContact = async (values) => {
+const fetchContact = async values => {
   try {
     const result = await fetch('/api/contact', {
       method: 'post',
@@ -160,16 +188,21 @@ const fetchContact = async (values) => {
   return true
 }
 
-export default compose(
-  provideStore,
+export default recompact.compose(
   connect(
-    state => ({
-      form: state.contact,
-    }),
+    state => ({ form: state.forms.contact }),
     dispatch => ({
+      onResetForm() {
+        dispatch(actions.reset('forms.contact'))
+      },
       onSubmit(values) {
-        dispatch(actions.submit('contact', fetchContact(values)))
+        dispatch(actions.submit('forms.contact', fetchContact(values)))
       },
     }),
   ),
+  recompact.lifecycle({
+    componentWillMount() {
+      this.props.onResetForm()
+    },
+  }),
 )(ContactForm)

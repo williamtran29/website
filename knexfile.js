@@ -26,7 +26,9 @@ const config = {
     client: 'postgresql',
     pool: {
       min: 2,
-      max: Math.floor((maxConnectionsAllowed - freeConnectionsForThierdTools) / workers),
+      max: Math.floor(
+        (maxConnectionsAllowed - freeConnectionsForThierdTools) / workers,
+      ),
     },
   },
 }
