@@ -3550,9 +3550,9 @@ ignore@^3.2.0:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.2.7.tgz#4810ca5f1d8eca5595213a34b94f2eb4ed926bbd"
 
-iltorb@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/iltorb/-/iltorb-1.3.0.tgz#b9ab2711d7fe7c7492e36c03b6e907dfdf6da58c"
+iltorb@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/iltorb/-/iltorb-1.3.1.tgz#47270458ec6837c422c26c9282f00e63196e95f9"
   dependencies:
     nan "^2.6.1"
     node-pre-gyp "^0.6.34"
@@ -5515,9 +5515,9 @@ podda@^1.2.2:
     babel-runtime "^6.11.6"
     immutable "^3.8.1"
 
-polished@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/polished/-/polished-1.1.2.tgz#211a7b0abbc3dd25101f4e95399e72edf7317f0e"
+polished@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/polished/-/polished-1.1.3.tgz#8f0f4b4c82eb7e33b0862487a8d07bd897b5392f"
 
 portfinder@^1.0.9:
   version "1.0.13"
@@ -6573,9 +6573,9 @@ sendgrid-rest@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/sendgrid-rest/-/sendgrid-rest-2.3.0.tgz#662ef95a93c73c3e0a4e7a61e3880a10c78dd24a"
 
-sendgrid@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/sendgrid/-/sendgrid-5.1.0.tgz#642429adb992f5b0923c195c941cabf10c8639ec"
+sendgrid@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/sendgrid/-/sendgrid-5.1.1.tgz#d4b2b6921aceb5e0c8e1ec5e032617fffb598721"
   dependencies:
     async.ensureasync "^0.5.2"
     async.queue "^0.5.2"
