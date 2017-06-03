@@ -20,6 +20,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-nested-ternary': 'off',
     'no-use-before-define': ['error', { functions: false, classes: false }],
+    'no-confusing-arrow': 'off',
 
     'react/jsx-filename-extension': ['error', { extensions: ['.js'] }],
     'react/prop-types': 'off',

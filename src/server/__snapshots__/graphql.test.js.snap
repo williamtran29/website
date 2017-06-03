@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`graphql trainings should return trainings 1`] = `
+Object {
+  "data": Object {
+    "trainings": Array [
+      Object {
+        "abstract": "Apprenez les bases du JavaScript",
+        "cloudinary_id": "js",
+        "description": "## Plein de choses dans cette formation
+Et même plus encore !
+
+## Et encore d'autres choses
+Et voilà...",
+        "duration": 3,
+        "name": "Formation JavaScript",
+      },
+      Object {
+        "abstract": "Tout connaître sur React",
+        "cloudinary_id": "react",
+        "description": "## React rocks
+On vous forme à React!",
+        "duration": 2,
+        "name": "Formation React",
+      },
+    ],
+  },
+}
+`;

@@ -8,3 +8,9 @@ script:
   - yarn test
 notifications:
   email: false
+services:
+  - postgresql
+before_script:
+  - psql -c 'CREATE DATABASE test;' -U postgres
+addons:
+  postgresql: '9.6'
