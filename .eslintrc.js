@@ -19,6 +19,7 @@ module.exports = {
 
     'react/jsx-filename-extension': ['error', { extensions: ['.js'] }],
     'react/prop-types': 'off',
+    'react/require-default-props': 'off',
 
     'import/prefer-default-export': 'off',
   },

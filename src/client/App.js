@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet'
 import Home from 'client/Home'
 import Story from 'client/Story'
 import Trainings from 'client/Trainings'
+import Training from 'client/Training'
 import Contact from 'client/Contact'
 
 export default () =>
@@ -16,6 +17,7 @@ export default () =>
     </Helmet>
     <Route exact path="/" component={Home} />
     <Route path="/story" component={Story} />
-    <Route path="/trainings" component={Trainings} />
+    <Route exact path="/trainings" component={Trainings} />
+    <Route path="/trainings/:slug" component={Training} />
     <Route path="/contact" component={Contact} />
   </div>

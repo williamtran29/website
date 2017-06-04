@@ -11,6 +11,7 @@ export default class Training extends BaseModel {
       abstract: { type: 'string ' },
       description: { type: 'string ' },
       cloudinary_id: { type: 'string ' },
+      slug: { type: 'string ' },
     },
   })
 }

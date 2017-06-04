@@ -1,4 +1,4 @@
-exports.seed = async (knex) => {
+exports.seed = async knex => {
   await knex('trainings').truncate()
   await knex('trainings').insert([
     {
@@ -10,7 +10,8 @@ Et même plus encore !
 
 ## Et encore d'autres choses
 Et voilà...`,
-      cloudinary_id: 'js',
+      cloudinary_id: 'javascript',
+      slug: 'formation-javascript',
     },
     {
       name: 'Formation React',
@@ -19,6 +20,7 @@ Et voilà...`,
       description: `## React rocks
 On vous forme à React!`,
       cloudinary_id: 'react',
+      slug: 'formation-react',
     },
   ])
 }
