@@ -92,7 +92,8 @@ CREATE TABLE trainings (
     duration integer NOT NULL,
     abstract character varying(255) NOT NULL,
     description text NOT NULL,
-    cloudinary_id character varying(255) NOT NULL
+    cloudinary_id character varying(255) NOT NULL,
+    slug character varying(255) NOT NULL
 );
 
 
@@ -150,9 +151,18 @@ ALTER TABLE ONLY trainings
 
 
 --
+-- Name: trainings trainings_slug_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trainings
+    ADD CONSTRAINT trainings_slug_unique UNIQUE (slug);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 -- Knex migrations
 
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170603173516_init.js, 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170604191541_trainings-slug.js, 1, NOW());
