@@ -2,7 +2,9 @@ import path from 'path'
 import fs from 'mz/fs'
 import { ServerStyleSheet } from 'styled-components'
 import React from 'react'
+import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
+import { Helmet } from 'react-helmet'
 import {
   ApolloClient,
   ApolloProvider,
@@ -13,6 +15,7 @@ import * as graphql from 'graphql'
 import { schema, rootValue } from 'server/graphql'
 import config from 'server/config'
 import App from 'client/App'
+import Html from 'server/Html'
 import store from 'client/store'
 
 const PUBLIC = path.join(__dirname, '../../public')
@@ -55,30 +58,24 @@ export default () => async ({ request, response }) => {
     ),
   )
 
-  const preloadedState = store.getState()
-  preloadedState.apollo = apolloClient.getInitialState()
+  const state = store.getState()
+  state.apollo = apolloClient.getInitialState()
+
+  const helmet = Helmet.renderStatic()
 
   if (context.url) {
     response.status = 301
     response.headers = { Location: context.url }
   } else {
     const assets = await getAssets()
-    response.body = `
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    ${sheet.getStyleTags()}
-  </head>
-  <body>
-    <div id="main">${html}</div>
-    <script>window.__PRELOADED_STATE__ = ${JSON.stringify(
-      preloadedState,
-    ).replace(/</g, '\\u003c')}</script>
-    <script src="${assets.main.js}"></script>
-  </body>
-</html>
-    `
+    response.body = `<!DOCTYPE html>${renderToString(
+      <Html
+        assets={assets}
+        content={html}
+        helmet={helmet}
+        sheet={sheet}
+        state={state}
+      />,
+    )}`
   }
 }
