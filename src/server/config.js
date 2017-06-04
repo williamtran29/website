@@ -30,11 +30,13 @@ const config = convict({
         doc: 'Basic auth username',
         format: String,
         env: 'BASIC_AUTH_USERNAME',
+        default: '',
       },
       password: {
         doc: 'Basic auth password',
         format: String,
         env: 'BASIC_AUTH_PASSWORD',
+        default: '',
       },
     },
   },
