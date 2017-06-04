@@ -20,6 +20,23 @@ const config = convict({
       format: ['dev', 'combined', 'common', 'short', 'tiny', ''],
       default: 'dev',
     },
+    auth: {
+      enabled: {
+        doc: 'Enable or disable basic auth',
+        format: Boolean,
+        default: false,
+      },
+      username: {
+        doc: 'Basic auth username',
+        format: String,
+        env: 'BASIC_AUTH_USERNAME',
+      },
+      password: {
+        doc: 'Basic auth password',
+        format: String,
+        env: 'BASIC_AUTH_PASSWORD',
+      },
+    },
   },
   sendgrid: {
     apiKey: {
