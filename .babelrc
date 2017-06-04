@@ -48,7 +48,8 @@
       "plugins": [
         "syntax-trailing-function-commas",
         "transform-object-rest-spread",
-        "transform-class-properties"
+        "transform-class-properties",
+        ["lodash", { "id": "recompact" }]
       ]
     }
   }

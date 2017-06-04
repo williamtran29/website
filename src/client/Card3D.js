@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import $ from 'jquery'
+import offset from 'dom-helpers/query/offset'
 
 const Container = styled.div`
   transform-style: preserve-3d;
@@ -79,12 +79,12 @@ class Card3D extends Component {
   }
 
   handleMouseMove = event => {
-    const $card = $(event.currentTarget)
-    const w = $card.innerWidth()
-    const h = $card.innerHeight()
+    const elementOffset = offset(event.currentTarget)
+    const w = elementOffset.width
+    const h = elementOffset.height
     const sensitivity = 2000 / Math.max(w, h)
-    const currentX = Math.round(event.pageX - $card.offset().left)
-    const currentY = Math.round(event.pageY - $card.offset().top)
+    const currentX = Math.round(event.pageX - elementOffset.left)
+    const currentY = Math.round(event.pageY - elementOffset.top)
     const cx = (w / 2 - currentX) / w * 2
     const cy = (h / 2 - currentY) / h * 2
     const rx = cy * sensitivity
