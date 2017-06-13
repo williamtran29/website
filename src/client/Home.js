@@ -3,11 +3,12 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Button from 'modules/components/Button'
 import Header from 'client/Header'
+import Technos from 'client/home/Technos'
 
 const Cover = styled.div`
   background-image: url('/images/home-cover.png');
   background-size: cover;
-  height: 700px;
+  height: 600px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -49,4 +50,5 @@ export default () =>
         Consulter nos formations
       </LinkButton>
     </Cover>
+    <Technos />
   </div>
