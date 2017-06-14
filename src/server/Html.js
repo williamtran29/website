@@ -25,7 +25,7 @@ const Html = ({ assets, content, helmet, sheet, state }) => {
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `WebFont.load({ google: { families: ['Roboto'] } });`,
+            __html: `WebFont.load({ google: { families: ['Roboto:300,400,700'] } });`,
           }}
         />
       </body>

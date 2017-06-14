@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import 'style/bootstrap'
 import React from 'react'
+import styled from 'styled-components'
 import { storiesOf, action } from '@storybook/react'
 import * as components from 'modules/components'
 
@@ -21,3 +22,15 @@ storiesOf('Alert', module)
   .add('success', () =>
     <components.Alert ui="success">Something is good!</components.Alert>,
   )
+
+storiesOf('H1', module).add('basic', () => <components.H1>Hello</components.H1>)
+
+const StyledOSXWindow = styled(components.OSXWindow)`
+  width: 50vw;
+  height: 75vh;
+  margin: auto;
+  margin-top: 12.5vh;
+`
+storiesOf('OSXWindow', module).add('basic', () =>
+  <StyledOSXWindow>Hello OS X</StyledOSXWindow>,
+)

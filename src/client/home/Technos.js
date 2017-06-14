@@ -1,10 +1,14 @@
 /* eslint-disable react/no-multi-comp, react/no-array-index-key */
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { lighten } from 'polished'
 import styled from 'styled-components'
-import { adjustHue } from 'polished'
 import pure from 'recompact/pure'
 import raf from 'raf'
 import theme from 'style/theme'
+import MdArrowForward from 'react-icons/lib/md/arrow-forward'
+
+const noop = () => {}
 
 const ITEM_SIZE = 150
 const CONTAINER_WIDTH = 2240
@@ -84,16 +88,24 @@ const labels = [
 ]
 
 const Title = styled.h1`
-  margin-top: 50px;
-  font-size: 40px;
+  margin-top: 25px;
+  font-size: 26px;
   line-height: 1.5;
   font-weight: lighter;
   text-align: center;
+  font-weight: 300;
+  margin: 0 10px 60px;
+  @media (min-width: 700px) {
+    font-size: 40px;
+    margin-top: 70px;
+  }
 `
 
 const Subtitle = styled.span`
   color: ${theme.colors.primary};
-  display: block;
+  @media (min-width: 700px) {
+    display: block;
+  }
 `
 
 const Container = styled.div`
@@ -104,7 +116,7 @@ const Container = styled.div`
 const Background = styled.div`
   position: absolute;
   left: 0;
-  top: calc(50% + 310px);
+  top: calc(50% + 180px);
   right: 0;
   transform: skewY(-12deg);
   pointer-events: none;
@@ -122,42 +134,30 @@ const Stripe = styled.div`
 const Stripe0 = Stripe.extend`
   height: 5000px;
   bottom: 200px;
-  background: linear-gradient(90deg, ${adjustHue(180, '#e4ecf5')}, ${adjustHue(
-  180,
-  '#f5fdff',
-)});
+  background: linear-gradient(90deg, #f5ede4, #fff7f5);
 `
 
 const Stripe1 = Stripe.extend`
   bottom: 0;
   left: calc(50% + 220px);
-  background: linear-gradient(90deg, ${adjustHue(180, '#f4fafd')}, ${adjustHue(
-  180,
-  '#eff8fc',
-)});
+  background: linear-gradient(90deg, #fdf7f4, #fcf3ef);
 `
 
 const Stripe2 = Stripe.extend`
   bottom: 200px;
   right: calc(50% - 220px);
-  background: linear-gradient(90deg, ${adjustHue(180, '#d6e3f0')}, ${adjustHue(
-  180,
-  '#e7f3fa',
-)});
+  background: linear-gradient(90deg, #f0e3d6, #faeee7);
 `
 
 const Stripe3 = Stripe.extend`
   bottom: 600px;
   left: 10%;
   right: calc(50% - 300px);
-  background: linear-gradient(90deg, ${adjustHue(180, '#ecf4fa')}, ${adjustHue(
-  180,
-  '#e4eff6',
-)});
+  background: linear-gradient(90deg, #faf2ec, #f6ebe4);
 `
 
 const BubblesContainer = styled.div`
-  height: 460px;
+  height: 440px;
   width: ${CONTAINER_WIDTH}px;
   position: relative;
 `
@@ -175,10 +175,11 @@ const Bubble = pure(styled.div`
   background-size: 750px 750px;
   background-position: ${props => props.bgPosition};
   box-shadow: 0 15px 35px rgba(0,0,0,.1), 0 3px 10px rgba(0,0,0,.07);
+  -webkit-tap-highlight-color: transparent;
 `)
 
 const Label = pure(styled.div`
-  z-index: 2;
+  z-index: 5;
   position: absolute;
   left: 50%;
   bottom: -40px;
@@ -203,6 +204,46 @@ const Label = pure(styled.div`
   transition-timing-function: ease-out;
 `)
 
+const Banner = styled.div`
+  font-size: 20px;
+  line-height: 1.4;
+  color: white;
+  text-align: center;
+  background: linear-gradient(30deg, ${theme.colors.primary}, ${lighten(
+  0.1,
+  theme.colors.primary,
+)});
+  text-transform: uppercase;
+  font-size: 16px;
+  padding: 20px 10px;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+
+    svg {
+      margin-left: 10px;
+      display: inline-block;
+      will-change: transform;
+      transition: 300ms transform;
+    }
+
+    &:hover {
+      svg {
+        transform: translateX(10px);
+      }
+    }
+  }
+
+  @media (min-width: 700px) {
+    font-size: 20px;
+    padding: 30px 10px;
+  }
+`
+
 class LabelledBubble extends React.Component {
   state = { showLabel: false }
 
@@ -219,6 +260,7 @@ class LabelledBubble extends React.Component {
     return (
       <Bubble
         bgPosition={this.props.bgPosition}
+        onClick={noop}
         onMouseOut={this.handleMouseOut}
         onMouseOver={this.handleMouseOver}
         style={style}
@@ -242,7 +284,7 @@ class AnimatedBubble extends React.PureComponent {
   componentDidMount() {
     const { x, y, index, scale } = this.props
     this.ySpeed = Math.random() * 4
-    this.initY = (y - 30) * 0.8 // Adjust y
+    this.initY = (y - 40) * 0.8 // Adjust y
     const bgPositionX = index % NB_SPRITE_COLUMNS * SPRITE_SIZE
     const bgPositionY = Math.floor(index / NB_SPRITE_COLUMNS) * SPRITE_SIZE
     this.bgPosition = `${-bgPositionX}px ${-bgPositionY}px`
@@ -322,9 +364,14 @@ const Technos = () =>
         )}
     </BubblesContainer>
     <Title>
-      Explorez les technologies d’aujourd’hui.
+      Explorez les technologies d’aujourd’hui.{' '}
       <Subtitle>Nos formations couvrent tout l’écosystème JavaScript.</Subtitle>
     </Title>
+    <Banner>
+      <Link to="/trainings">
+        Consulter notre catalogue<MdArrowForward />
+      </Link>
+    </Banner>
   </Container>
 
 export default Technos
