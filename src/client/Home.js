@@ -9,6 +9,7 @@ import Workshop from 'client/home/Workshop'
 import Trainers from 'client/home/Trainers'
 
 const Cover = styled.div`
+  background-color: #140E09;
   background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509180/home-cover_pqehlq);
   background-size: cover;
   height: 600px;

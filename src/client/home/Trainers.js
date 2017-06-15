@@ -11,6 +11,7 @@ const Container = styled.div`
 
 const Picture = styled.div`
   flex: 1;
+  align-self: center;
   height: 400px;
   background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509336/trainers_kohhw1);
   background-repeat: no-repeat;
