@@ -1,12 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
 import theme from 'style/theme'
-import Wrapper from 'modules/components/Wrapper'
-import H2 from 'modules/components/H2'
+import SectionWrapper from 'client/home/SectionWrapper'
+import SecondaryTitle from 'modules/components/SecondaryTitle'
 
 const Container = styled.div`
   border-top: 1px solid ${theme.colors.grayLight};
   border-bottom: 1px solid ${theme.colors.grayLight};
+`
+
+const Wrapper = SectionWrapper.extend`
+  flex-direction: column;
+  @media (min-width: ${theme.medias.phablet}) {
+    flex-direction: row;
+  }
 `
 
 const Picture = styled.div`
@@ -15,7 +22,7 @@ const Picture = styled.div`
   background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509336/trainers_kohhw1);
   background-repeat: no-repeat;
   background-size: cover;
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     align-self: center;
   }
 `
@@ -23,7 +30,7 @@ const Picture = styled.div`
 const Content = styled.div`
   flex: 1;
   margin: 0 20px;
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     margin: 0 40px;
   }
 `
@@ -33,8 +40,15 @@ const Text = styled.p`
   font-size: 18px;
   line-height: 1.4;
   text-align: justify;
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     font-size: 24px;
+  }
+`
+
+const Title = SecondaryTitle.extend`
+  text-align: center;
+  @media (min-width: ${theme.medias.phablet}) {
+    text-align: left;
   }
 `
 
@@ -43,7 +57,9 @@ const Trainers = () =>
     <Wrapper flexDirection="column" lgFlexDirection="row">
       <Picture />
       <Content>
-        <H2>Des formateurs, mais avant tout des développeurs.</H2>
+        <Title>
+          Des formateurs, mais avant tout des développeurs.
+        </Title>
         <Text>
           En plus d’être pédagogue, à l’écoute et expérimentés, nos formateurs
           sont aussi des développeurs. Ils utilisent chaque jour en production

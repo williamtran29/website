@@ -2,14 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Button from 'modules/components/Button'
-import H1 from 'modules/components/H1'
+import MainTitle from 'modules/components/MainTitle'
+import Lead from 'modules/components/Lead'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
+import Customers from 'client/home/Customers'
 import Technos from 'client/home/Technos'
-import Workshop from 'client/home/Workshop'
 import Trainers from 'client/home/Trainers'
+import Workshop from 'client/home/Workshop'
 
 const Cover = styled.div`
+  position: relative;
   background-color: #140E09;
   background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509180/home-cover_pqehlq);
   background-size: cover;
@@ -22,29 +25,37 @@ const Cover = styled.div`
   text-align: center;
   padding: 0 10px;
   color: white;
-`
-const Subtitle = styled.p`
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 1.2;
-  margin: 10px 0 80px;
-  @media (min-width: 700px) {
-    font-size: 30px;
+
+  h1, p {
+    z-index: 2;
   }
 `
 
-const LinkButton = Button.withComponent(Link)
+const CoverShadow = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background-image: linear-gradient(0, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+  z-index: 0;
+`
+
+const LinkButton = Button.extend`
+  margin-top: 80px;
+`.withComponent(Link)
 
 export default () =>
   <div>
     <Header transparent />
     <Cover>
-      <H1>
+      <CoverShadow />
+      <MainTitle>
         Notre savoir-faire à votre service.
-      </H1>
-      <Subtitle>
+      </MainTitle>
+      <Lead>
         Des formations par les développeurs pour les développeurs.
-      </Subtitle>
+      </Lead>
       <LinkButton to="/trainings">
         Consulter nos formations
       </LinkButton>
@@ -52,5 +63,6 @@ export default () =>
     <Technos />
     <Workshop />
     <Trainers />
+    <Customers />
     <Footer />
   </div>

@@ -1,208 +1,95 @@
 import React from 'react'
 import styled from 'styled-components'
-import recompact from 'recompact'
 import theme from 'style/theme'
 import Header from 'client/Header'
-import { connect } from 'react-redux'
-import { Control, Form, Errors, actions } from 'react-redux-form'
-import { required } from 'modules/validators'
-import * as components from 'modules/components'
+import Footer from 'client/Footer'
+import ContactForm from 'client/contact/ContactForm'
+import MainTitle from 'modules/components/MainTitle'
+import Lead from 'modules/components/Lead'
 
-const StyledForm = styled(Form)`
+const Hero = styled.div`
+  background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497534886/typewriter-8019212_hiim90.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px;
+  color: white;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  width: 100%;
-  max-width: 800;
-  margin: '0 auto';
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  text-align: center;
 `
 
-const FormGroup = styled.div`
+const Container = styled.div`
   display: flex;
-  flex: 1 0 auto;
-  flex-direction: column;
-  margin: 10px;
-  label {
-    margin-bottom: 5px;
+  flex-direction: column-reverse;
+  margin: 20px auto;
+  max-width: 1000px;
+  @media (min-width: ${theme.medias.phablet}) {
+    flex-direction: row;
+    margin: 50px auto;
   }
 `
 
-const FormRow = styled.div`
-  display: flex;
+const FormContainer = styled.div`
+  flex: 2;
+`
+
+const Infos = styled.div`
   flex: 1;
-  margin: 0 -10px;
+  padding: 40px;
 `
 
-const StyledErrors = styled(Errors)`
-  color: ${theme.colors.danger};
+const Label = styled.div`
+  font-weight: bold;
   font-size: 14px;
-  margin: 10px 0;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 `
 
-const AlertMessage = connect(state => ({
-  status: state.forms.forms.contact.$form.pending
-    ? 'PENDING'
-    : state.forms.forms.contact.$form.errors === true
-      ? 'ERROR'
-      : state.forms.forms.contact.$form.validity === true ? 'SUCCESS' : null,
-}))(({ status }) => {
-  switch (status) {
-    case 'ERROR':
-      return (
-        <components.Alert ui="danger">
-          Erreur, veuillez rééessayer.
-        </components.Alert>
-      )
-    case 'SUCCESS':
-      return (
-        <components.Alert ui="success">
-          Merci, nous vous répondrons dans les plus brefs délais !
-        </components.Alert>
-      )
-    default:
-      return null
+const Info = styled.div`
+  margin-bottom: 30px;
+  font-size: 20px;
+  font-weight: 300;
+
+  address {
+    font-style: normal;
   }
-})
 
-const mapProps = {
-  error: props => props.fieldValue.touched && !props.fieldValue.valid,
-}
+  a {
+    color: ${theme.colors.primary};
+    text-decoration: none;
+  }
+`
 
-const errorMessages = {
-  required: 'Ce champs est requis',
-  typeMismatch: 'Email invalide',
-}
-
-const ContactForm = ({ onSubmit }) =>
+const Contact = () =>
   <div>
     <Header />
-    <StyledForm onSubmit={onSubmit} model="forms.contact">
-      <AlertMessage />
-      <FormRow>
-        <FormGroup>
-          <label htmlFor="name">
-            Nom
-          </label>
-          <Control
-            component={components.Input}
-            model=".name"
-            id="name"
-            validators={{ required }}
-            mapProps={mapProps}
-          />
-          <StyledErrors show="touched" model=".name" messages={errorMessages} />
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="company">
-            Société
-          </label>
-          <Control
-            component={components.Input}
-            model=".company"
-            id="company"
-            mapProps={mapProps}
-          />
-          <StyledErrors
-            show="touched"
-            model=".company"
-            messages={errorMessages}
-          />
-        </FormGroup>
-      </FormRow>
-      <FormRow>
-        <FormGroup>
-          <label htmlFor="email">
-            Email
-          </label>
-          <Control
-            type="email"
-            component={components.Input}
-            model=".email"
-            id="email"
-            mapProps={mapProps}
-            validators={{ required }}
-          />
-          <StyledErrors
-            show="touched"
-            model=".email"
-            messages={errorMessages}
-          />
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="phone">
-            Téléphone
-          </label>
-          <Control
-            component={components.Input}
-            model=".phone"
-            id="phone"
-            mapProps={mapProps}
-          />
-          <StyledErrors
-            show="touched"
-            model=".phone"
-            messages={errorMessages}
-          />
-        </FormGroup>
-      </FormRow>
-      <FormRow>
-        <FormGroup>
-          <label htmlFor="message">
-            Message
-          </label>
-          <Control
-            component={components.Textarea}
-            model=".message"
-            id="message"
-            rows={5}
-            mapProps={mapProps}
-            validators={{ required }}
-          />
-          <StyledErrors
-            show="touched"
-            model=".message"
-            messages={errorMessages}
-          />
-        </FormGroup>
-      </FormRow>
-      <components.Button type="submit">Envoyer</components.Button>
-    </StyledForm>
+    <Hero>
+      <MainTitle>Contactez-nous</MainTitle>
+      <Lead>L&apos;équipe Smooth Code est à votre service.</Lead>
+    </Hero>
+    <Container>
+      <Infos>
+        <Label>Adresse</Label>
+        <Info>
+          <address>41 rue Réaumur Sébastopol<br />75003 Paris</address>
+        </Info>
+        <Label>Téléphone</Label>
+        <Info><a href="tel:0620106950">06 20 10 69 50</a></Info>
+        <Label>Email</Label>
+        <Info>
+          <a href="mailto:contact@smooth-code.com">contact@smooth-code.com</a>
+        </Info>
+      </Infos>
+      <FormContainer>
+        <ContactForm />
+      </FormContainer>
+    </Container>
+    <Footer />
   </div>
 
-const fetchContact = async values => {
-  try {
-    const result = await fetch('/api/contact', {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    })
-    if (result.statusCode !== 200) {
-      throw new Error('Error while fetching contact')
-    }
-  } catch (error) {
-    return Promise.reject(false)
-  }
-
-  return true
-}
-
-export default recompact.compose(
-  connect(
-    state => ({ form: state.forms.contact }),
-    dispatch => ({
-      onResetForm() {
-        dispatch(actions.reset('forms.contact'))
-      },
-      onSubmit(values) {
-        dispatch(actions.submit('forms.contact', fetchContact(values)))
-      },
-    }),
-  ),
-  recompact.lifecycle({
-    componentWillMount() {
-      this.props.onResetForm()
-    },
-  }),
-)(ContactForm)
+export default Contact

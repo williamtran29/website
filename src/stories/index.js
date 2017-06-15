@@ -23,7 +23,17 @@ storiesOf('Alert', module)
     <components.Alert ui="success">Something is good!</components.Alert>,
   )
 
-storiesOf('H1', module).add('basic', () => <components.H1>Hello</components.H1>)
+storiesOf('MainTitle', module).add('basic', () =>
+  <components.MainTitle>Hello</components.MainTitle>,
+)
+
+storiesOf('SecondaryTitle', module).add('basic', () =>
+  <components.SecondaryTitle>Hello</components.SecondaryTitle>,
+)
+
+storiesOf('Lead', module).add('basic', () =>
+  <components.Lead>Hello</components.Lead>,
+)
 
 const StyledOSXWindow = styled(components.OSXWindow)`
   width: 50vw;

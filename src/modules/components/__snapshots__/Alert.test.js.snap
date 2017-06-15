@@ -2,7 +2,7 @@
 
 exports[`Alert should render a div 1`] = `
 <div
-  className="sc-bdVaJa dUrZZD"
+  className="sc-bdVaJa hGaMzQ"
 >
   Hello
 </div>

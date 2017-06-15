@@ -20,12 +20,13 @@ const Container = styled.footer`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 1440px;
+  max-width: ${theme.medias.xl};
   justify-content: space-between;
   padding: 40px 20px 35px 20px;
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row;
     padding: 60px 50px 55px 50px;
+    margin: 0 auto;
   }
 `
 
@@ -34,7 +35,7 @@ const Left = styled.div`
   flex-direction: column;
   padding-bottom: 20px;
   border-bottom: 1px solid ${lighten(0.1, theme.colors.grayDark)};
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     padding-bottom: 0;
     border: 0;
   }
@@ -42,7 +43,7 @@ const Left = styled.div`
 
 const Right = styled.div`
   padding-top: 20px;
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     padding-top: 0;
   }
 `
@@ -110,7 +111,7 @@ const Footer = () =>
         <Address>
           Smooth Code<br />
           41 rue Réaumur Sébastopol<br />
-          75002 Paris<br />
+          75003 Paris<br />
         </Address>
         <Social>
           <a href="https://www.facebook.com/smoothcodetraining/">

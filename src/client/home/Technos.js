@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import pure from 'recompact/pure'
 import raf from 'raf'
 import MdArrowForward from 'react-icons/lib/md/arrow-forward'
-import H2 from 'modules/components/H2'
+import SecondaryTitle from 'modules/components/SecondaryTitle'
 import theme from 'style/theme'
 
 const noop = () => {}
@@ -88,10 +88,10 @@ const labels = [
   'Git',
 ]
 
-const Title = H2.extend`
+const Title = SecondaryTitle.extend`
   margin: 0 10px 60px;
   text-align: center;
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     margin-top: 70px;
     text-align: center;
   }
@@ -99,7 +99,7 @@ const Title = H2.extend`
 
 const Subtitle = styled.span`
   color: ${theme.colors.primary};
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     display: block;
   }
 `
@@ -175,7 +175,6 @@ const Bubble = pure(styled.div`
 `)
 
 const Label = pure(styled.div`
-  z-index: 5;
   position: absolute;
   left: 50%;
   bottom: -40px;
@@ -234,7 +233,7 @@ const Banner = styled.div`
     }
   }
 
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     font-size: 20px;
     padding: 30px 10px;
   }
@@ -294,11 +293,11 @@ class AnimatedBubble extends React.PureComponent {
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({ x, y: this.initY, scale })
     /* eslint-enable react/no-did-mount-set-state */
-    raf(this.animate)
+    this.rafHandle = raf(this.animate)
   }
 
   componentWillUnmount() {
-    raf.cancel(this.animate)
+    raf.cancel(this.rafHandle)
   }
 
   animate = () => {
@@ -327,10 +326,12 @@ class AnimatedBubble extends React.PureComponent {
     }
 
     this.setState(nextState)
-    raf(this.animate)
+    this.rafHandle = raf(this.animate)
   }
 
   render() {
+    if (this.state.x === 0 && this.state.y === 0) return null
+
     return (
       <LabelledBubble
         bgPosition={this.bgPosition}
@@ -344,30 +345,42 @@ class AnimatedBubble extends React.PureComponent {
   }
 }
 
-const Technos = () =>
-  <Container>
-    <Background>
-      <Stripe0 />
-      <Stripe1 />
-      <Stripe2 />
-      <Stripe3 />
-    </Background>
-    <BubblesContainer>
-      {settings
-        .sort(() => Math.ceil(0.5 - Math.random()))
-        .map((props, index) =>
-          <AnimatedBubble key={index} index={index} {...props} />,
+const Technos = () => {
+  const indexes = Array.from(
+    new Array(settings.length),
+    (_, index) => index,
+  ).sort(() => Math.ceil(0.5 - Math.random()))
+
+  return (
+    <Container>
+      <Background>
+        <Stripe0 />
+        <Stripe1 />
+        <Stripe2 />
+        <Stripe3 />
+      </Background>
+      <BubblesContainer>
+        {settings.map((props, index) =>
+          <AnimatedBubble
+            key={indexes[index]}
+            index={indexes[index]}
+            {...props}
+          />,
         )}
-    </BubblesContainer>
-    <Title>
-      Explorez les technologies d’aujourd’hui.{' '}
-      <Subtitle>Nos formations couvrent tout l’écosystème JavaScript.</Subtitle>
-    </Title>
-    <Banner>
-      <Link to="/trainings">
-        Consulter notre catalogue<MdArrowForward />
-      </Link>
-    </Banner>
-  </Container>
+      </BubblesContainer>
+      <Title>
+        Explorez les technologies d’aujourd’hui.{' '}
+        <Subtitle>
+          Nos formations couvrent tout l’écosystème JavaScript.
+        </Subtitle>
+      </Title>
+      <Banner>
+        <Link to="/trainings">
+          Consulter notre catalogue<MdArrowForward />
+        </Link>
+      </Banner>
+    </Container>
+  )
+}
 
 export default Technos

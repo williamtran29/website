@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
+import ScrollToTop from 'modules/components/ScrollToTop'
 import apolloClient from 'client/apolloClient'
 import store from 'client/store'
 
@@ -13,9 +14,11 @@ const render = Component => {
   ReactDOM.render(
     <ApolloProvider store={store} client={apolloClient}>
       <BrowserRouter>
-        <AppContainer>
-          <Component />
-        </AppContainer>
+        <ScrollToTop>
+          <AppContainer>
+            <Component />
+          </AppContainer>
+        </ScrollToTop>
       </BrowserRouter>
     </ApolloProvider>,
     document.getElementById('main'),

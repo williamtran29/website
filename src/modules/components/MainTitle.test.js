@@ -1,11 +1,11 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
-import H1 from './H1'
+import MainTitle from './MainTitle'
 
-describe('H1', () => {
+describe('MainTitle', () => {
   it('should render a h1', () => {
-    const wrapper = shallow(<H1>Hello</H1>)
+    const wrapper = shallow(<MainTitle>Hello</MainTitle>)
     expect(toJson(wrapper)).toMatchSnapshot()
   })
 })

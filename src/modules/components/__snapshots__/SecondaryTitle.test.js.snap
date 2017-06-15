@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SecondaryTitle should render a h2 1`] = `
+<h2
+  className="sc-bdVaJa iFZLIi"
+>
+  Hello
+</h2>
+`;

@@ -7,10 +7,6 @@ import Logo from 'client/Logo'
 import FaBars from 'react-icons/lib/fa/bars'
 
 const Nav = styled.nav`
-  height: 55px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   padding: 0 10px;
   color: white;
   position: ${({ transparent }) => (transparent ? 'absolute' : 'relative')};
@@ -18,6 +14,15 @@ const Nav = styled.nav`
     transparent ? 'transparent' : theme.colors.primary};
   left: 0;
   right: 0;
+`
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: ${theme.medias.xl};
+  height: 55px;
+  margin: 0 auto;
 `
 
 const Links = styled.div`
@@ -29,16 +34,17 @@ const Links = styled.div`
   left: 0;
   right: 0;
   top: calc(-100% - 70px);
-  will-change: transform, opacity;
   transform: ${props =>
-    props.show ? 'translateY(calc(100% + 40px))' : 'translateY(0)'};
+    props.show ? 'translateY(calc(100% - 60px))' : 'translateY(0)'};
   opacity: ${props => (props.show ? 1 : 0)};
-  z-index: 1;
+  will-change: transform, opacity;
   transition: opacity 300ms, transform 300ms;
   padding-bottom: 10px;
+  padding-top: 50px;
   background-color: ${props =>
-    props.transparent ? 'transparent' : theme.colors.primary};
-  @media (min-width: 700px) {
+    props.transparent ? 'rgba(0, 0, 0, 0.9)' : theme.colors.primary};
+  z-index: 3;
+  @media (min-width: ${theme.medias.phablet}) {
     position: initial;
     display: flex;
     flex: 1 1 600px;
@@ -48,6 +54,7 @@ const Links = styled.div`
     transition: none;
     background-color: transparent;
     padding-bottom: 0;
+    padding-top: 0;
   }
 `
 
@@ -63,7 +70,7 @@ const NavLink = styled(Link)`
   &:hover {
     color: white;
   }
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     margin: 0;
   }
 `
@@ -82,7 +89,7 @@ const LogoLink = styled(Link)`
   margin-right: auto;
   color: white;
   position: relative;
-  z-index: 2;
+  z-index: 4;
 `
 
 const MenuToggle = styled(FaBars)`
@@ -90,8 +97,8 @@ const MenuToggle = styled(FaBars)`
   height: 20px;
   width: auto;
   cursor: pointer;
-  z-index: 2;
-  @media (min-width: 700px) {
+  z-index: 4;
+  @media (min-width: ${theme.medias.phablet}) {
     display: none;
   }
 `
@@ -103,21 +110,23 @@ const Header = compose(
   }),
 )(({ onToggle, toggled, transparent }) =>
   <Nav transparent={transparent}>
-    <LogoLink to="/">
-      <Logo />
-    </LogoLink>
-    <Links show={toggled} transparent={transparent}>
-      <NavLink to="/trainings">
-        Formations
-      </NavLink>
-      <NavLink to="/story">
-        Notre histoire
-      </NavLink>
-      <RaisedNavLink to="/contact">
-        Nous contacter
-      </RaisedNavLink>
-    </Links>
-    <MenuToggle onClick={onToggle} />
+    <Wrapper>
+      <LogoLink to="/">
+        <Logo />
+      </LogoLink>
+      <Links show={toggled} transparent={transparent}>
+        <NavLink to="/trainings">
+          Formations
+        </NavLink>
+        <NavLink to="/story">
+          Notre histoire
+        </NavLink>
+        <RaisedNavLink to="/contact">
+          Nous contacter
+        </RaisedNavLink>
+      </Links>
+      <MenuToggle onClick={onToggle} />
+    </Wrapper>
   </Nav>,
 )
 

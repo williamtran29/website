@@ -2,14 +2,18 @@ import React from 'react'
 import theme from 'style/theme'
 import { lighten } from 'polished'
 import styled from 'styled-components'
-import H1 from 'modules/components/H1'
+import MainTitle from 'modules/components/MainTitle'
 import FaRocket from 'react-icons/lib/fa/rocket'
 import FaCodeFork from 'react-icons/lib/fa/code-fork'
 import FaCloud from 'react-icons/lib/fa/cloud'
-import Wrapper from 'modules/components/Wrapper'
+import SectionWrapper from 'client/home/SectionWrapper'
 
 const Container = styled.div`
   text-align: center;
+`
+
+const Wrapper = SectionWrapper.extend`
+  flex-direction: column;
 `
 
 const Content = styled.div`
@@ -17,8 +21,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (min-width: 700px) {
-    margin-top: 50px;
+  @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row-reverse;
   }
 `
@@ -28,7 +31,7 @@ const List = styled.ul`
   padding: 0;
   text-align: left;
   flex: 45;
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     margin: 0 0 0 40px;
   }
 `
@@ -52,7 +55,7 @@ const Item = styled.li`
     flex-shrink: 0;
   }
 
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     font-size: 26px;
     margin-bottom: 50px;
   }
@@ -64,7 +67,7 @@ const Screen = styled.div`
   height: 274px;
   position: relative;
   overflow: hidden;
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     height: 507px;
   }
 `
@@ -78,7 +81,7 @@ const ScreenBackground = styled.div`
   width: 100%;
   height: 234px;
   margin: 20px 0;
-  @media (min-width: 700px) {
+  @media (min-width: ${theme.medias.phablet}) {
     position: absolute;
     border-radius: 4px;
     margin: 40px;
@@ -89,14 +92,14 @@ const ScreenBackground = styled.div`
   }
 `
 
-const Title = H1.extend`
+const Title = MainTitle.withComponent('h2').extend`
   margin-right: 10px;
   margin-top: 10px;
 `
 
 const Workshop = () =>
   <Container>
-    <Wrapper flexDirection="column">
+    <Wrapper>
       <Title>Plus qu&apos;une formation, un vrai workshop.</Title>
       <Content>
         <Screen>

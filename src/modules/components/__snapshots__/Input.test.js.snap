@@ -8,6 +8,6 @@ exports[`Input  should render an input 1`] = `
 
 exports[`Input  should support error 1`] = `
 <input
-  className="sc-bdVaJa hVOJvg"
+  className="sc-bdVaJa dMakBu"
 />
 `;
