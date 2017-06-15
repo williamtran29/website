@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Button from 'modules/components/Button'
 import H1 from 'modules/components/H1'
 import Header from 'client/Header'
+import Footer from 'client/Footer'
 import Technos from 'client/home/Technos'
 import Workshop from 'client/home/Workshop'
 import Trainers from 'client/home/Trainers'
@@ -51,4 +52,5 @@ export default () =>
     <Technos />
     <Workshop />
     <Trainers />
+    <Footer />
   </div>
