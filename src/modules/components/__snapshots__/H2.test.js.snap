@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`H2 should render a h2 1`] = `
+<h2
+  className="sc-bdVaJa hhhpXD"
+>
+  Hello
+</h2>
+`;
