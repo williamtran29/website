@@ -1,6 +1,8 @@
 export { default as Alert } from './Alert'
 export { default as Button } from './Button'
 export { default as H1 } from './H1'
+export { default as H2 } from './H2'
 export { default as Input } from './Input'
 export { default as Textarea } from './Textarea'
 export { default as OSXWindow } from './OSXWindow'
+export { default as Wrapper } from './Wrapper'

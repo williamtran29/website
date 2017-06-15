@@ -5,8 +5,9 @@ import { lighten } from 'polished'
 import styled from 'styled-components'
 import pure from 'recompact/pure'
 import raf from 'raf'
-import theme from 'style/theme'
 import MdArrowForward from 'react-icons/lib/md/arrow-forward'
+import H2 from 'modules/components/H2'
+import theme from 'style/theme'
 
 const noop = () => {}
 
@@ -87,17 +88,12 @@ const labels = [
   'Git',
 ]
 
-const Title = styled.h1`
-  margin-top: 25px;
-  font-size: 26px;
-  line-height: 1.5;
-  font-weight: lighter;
-  text-align: center;
-  font-weight: 300;
+const Title = H2.extend`
   margin: 0 10px 60px;
+  text-align: center;
   @media (min-width: 700px) {
-    font-size: 40px;
     margin-top: 70px;
+    text-align: center;
   }
 `
 
@@ -171,7 +167,7 @@ const Bubble = pure(styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url(/images/technos.png);
+  background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509096/technos_gighwg);
   background-size: 750px 750px;
   background-position: ${props => props.bgPosition};
   box-shadow: 0 15px 35px rgba(0,0,0,.1), 0 3px 10px rgba(0,0,0,.07);

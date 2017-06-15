@@ -6,9 +6,10 @@ import H1 from 'modules/components/H1'
 import Header from 'client/Header'
 import Technos from 'client/home/Technos'
 import Workshop from 'client/home/Workshop'
+import Trainers from 'client/home/Trainers'
 
 const Cover = styled.div`
-  background-image: url('/images/home-cover.png');
+  background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509180/home-cover_pqehlq);
   background-size: cover;
   height: 600px;
   overflow: hidden;
@@ -48,4 +49,5 @@ export default () =>
     </Cover>
     <Technos />
     <Workshop />
+    <Trainers />
   </div>

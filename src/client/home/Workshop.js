@@ -6,13 +6,10 @@ import H1 from 'modules/components/H1'
 import FaRocket from 'react-icons/lib/fa/rocket'
 import FaCodeFork from 'react-icons/lib/fa/code-fork'
 import FaCloud from 'react-icons/lib/fa/cloud'
+import Wrapper from 'modules/components/Wrapper'
 
 const Container = styled.div`
   text-align: center;
-  margin: 70px 0;
-  @media (min-width: 700px) {
-    margin: 100px 0;
-  }
 `
 
 const Content = styled.div`
@@ -31,6 +28,9 @@ const List = styled.ul`
   padding: 0;
   text-align: left;
   flex: 45;
+  @media (min-width: 700px) {
+    margin: 0 0 0 40px;
+  }
 `
 
 const Item = styled.li`
@@ -40,7 +40,7 @@ const Item = styled.li`
   margin-bottom: 30px;
   display: flex;
 
-  &:last-child: {
+  &:last-child {
     margin-bottom: 0;
   }
 
@@ -60,27 +60,32 @@ const Item = styled.li`
 
 const Screen = styled.div`
   flex: 55;
-  position: relative;
-  height: 271px;
   width: 100%;
+  height: 274px;
+  position: relative;
   overflow: hidden;
   @media (min-width: 700px) {
-    height: 541px;
+    height: 507px;
   }
 `
 
 const ScreenBackground = styled.div`
   position: absolute;
-  top: 0;
-  left: -50%;
-  width: 633px;
-  height: 271px;
-  background-image: url(/images/atom-editor.png);
-  background-size: 100%;
+  background-image: url(http://res.cloudinary.com/smooth/image/upload/q_auto/v1497506391/atom-editor_so5uom.png);
+  background-size: 518px 214px;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 234px;
+  margin: 20px 0;
   @media (min-width: 700px) {
-    left: 0;
-    width: 1266px;
-    height: 541px;
+    position: absolute;
+    border-radius: 4px;
+    margin: 40px;
+    box-shadow: 0px 5px 40px 0px rgba(0,0,0,0.5);
+    background-size: 1036px 427px;
+    width: 1036px;
+    height: 427px;
   }
 `
 
@@ -91,28 +96,30 @@ const Title = H1.extend`
 
 const Workshop = () =>
   <Container>
-    <Title>Plus qu&apos;une formation, un vrai workshop.</Title>
-    <Content>
-      <Screen>
-        <ScreenBackground />
-      </Screen>
-      <List>
-        <Item>
-          <FaRocket />
-          Construisez un projet de zéro tout au long de la
-          formation.
-        </Item>
-        <Item>
-          <FaCodeFork />
-          Avec git, pas de panique, passez à l’étape suivante quand vous le
-          souhaitez !
-        </Item>
-        <Item>
-          <FaCloud />
-          Besoin de plus de temps ? Nos exercices sont accessibles en ligne !
-        </Item>
-      </List>
-    </Content>
+    <Wrapper flexDirection="column">
+      <Title>Plus qu&apos;une formation, un vrai workshop.</Title>
+      <Content>
+        <Screen>
+          <ScreenBackground />
+        </Screen>
+        <List>
+          <Item>
+            <FaRocket />
+            Construisez un projet de zéro tout au long de la
+            formation.
+          </Item>
+          <Item>
+            <FaCodeFork />
+            Avec git, pas de panique, passez à l’étape suivante quand vous le
+            souhaitez !
+          </Item>
+          <Item>
+            <FaCloud />
+            Besoin de plus de temps ? Nos exercices sont accessibles en ligne !
+          </Item>
+        </List>
+      </Content>
+    </Wrapper>
   </Container>
 
 export default Workshop
