@@ -6,22 +6,22 @@ Object {
     "trainings": Array [
       Object {
         "abstract": "Apprenez les bases du JavaScript",
-        "cloudinary_id": "javascript",
+        "cloudinary_id": "training-javascript",
         "description": "## Plein de choses dans cette formation
 Et même plus encore !
 
 ## Et encore d'autres choses
 Et voilà...",
         "duration": 3,
-        "name": "Formation JavaScript",
+        "name": "JavaScript",
       },
       Object {
         "abstract": "Tout connaître sur React",
-        "cloudinary_id": "react",
+        "cloudinary_id": "training-react",
         "description": "## React rocks
 On vous forme à React!",
         "duration": 2,
-        "name": "Formation React",
+        "name": "React",
       },
     ],
   },
