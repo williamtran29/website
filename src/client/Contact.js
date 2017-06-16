@@ -7,28 +7,20 @@ import Footer from 'client/Footer'
 import ContactForm from 'client/contact/ContactForm'
 import MainTitle from 'modules/components/MainTitle'
 import Lead from 'modules/components/Lead'
+import Hero from 'modules/components/Hero'
 
-const Hero = styled.div`
+const ContactHero = Hero.extend`
+  background-color: #655C52;
   background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497534886/typewriter-8019212_hiim90.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 300px;
-  color: white;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 20px;
-  text-align: center;
 `
 
 const Container = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column-reverse;
   margin: 20px auto;
   max-width: 1000px;
+  width: 100%;
   @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row;
     margin: 50px auto;
@@ -41,7 +33,10 @@ const FormContainer = styled.div`
 
 const Infos = styled.div`
   flex: 1;
-  padding: 40px;
+  padding: 20px;
+  @media (min-width: ${theme.medias.phablet}) {
+    padding: 40px;
+  }
 `
 
 const Label = styled.div`
@@ -69,10 +64,10 @@ const Info = styled.div`
 const Contact = () =>
   <PageContainer>
     <Header />
-    <Hero>
+    <ContactHero>
       <MainTitle>Contactez-nous</MainTitle>
       <Lead>L&apos;équipe Smooth Code est à votre service.</Lead>
-    </Hero>
+    </ContactHero>
     <Container>
       <Infos>
         <Label>Adresse</Label>
@@ -80,7 +75,7 @@ const Contact = () =>
           <address>41 rue Réaumur Sébastopol<br />75003 Paris</address>
         </Info>
         <Label>Téléphone</Label>
-        <Info><a href="tel:0620106950">06 20 10 69 50</a></Info>
+        <Info><a href="tel:0650588079">06 50 58 80 79</a></Info>
         <Label>Email</Label>
         <Info>
           <a href="mailto:contact@smooth-code.com">contact@smooth-code.com</a>

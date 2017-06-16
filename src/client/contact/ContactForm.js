@@ -12,7 +12,6 @@ const StyledForm = styled(Form)`
   flex-direction: column;
   padding: 20px;
   width: 100%;
-  max-width: 800;
   margin: '0 auto';
 `
 
@@ -21,9 +20,14 @@ const FormGroup = styled.div`
   flex: 1 0 auto;
   flex-direction: column;
   margin: 10px;
-  label {
-    margin-bottom: 5px;
-  }
+`
+
+const Label = styled.label`
+  margin-bottom: 5px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
 `
 
 const FormRow = styled.div`
@@ -81,9 +85,9 @@ const ContactForm = ({ className, onSubmit }) =>
     <AlertMessage />
     <FormRow>
       <FormGroup>
-        <label htmlFor="name">
+        <Label htmlFor="name">
           Nom
-        </label>
+        </Label>
         <Control
           component={components.Input}
           model=".name"
@@ -94,9 +98,9 @@ const ContactForm = ({ className, onSubmit }) =>
         <StyledErrors show="touched" model=".name" messages={errorMessages} />
       </FormGroup>
       <FormGroup>
-        <label htmlFor="company">
+        <Label htmlFor="company">
           Société
-        </label>
+        </Label>
         <Control
           component={components.Input}
           model=".company"
@@ -112,9 +116,9 @@ const ContactForm = ({ className, onSubmit }) =>
     </FormRow>
     <FormRow>
       <FormGroup>
-        <label htmlFor="email">
+        <Label htmlFor="email">
           Email
-        </label>
+        </Label>
         <Control
           type="email"
           component={components.Input}
@@ -126,9 +130,9 @@ const ContactForm = ({ className, onSubmit }) =>
         <StyledErrors show="touched" model=".email" messages={errorMessages} />
       </FormGroup>
       <FormGroup>
-        <label htmlFor="phone">
+        <Label htmlFor="phone">
           Téléphone
-        </label>
+        </Label>
         <Control
           component={components.Input}
           model=".phone"
@@ -140,9 +144,9 @@ const ContactForm = ({ className, onSubmit }) =>
     </FormRow>
     <FormRow>
       <FormGroup>
-        <label htmlFor="message">
+        <Label htmlFor="message">
           Message
-        </label>
+        </Label>
         <Control
           component={components.Textarea}
           model=".message"

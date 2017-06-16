@@ -7,6 +7,9 @@ export const schema = buildSchema(`
     abstract: String
     cloudinary_id: String
     description: String
+    color: String
+    outline: String
+    price: Int
     duration: Int
     name: String
     slug: String
