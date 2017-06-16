@@ -93,7 +93,10 @@ CREATE TABLE trainings (
     abstract character varying(255) NOT NULL,
     description text NOT NULL,
     cloudinary_id character varying(255) NOT NULL,
-    slug character varying(255) NOT NULL
+    slug character varying(255) NOT NULL,
+    color character varying(255) NOT NULL,
+    outline text NOT NULL,
+    price integer NOT NULL
 );
 
 
@@ -166,3 +169,4 @@ ALTER TABLE ONLY trainings
 
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170603173516_init.js, 1, NOW());
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170604191541_trainings-slug.js, 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170616152405_add-columns-to-training.js, 1, NOW());
