@@ -7,6 +7,15 @@ injectGlobal`
     margin: 0;
     font-family: ${theme.fontFamilies.primary};
     color: ${theme.colors.grayDark};
+    height: 100%;
+  }
+
+  #main {
+    height: 100%;
+
+    > div {
+      height: 100%;
+    }
   }
 
   * {

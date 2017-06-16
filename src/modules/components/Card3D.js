@@ -6,6 +6,8 @@ import offset from 'dom-helpers/query/offset'
 const Container = styled.div`
   transform-style: preserve-3d;
   perspective: 1000px;
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
 `
 
 const Anchor = styled.div`
@@ -13,10 +15,9 @@ const Anchor = styled.div`
   text-decoration: none;
   position: relative;
   border-radius: 3px;
-  margin: 20px;
   transition: transform .4s cubic-bezier(0,0,.2,1), filter .15s cubic-bezier(0,0,.2,1);
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   transform: scale(1) rotateY(1e-07deg) rotateX(0) rotateZ(0deg);
 `
 
@@ -58,19 +59,19 @@ const Glare = styled.div`
 
 const Inner = styled.div`
   position: absolute;
-  top: 10%;
+  top: 0;
   left: 0;
   right: 0;
-  bottom: 10%;
-  display: flex;
-  flex-direction: column;
+  bottom: 0;
   pointer-events: none;
 `
 
 class Card3D extends Component {
   static propTypes = {
-    children: PropTypes.node,
     background: PropTypes.string.isRequired,
+    children: PropTypes.node,
+    height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
   }
 
   state = {
@@ -111,7 +112,7 @@ class Card3D extends Component {
 
   render() {
     return (
-      <Container>
+      <Container width={this.props.width} height={this.props.height}>
         <Anchor
           style={this.state.style}
           onMouseMove={this.handleMouseMove}

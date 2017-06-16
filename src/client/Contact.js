@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import theme from 'style/theme'
+import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
 import ContactForm from 'client/contact/ContactForm'
@@ -66,7 +67,7 @@ const Info = styled.div`
 `
 
 const Contact = () =>
-  <div>
+  <PageContainer>
     <Header />
     <Hero>
       <MainTitle>Contactez-nous</MainTitle>
@@ -90,6 +91,6 @@ const Contact = () =>
       </FormContainer>
     </Container>
     <Footer />
-  </div>
+  </PageContainer>
 
 export default Contact

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Button from 'modules/components/Button'
 import MainTitle from 'modules/components/MainTitle'
 import Lead from 'modules/components/Lead'
+import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
 import Customers from 'client/home/Customers'
@@ -46,7 +47,7 @@ const LinkButton = Button.extend`
 `.withComponent(Link)
 
 export default () =>
-  <div>
+  <PageContainer>
     <Header transparent />
     <Cover>
       <CoverShadow />
@@ -65,4 +66,4 @@ export default () =>
     <Trainers />
     <Customers />
     <Footer />
-  </div>
+  </PageContainer>
