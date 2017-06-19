@@ -5,6 +5,9 @@ import theme from 'style/theme'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
+import Code from 'client/story/Code'
+import Rocket from 'client/story/Rocket'
+import Target from 'client/story/Target'
 
 const Content = styled.div`
   flex: 1;
@@ -143,9 +146,17 @@ const SmoothTouches = styled.div`
 const SmoothTouch = styled.div`
   flex: 1 0;
   margin: 0 20px;
+  display: flex;
+  flex-direction: column;
 
   p {
     font-size: 14px;
+  }
+
+  svg {
+    align-self: center;
+    width: 60%;
+    margin: 20px 0;
   }
 `
 
@@ -277,6 +288,7 @@ export default () =>
         <SectionTitle>La Smooth Touch</SectionTitle>
         <SmoothTouches>
           <SmoothTouch>
+            <Target />
             <SmoothTouchTitle>Un format court et efficace</SmoothTouchTitle>
             <p>
               Smooth Code propose des formations professionnelles courtes de
@@ -292,6 +304,7 @@ export default () =>
             </p>
           </SmoothTouch>
           <SmoothTouch>
+            <Rocket />
             <SmoothTouchTitle>Une expertise complète</SmoothTouchTitle>
             <p>
               Nous nous positionnons comme experts du langages JavaScript et des
@@ -306,6 +319,7 @@ export default () =>
             </p>
           </SmoothTouch>
           <SmoothTouch>
+            <Code />
             <SmoothTouchTitle>Avant tout des développeurs</SmoothTouchTitle>
             <p>
               Nous nous engageons à vous transmettre des informations à jour,

@@ -15,6 +15,7 @@ const Hero = styled.div`
   justify-content: center;
   padding: 70px 20px;
   text-align: center;
+  transition: background-color 2s;
 `
 
 export default Hero

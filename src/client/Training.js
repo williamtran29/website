@@ -351,7 +351,10 @@ export default graphql(
                   </SidebarTitle>
                   {training &&
                     training.siblings.map(sibling =>
-                      <Sibling to={`/trainings/${sibling.slug}`}>
+                      <Sibling
+                        key={sibling.slug}
+                        to={`/trainings/${sibling.slug}`}
+                      >
                         <SiblingImage
                           alt={sibling.name}
                           width="140"
