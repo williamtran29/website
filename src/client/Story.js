@@ -126,7 +126,7 @@ export default () =>
             Smooth Code a été fondée en 2017. Nous proposons des formations
             professionnelles courtes de haut niveau aux développeurs pour leur
             permettre d’intégrer rapidement les nouvelles librairies
-            JavaScripts et dans leur projets et réduire leur cycles
+            JavaScripts dans leur projets et réduire leur cycles
             d’apprentissage.
           </Paragraph>
         </Introduction>
@@ -153,10 +153,10 @@ export default () =>
             <Paragraph>
               Sa mission consiste à accompagner les développeurs dans
               l’apprentissage et l’intégration des nouvelles
-              librairies JavaScript et dans leur projets.
+              librairies JavaScript dans leur projets.
             </Paragraph>
             <Paragraph>
-              Il compte parmi ses références Le Monde et Doctolib, Entefy,
+              Il compte parmi ses références Le Monde, Doctolib, Entefy,
               WisePops, et bien d’autres...
             </Paragraph>
           </FounderInfo>
@@ -175,8 +175,8 @@ export default () =>
             <SecondaryTitle>Jérémy Sfez</SecondaryTitle>
             <ThirdTitle>Co-fondateur et DG de Smooth Code</ThirdTitle>
             <Paragraph>
-              Ingénieur développeur et entrepreneur passionné de développement
-              web d’actualité tech.
+              Ingénieur développeur, entrepreneur, passionné de développement
+              web et d’actualité tech.
             </Paragraph>
             <Paragraph>
               Ses missions consistent à répondre aux besoins business et
@@ -199,21 +199,21 @@ export default () =>
             business et s’impose sur tous les environnements :
           </Paragraph>
           <List small>
-            <li>Création d’interfaces utilisateur interactives avec React</li>
+            <li>Création d’interfaces utilisateur interactives avec React,</li>
             <li>
-              Exécution d’un moteur ultra-rapide côté serveur avec Node.js
+              Exécution d’un moteur ultra-rapide côté serveur avec Node.js,
             </li>
-            <li>Développement mobile avec React Native</li>
+            <li>Développement mobile avec React Native,</li>
             <li>
               Création d’application Mac, Windows et Linux avec le framework
               Electron
             </li>
+            <li>Et bien d’autres applications encore &hellip;</li>
           </List>
           <Paragraph small>
-            Smooth Code propose des formations professionnelles courtes de haut
-            niveau aux développeurs pour leur permettre d’intégrer rapidement
-            les nouvelles les librairies JavaScripts et dans leur projets et
-            réduire leur cycles d’apprentissage.
+            Smooth Code propose des formations professionnelles courtes de haut niveau sur les nouvelles
+            méthodes de développement JavaScript (ES6 et ES7), sur les librairies qui l’enrichissent (React,
+            Node.js, Redux,...) et sur les outils et frameworks du langage (Webpack, Angular, Jest, ...).
           </Paragraph>
         </Wrapper>
       </Vision>
@@ -224,16 +224,16 @@ export default () =>
             <Target />
             <ThirdTitle>Un format court et efficace</ThirdTitle>
             <Paragraph small>
-              Smooth Code propose des formations professionnelles courtes de
-              haut
-              niveau sur les nouvelles méthodes de développement, sur les
-              librairies
-              qui enrichissent (React, Node.js, Redux,...), les outils et
-              frameworks
-              (Webpack, Angular, Jest) du langage JavaScript.
-              Les formations se déroulent en petit groupes ( ~6 pers. ) au sein
-              des
-              entreprises cliente ou bien dans nos locaux au centre de Paris.
+              <b>Objectif</b> : Maîtriser une nouvelle technologie en quelques jours
+              l’intégrer dans vos projets dès le lendemain.<br/><br/>
+
+              <b>Nos points forts</b> :
+              <ul>
+                <li>Des experts à votre service,</li>
+                <li>Un petit groupe de travail</li>
+                <li>Et optimisation de votre temps : 50% de présentation et 50% d’exercices</li>
+              </ul>
+              Tous nos présentations sont illustrés par des exercices d’applications et nos formateurs sont là pour vous guider.
             </Paragraph>
           </SmoothTouch>
           <SmoothTouch>
@@ -241,14 +241,10 @@ export default () =>
             <ThirdTitle>Une expertise complète</ThirdTitle>
             <Paragraph small>
               Nous nous positionnons comme experts du langages JavaScript et des
-              sujets s’y rapportant.
-              Nous effectuons une importante veille technologique pour maîtriser
-              les
-              technologies d’avant-garde et les librairies à venir. Nous testons
-              ces
-              technologies en production et nous sommes heureux de pouvoir
-              échanger
-              retours les différents choix techniques.
+              sujets s’y rapportant. Nous effectuons une importante veille technologique
+              pour maîtriser les technologies d’avant-garde et les librairies à venir.
+              Nous testons ces technologies en production et nous sommes heureux de pouvoir
+              échanger nos retours expériences avec vous.
             </Paragraph>
           </SmoothTouch>
           <SmoothTouch>
