@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { transparentize } from 'polished'
+import { lighten } from 'polished'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
 import { Link } from 'react-router-dom'
@@ -26,41 +26,45 @@ const Training = styled.li`
   margin: 10px 20px;
 `
 
-const TrainingContent = styled.div`
-  display: flex;
+const TrainingContainer = styled.div`
+  overflow: hidden;
+  position: relative;
+  width: 100%;
   height: 100%;
-  flex-direction: column;
-  justify-content: space-between;
+  color: white;
 `
 
 const TrainingTitle = styled.h3`
-  color: white;
   margin: 0;
-  background: linear-gradient(30deg, ${transparentize(
-    0.2,
-    theme.colors.primary,
-  )}, ${transparentize(0.4, theme.colors.primary)});
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  padding: 5px;
+  font-weight: 300;
+  padding-top: 10px;
   text-align: center;
-  text-transform: uppercase;
-  font-size: 14px;
+  font-size: 22px;
+  line-height: 30px;
+  width: 100%;
+`
+
+const TrainingContent = styled.div`
+  display: flex;
+  padding: 0 20px 20px;
+`
+
+const TrainingDescription = styled.div`
+  flex: 1;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.4;
+  margin-left: 20px;
 `
 
 const TrainingDuration = styled.div`
-  color: white;
-  margin: 0;
-  background: linear-gradient(60deg, ${transparentize(
-    0.2,
-    theme.colors.primary,
-  )}, ${transparentize(0.4, theme.colors.primary)});
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.2em;
-  padding: 3px;
-  text-align: center;
   text-transform: uppercase;
   font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  margin-bottom: 10px;
 `
 
 export default graphql(gql`
@@ -68,8 +72,10 @@ export default graphql(gql`
     trainings {
       cloudinary_id
       name
+      abstract
       duration
       slug
+      color
     }
   }
 `)(({ data }) =>
@@ -84,17 +90,31 @@ export default graphql(gql`
           <Training key={training.slug}>
             <Link to={`/trainings/${training.slug}`}>
               <Card3D
-                height={300}
-                width={250}
-                background={clUrl(
-                  training.cloudinary_id,
-                  'c_scale,h_300,dpr_2',
-                )}
+                height={180}
+                width={350}
+                background={`linear-gradient(180deg, ${training.color}, ${lighten(
+                  0.1,
+                  training.color,
+                )})`}
               >
-                <TrainingContent>
+                <TrainingContainer>
                   <TrainingTitle>{training.name}</TrainingTitle>
                   <TrainingDuration>{training.duration} jours</TrainingDuration>
-                </TrainingContent>
+                  <TrainingContent>
+                    <img
+                      alt={training.name}
+                      src={clUrl(
+                        training.cloudinary_id,
+                        'c_scale,w_100,h_100,dpr_2',
+                      )}
+                      width="100"
+                      height="100"
+                    />
+                    <TrainingDescription>
+                      {training.abstract}
+                    </TrainingDescription>
+                  </TrainingContent>
+                </TrainingContainer>
               </Card3D>
             </Link>
           </Training>,

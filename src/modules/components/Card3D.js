@@ -33,10 +33,10 @@ const Background = styled.div`
   overflow: hidden;
   pointer-events: none;
   box-shadow: 0 10px 25px 0 rgba(50,94,128,.2);
-  background-image: linear-gradient(0deg,#89899b,#b5b5c4);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-image: ${props => props.background}; 
 `
 
 const Glare = styled.div`
@@ -118,9 +118,7 @@ class Card3D extends Component {
           onMouseMove={this.handleMouseMove}
           onMouseLeave={this.handleMouseLeave}
         >
-          <Background
-            style={{ backgroundImage: `url(${this.props.background})` }}
-          >
+          <Background background={this.props.background}>
             <Glare style={this.state.glareStyle} />
           </Background>
           <Inner>
