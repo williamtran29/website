@@ -1,6 +1,7 @@
 export default {
   colors: {
     primary: '#BD4932',
+    secondary: '#DB9E36',
     grayLight: '#E5E5E5',
     gray: '#CCC',
     grayDark: '#333',

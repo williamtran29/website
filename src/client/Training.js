@@ -44,6 +44,21 @@ const Container = styled.div`
 const Content = styled.div`
   flex: 1;
   margin: 0 20px 20px;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  line-height: 22px;
+
+  strong {
+    font-weight: 400;
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    line-height: 28px;
+  }
 `
 
 const Sidebar = styled.aside`
@@ -125,13 +140,17 @@ const ContactItem = styled.div`
 
 const Sibling = styled(Link)`
   margin: 20px 0;
+  padding: 10px;
   border: 1px solid ${theme.colors.grayLight};
   display: flex;
+  flex-direction: column;
+  align-items: center;
   border-radius: 3px;
   will-change: transform;
   transition: transform 300ms;
   text-decoration: none;
   color: ${theme.colors.grayDark};
+  text-align: center;
 
   &:hover {
     transform: scale(1.05);
@@ -174,7 +193,12 @@ const LinkButton = Button.extend`
   font-size: 20px;
 `.withComponent(Link)
 
-const SectionTitle = styled.h2``
+const SectionTitle = styled.h2`
+  margin: 60px 0 20px;
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 400;
+`
 
 const Nav = styled.nav`
   background-color: white;
@@ -329,11 +353,12 @@ export default graphql(
                     training.siblings.map(sibling =>
                       <Sibling to={`/trainings/${sibling.slug}`}>
                         <SiblingImage
-                          width="90"
-                          height="90"
+                          alt={sibling.name}
+                          width="140"
+                          height="140"
                           src={clUrl(
                             sibling.cloudinary_id,
-                            'c_scale,w_90,h_90,dpr_2',
+                            'c_scale,w_140,h_140,dpr_2',
                           )}
                         />
                         <SiblingInfo>

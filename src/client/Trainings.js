@@ -86,7 +86,10 @@ export default graphql(gql`
               <Card3D
                 height={300}
                 width={250}
-                background={clUrl(training.cloudinary_id)}
+                background={clUrl(
+                  training.cloudinary_id,
+                  'c_scale,h_300,dpr_2',
+                )}
               >
                 <TrainingContent>
                   <TrainingTitle>{training.name}</TrainingTitle>
