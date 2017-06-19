@@ -27,4 +27,11 @@ export default class Training extends BaseModel {
       slug: { type: 'string ' },
     },
   })
+
+  siblings() {
+    return Training.query()
+      .whereNot({ id: this.id })
+      .orderByRaw('random()')
+      .limit(2)
+  }
 }

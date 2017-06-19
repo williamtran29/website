@@ -22,6 +22,8 @@ module.exports = {
     'react/require-default-props': 'off',
 
     'import/prefer-default-export': 'off',
+
+    'class-methods-use-this': 'off',
   },
   settings: {
     'import/resolver': {

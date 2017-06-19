@@ -4,6 +4,7 @@ import Training from 'server/models/Training'
 export const schema = buildSchema(`
   type Training {
     id: ID!
+    slug: ID!
     abstract: String
     cloudinary_id: String
     description: String
@@ -12,12 +13,12 @@ export const schema = buildSchema(`
     price: Int
     duration: Int
     name: String
-    slug: String
+    siblings: [Training]
   }
 
   type Query {
     trainings: [Training]
-    training(slug: String!): Training
+    training(slug: ID!): Training
   }
 `)
 

@@ -66,7 +66,6 @@ const TrainingDuration = styled.div`
 export default graphql(gql`
   query Trainings {
     trainings {
-      id
       cloudinary_id
       name
       duration
