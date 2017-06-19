@@ -38,6 +38,7 @@ const Content = styled.div`
 const Text = styled.p`
   flex: 1;
   font-size: 18px;
+  font-weight: 300;
   line-height: 1.4;
   text-align: justify;
   @media (min-width: ${theme.medias.phablet}) {
