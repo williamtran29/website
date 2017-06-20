@@ -132,11 +132,10 @@ export default () =>
         <Introduction>
           <MainTitle>Notre histoire</MainTitle>
           <Paragraph>
-            Smooth Code a été fondée en 2017.<br /> Nous proposons des
-            formations
-            professionnelles destinées aux développeurs afin de leur permettre
-            d’intégrer de manière efficace les librairies JavaScript modernes
-            dans leurs projets.
+            Smooth Code a été fondée en 2017 a Paris.<br />
+            Nous proposons des formations professionnelles destinées aux
+            développeurs afin de leur permettre d’intégrer de manière efficace
+            les librairies JavaScript modernes dans leurs projets.
           </Paragraph>
         </Introduction>
       </Wrapper>
@@ -159,13 +158,13 @@ export default () =>
               l’évolution du langage JavaScript.
             </Paragraph>
             <Paragraph>
-              Sa mission consiste à accompagner les développeurs dans
+              Sa mission consiste à accompagner et former les développeurs dans
               l’apprentissage et l’intégration des nouvelles
               librairies JavaScript dans leurs projets.
             </Paragraph>
             <Paragraph>
-              Il compte parmi ses références Le Monde, Doctolib, Entefy,
-              WisePops, et bien d’autres...
+              Il compte, entre autres, parmi ses références : Le Monde,
+              Doctolib, Entefy, WisePops.
             </Paragraph>
           </FounderInfo>
         </Founder>
@@ -189,8 +188,8 @@ export default () =>
             <Paragraph>
               Ses missions consistent à répondre aux besoins business et
               techniques des entreprises en leur proposant des formations
-              adaptées. Il se charge aussi d’accompagner les clients lors de
-              la constitution de leur dossier de formation.
+              adaptées. Il se charge aussi d’accompagner les clients lors de la
+              constitution de leur dossier de formation.
             </Paragraph>
             <Paragraph>
               Il compte parmi ses références BNP Paribas, Canal +, Doctolib,
@@ -216,12 +215,14 @@ export default () =>
             </li>
           </List>
           <Paragraph small>
-            Smooth Code propose des formations courtes de haut
-            niveau sur les nouvelles méthodes de développement JavaScript.
-            Nous sommes experts dans notre domaine et focalisés sur un périmètre
-            restreint de libraries comme React, Redux ou RxJS. Nous offrons
-            également notre expertise sur les outils tels que Atom, Webpack,
-            Babel, Prettier ou ESLint.
+            Smooth Code propose des formations courtes de haut niveau sur les
+            nouvelles méthodes de développement JavaScript.<br />
+            Experts dans notre domaine et focalisés sur un périmètre restreint
+            de libraires JavaScript comme React, Redux ou RxJS nous proposons
+            des formations courtes de haut niveau sur ces nouvelles méthodes de
+            développement.
+            Notre expertise porte également sur les outils tels que
+            Atom, Webpack, Babel, Prettier ou ESLint.
           </Paragraph>
         </Wrapper>
       </Vision>
@@ -233,9 +234,9 @@ export default () =>
             <ThirdTitle>Un format court et efficace</ThirdTitle>
             <Paragraph small>
               Le format de nos formations est optimisé pour un apprentissage
-              rapide et efficace. Un petit groupe de travail (6 personnes
-              maximum), une répartition du temps efficace : 50% de cours, 50%
-              d’exercices. Tout nos supports et exercices sont également
+              rapide et efficace : un petit groupe de travail (6 personnes
+              maximum) et une répartition du temps efficace : 50% de cours, 50%
+              d’applications. Tous nos supports et exercices sont également
               accessibles en ligne pendant et après la formation.
             </Paragraph>
           </SmoothTouch>
@@ -243,19 +244,19 @@ export default () =>
             <Rocket />
             <ThirdTitle>Une expertise complète</ThirdTitle>
             <Paragraph small>
-              Nous nous positionnons comme expert du langage JavaScript. Nous
-              effectuons une veille technologique régulière pour maîtriser les
-              technologies d’avant-garde et être sûr de vous fournir les
-              dernières bonnes pratiques.
+              Nous nous positionnons comme expert du langage JavaScript.
+              Notre veille technologique régulière nous permet de maîtriser les
+              dernières technologies et vous fournir les bonnes pratiques
+              les plus récentes.
             </Paragraph>
           </SmoothTouch>
           <SmoothTouch>
             <Code />
             <ThirdTitle>Développeur avant tout</ThirdTitle>
             <Paragraph small>
-              Chaque jour nous utilisons et développons des projets grâce aux
+              Nous utilisons et développons chaque jour des projets grâce aux
               technologies proposées dans nos formations. Nos conseils sont de
-              vrais retour d’expériences de l’utilisation des librairies en
+              vrais retours d’expérience sur l’utilisation des librairies en
               production.
             </Paragraph>
           </SmoothTouch>
