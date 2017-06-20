@@ -75,7 +75,7 @@ const Vision = styled.div`
 )});
   color: white;
 
-  p, li {
+  ${Paragraph}, ${List} {
     color: ${lighten(0.4, theme.colors.primary)};
     mix-blend-mode: luminosity;
     text-shadow: 0 1px 2px rgba(0,0,0,.2);
@@ -113,6 +113,10 @@ const SmoothTouch = styled.div`
 const Introduction = styled.section`
   text-align: center;
   margin: 40px 0 20px;
+
+  ${Paragraph} {
+    font-size: 20px;
+  }
 `
 
 export default () =>
@@ -211,9 +215,12 @@ export default () =>
             <li>Et bien d’autres applications encore &hellip;</li>
           </List>
           <Paragraph small>
-            Smooth Code propose des formations professionnelles courtes de haut niveau sur les nouvelles
-            méthodes de développement JavaScript (ES6 et ES7), sur les librairies qui l’enrichissent (React,
-            Node.js, Redux,...) et sur les outils et frameworks du langage (Webpack, Angular, Jest, ...).
+            Smooth Code propose des formations professionnelles courtes de haut
+            niveau sur les nouvelles
+            méthodes de développement JavaScript (ES6 et ES7), sur les
+            librairies qui l’enrichissent (React,
+            Node.js, Redux,...) et sur les outils et frameworks du langage
+            (Webpack, Angular, Jest, ...).
           </Paragraph>
         </Wrapper>
       </Vision>
@@ -224,16 +231,21 @@ export default () =>
             <Target />
             <ThirdTitle>Un format court et efficace</ThirdTitle>
             <Paragraph small>
-              <b>Objectif</b> : Maîtriser une nouvelle technologie en quelques jours
-              l’intégrer dans vos projets dès le lendemain.<br/><br/>
+              <b>Objectif</b> : Maîtriser une nouvelle technologie en quelques
+              jours
+              l’intégrer dans vos projets dès le lendemain.<br /><br />
 
               <b>Nos points forts</b> :
               <ul>
                 <li>Des experts à votre service,</li>
                 <li>Un petit groupe de travail</li>
-                <li>Et optimisation de votre temps : 50% de présentation et 50% d’exercices</li>
+                <li>
+                  Et optimisation de votre temps : 50% de présentation et 50%
+                  d’exercices
+                </li>
               </ul>
-              Tous nos présentations sont illustrés par des exercices d’applications et nos formateurs sont là pour vous guider.
+              Tous nos présentations sont illustrés par des exercices
+              d’applications et nos formateurs sont là pour vous guider.
             </Paragraph>
           </SmoothTouch>
           <SmoothTouch>
@@ -241,9 +253,12 @@ export default () =>
             <ThirdTitle>Une expertise complète</ThirdTitle>
             <Paragraph small>
               Nous nous positionnons comme experts du langages JavaScript et des
-              sujets s’y rapportant. Nous effectuons une importante veille technologique
-              pour maîtriser les technologies d’avant-garde et les librairies à venir.
-              Nous testons ces technologies en production et nous sommes heureux de pouvoir
+              sujets s’y rapportant. Nous effectuons une importante veille
+              technologique
+              pour maîtriser les technologies d’avant-garde et les librairies à
+              venir.
+              Nous testons ces technologies en production et nous sommes heureux
+              de pouvoir
               échanger nos retours expériences avec vous.
             </Paragraph>
           </SmoothTouch>
