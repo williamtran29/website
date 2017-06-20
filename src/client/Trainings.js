@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { lighten } from 'polished'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
@@ -9,6 +9,17 @@ import Card3D from 'modules/components/Card3D'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
 import PageContainer from 'client/PageContainer'
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
 
 const TrainingList = styled.ul`
   flex: 1;
@@ -24,6 +35,7 @@ const TrainingList = styled.ul`
 
 const Training = styled.li`
   margin: 10px;
+  animation: 500ms ${fadeIn} ease-out;
 `
 
 const TrainingContainer = styled.div`
