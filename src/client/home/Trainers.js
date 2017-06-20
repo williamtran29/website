@@ -19,7 +19,7 @@ const Wrapper = SectionWrapper.extend`
 const Picture = styled.div`
   flex: 1;
   height: 400px;
-  background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509336/trainers_kohhw1);
+  background-image: url(//res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509336/trainers_kohhw1);
   background-repeat: no-repeat;
   background-size: cover;
   @media (min-width: ${theme.medias.phablet}) {

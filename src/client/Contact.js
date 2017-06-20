@@ -63,7 +63,7 @@ const Contact = () =>
       <title>Nous contacter</title>
     </Helmet>
     <Header />
-    <Hero background="#655C52 url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497534886/typewriter-8019212_hiim90.jpg)">
+    <Hero background="#655C52 url(//res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497534886/typewriter-8019212_hiim90.jpg)">
       <MainTitle>Contactez-nous</MainTitle>
       <Lead>L&apos;équipe Smooth Code est à votre service.</Lead>
     </Hero>

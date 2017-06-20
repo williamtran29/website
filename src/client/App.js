@@ -53,11 +53,11 @@ const App = ({ location }) =>
       <meta property="og:type" content="website" />
       <meta
         property="og:url"
-        content={`http://www.smooth-code.com${location.pathname}`}
+        content={`https://www.smooth-code.com${location.pathname}`}
       />
       <meta
         property="og:image"
-        content="http://res.cloudinary.com/smooth/image/upload/c_scale,h_400,q_auto,w_400/v1497963998/smooth-code-shield.png"
+        content="//res.cloudinary.com/smooth/image/upload/c_scale,h_400,q_auto,w_400/v1497963998/smooth-code-shield.png"
       />
       <meta property="og:image:width" content="400" />
       <meta property="og:image:height" content="400" />

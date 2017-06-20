@@ -74,7 +74,7 @@ const Screen = styled.div`
 
 const ScreenBackground = styled.div`
   position: absolute;
-  background-image: url(http://res.cloudinary.com/smooth/image/upload/q_auto/v1497506391/atom-editor_so5uom.png);
+  background-image: url(//res.cloudinary.com/smooth/image/upload/q_auto/v1497506391/atom-editor_so5uom.png);
   background-size: 518px 214px;
   background-position: center;
   background-repeat: no-repeat;
