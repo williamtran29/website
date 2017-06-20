@@ -173,7 +173,7 @@ export default () =>
           />
           <FounderInfo>
             <SecondaryTitle>Jérémy Sfez</SecondaryTitle>
-            <ThirdTitle>Co-fondateur et Directeur General de Smooth Code</ThirdTitle>
+            <ThirdTitle>Co-fondateur et DG de Smooth Code</ThirdTitle>
             <Paragraph>
               Ingénieur développeur, entrepreneur, passionné de développement
               web et d’actualité tech.
