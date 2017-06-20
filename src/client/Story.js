@@ -1,5 +1,6 @@
 import React from 'react'
 import { lighten, darken } from 'polished'
+import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import theme from 'style/theme'
 import MainTitle from 'modules/components/MainTitle'
@@ -126,6 +127,9 @@ const Introduction = styled.section`
 
 export default () =>
   <PageContainer>
+    <Helmet>
+      <title>Notre histoire</title>
+    </Helmet>
     <Header />
     <Content>
       <Wrapper>

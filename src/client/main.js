@@ -4,9 +4,23 @@ import ReactDOM from 'react-dom'
 import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
-import ScrollToTop from 'modules/components/ScrollToTop'
+import ReactGA from 'react-ga'
+import RouteChangeHook from 'modules/components/RouteChangeHook'
 import apolloClient from 'client/apolloClient'
 import store from 'client/store'
+
+ReactGA.initialize('UA-101358560-1')
+
+function onUpdate(location) {
+  window.scrollTo(0, 0)
+  const page = `${location.pathname}${location.search}`
+  ReactGA.set({ page })
+  ReactGA.pageview(page)
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  ReactGA.ga('set', 'sendHitTask', null)
+}
 
 const App = require('client/App').default
 
@@ -14,11 +28,11 @@ const render = Component => {
   ReactDOM.render(
     <ApolloProvider store={store} client={apolloClient}>
       <BrowserRouter>
-        <ScrollToTop>
+        <RouteChangeHook onUpdate={onUpdate}>
           <AppContainer>
             <Component />
           </AppContainer>
-        </ScrollToTop>
+        </RouteChangeHook>
       </BrowserRouter>
     </ApolloProvider>,
     document.getElementById('main'),

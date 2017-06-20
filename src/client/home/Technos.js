@@ -12,7 +12,7 @@ import theme from 'style/theme'
 const noop = () => {}
 
 const ITEM_SIZE = 150
-const CONTAINER_WIDTH = 2240
+const CONTAINER_WIDTH = 2330
 const X_SPEED = 0.4
 const Y_SPEED = 0.05
 const Y_SPEED_SCALE_COEFF = 0.05
@@ -31,7 +31,7 @@ const settings = [
   { scale: 0.6, x: 1761, y: 372 },
   // { scale: 0.6, x: 2499, y: 79 },
   // { scale: 0.6, x: 2704, y: 334 },
-  // { scale: 0.6, x: 2271, y: 356 },
+  { scale: 0.6, x: 2271, y: 356 },
   { scale: 0.6, x: 795, y: 226 },
   { scale: 0.6, x: 276, y: 256 },
   { scale: 0.6, x: 1210, y: 365 },
@@ -86,6 +86,7 @@ const labels = [
   'Prettier',
   'Lodash',
   'Git',
+  'RxJS',
 ]
 
 const Title = SecondaryTitle.extend`
@@ -167,7 +168,7 @@ const Bubble = pure(styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509096/technos_gighwg);
+  background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497969754/technos_gighwg);
   background-size: 750px 750px;
   background-position: ${props => props.bgPosition};
   box-shadow: 0 15px 35px rgba(0,0,0,.1), 0 3px 10px rgba(0,0,0,.07);

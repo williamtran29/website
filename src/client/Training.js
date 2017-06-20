@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { lighten } from 'polished'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
 import ReactMarkdown from 'react-markdown'
@@ -238,6 +239,7 @@ export default graphql(
       outline
       description
       slug
+      price
       siblings {
         cloudinary_id
         slug
@@ -257,19 +259,39 @@ export default graphql(
 )(({ data: { training } }) =>
   <PageContainer>
     <Helmet>
-      <title>Nos formations JavaScript</title>
-    </Helmet>
-    <Header />
-    <Hero background={training && training.color}>
-      <Picture
-        background={
-          training
-            ? clUrl(training.cloudinary_id, 'c_scale,w_150,h_150,dpr_2')
-            : null
+      <title>{training && `Formation ${training.name}`}</title>
+      <meta name="description" content={training && training.abstract} />
+      <meta
+        property="og:title"
+        content={training && `Smooth Code - Formation ${training.name}`}
+      />
+      <meta property="og:type" content="website" />
+      <meta
+        property="og:image"
+        content={
+          training && clUrl(training.cloudinary_id, 'c_scale,w_400,h_400')
         }
       />
-      <MainTitle>{training && `Formation ${training.name}`}</MainTitle>
-      <Lead>{training && training.abstract}</Lead>
+    </Helmet>
+    <Header />
+    <Hero
+      background={
+        training &&
+        `linear-gradient(180deg, ${training.color}, ${lighten(
+          0.2,
+          training.color,
+        )})`
+      }
+    >
+      <Picture
+        background={
+          training && clUrl(training.cloudinary_id, 'c_scale,w_150,h_150,dpr_2')
+        }
+      />
+      <MainTitle itemProp="name">
+        {training && `Formation ${training.name}`}
+      </MainTitle>
+      <Lead itemProp="description">{training && training.abstract}</Lead>
     </Hero>
     <Container>
       <Content>
@@ -318,8 +340,16 @@ export default graphql(
               <SidebarSticky style={style}>
                 <SidebarSection>
                   <InfoLabel>Prix :</InfoLabel>
-                  <Amount>
-                    1500€ <AmountSmall>HT / personne</AmountSmall>
+                  <Amount
+                    itemProp="offers"
+                    itemScope
+                    itemType="http://schema.org/Offer"
+                  >
+                    <span content={training && training.price} itemProp="price">
+                      {training ? training.price : '-'}
+                    </span>
+                    <span content="EUR" itemProp="priceCurrency">€</span>{' '}
+                    <AmountSmall>HT / personne</AmountSmall>
                   </Amount>
                   <InfoLabel>Durée :</InfoLabel>
                   <Amount>{training && `${training.duration} jours`}</Amount>

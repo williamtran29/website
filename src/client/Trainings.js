@@ -4,7 +4,6 @@ import { lighten } from 'polished'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
 import { Link } from 'react-router-dom'
-import theme from 'style/theme'
 import { clUrl } from 'modules/cloudinary'
 import Card3D from 'modules/components/Card3D'
 import Header from 'client/Header'
@@ -15,7 +14,8 @@ const TrainingList = styled.ul`
   flex: 1;
   display: flex;
   justify-content: center;
-  max-width: ${theme.medias.xl};
+  max-width: 1000px;
+  width: 100%;
   flex-wrap: wrap;
   list-style-type: none;
   margin: 40px auto 100px;
@@ -23,7 +23,7 @@ const TrainingList = styled.ul`
 `
 
 const Training = styled.li`
-  margin: 10px 20px;
+  margin: 10px;
 `
 
 const TrainingContainer = styled.div`
@@ -91,9 +91,9 @@ export default graphql(gql`
             <Link to={`/trainings/${training.slug}`}>
               <Card3D
                 height={180}
-                width={350}
+                width={300}
                 background={`linear-gradient(180deg, ${training.color}, ${lighten(
-                  0.1,
+                  0.2,
                   training.color,
                 )})`}
               >

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Helmet } from 'react-helmet'
 import theme from 'style/theme'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
@@ -63,6 +64,9 @@ const Info = styled.div`
 
 const Contact = () =>
   <PageContainer>
+    <Helmet>
+      <title>Nous contacter</title>
+    </Helmet>
     <Header />
     <ContactHero>
       <MainTitle>Contactez-nous</MainTitle>
