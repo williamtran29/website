@@ -5,7 +5,7 @@ import MainTitle from './MainTitle'
 
 describe('MainTitle', () => {
   it('should render a h1', () => {
-    // const wrapper = shallow(<MainTitle>Hello</MainTitle>)
-    // expect(toJson(wrapper)).toMatchSnapshot()
+    const wrapper = shallow(<MainTitle>Hello</MainTitle>)
+    expect(toJson(wrapper)).toMatchSnapshot()
   })
 })
