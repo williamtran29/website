@@ -4,7 +4,7 @@ import theme from 'style/theme'
 
 const Button = styled.button`
   border-radius: 3px;
-  display: inline-block;;
+  display: inline-block;
   height: 38px;
   padding: 0 30px;
   text-align: center;

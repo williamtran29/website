@@ -5,7 +5,10 @@ import theme from 'style/theme'
 import { connect } from 'react-redux'
 import { Control, Form, Errors, actions } from 'react-redux-form'
 import { required } from 'modules/validators'
-import * as components from 'modules/components'
+import Alert from 'modules/components/Alert'
+import Button from 'modules/components/Button'
+import Input from 'modules/components/Input'
+import Textarea from 'modules/components/Textarea'
 
 const StyledForm = styled(Form)`
   display: flex;
@@ -56,15 +59,15 @@ const AlertMessage = connect(state => ({
   switch (status) {
     case 'ERROR':
       return (
-        <components.Alert ui="danger">
+        <Alert ui="danger">
           Erreur, veuillez rééessayer.
-        </components.Alert>
+        </Alert>
       )
     case 'SUCCESS':
       return (
-        <components.Alert ui="success">
+        <Alert ui="success">
           Merci, nous vous répondrons dans les plus brefs délais !
-        </components.Alert>
+        </Alert>
       )
     default:
       return null
@@ -89,7 +92,7 @@ const ContactForm = ({ className, onSubmit }) =>
           Nom
         </Label>
         <Control
-          component={components.Input}
+          component={Input}
           model=".name"
           id="name"
           validators={{ required }}
@@ -102,7 +105,7 @@ const ContactForm = ({ className, onSubmit }) =>
           Société
         </Label>
         <Control
-          component={components.Input}
+          component={Input}
           model=".company"
           id="company"
           mapProps={mapProps}
@@ -121,7 +124,7 @@ const ContactForm = ({ className, onSubmit }) =>
         </Label>
         <Control
           type="email"
-          component={components.Input}
+          component={Input}
           model=".email"
           id="email"
           mapProps={mapProps}
@@ -134,7 +137,7 @@ const ContactForm = ({ className, onSubmit }) =>
           Téléphone
         </Label>
         <Control
-          component={components.Input}
+          component={Input}
           model=".phone"
           id="phone"
           mapProps={mapProps}
@@ -148,7 +151,7 @@ const ContactForm = ({ className, onSubmit }) =>
           Message
         </Label>
         <Control
-          component={components.Textarea}
+          component={Textarea}
           model=".message"
           id="message"
           rows={5}
@@ -162,7 +165,7 @@ const ContactForm = ({ className, onSubmit }) =>
         />
       </FormGroup>
     </FormRow>
-    <components.Button type="submit">Envoyer</components.Button>
+    <Button type="submit">Envoyer</Button>
   </StyledForm>
 
 const fetchContact = async values => {

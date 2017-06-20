@@ -22,7 +22,7 @@
       }
     ],
     ["styled-components", {
-      "ssr": true
+      "ssr": true,
     }],
     "syntax-dynamic-import",
     "transform-object-rest-spread",
@@ -50,7 +50,7 @@
       ],
       "plugins": [
         ["styled-components", {
-          "ssr": true
+          "ssr": true,
         }],
         "syntax-dynamic-import",
         "transform-object-rest-spread",
