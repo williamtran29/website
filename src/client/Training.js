@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import compose from 'recompact/compose'
 import { lighten } from 'polished'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
@@ -40,6 +41,10 @@ const Container = styled.div`
   @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row;
   }
+`
+
+const TrainingHero = Hero.extend`
+  height: 406px;
 `
 
 const Content = styled.div`
@@ -227,18 +232,25 @@ const StyledScrollLink = styled(ScrollLink)`
   }
 `
 
-export default graphql(
-  gql`
-  query Training($slug: ID!) {
+const TRAINING_QUERY = gql`
+  query trainingData($slug: ID!) {
     training(slug: $slug) {
-      color
       cloudinary_id
-      duration
       name
       abstract
+      duration
+      slug
+      color
+    }
+  }
+`
+
+const TRAINING_DETAIL_QUERY = gql`
+  query trainingDetailData($slug: ID!) {
+    training(slug: $slug) {
+      slug
       outline
       description
-      slug
       price
       siblings {
         cloudinary_id
@@ -248,164 +260,185 @@ export default graphql(
       }
     }
   }
-`,
-  {
-    options: ({ match }) => ({
-      variables: {
-        slug: match.params.slug,
-      },
-    }),
-  },
-)(({ data: { training } }) =>
-  <PageContainer>
-    <Helmet>
-      <title>{training && `Formation ${training.name}`}</title>
-      <meta name="description" content={training && training.abstract} />
-      <meta
-        property="og:title"
-        content={training && `Smooth Code - Formation ${training.name}`}
-      />
-      <meta property="og:type" content="website" />
-      <meta
-        property="og:image"
-        content={
-          training && clUrl(training.cloudinary_id, 'c_scale,w_400,h_400')
-        }
-      />
-    </Helmet>
-    <Header transparent />
-    <Hero
-      background={
-        training &&
-        `linear-gradient(180deg, ${training.color}, ${lighten(
-          0.2,
-          training.color,
-        )})`
-      }
-    >
-      <Picture
+`
+
+const options = ({ match }) => ({ variables: { slug: match.params.slug } })
+
+const withTraining = graphql(TRAINING_QUERY, {
+  name: 'trainingData',
+  options,
+})
+
+const withTrainingDetail = graphql(TRAINING_DETAIL_QUERY, {
+  name: 'trainingDetailData',
+  options,
+})
+
+export default compose(
+  withTraining,
+  withTrainingDetail,
+)(
+  ({
+    trainingData: { training },
+    trainingDetailData: { training: trainingDetail },
+  }) =>
+    <PageContainer>
+      <Helmet>
+        <title>{training && `Formation ${training.name}`}</title>
+        <meta name="description" content={training && training.abstract} />
+        <meta
+          property="og:title"
+          content={training && `Smooth Code - Formation ${training.name}`}
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content={
+            training && clUrl(training.cloudinary_id, 'c_scale,w_400,h_400')
+          }
+        />
+      </Helmet>
+      <Header transparent />
+      <TrainingHero
         background={
-          training && clUrl(training.cloudinary_id, 'c_scale,w_150,h_150,dpr_2')
+          training &&
+          `linear-gradient(180deg, ${training.color}, ${lighten(
+            0.2,
+            training.color,
+          )})`
         }
-      />
-      <MainTitle itemProp="name">
-        {training && `Formation ${training.name}`}
-      </MainTitle>
-      <Lead itemProp="description">{training && training.abstract}</Lead>
-    </Hero>
-    <Container>
-      <Content>
-        <StickyContainer>
-          <Sticky>
-            {({ style }) =>
-              <Nav style={style}>
-                <span>
-                  <StyledScrollLink
-                    activeClass="active"
-                    spy
-                    smooth
-                    offset={-60}
-                    to="description"
-                  >
-                    Description
-                  </StyledScrollLink>
-                </span>
-                <span aria-hidden="true"> · </span>
-                <span>
-                  <StyledScrollLink
-                    activeClass="active"
-                    spy
-                    smooth
-                    offset={-60}
-                    to="outline"
-                  >
-                    Programme
-                  </StyledScrollLink>
-                </span>
-              </Nav>}
-          </Sticky>
-          <ScrollElement name="description">
-            {training && <ReactMarkdown source={training.description} />}
-          </ScrollElement>
-          <ScrollElement name="outline">
-            <SectionTitle>Programme</SectionTitle>
-            {training && <ReactMarkdown source={training.outline} />}
-          </ScrollElement>
-        </StickyContainer>
-      </Content>
-      <Sidebar>
-        <SidebarStickyContainer>
-          <Sticky>
-            {({ style }) =>
-              <SidebarSticky style={style}>
-                <SidebarSection>
-                  <InfoLabel>Prix :</InfoLabel>
-                  <Amount
-                    itemProp="offers"
-                    itemScope
-                    itemType="http://schema.org/Offer"
-                  >
-                    <span content={training && training.price} itemProp="price">
-                      {training ? training.price : '-'}
-                    </span>
-                    <span content="EUR" itemProp="priceCurrency">€</span>{' '}
-                    <AmountSmall>HT / personne</AmountSmall>
-                  </Amount>
-                  <InfoLabel>Durée :</InfoLabel>
-                  <Amount>{training && `${training.duration} jours`}</Amount>
-                  <LinkButton to="/contact">Demander un devis</LinkButton>
-                </SidebarSection>
-                <SidebarSection>
-                  <SidebarTitle>Une question ?</SidebarTitle>
-                  <SidebarText>
-                    Vous avez besoin d&apos;un renseignement ou d&apos;une
-                    formation
-                    personnalisée ?<br />
-                    Nous nous ferons un plaisir de répondre à
-                    vos questions.
-                  </SidebarText>
-                  <ContactItem>
-                    <a href="tel:+33650588079">
-                      <FaPhone /> <span>06 50 58 80 79</span>
-                    </a>
-                  </ContactItem>
-                  <ContactItem>
-                    <a href="mailto:contact@smooth-code.com?subject=Demande%20d%27information">
-                      <FaEnvelope /> <span>Email</span>
-                    </a>
-                  </ContactItem>
-                </SidebarSection>
-                <SidebarSection>
-                  <SidebarTitle>
-                    Autres formations
-                  </SidebarTitle>
-                  {training &&
-                    training.siblings.map(sibling =>
-                      <Sibling
-                        key={sibling.slug}
-                        to={`/trainings/${sibling.slug}`}
+      >
+        <Picture
+          background={
+            training &&
+            clUrl(training.cloudinary_id, 'c_scale,w_150,h_150,dpr_2')
+          }
+        />
+        <MainTitle itemProp="name">
+          {training && `Formation ${training.name}`}
+        </MainTitle>
+        <Lead itemProp="description">{training && training.abstract}</Lead>
+      </TrainingHero>
+      <Container>
+        <Content>
+          <StickyContainer>
+            <Sticky>
+              {({ style }) =>
+                <Nav style={style}>
+                  <span>
+                    <StyledScrollLink
+                      activeClass="active"
+                      spy
+                      smooth
+                      offset={-60}
+                      to="description"
+                    >
+                      Description
+                    </StyledScrollLink>
+                  </span>
+                  <span aria-hidden="true"> · </span>
+                  <span>
+                    <StyledScrollLink
+                      activeClass="active"
+                      spy
+                      smooth
+                      offset={-60}
+                      to="outline"
+                    >
+                      Programme
+                    </StyledScrollLink>
+                  </span>
+                </Nav>}
+            </Sticky>
+            <ScrollElement name="description">
+              {trainingDetail &&
+                <ReactMarkdown source={trainingDetail.description} />}
+            </ScrollElement>
+            <ScrollElement name="outline">
+              <SectionTitle>Programme</SectionTitle>
+              {trainingDetail &&
+                <ReactMarkdown source={trainingDetail.outline} />}
+            </ScrollElement>
+          </StickyContainer>
+        </Content>
+        <Sidebar>
+          <SidebarStickyContainer>
+            <Sticky>
+              {({ style }) =>
+                <SidebarSticky style={style}>
+                  <SidebarSection>
+                    <InfoLabel>Prix :</InfoLabel>
+                    <Amount
+                      itemProp="offers"
+                      itemScope
+                      itemType="http://schema.org/Offer"
+                    >
+                      <span
+                        content={trainingDetail && trainingDetail.price}
+                        itemProp="price"
                       >
-                        <SiblingImage
-                          alt={sibling.name}
-                          width="140"
-                          height="140"
-                          src={clUrl(
-                            sibling.cloudinary_id,
-                            'c_scale,w_140,h_140,dpr_2',
-                          )}
-                        />
-                        <SiblingInfo>
-                          <SiblingName>{sibling.name}</SiblingName>
-                          <SiblingAbstract>{sibling.abstract}</SiblingAbstract>
-                        </SiblingInfo>
-                      </Sibling>,
-                    )}
-                </SidebarSection>
-              </SidebarSticky>}
-          </Sticky>
-        </SidebarStickyContainer>
-      </Sidebar>
-    </Container>
-    <Footer />
-  </PageContainer>,
+                        {trainingDetail ? trainingDetail.price : '-'}
+                      </span>
+                      <span content="EUR" itemProp="priceCurrency">€</span>{' '}
+                      <AmountSmall>HT / personne</AmountSmall>
+                    </Amount>
+                    <InfoLabel>Durée :</InfoLabel>
+                    <Amount>{training && `${training.duration} jours`}</Amount>
+                    <LinkButton to="/contact">Demander un devis</LinkButton>
+                  </SidebarSection>
+                  <SidebarSection>
+                    <SidebarTitle>Une question ?</SidebarTitle>
+                    <SidebarText>
+                      Vous avez besoin d&apos;un renseignement ou d&apos;une
+                      formation
+                      personnalisée ?<br />
+                      Nous nous ferons un plaisir de répondre à
+                      vos questions.
+                    </SidebarText>
+                    <ContactItem>
+                      <a href="tel:+33650588079">
+                        <FaPhone /> <span>06 50 58 80 79</span>
+                      </a>
+                    </ContactItem>
+                    <ContactItem>
+                      <a href="mailto:contact@smooth-code.com?subject=Demande%20d%27information">
+                        <FaEnvelope /> <span>Email</span>
+                      </a>
+                    </ContactItem>
+                  </SidebarSection>
+                  <SidebarSection>
+                    <SidebarTitle>
+                      Autres formations
+                    </SidebarTitle>
+                    {trainingDetail &&
+                      trainingDetail.siblings.map(sibling =>
+                        <Sibling
+                          key={sibling.slug}
+                          to={`/trainings/${sibling.slug}`}
+                        >
+                          <SiblingImage
+                            alt={sibling.name}
+                            width="140"
+                            height="140"
+                            src={clUrl(
+                              sibling.cloudinary_id,
+                              'c_scale,w_140,h_140,dpr_2',
+                            )}
+                          />
+                          <SiblingInfo>
+                            <SiblingName>{sibling.name}</SiblingName>
+                            <SiblingAbstract>
+                              {sibling.abstract}
+                            </SiblingAbstract>
+                          </SiblingInfo>
+                        </Sibling>,
+                      )}
+                  </SidebarSection>
+                </SidebarSticky>}
+            </Sticky>
+          </SidebarStickyContainer>
+        </Sidebar>
+      </Container>
+      <Footer />
+    </PageContainer>,
 )
