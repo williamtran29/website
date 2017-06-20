@@ -273,7 +273,7 @@ export default graphql(
         }
       />
     </Helmet>
-    <Header />
+    <Header transparent />
     <Hero
       background={
         training &&
