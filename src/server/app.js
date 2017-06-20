@@ -69,12 +69,12 @@ if (config.get('server.auth.enabled')) {
 app.use(bodyParser())
 app.use(etag())
 app.use(async (ctx, next) => {
+  await next()
   await send(ctx, ctx.path, {
     root: PUBLIC,
     immutable: true,
     maxage: 31536000000,
   })
-  await next()
 })
 app.use(compress({ filter: contentType => /text/i.test(contentType) }))
 
