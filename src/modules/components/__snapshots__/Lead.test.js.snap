@@ -2,7 +2,7 @@
 
 exports[`Lead should render a p 1`] = `
 <p
-  className="sc-bdVaJa gosMwl"
+  className="sc-bdVaJa cyPPrE"
 >
   Hello
 </p>
