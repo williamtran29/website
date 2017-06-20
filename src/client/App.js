@@ -3,11 +3,7 @@ import 'style/bootstrap'
 import React from 'react'
 import { Route, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import Home from 'client/Home'
-import Story from 'client/Story'
-import Trainings from 'client/Trainings'
-import Training from 'client/Training'
-import Contact from 'client/Contact'
+import { Home, Story, Trainings, Training, Contact } from 'client/Routes'
 
 const App = ({ location }) =>
   <div>

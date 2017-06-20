@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import 'regenerator-runtime/runtime'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -8,6 +9,7 @@ import ReactGA from 'react-ga'
 import RouteChangeHook from 'modules/components/RouteChangeHook'
 import apolloClient from 'client/apolloClient'
 import store from 'client/store'
+import * as Routes from './Routes'
 
 ReactGA.initialize('UA-101358560-1')
 
@@ -39,7 +41,10 @@ const render = Component => {
   )
 }
 
-render(App)
+const splitPoints = window.__SPLIT_POINTS__ || []
+Promise.all(splitPoints.map(chunk => Routes[chunk].loadComponent())).then(() =>
+  render(App),
+)
 
 if (module.hot) {
   module.hot.accept('./App', () => {

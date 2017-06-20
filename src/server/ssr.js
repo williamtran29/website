@@ -78,6 +78,7 @@ export default () => async ({ request, response }) => {
         helmet={helmet}
         sheet={sheet}
         state={state}
+        splitPoints={context.splitPoints}
       />,
     )}`
   }

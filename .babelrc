@@ -21,7 +21,9 @@
         ]
       }
     ],
-    "syntax-trailing-function-commas",
+    ["styled-components", {
+      "ssr": true
+    }],
     "transform-object-rest-spread",
     "transform-class-properties"
   ],
@@ -46,7 +48,10 @@
         ]
       ],
       "plugins": [
-        "syntax-trailing-function-commas",
+        ["styled-components", {
+          "ssr": true
+        }],
+        "syntax-dynamic-import",
         "transform-object-rest-spread",
         "transform-class-properties",
         ["lodash", { "id": "recompact" }]

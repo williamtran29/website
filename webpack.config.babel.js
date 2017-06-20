@@ -47,6 +47,10 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.NormalModuleReplacementPlugin(
+      /client\/Routes/,
+      './AsyncRoutes.js',
+    ),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
