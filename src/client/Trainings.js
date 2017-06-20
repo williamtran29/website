@@ -58,8 +58,8 @@ const TrainingDescription = styled.div`
 `
 
 const TrainingDuration = styled.div`
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-weight: 300;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   font-size: 12px;
   line-height: 20px;

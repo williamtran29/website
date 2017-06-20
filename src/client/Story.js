@@ -97,7 +97,7 @@ const SmoothTouches = styled.div`
 `
 
 const SmoothTouch = styled.div`
-  flex: 1 0;
+  flex: 1 0 0;
   margin: 0 20px;
   display: flex;
   flex-direction: column;
@@ -107,6 +107,11 @@ const SmoothTouch = styled.div`
     align-self: center;
     width: 60%;
     margin: 20px 0;
+  }
+
+  ${List} {
+    margin: 0;
+    padding-left: 20px;
   }
 `
 
@@ -127,11 +132,11 @@ export default () =>
         <Introduction>
           <MainTitle>Notre histoire</MainTitle>
           <Paragraph>
-            Smooth Code a été fondée en 2017. Nous proposons des formations
-            professionnelles courtes de haut niveau aux développeurs pour leur
-            permettre d’intégrer rapidement les nouvelles librairies
-            JavaScripts dans leur projets et réduire leur cycles
-            d’apprentissage.
+            Smooth Code a été fondée en 2017.<br /> Nous proposons des
+            formations
+            professionnelles destinées aux développeurs afin de leur permettre
+            d’intégrer de manière efficace les librairies JavaScript modernes
+            dans leurs projets.
           </Paragraph>
         </Introduction>
       </Wrapper>
@@ -147,17 +152,16 @@ export default () =>
             <SecondaryTitle>Greg Bergé</SecondaryTitle>
             <ThirdTitle>Co-fondateur et Président de Smooth Code</ThirdTitle>
             <Paragraph>
-              Senior front-end ingénieur développeur, blogueur et
-              conférencier.
+              Senior full-stack développeur, blogueur et conférencier.
             </Paragraph>
             <Paragraph>
-              Passionné de JavaScript, il suit et participe activement à
+              Passionné de JavaScript, il participe activement à
               l’évolution du langage JavaScript.
             </Paragraph>
             <Paragraph>
               Sa mission consiste à accompagner les développeurs dans
               l’apprentissage et l’intégration des nouvelles
-              librairies JavaScript dans leur projets.
+              librairies JavaScript dans leurs projets.
             </Paragraph>
             <Paragraph>
               Il compte parmi ses références Le Monde, Doctolib, Entefy,
@@ -179,7 +183,7 @@ export default () =>
             <SecondaryTitle>Jérémy Sfez</SecondaryTitle>
             <ThirdTitle>Co-fondateur et DG de Smooth Code</ThirdTitle>
             <Paragraph>
-              Ingénieur développeur, entrepreneur, passionné de développement
+              Développeur, entrepreneur, passionné de développement
               web et d’actualité tech.
             </Paragraph>
             <Paragraph>
@@ -199,28 +203,25 @@ export default () =>
         <Wrapper>
           <SecondaryTitle>Notre vision</SecondaryTitle>
           <Paragraph small>
-            JavaScript évolue très vite, réponds à de nombreux objectifs
+            JavaScript évolue très vite, répond à de nombreux objectifs
             business et s’impose sur tous les environnements :
           </Paragraph>
           <List small>
             <li>Création d’interfaces utilisateur interactives avec React,</li>
-            <li>
-              Exécution d’un moteur ultra-rapide côté serveur avec Node.js,
-            </li>
+            <li>Outil en ligne de commande avec Node.js</li>
+            <li>API moderne et performante avec Koa ou Express</li>
             <li>Développement mobile avec React Native,</li>
             <li>
-              Création d’application Mac, Windows et Linux avec le framework
-              Electron
+              Création d’application native multi-plateformes avec Electron
             </li>
-            <li>Et bien d’autres applications encore &hellip;</li>
           </List>
           <Paragraph small>
-            Smooth Code propose des formations professionnelles courtes de haut
-            niveau sur les nouvelles
-            méthodes de développement JavaScript (ES6 et ES7), sur les
-            librairies qui l’enrichissent (React,
-            Node.js, Redux,...) et sur les outils et frameworks du langage
-            (Webpack, Angular, Jest, ...).
+            Smooth Code propose des formations courtes de haut
+            niveau sur les nouvelles méthodes de développement JavaScript.
+            Nous sommes experts dans notre domaine et focalisés sur un périmètre
+            restreint de libraries comme React, Redux ou RxJS. Nous offrons
+            également notre expertise sur les outils tels que Atom, Webpack,
+            Babel, Prettier ou ESLint.
           </Paragraph>
         </Wrapper>
       </Vision>
@@ -231,46 +232,31 @@ export default () =>
             <Target />
             <ThirdTitle>Un format court et efficace</ThirdTitle>
             <Paragraph small>
-              <b>Objectif</b> : Maîtriser une nouvelle technologie en quelques
-              jours
-              l’intégrer dans vos projets dès le lendemain.<br /><br />
-
-              <b>Nos points forts</b> :
-              <ul>
-                <li>Des experts à votre service,</li>
-                <li>Un petit groupe de travail</li>
-                <li>
-                  Et optimisation de votre temps : 50% de présentation et 50%
-                  d’exercices
-                </li>
-              </ul>
-              Tous nos présentations sont illustrés par des exercices
-              d’applications et nos formateurs sont là pour vous guider.
+              Le format de nos formations est optimisé pour un apprentissage
+              rapide et efficace. Un petit groupe de travail (6 personnes
+              maximum), une répartition du temps efficace : 50% de cours, 50%
+              d’exercices. Tout nos supports et exercices sont également
+              accessibles en ligne pendant et après la formation.
             </Paragraph>
           </SmoothTouch>
           <SmoothTouch>
             <Rocket />
             <ThirdTitle>Une expertise complète</ThirdTitle>
             <Paragraph small>
-              Nous nous positionnons comme experts du langages JavaScript et des
-              sujets s’y rapportant. Nous effectuons une importante veille
-              technologique
-              pour maîtriser les technologies d’avant-garde et les librairies à
-              venir.
-              Nous testons ces technologies en production et nous sommes heureux
-              de pouvoir
-              échanger nos retours expériences avec vous.
+              Nous nous positionnons comme expert du langage JavaScript. Nous
+              effectuons une veille technologique régulière pour maîtriser les
+              technologies d’avant-garde et être sûr de vous fournir les
+              dernières bonnes pratiques.
             </Paragraph>
           </SmoothTouch>
           <SmoothTouch>
             <Code />
             <ThirdTitle>Développeur avant tout</ThirdTitle>
             <Paragraph small>
-              Nous nous engageons à vous transmettre des informations à jour,
-              vous
-              permettant d’accélérer les cycles d’apprentissages des différentes
-              technologies proposées en formation. Nos conseils ont étés testés,
-              discutés et éprouvés en environnement de production.
+              Chaque jour nous utilisons et développons des projets grâce aux
+              technologies proposées dans nos formations. Nos conseils sont de
+              vrais retour d’expériences de l’utilisation des librairies en
+              production.
             </Paragraph>
           </SmoothTouch>
         </SmoothTouches>

@@ -6,6 +6,8 @@ import theme from 'style/theme'
 import Logo from 'client/Logo'
 import FaFacebook from 'react-icons/lib/fa/facebook'
 import FaTwitter from 'react-icons/lib/fa/twitter'
+import FaPhone from 'react-icons/lib/fa/phone'
+import FaEnvelope from 'react-icons/lib/fa/envelope'
 
 const textColor = lighten(0.6, theme.colors.grayDark)
 
@@ -50,7 +52,7 @@ const Right = styled.div`
 
 const Links = styled.ul`
   list-style-type: none;
-  margin: 0 0 22px;
+  margin: 0 0 30px;
   padding: 0;
 
   a {
@@ -65,10 +67,29 @@ const Copyright = styled.div`
   font-size: 14px;
 `
 
+const Contact = styled.div`
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 30px;
+
+  a {
+    text-decoration: none;
+    color: ${textColor};
+    will-change: color;
+    transition: 300ms color;
+
+    &:hover {
+      color: white;
+    }
+  }
+`
+
 const Address = styled.address`
   font-style: normal;
   text-align: right;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `
 
 const Social = styled.div`
@@ -113,6 +134,12 @@ const Footer = () =>
           41 rue Réaumur Sébastopol<br />
           75003 Paris<br />
         </Address>
+        <Contact>
+          <a href="tel:+33650588079"><FaPhone /> 06 50 58 80 79</a>
+          <a href="mailto:contact@smooth-code.com">
+            <FaEnvelope /> contact@smooth-code.com
+          </a>
+        </Contact>
         <Social>
           <a href="https://www.facebook.com/smoothcodetraining/">
             <FaFacebook />
