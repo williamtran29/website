@@ -9,7 +9,6 @@ import {
   ApolloClient,
   ApolloProvider,
   renderToStringWithData,
-  toIdValue,
 } from 'react-apollo'
 import { createLocalInterface } from 'apollo-local-query'
 import * as graphql from 'graphql'
