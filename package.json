@@ -31,7 +31,7 @@
     "test": "jest"
   },
   "engines": {
-    "node": "8.0.0"
+    "node": "8.1.2"
   },
   "dependencies": {
     "apollo-local-query": "^0.3.0",
