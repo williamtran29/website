@@ -2,7 +2,7 @@ import path from 'path'
 import Koa from 'koa'
 import morgan from 'koa-morgan'
 import favicon from 'koa-favicon'
-import serve from 'koa-static'
+import send from 'koa-send'
 import etag from 'koa-etag'
 import compress from 'koa-compress'
 import bodyParser from 'koa-bodyparser'
@@ -68,7 +68,14 @@ if (config.get('server.auth.enabled')) {
 
 app.use(bodyParser())
 app.use(etag())
-app.use(serve(PUBLIC, { immutable: true, maxage: 31536000000 }))
+app.use(async (ctx, next) => {
+  await send(ctx, ctx.path, {
+    root: PUBLIC,
+    immutable: true,
+    maxage: 31536000000,
+  })
+  await next()
+})
 app.use(compress({ filter: contentType => /text/i.test(contentType) }))
 
 if (config.get('env') !== 'test') {
