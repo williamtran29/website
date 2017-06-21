@@ -9,7 +9,7 @@ import ReactGA from 'react-ga'
 import RouteChangeHook from 'modules/components/RouteChangeHook'
 import apolloClient from 'client/apolloClient'
 import store from 'client/store'
-import * as Routes from './AsyncRoutes'
+import { loadSplits } from 'modules/splitting'
 
 ReactGA.initialize('UA-101358560-1')
 
@@ -41,10 +41,7 @@ const render = Component => {
   )
 }
 
-const splitPoints = window.__SPLIT_POINTS__ || []
-Promise.all(splitPoints.map(chunk => Routes[chunk].loadComponent())).then(() =>
-  render(App),
-)
+loadSplits().then(() => render(App))
 
 if (module.hot) {
   module.hot.accept('./App', () => {

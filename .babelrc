@@ -24,7 +24,7 @@
     ["styled-components", {
       "ssr": true,
     }],
-    "syntax-dynamic-import",
+    "dynamic-import-node",
     "transform-object-rest-spread",
     "transform-class-properties"
   ]

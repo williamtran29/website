@@ -5,11 +5,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 import { Helmet } from 'react-helmet'
-import {
-  ApolloClient,
-  ApolloProvider,
-  renderToStringWithData,
-} from 'react-apollo'
+import { ApolloClient, ApolloProvider, getDataFromTree } from 'react-apollo'
 import { createLocalInterface } from 'apollo-local-query'
 import * as graphql from 'graphql'
 import { schema, rootValue } from 'server/graphql'
@@ -18,6 +14,7 @@ import config from 'server/config'
 import App from 'client/App'
 import Html from 'server/Html'
 import store from 'client/store'
+import { getSplitStateFromTree } from 'modules/splitting/server'
 
 const PUBLIC = path.join(__dirname, '../../public')
 const production = config.get('env') === 'production'
@@ -51,15 +48,18 @@ export default () => async ({ request, response }) => {
 
   const context = {}
   const sheet = new ServerStyleSheet()
-  const html = await renderToStringWithData(
-    sheet.collectStyles(
-      <ApolloProvider store={store} client={apolloClient}>
-        <StaticRouter location={request.url} context={context}>
-          <App />
-        </StaticRouter>
-      </ApolloProvider>,
-    ),
+  const app = sheet.collectStyles(
+    <ApolloProvider store={store} client={apolloClient}>
+      <StaticRouter location={request.url} context={context}>
+        <App />
+      </StaticRouter>
+    </ApolloProvider>,
   )
+
+  await getDataFromTree(app)
+  const splitState = await getSplitStateFromTree(app)
+
+  const html = renderToString(app)
 
   const state = store.getState()
   state.apollo = apolloClient.getInitialState()
@@ -78,7 +78,7 @@ export default () => async ({ request, response }) => {
         helmet={helmet}
         sheet={sheet}
         state={state}
-        splitPoints={context.splitPoints}
+        splitState={splitState}
       />,
     )}`
   }

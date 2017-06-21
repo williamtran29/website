@@ -1,8 +1,7 @@
-/* eslint-disable global-require */
-import syncComponent from 'modules/splitting/syncComponent'
+import { asyncComponent } from 'modules/splitting'
 
-export const Home = syncComponent('Home', require('client/Home'))
-export const Story = syncComponent('Story', require('client/Story'))
-export const Trainings = syncComponent('Trainings', require('client/Trainings'))
-export const Training = syncComponent('Training', require('client/Training'))
-export const Contact = syncComponent('Contact', require('client/Contact'))
+export const Home = asyncComponent(() => import('client/Home'))
+export const Story = asyncComponent(() => import('client/Story'))
+export const Trainings = asyncComponent(() => import('client/Trainings'))
+export const Training = asyncComponent(() => import('client/Training'))
+export const Contact = asyncComponent(() => import('client/Contact'))

@@ -11,6 +11,12 @@ import Customers from 'client/home/Customers'
 import Technos from 'client/home/Technos'
 import Trainers from 'client/home/Trainers'
 import Workshop from 'client/home/Workshop'
+import { Story, Trainings, Training, Contact } from 'client/Routes'
+
+Trainings.loadComponent()
+Training.loadComponent()
+Story.loadComponent()
+Contact.loadComponent()
 
 const Cover = styled.div`
   position: relative;
