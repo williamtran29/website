@@ -146,7 +146,7 @@ export default () =>
       <Wrapper>
         <Founder>
           <FounderPicture
-            src="http://res.cloudinary.com/smooth/image/upload/c_scale,h_400,w_300,dpr_2/v1497877192/profile_greg_ihxwjo.jpg"
+            src="//res.cloudinary.com/smooth/image/upload/c_scale,h_400,w_300,dpr_2/v1497877192/profile_greg_ihxwjo.jpg"
             alt="Greg Bergé"
             width="300"
             height="400"
@@ -177,7 +177,7 @@ export default () =>
       <Wrapper>
         <Founder inverse>
           <FounderPicture
-            src="http://res.cloudinary.com/smooth/image/upload/c_scale,h_400,w_300,dpr_2/v1497877282/profile_jeremy_vdqdbb.jpg"
+            src="//res.cloudinary.com/smooth/image/upload/c_scale,h_400,w_300,dpr_2/v1497877282/profile_jeremy_vdqdbb.jpg"
             alt="Jérémy Sfez"
             width="300"
             height="400"

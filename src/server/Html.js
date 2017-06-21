@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger, jsx-a11y/html-has-lang */
 import React from 'react'
 
-const Html = ({ assets, content, helmet, sheet, state }) => {
+const Html = ({ assets, content, helmet, sheet, splitPoints, state }) => {
   const htmlAttrs = helmet.htmlAttributes.toComponent()
   const bodyAttrs = helmet.bodyAttributes.toComponent()
   return (
@@ -18,7 +18,8 @@ const Html = ({ assets, content, helmet, sheet, state }) => {
           dangerouslySetInnerHTML={{
             __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(
               state,
-            ).replace(/</g, '\\u003c')}`,
+            ).replace(/</g, '\\u003c')};
+            window.__SPLIT_POINTS__ = ${JSON.stringify(splitPoints)};`,
           }}
         />
         <script src={assets.main.js} />

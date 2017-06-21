@@ -10,11 +10,6 @@ import MainTitle from 'modules/components/MainTitle'
 import Lead from 'modules/components/Lead'
 import Hero from 'modules/components/Hero'
 
-const ContactHero = Hero.extend`
-  background-color: #655C52;
-  background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497534886/typewriter-8019212_hiim90.jpg);
-`
-
 const Container = styled.div`
   flex: 1;
   display: flex;
@@ -68,10 +63,10 @@ const Contact = () =>
       <title>Nous contacter</title>
     </Helmet>
     <Header />
-    <ContactHero>
+    <Hero background="#655C52 url(//res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497534886/typewriter-8019212_hiim90.jpg)">
       <MainTitle>Contactez-nous</MainTitle>
       <Lead>L&apos;équipe Smooth Code est à votre service.</Lead>
-    </ContactHero>
+    </Hero>
     <Container>
       <Infos>
         <Label>Adresse</Label>

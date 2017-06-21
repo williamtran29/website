@@ -53,19 +53,19 @@ const Customers = () =>
         <Picture>
           <img
             alt="Le Monde.fr"
-            src="http://res.cloudinary.com/smooth/image/upload/v1497521162/lemonde_oea6fk"
+            src="//res.cloudinary.com/smooth/image/upload/v1497521162/lemonde_oea6fk"
           />
         </Picture>
         <Picture>
           <img
             alt="Doctolib"
-            src="http://res.cloudinary.com/smooth/image/upload/v1497521159/doctolib_uzkmp9.png"
+            src="//res.cloudinary.com/smooth/image/upload/v1497521159/doctolib_uzkmp9.png"
           />
         </Picture>
         <Picture>
           <img
             alt="Institut de Formation à l'Administration Publique"
-            src="http://res.cloudinary.com/smooth/image/upload/v1497521157/ifap_kxpz6c.png"
+            src="//res.cloudinary.com/smooth/image/upload/v1497521157/ifap_kxpz6c.png"
           />
         </Picture>
       </Pictures>

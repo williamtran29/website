@@ -68,6 +68,7 @@ if (config.get('server.auth.enabled')) {
 
 app.use(bodyParser())
 app.use(etag())
+app.use(serve(PUBLIC, { immutable: true, maxage: 31536000000 }))
 app.use(compress({ filter: contentType => /text/i.test(contentType) }))
 
 if (config.get('env') !== 'test') {
@@ -75,7 +76,6 @@ if (config.get('env') !== 'test') {
 }
 
 app.use(favicon(path.join(PUBLIC, 'favicon.ico')))
-app.use(serve(PUBLIC, { immutable: true, maxage: 31536000000 }))
 app.use(router.routes())
 app.use(
   mount(

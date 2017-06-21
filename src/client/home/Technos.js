@@ -168,7 +168,7 @@ const Bubble = pure(styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url(http://res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497969754/technos_gighwg);
+  background-image: url(//res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497969754/technos_gighwg);
   background-size: 750px 750px;
   background-position: ${props => props.bgPosition};
   box-shadow: 0 15px 35px rgba(0,0,0,.1), 0 3px 10px rgba(0,0,0,.07);
