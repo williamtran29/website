@@ -9,7 +9,6 @@ import bodyParser from 'koa-bodyparser'
 import error from 'koa-error'
 import Router from 'koa-router'
 import mount from 'koa-mount'
-import auth from 'koa-basic-auth'
 import { graphqlKoa, graphiqlKoa } from 'graphql-server-koa'
 import config from 'server/config'
 import ssr from 'server/ssr'
@@ -42,30 +41,6 @@ ${message}
 const PUBLIC = path.join(__dirname, '../../public')
 
 app.use(error())
-
-if (config.get('server.auth.enabled')) {
-  app.use(async (ctx, next) => {
-    try {
-      await next()
-    } catch (err) {
-      if (err.status === 401) {
-        ctx.status = 401
-        ctx.set('WWW-Authenticate', 'Basic')
-        ctx.body = 'Come back soon...'
-      } else {
-        throw err
-      }
-    }
-  })
-
-  app.use(
-    auth({
-      name: config.get('server.auth.username'),
-      pass: config.get('server.auth.password'),
-    }),
-  )
-}
-
 app.use(bodyParser())
 app.use(etag())
 app.use(serve(PUBLIC, { immutable: true, maxage: 31536000000 }))

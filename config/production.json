@@ -1,7 +1,1 @@
-{
-  "server": {
-    "auth": {
-      "enabled": true
-    }
-  }
-}
+{}
