@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import theme from 'style/theme'
+import { clUrl } from 'modules/cloudinary'
 import MainTitle from 'modules/components/MainTitle'
 import SectionWrapper from 'client/home/SectionWrapper'
 
@@ -51,21 +52,15 @@ const Customers = () =>
       <Title>Ils nous ont fait confiance</Title>
       <Pictures>
         <Picture>
-          <img
-            alt="Le Monde.fr"
-            src="//res.cloudinary.com/smooth/image/upload/v1497521162/lemonde_oea6fk"
-          />
+          <img alt="Le Monde.fr" src={clUrl('lemonde_oea6fk')} />
         </Picture>
         <Picture>
-          <img
-            alt="Doctolib"
-            src="//res.cloudinary.com/smooth/image/upload/v1497521159/doctolib_uzkmp9.png"
-          />
+          <img alt="Doctolib" src={clUrl('doctolib_uzkmp9')} />
         </Picture>
         <Picture>
           <img
             alt="Institut de Formation à l'Administration Publique"
-            src="//res.cloudinary.com/smooth/image/upload/v1497521157/ifap_kxpz6c.png"
+            src={clUrl('ifap_kxpz6c')}
           />
         </Picture>
       </Pictures>
