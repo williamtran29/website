@@ -44,6 +44,7 @@ const Links = styled.div`
   background-color: ${props =>
     props.transparent ? 'rgba(0, 0, 0, 0.9)' : theme.colors.primary};
   z-index: 3;
+
   @media (min-width: ${theme.medias.phablet}) {
     position: initial;
     display: flex;
@@ -65,19 +66,22 @@ const NavLink = styled(Link)`
   color: white;
   padding: 0 20px;
   margin: 5px 0;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0);
   transition: color 200ms, background-color 200ms;
+
   &:hover {
     color: white;
   }
+
   @media (min-width: ${theme.medias.phablet}) {
     margin: 0;
   }
 `
 
-const RaisedNavLink = NavLink.extend`
+const RaisedNavLink = styled(NavLink)`
   border-radius: 3px;
   border: 1px solid white;
+
   &:hover {
     background-color: white;
     color: ${theme.colors.primary};

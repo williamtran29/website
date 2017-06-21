@@ -39,8 +39,34 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            forceEnv: 'browser',
-            plugins: [...(development ? ['react-hot-loader/babel'] : [])],
+            babelrc: false,
+            presets: [
+              'react',
+              [
+                'env',
+                {
+                  modules: false,
+                  loose: false,
+                  targets: {
+                    uglify: true,
+                    browsers: ['> 1%', 'last 2 versions'],
+                  },
+                },
+              ],
+            ],
+            plugins: [
+              'syntax-dynamic-import',
+              'transform-object-rest-spread',
+              'transform-class-properties',
+              ['lodash', { id: 'recompact' }],
+              [
+                'styled-components',
+                {
+                  ssr: true,
+                },
+              ],
+              ...(development ? ['react-hot-loader/babel'] : []),
+            ],
           },
         },
       },

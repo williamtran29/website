@@ -9,7 +9,7 @@ import ReactGA from 'react-ga'
 import RouteChangeHook from 'modules/components/RouteChangeHook'
 import apolloClient from 'client/apolloClient'
 import store from 'client/store'
-import * as Routes from './Routes'
+import * as Routes from './AsyncRoutes'
 
 ReactGA.initialize('UA-101358560-1')
 

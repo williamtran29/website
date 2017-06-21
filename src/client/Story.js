@@ -98,7 +98,7 @@ const SmoothTouches = styled.div`
 `
 
 const SmoothTouch = styled.div`
-  flex: 1 0 0;
+  flex: 1 0 auto;
   margin: 0 20px;
   display: flex;
   flex-direction: column;
@@ -110,9 +110,8 @@ const SmoothTouch = styled.div`
     margin: 20px 0;
   }
 
-  ${List} {
-    margin: 0;
-    padding-left: 20px;
+  @media (min-width: ${theme.medias.phablet}) {
+    flex-basis: 0;
   }
 `
 
