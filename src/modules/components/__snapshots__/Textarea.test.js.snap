@@ -2,6 +2,6 @@
 
 exports[`Textarea  should render a textarea 1`] = `
 <textarea
-  className="sc-bdVaJa hkeBGx"
+  className="Textarea__Textarea-wgtl7b-0 ifPCTZ"
 />
 `;
