@@ -8,11 +8,11 @@ exports.seed = async knex => {
       color: '#313131',
       duration: 4,
       price: 2000,
-      description: `JavaScript est un langage en perpétuelle évolution, chaque année des nouveautés y sont apportées. La formation **JavaScript ES2017** se focalise sur les nouveautés apportées au langages par **ES2015 (ES6)**, **ES2016** et **ES2017**.
+      description: `JavaScript est un langage en perpétuelle évolution, chaque année des nouveautés y sont apportées. La formation **JavaScript ES2017** se focalise sur les innovations apportées au langage par **ES2015 (ES6)**, **ES2016** et **ES2017**.
 
-Nous présenterons La **destructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**. Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**. Côté outils nous parlerons de **Babel**, **Webpack** et **ESLint** afin de pouvoir intégrer ces les nouvelles fonctionnalités dans vos projets.
+Nous présenterons la **destructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**. Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**. Côté outillage nous parlerons de **Babel**, **Webpack** et **ESLint** pour vous permettre d'intégrer ces les nouvelles fonctionnalités dans vos projets.
 
-Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les des nouveautés évoqués tout au long de la formation.
+Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les nouveautés évoquées tout au long de la formation.
 
 ### Objectifs
 - Découvrir les nouveautés apportées par ES2015 (ES6), ES2016 et ES2017
@@ -90,18 +90,19 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
       color: '#1a434a',
       duration: 3,
       price: 1500,
-      description: `React est un moteur rendu développé par Facebook se démarque de la concurrence grâce à son architecture innovante, efficace et performante. React a maintenant une place incontestable dans l'écosystème JavaScript.
+      description: `React est un moteur de rendu développé par Facebook se démarquant de la concurrence grâce à son architecture innovante, efficace et performante. React a maintenant une place incontestable dans l'écosystème JavaScript.
 
-Cette formation vous permettra de faire un premier pas dans l'univers du développement React et de comprendre comment l'utiliser de façon optimal dans vos projets. Nous aborderons tous les aspects de React, sa philosophie, les **components**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **déboguer**. Nous vous accompagnerons dans l'installation d'un environnement optimal pour le développement en React avec **Atom**, **Babel**, **Prettier** et **ESLint**.
+
+Pendant cette formation, vous découvrirez l'univers React et comment l'utiliser de façon optimal dans vos projets. Nous aborderons tous les aspects de React : sa philosophie, les **components**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **débogguer**. Nous vous accompagnerons dans l'installation d'un environnement optimal pour le développement en React avec les outils : **Atom**, **Babel**, **Prettier** et **ESLint**.
 
 Un projet complet sera réalisé en fil rouge durant toute la formation pour vous permettre de mettre en pratique chacune des nouveautés présentées.
 
 ### Objectifs
-- Découvrir React et maîtriser ses particularitées
+- Découvrir React et maîtriser ses particularités
 - Construire votre première application React en respectant les bonnes pratiques
-- Savoir utiliser les outils de développement adaptés
-- Installer, configurer et utiliser les bibliothèques
-- Etre capable d'intégrer React dans vos projets dès le lendemain
+- Utiliser les outils de développement adaptés
+- Installer, configurer et utiliser les bibliothèques nécessaires
+- Savoir comment intégrer React dans vos projets dès le lendemain
 
 ### Pré-requis
 - Niveau JavaScript intermédiaire`,
@@ -145,7 +146,7 @@ RxJS est la bibliothèque la plus complète et la plus populaire pour appliquer 
 
 Dans cette formation vous comprendrez la différence d'approche **pull / push**, le pattern **Observable** et **Observer** et l'**API RxJS dans des cas d'utilisation réels**.
 
-Plusieurs exercices concrets tout au long de la formation vous permettront de mettre en pratique la théorie apprise lors de ces deux jours.
+Plusieurs exercices concrets tout au long de la formation vous permettront de mettre en pratique les concepts vus lors de ces deux jours.
 
 ### Objectifs
 - Comprendre le paradigme de programmation réactive
@@ -217,7 +218,7 @@ Plusieurs exercices concrets tout au long de la formation vous permettront de me
       price: 1000,
       description: `GraphQL est une spécification de requêtes permettant de structurer les réponses à volonté. Elle donne lieux à une nouvelle manière de concevoir des API. En 2012, Facebook se sentait bridé par les limitations des API REST traditionnelles, ils ont donc conçu GraphQL, une API caractérisée par un seul point d'accès et une architecture sous forme de graphe.
 
-Dans cette formation vous découvrirez **une présentation rapide de GraphQL**. S'en suivra un comparatif entre**une API GraphQL et une API REST traditionnelle**. Vous explorerez l'ensemble de la spécification, les **Query**, les **Types**, les **Mutations**, les **Fragments** et apprendrez comment l'implémenter dans vos projets de manière concrète.
+Dans cette formation vous découvrirez **une présentation rapide de GraphQL**. S'en suivra un comparatif entre **une API GraphQL et une API REST traditionnelle**. Vous explorerez l'ensemble de la spécification, les **Query**, les **Types**, les **Mutations**, les **Fragments** et apprendrez comment l'utiliser dans vos projets de manière concrète.
 
 Un projet complet sera réalisé en fil rouge durant toute la formation, cela vous permettra de mettre en pratique chacune des nouveautés au fil de la formation.
 
@@ -229,7 +230,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
 ### Pré-requis
 - Notions de fonctionnement basiques du web (client, server, HTTP,  requêtes, etc...)
 - Des bases en Node.js
-- Des bases en React (utilisé pour les exemples de la formation)`,
+- Des bases en React`,
       outline: `### Jour 1
 
 #### Introduction
@@ -264,14 +265,14 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
       color: '#99424F',
       duration: 1,
       price: 500,
-      description: `Jest est le framework de test développé et  utilisé par Facebook, créé en 2014, il a su s'imposer comme référence en tant que frameworks de test JavaScript. Jest permet d'optimiser le temps passé à écrire les tests en fournissant un environnement unifié et performant pour une expérience optimale. Il a notamment popularisé le snapshot testing.
+      description: `Jest est le framework de test développé et  utilisé par Facebook. Créé en 2014, il s'est imposé comme référence en tant que framework de tests JavaScript. Jest permet d'optimiser le temps passé à écrire les tests en fournissant un environnement unifié et performant pour une expérience optimale. Il a notamment popularisé le snapshot testing.
 
-Dans cette formation nous verrons comment utiliser Jest pour **tester vos composants React** mais aussi **tester votre code côté serveur (Node.js)**. Nous explorerons ensemble le système d'**assertions**, de **mocking** ainsi que le **snapshot testing**. Nous verrons également comment implémenter une **couverture de code simple et efficace avec codecov**.
+Dans cette formation nous verrons comment utiliser Jest pour **tester vos composants React** et **tester votre code côté serveur (Node.js)**. Nous explorerons ensemble le système d'**assertions**, de **mocking** ainsi que le **snapshot testing**. Nous verrons également comment implémenter une **couverture de code simple et efficace avec codecov**.
 
 Nous implémenterons des tests sur des exemples précis pour  vous permettre de faire le parallèle avec vos projets.
 
 ### Objectifs
-- Maîtriser les meilleures pratiques de tester pour vos composants React avec Jest
+- Maîtriser les meilleures pratiques de test pour des composants React avec Jest
 - Savoir utiliser Jest pour tester des modules Node.js
 
 ### Pré-requis
@@ -288,13 +289,14 @@ Nous implémenterons des tests sur des exemples précis pour  vous permettre de 
 
 #### React & Jest
 - Utiliser les snapshots
-- Tester ses composants avec enzyme
+- Tester des composants avec enzyme
 - Tester un store Redux
 
 #### Node.js & Jest
 - Découvrir le système de mocking
 - Tester du code asynchrone
-- Monitorer la couverture de tests de son code`,
+- Monitorer la couverture de tests de son code
+`,
       cloudinary_id: 'training-jest',
       slug: 'formation-jest-react',
     },
