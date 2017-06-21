@@ -135,7 +135,7 @@ export default () =>
         <Introduction>
           <MainTitle>Notre histoire</MainTitle>
           <Paragraph>
-            Smooth Code a été fondée en 2017 a Paris.<br />
+            Smooth Code a été fondée en 2017 à Paris.<br />
             Nous proposons des formations professionnelles destinées aux
             développeurs afin de leur permettre d’intégrer de manière efficace
             les librairies JavaScript modernes dans leurs projets.
@@ -163,11 +163,11 @@ export default () =>
             <Paragraph>
               Sa mission consiste à accompagner et former les développeurs dans
               l’apprentissage et l’intégration des nouvelles
-              librairies JavaScript dans leurs projets.
+              librairies JavaScript.
             </Paragraph>
             <Paragraph>
-              Il compte, entre autres, parmi ses références : Le Monde,
-              Doctolib, Entefy, WisePops.
+              Il compte parmi ses références Le Monde,
+              Doctolib, Entefy, WisePops...
             </Paragraph>
           </FounderInfo>
         </Founder>
@@ -209,12 +209,12 @@ export default () =>
             business et s’impose sur tous les environnements :
           </Paragraph>
           <List small>
-            <li>Création d’interfaces utilisateur interactives avec React,</li>
+            <li>Création d’interfaces utilisateur interactives avec React</li>
             <li>Outil en ligne de commande avec Node.js</li>
             <li>API moderne et performante avec Koa ou Express</li>
-            <li>Développement mobile avec React Native,</li>
+            <li>Développement mobile avec React Native</li>
             <li>
-              Création d’application native multi-plateformes avec Electron
+              Création d’applications natives multi-plateformes avec Electron
             </li>
           </List>
           <Paragraph small>
@@ -249,7 +249,7 @@ export default () =>
             <Paragraph small>
               Nous nous positionnons comme expert du langage JavaScript.
               Notre veille technologique régulière nous permet de maîtriser les
-              dernières technologies et vous fournir les bonnes pratiques
+              dernières technologies et de vous fournir les bonnes pratiques
               les plus récentes.
             </Paragraph>
           </SmoothTouch>
@@ -259,7 +259,7 @@ export default () =>
             <Paragraph small>
               Nous utilisons et développons chaque jour des projets grâce aux
               technologies proposées dans nos formations. Nos conseils sont de
-              vrais retours d’expérience sur l’utilisation des librairies en
+              vrais retours d’expérience sur l’usage des librairies en
               production.
             </Paragraph>
           </SmoothTouch>

@@ -55,7 +55,7 @@ export default () =>
         Notre savoir-faire à votre service.
       </MainTitle>
       <Lead>
-        Des formations par les développeurs pour les développeurs.
+        Des formations par des développeurs pour des développeurs.
       </Lead>
       <LinkButton to="/trainings">
         Consulter nos formations

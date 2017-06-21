@@ -370,7 +370,7 @@ const Technos = () => {
         )}
       </BubblesContainer>
       <Title>
-        Explorez les technologies d’aujourd’hui.{' '}
+        Explorez les technologies d’aujourd’hui.
         <Subtitle>
           Nos formations couvrent tout l’écosystème JavaScript.
         </Subtitle>

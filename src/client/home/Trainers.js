@@ -64,10 +64,9 @@ const Trainers = () =>
         <Text>
           En plus d’être pédagogue, à l’écoute et expérimentés, nos formateurs
           sont aussi des développeurs. Ils utilisent chaque jour en production
-          les
-          technologies enseignées dans nos formations. Ils vous font profiter de
-          leur expérience de terrain et partagent avec vous leurs retours
-          d’expérience.
+          les technologies enseignées dans nos formations. Ils vous font
+          profiter de leur expérience de terrain et partagent avec vous leurs
+          retours d’expérience.
         </Text>
       </Content>
     </Wrapper>

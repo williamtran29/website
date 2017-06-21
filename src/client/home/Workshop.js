@@ -100,7 +100,7 @@ const Title = MainTitle.withComponent('h2').extend`
 const Workshop = () =>
   <Container>
     <Wrapper>
-      <Title>Plus qu&apos;une formation, un vrai workshop.</Title>
+      <Title>Plus qu’une formation, un vrai workshop.</Title>
       <Content>
         <Screen>
           <ScreenBackground />

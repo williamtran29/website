@@ -389,9 +389,8 @@ export default compose(
                   <SidebarSection>
                     <SidebarTitle>Une question ?</SidebarTitle>
                     <SidebarText>
-                      Vous avez besoin d&apos;un renseignement ou d&apos;une
-                      formation
-                      personnalisée ?<br />
+                      Vous avez besoin d’un renseignement ou d&apos;une
+                      formation personnalisée ?<br />
                       Nous nous ferons un plaisir de répondre à
                       vos questions.
                     </SidebarText>
