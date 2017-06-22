@@ -1,4 +1,4 @@
-import { asyncComponent } from 'modules/splitting'
+import { asyncComponent } from 'modules/loadable-components'
 
 export const Home = asyncComponent(() => import('client/Home'))
 export const Story = asyncComponent(() => import('client/Story'))

@@ -9,7 +9,7 @@ import ReactGA from 'react-ga'
 import RouteChangeHook from 'modules/components/RouteChangeHook'
 import apolloClient from 'client/apolloClient'
 import store from 'client/store'
-import { loadSplits } from 'modules/splitting'
+import { loadComponents } from 'modules/loadable-components'
 
 ReactGA.initialize('UA-101358560-1')
 
@@ -41,7 +41,7 @@ const render = Component => {
   )
 }
 
-loadSplits().then(() => render(App))
+loadComponents().then(() => render(App))
 
 if (module.hot) {
   module.hot.accept('./App', () => {

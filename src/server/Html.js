@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger, jsx-a11y/html-has-lang */
 import React from 'react'
 
-const Html = ({ assets, content, helmet, sheet, splitState, state }) => {
+const Html = ({ assets, content, helmet, sheet, loadableState, state }) => {
   const htmlAttrs = helmet.htmlAttributes.toComponent()
   const bodyAttrs = helmet.bodyAttributes.toComponent()
   return (
@@ -14,7 +14,7 @@ const Html = ({ assets, content, helmet, sheet, splitState, state }) => {
       </head>
       <body {...bodyAttrs}>
         <div id="main" dangerouslySetInnerHTML={{ __html: content }} />
-        {splitState.getScriptElement()}
+        {loadableState.getScriptElement()}
         <script
           dangerouslySetInnerHTML={{
             __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(

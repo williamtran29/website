@@ -11,8 +11,8 @@ import Footer from 'client/Footer'
 import PageContainer from 'client/PageContainer'
 import { Story, Training as TrainingRoute } from 'client/Routes'
 
-Story.loadComponent()
-TrainingRoute.loadComponent()
+Story.load()
+TrainingRoute.load()
 
 const fadeIn = keyframes`
   0% {

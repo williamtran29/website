@@ -13,10 +13,10 @@ import Trainers from 'client/home/Trainers'
 import Workshop from 'client/home/Workshop'
 import { Story, Trainings, Training, Contact } from 'client/Routes'
 
-Trainings.loadComponent()
-Training.loadComponent()
-Story.loadComponent()
-Contact.loadComponent()
+Trainings.load()
+Training.load()
+Story.load()
+Contact.load()
 
 const Cover = styled.div`
   position: relative;

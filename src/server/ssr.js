@@ -14,7 +14,7 @@ import config from 'server/config'
 import App from 'client/App'
 import Html from 'server/Html'
 import store from 'client/store'
-import { getSplitStateFromTree } from 'modules/splitting/server'
+import { getLoadableState } from 'modules/loadable-components/server'
 
 const PUBLIC = path.join(__dirname, '../../public')
 const production = config.get('env') === 'production'
@@ -57,7 +57,7 @@ export default () => async ({ request, response }) => {
   )
 
   await getDataFromTree(app)
-  const splitState = await getSplitStateFromTree(app)
+  const loadableState = await getLoadableState(app)
 
   const html = renderToString(app)
 
@@ -76,9 +76,9 @@ export default () => async ({ request, response }) => {
         assets={assets}
         content={html}
         helmet={helmet}
+        loadableState={loadableState}
         sheet={sheet}
         state={state}
-        splitState={splitState}
       />,
     )}`
   }

@@ -1,23 +1,7 @@
 /* eslint-disable react/no-danger */
-import React, { Children } from 'react'
-
-class SplitState {
-  constructor(splitPoints) {
-    this.splitPoints = splitPoints
-  }
-
-  getScriptElement() {
-    return (
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `window.__SPLIT_STATE__ = ${JSON.stringify(
-            this.splitPoints,
-          )};`,
-        }}
-      />
-    )
-  }
-}
+import { Children } from 'react'
+import { LOADABLE } from '../constants'
+import DeferredState from './DeferredState'
 
 // Recurse a React Element tree, running visitor on each element.
 // If visitor returns `false`, don't call the element's render function
@@ -92,7 +76,7 @@ export function walkTree(element, context, visitor) {
   }
 }
 
-function getSplitsFromTree(
+function getQueriesFromTree(
   { rootElement, rootContext = {} },
   fetchRoot = true,
 ) {
@@ -101,14 +85,10 @@ function getSplitsFromTree(
   walkTree(rootElement, rootContext, (element, instance, context) => {
     const skipRoot = !fetchRoot && element === rootElement
 
-    if (
-      instance &&
-      typeof instance.constructor.loadComponent === 'function' &&
-      !skipRoot
-    ) {
-      const query = instance.constructor
-        .loadComponent()
-        .then(() => instance.constructor.id)
+    if (instance && instance.constructor[LOADABLE] && !skipRoot) {
+      const loadable = instance.constructor[LOADABLE]()
+      const query = loadable.load().then(() => loadable.componentId)
+
       if (query) {
         queries.push({ query, element, context })
 
@@ -124,42 +104,43 @@ function getSplitsFromTree(
   return queries
 }
 
-export async function getSplitStateFromTree(
+export async function getLoadableState(
   rootElement,
   rootContext = {},
   fetchRoot = true,
 ) {
-  const queries = getSplitsFromTree({ rootElement, rootContext }, fetchRoot)
+  const queries = getQueriesFromTree({ rootElement, rootContext }, fetchRoot)
 
   // no queries found, nothing to do
-  if (!queries.length) return Promise.resolve()
+  if (!queries.length) return new DeferredState([])
 
   const errors = []
-  const splitPoints = []
+  const componentIds = []
 
   // wait on each query that we found, re-rendering the subtree when it's done
-  const mappedQueries = queries.map(({ query, element, context }) =>
+  const mappedQueries = queries.map(async ({ query, element, context }) => {
     // we've just grabbed the query for element, so don't try and get it again
-    query
-      .then(splitPoint => {
-        splitPoints.push(splitPoint)
-        return getSplitStateFromTree(element, context, false)
-      })
-      .catch(e => errors.push(e)),
-  )
-
-  // Run all queries. If there are errors, still wait for all queries to execute
-  // so the caller can ignore them if they wish. See https://github.com/apollographql/react-apollo/pull/488#issuecomment-284415525
-  return Promise.all(mappedQueries).then(() => {
-    if (errors.length > 0) {
-      const error = errors.length === 1
-        ? errors[0]
-        : new Error(
-            `${errors.length} errors were thrown when executing your GraphQL queries.`,
-          )
-      error.queryErrors = errors
-      throw error
+    try {
+      const componentId = await query
+      componentIds.push(componentId)
+      return getLoadableState(element, context, false)
+    } catch (e) {
+      errors.push(e)
+      return null
     }
-    return new SplitState(splitPoints)
   })
+
+  await Promise.all(mappedQueries)
+
+  if (errors.length > 0) {
+    const error = errors.length === 1
+      ? errors[0]
+      : new Error(
+          `${errors.length} errors were thrown when importing your modules.`,
+        )
+    error.queryErrors = errors
+    throw error
+  }
+
+  return new DeferredState(componentIds)
 }
