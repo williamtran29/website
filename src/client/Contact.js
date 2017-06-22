@@ -71,7 +71,7 @@ const Contact = () =>
       <Infos>
         <Label>Adresse</Label>
         <Info>
-          <address>41 rue Réaumur Sébastopol<br />75003 Paris</address>
+          <address>41 rue Réaumur<br />75003 Paris</address>
         </Info>
         <Label>Téléphone</Label>
         <Info><a href="tel:0650588079">06 50 58 80 79</a></Info>

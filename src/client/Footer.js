@@ -131,7 +131,7 @@ const Footer = () =>
       <Right>
         <Address>
           Smooth Code<br />
-          41 rue Réaumur Sébastopol<br />
+          41 rue Réaumur<br />
           75003 Paris<br />
         </Address>
         <Contact>
