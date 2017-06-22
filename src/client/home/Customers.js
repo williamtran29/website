@@ -49,7 +49,7 @@ const Title = MainTitle.withComponent('h2')
 const Customers = () =>
   <Container>
     <Wrapper flexDirection="column">
-      <Title>Ils nous ont fait confiance</Title>
+      <Title>Ils nous font confiance</Title>
       <Pictures>
         <Picture>
           <img alt="Le Monde.fr" src={clUrl('lemonde_oea6fk')} />
