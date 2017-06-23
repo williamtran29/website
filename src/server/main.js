@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime'
 import http from 'http'
 import * as database from 'server/services/database'
 import config from 'server/config'
