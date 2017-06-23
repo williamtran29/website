@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Input  should render an input 1`] = `
-<div
-  className="Input__Input-yhnwl0-0 gqztBg"
+<input
+  className="Input__Input-s1bt2nh8-0 eqmgTw"
 />
 `;
 
 exports[`Input  should support error 1`] = `
-<div
-  className="Input__Input-yhnwl0-0 hviOhM"
+<input
+  className="Input__Input-s1bt2nh8-0 igwhJu"
 />
 `;
