@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import theme from 'style/theme'
 
-const Input = styled.div`
+const Input = styled.input`
   border-radius: 3px;
   display: inline-block;
   height: 38px;
