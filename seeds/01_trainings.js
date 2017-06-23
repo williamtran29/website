@@ -4,13 +4,13 @@ exports.seed = async knex => {
     {
       name: 'JavaScript ES2017',
       abstract:
-        'Découvrez les nouveautés apportées par ES6 / ES2015, ES2016 et ES2017.',
+        'Découvrez les nouveautés apportées par ES6 / ES2015, ES2016 et ES2017',
       color: '#313131',
       duration: 4,
       price: 2000,
       description: `JavaScript est un langage en perpétuelle évolution, chaque année des nouveautés y sont apportées. La formation **JavaScript ES2017** se focalise sur les innovations apportées au langage par **ES2015 (ES6)**, **ES2016** et **ES2017**.
 
-Nous présenterons la **destructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**. Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**. Côté outillage nous parlerons de **Babel**, **Webpack** et **ESLint** pour vous permettre d'intégrer ces les nouvelles fonctionnalités dans vos projets.
+Nous présenterons la **destructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**. Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**. Côté outillage nous parlerons de **Babel**, **Webpack** et **ESLint** pour vous permettre d'intégrer les nouvelles fonctionnalités dans vos projets.
 
 Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les nouveautés évoquées tout au long de la formation.
 
@@ -86,14 +86,14 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
     {
       name: 'React',
       abstract:
-        'Apprenez à créer des interfaces web modernes, fluides et interactives.',
+        'Apprenez à créer des interfaces web modernes, fluides et interactives',
       color: '#1a434a',
       duration: 3,
       price: 1500,
       description: `React est un moteur de rendu développé par Facebook se démarquant de la concurrence grâce à son architecture innovante, efficace et performante. React a maintenant une place incontestable dans l'écosystème JavaScript.
 
 
-Pendant cette formation, vous découvrirez l'univers React et comment l'utiliser de façon optimal dans vos projets. Nous aborderons tous les aspects de React : sa philosophie, les **components**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **débogguer**. Nous vous accompagnerons dans l'installation d'un environnement optimal pour le développement en React avec les outils : **Atom**, **Babel**, **Prettier** et **ESLint**.
+Pendant cette formation, vous découvrirez l'univers React et comment l'utiliser de façon optimale dans vos projets. Nous aborderons tous les aspects de React : sa philosophie, les **components**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **déboguer**. Nous vous accompagnerons dans l'installation d'un environnement optimal pour le développement en React avec les outils : **Atom**, **Babel**, **Prettier** et **ESLint**.
 
 Un projet complet sera réalisé en fil rouge durant toute la formation pour vous permettre de mettre en pratique chacune des nouveautés présentées.
 
@@ -118,7 +118,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation pour vou
 
 - Type-checking avec Flow ou les PropTypes
 - Le State
-- Le cycle de vie des Components
+- Le cycle de vie des components
 - Formulaires et events (controlled / uncontrolled components)
 - Architecturer son application (composition et héritage)
 
@@ -134,13 +134,13 @@ Un projet complet sera réalisé en fil rouge durant toute la formation pour vou
     },
     {
       name: 'RxJS',
-      abstract: 'Maîtrisez la programmation réactive.',
+      abstract: 'Maîtrisez la programmation réactive',
       color: '#400127',
       duration: 2,
       price: 1000,
-      description: `La programmation fonctionnelle est maintenant incontournable dans l'écosystème JavaScript. Mise en avant par Lodash, puis par React et Redux, elle ouvre de nouvelles portes dans le développement web. La programmation Réactive peut être considérée comme l'étape suivante à la programmation fonctionnelle. Popularisée par Angular, le type Observable (coeur de la programmation Réactive) est en cours de standardisation et fera bientôt parti du langage.
+      description: `La programmation fonctionnelle est maintenant incontournable dans l'écosystème JavaScript. Mise en avant par Lodash, puis par React et Redux, elle ouvre de nouvelles portes dans le développement web. La programmation Réactive peut être considérée comme l'étape suivante à la programmation fonctionnelle. Popularisée par Angular, le type Observable (cœur de la programmation Réactive) est en cours de standardisation et fera bientôt partie du langage.
 
-La programmation Réactive Fonctionnelle permet de modéliser du code asynchrones sous la forme d'une simple collection avec une dimension temporelle. Très puissante, elle est peut cependant être difficile à appréhender.
+La programmation Réactive Fonctionnelle permet de modéliser du code asynchrone sous la forme d'une simple collection avec une dimension temporelle. Très puissante, elle peut-être cependant difficile à appréhender.
 
 RxJS est la bibliothèque la plus complète et la plus populaire pour appliquer ce paradigme. Elle est notamment utilisée dans Angular, ce qui fait d'elle une librairie incontournable.
 
@@ -182,7 +182,7 @@ Plusieurs exercices concrets tout au long de la formation vous permettront de me
 - Description d'un opérateur
 - Transformer les évènements : map / scan
 - Agir sur la chronologie : delay / buffer
-- Filter les évènements : filter / debounce / take
+- Filtrer les évènements : filter / debounce / take
 - Combiner les observables : concat / merge / switch
 
 ### Jour 2
@@ -212,13 +212,13 @@ Plusieurs exercices concrets tout au long de la formation vous permettront de me
     },
     {
       name: 'GraphQL',
-      abstract: 'Créez des API modernes et évolutives avec GraphQL.',
+      abstract: 'Créez des API modernes et évolutives avec GraphQL',
       color: '#171E26',
       duration: 2,
       price: 1000,
-      description: `GraphQL est une spécification de requêtes permettant de structurer les réponses à volonté. Elle donne lieux à une nouvelle manière de concevoir des API. En 2012, Facebook se sentait bridé par les limitations des API REST traditionnelles, ils ont donc conçu GraphQL, une API caractérisée par un seul point d'accès et une architecture sous forme de graphe.
+      description: `GraphQL est une spécification de requêtes permettant de structurer les réponses à volonté. Elle donne lieu à une nouvelle manière de concevoir des API. En 2012, Facebook se sentait bridé par les limitations des API REST traditionnelles, et a donc conçu GraphQL, une API caractérisée par un seul point d'accès et une architecture sous forme de graphe.
 
-Dans cette formation vous découvrirez **une présentation rapide de GraphQL**. S'en suivra un comparatif entre **une API GraphQL et une API REST traditionnelle**. Vous explorerez l'ensemble de la spécification, les **Query**, les **Types**, les **Mutations**, les **Fragments** et apprendrez comment l'utiliser dans vos projets de manière concrète.
+Dans cette formation vous découvrirez **une présentation rapide de GraphQL**. S'ensuivra un comparatif entre **une API GraphQL et une API REST traditionnelle**. Vous explorerez l'ensemble de la spécification, les **Query**, les **Types**, les **Mutations**, les **Fragments** et apprendrez comment l'utiliser dans vos projets de manière concrète.
 
 Un projet complet sera réalisé en fil rouge durant toute la formation, cela vous permettra de mettre en pratique chacune des nouveautés au fil de la formation.
 
@@ -261,7 +261,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
     },
     {
       name: 'Jest',
-      abstract: 'Passez à la vitesse supérieure en matière de test JavaScript.',
+      abstract: 'Passez à la vitesse supérieure en matière de test JavaScript',
       color: '#99424F',
       duration: 1,
       price: 500,
