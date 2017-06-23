@@ -1,7 +1,7 @@
-import { asyncComponent } from 'modules/loadable-components'
+import loadable from 'loadable-components'
 
-export const Home = asyncComponent(() => import('client/Home'))
-export const Story = asyncComponent(() => import('client/Story'))
-export const Trainings = asyncComponent(() => import('client/Trainings'))
-export const Training = asyncComponent(() => import('client/Training'))
-export const Contact = asyncComponent(() => import('client/Contact'))
+export const Home = loadable(() => import('client/Home'))
+export const Story = loadable(() => import('client/Story'))
+export const Trainings = loadable(() => import('client/Trainings'))
+export const Training = loadable(() => import('client/Training'))
+export const Contact = loadable(() => import('client/Contact'))

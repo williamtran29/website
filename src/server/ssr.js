@@ -14,7 +14,7 @@ import config from 'server/config'
 import App from 'client/App'
 import Html from 'server/Html'
 import store from 'client/store'
-import { getLoadableState } from 'modules/loadable-components/server'
+import { getLoadableState } from 'loadable-components/server'
 
 const PUBLIC = path.join(__dirname, '../../public')
 const production = config.get('env') === 'production'
