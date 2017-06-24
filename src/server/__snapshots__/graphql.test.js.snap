@@ -5,11 +5,11 @@ Object {
   "data": Object {
     "trainings": Array [
       Object {
-        "abstract": "Découvrez les nouveautés apportées par ES6 / ES2015, ES2016 et ES2017.",
+        "abstract": "Découvrez les nouveautés apportées par ES6 / ES2015, ES2016 et ES2017",
         "cloudinary_id": "training-javascript",
         "description": "JavaScript est un langage en perpétuelle évolution, chaque année des nouveautés y sont apportées. La formation **JavaScript ES2017** se focalise sur les innovations apportées au langage par **ES2015 (ES6)**, **ES2016** et **ES2017**.
 
-Nous présenterons la **destructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**. Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**. Côté outillage nous parlerons de **Babel**, **Webpack** et **ESLint** pour vous permettre d'intégrer ces les nouvelles fonctionnalités dans vos projets.
+Nous présenterons la **destructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**. Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**. Côté outillage nous parlerons de **Babel**, **Webpack** et **ESLint** pour vous permettre d'intégrer les nouvelles fonctionnalités dans vos projets.
 
 Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les nouveautés évoquées tout au long de la formation.
 
@@ -23,12 +23,12 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
         "name": "JavaScript ES2017",
       },
       Object {
-        "abstract": "Apprenez à créer des interfaces web modernes, fluides et interactives.",
+        "abstract": "Apprenez à créer des interfaces web modernes, fluides et interactives",
         "cloudinary_id": "training-react",
         "description": "React est un moteur de rendu développé par Facebook se démarquant de la concurrence grâce à son architecture innovante, efficace et performante. React a maintenant une place incontestable dans l'écosystème JavaScript.
 
 
-Pendant cette formation, vous découvrirez l'univers React et comment l'utiliser de façon optimal dans vos projets. Nous aborderons tous les aspects de React : sa philosophie, les **components**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **débogguer**. Nous vous accompagnerons dans l'installation d'un environnement optimal pour le développement en React avec les outils : **Atom**, **Babel**, **Prettier** et **ESLint**.
+Pendant cette formation, vous découvrirez l'univers React et comment l'utiliser de façon optimale dans vos projets. Nous aborderons tous les aspects de React : sa philosophie, les **components**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **déboguer**. Nous vous accompagnerons dans l'installation d'un environnement optimal pour le développement en React avec les outils : **Atom**, **Babel**, **Prettier** et **ESLint**.
 
 Un projet complet sera réalisé en fil rouge durant toute la formation pour vous permettre de mettre en pratique chacune des nouveautés présentées.
 
@@ -45,11 +45,11 @@ Un projet complet sera réalisé en fil rouge durant toute la formation pour vou
         "name": "React",
       },
       Object {
-        "abstract": "Maîtrisez la programmation réactive.",
+        "abstract": "Maîtrisez la programmation réactive",
         "cloudinary_id": "training-rxjs",
-        "description": "La programmation fonctionnelle est maintenant incontournable dans l'écosystème JavaScript. Mise en avant par Lodash, puis par React et Redux, elle ouvre de nouvelles portes dans le développement web. La programmation Réactive peut être considérée comme l'étape suivante à la programmation fonctionnelle. Popularisée par Angular, le type Observable (coeur de la programmation Réactive) est en cours de standardisation et fera bientôt parti du langage.
+        "description": "La programmation fonctionnelle est maintenant incontournable dans l'écosystème JavaScript. Mise en avant par Lodash, puis par React et Redux, elle ouvre de nouvelles portes dans le développement web. La programmation Réactive peut être considérée comme l'étape suivante à la programmation fonctionnelle. Popularisée par Angular, le type Observable (cœur de la programmation Réactive) est en cours de standardisation et fera bientôt partie du langage.
 
-La programmation Réactive Fonctionnelle permet de modéliser du code asynchrones sous la forme d'une simple collection avec une dimension temporelle. Très puissante, elle est peut cependant être difficile à appréhender.
+La programmation Réactive Fonctionnelle permet de modéliser du code asynchrone sous la forme d'une simple collection avec une dimension temporelle. Très puissante, elle peut-être cependant difficile à appréhender.
 
 RxJS est la bibliothèque la plus complète et la plus populaire pour appliquer ce paradigme. Elle est notamment utilisée dans Angular, ce qui fait d'elle une librairie incontournable.
 
@@ -68,11 +68,11 @@ Plusieurs exercices concrets tout au long de la formation vous permettront de me
         "name": "RxJS",
       },
       Object {
-        "abstract": "Créez des API modernes et évolutives avec GraphQL.",
+        "abstract": "Créez des API modernes et évolutives avec GraphQL",
         "cloudinary_id": "training-graphql",
-        "description": "GraphQL est une spécification de requêtes permettant de structurer les réponses à volonté. Elle donne lieux à une nouvelle manière de concevoir des API. En 2012, Facebook se sentait bridé par les limitations des API REST traditionnelles, ils ont donc conçu GraphQL, une API caractérisée par un seul point d'accès et une architecture sous forme de graphe.
+        "description": "GraphQL est une spécification de requêtes permettant de structurer les réponses à volonté. Elle donne lieu à une nouvelle manière de concevoir des API. En 2012, Facebook se sentait bridé par les limitations des API REST traditionnelles, et a donc conçu GraphQL, une API caractérisée par un seul point d'accès et une architecture sous forme de graphe.
 
-Dans cette formation vous découvrirez **une présentation rapide de GraphQL**. S'en suivra un comparatif entre **une API GraphQL et une API REST traditionnelle**. Vous explorerez l'ensemble de la spécification, les **Query**, les **Types**, les **Mutations**, les **Fragments** et apprendrez comment l'utiliser dans vos projets de manière concrète.
+Dans cette formation vous découvrirez **une présentation rapide de GraphQL**. S'ensuivra un comparatif entre **une API GraphQL et une API REST traditionnelle**. Vous explorerez l'ensemble de la spécification, les **Query**, les **Types**, les **Mutations**, les **Fragments** et apprendrez comment l'utiliser dans vos projets de manière concrète.
 
 Un projet complet sera réalisé en fil rouge durant toute la formation, cela vous permettra de mettre en pratique chacune des nouveautés au fil de la formation.
 
@@ -89,7 +89,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
         "name": "GraphQL",
       },
       Object {
-        "abstract": "Passez à la vitesse supérieure en matière de test JavaScript.",
+        "abstract": "Passez à la vitesse supérieure en matière de test JavaScript",
         "cloudinary_id": "training-jest",
         "description": "Jest est le framework de test développé et  utilisé par Facebook. Créé en 2014, il s'est imposé comme référence en tant que framework de tests JavaScript. Jest permet d'optimiser le temps passé à écrire les tests en fournissant un environnement unifié et performant pour une expérience optimale. Il a notamment popularisé le snapshot testing.
 

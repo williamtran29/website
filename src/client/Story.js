@@ -137,7 +137,7 @@ export default () =>
           <Paragraph>
             Smooth Code a été fondée en 2017 à Paris.<br />
             Nous proposons des formations professionnelles destinées aux
-            développeurs afin de leur permettre d’intégrer de manière efficace
+            développeurs afin de leurs permettre d’intégrer de manière efficace
             les librairies JavaScript modernes dans leurs projets.
           </Paragraph>
         </Introduction>
@@ -190,7 +190,7 @@ export default () =>
             </Paragraph>
             <Paragraph>
               Ses missions consistent à répondre aux besoins business et
-              techniques des entreprises en leur proposant des formations
+              techniques des entreprises en leurs proposant des formations
               adaptées. Il se charge aussi d’accompagner les clients lors de la
               constitution de leur dossier de formation.
             </Paragraph>
