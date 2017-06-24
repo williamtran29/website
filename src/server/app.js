@@ -12,11 +12,17 @@ import mount from 'koa-mount'
 import { graphqlKoa, graphiqlKoa } from 'graphql-server-koa'
 import config from 'server/config'
 import ssr from 'server/ssr'
+import generateSitemap from 'server/generateSitemap'
 import sendEmail from 'server/email/sendEmail'
 import { schema, rootValue } from 'server/graphql'
 
 const app = new Koa()
 const router = new Router()
+
+router.get('/sitemap.xml', async ctx => {
+  ctx.response.type = 'xml'
+  ctx.response.body = await generateSitemap()
+})
 
 router.post('/api/contact', async ctx => {
   const { name, company, email, phone, message } = ctx.request.body
