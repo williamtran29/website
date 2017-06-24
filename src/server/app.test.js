@@ -1,14 +1,25 @@
 import request from 'supertest'
 import sendEmail from 'server/email/sendEmail'
+import generateSitemap from 'server/generateSitemap'
 import app from './app'
 
 jest.mock('server/email/sendEmail')
+jest.mock('server/generateSitemap')
 
 describe('app', () => {
   let server
 
   beforeAll(() => {
     server = app.listen()
+    generateSitemap.mockImplementation(async () => '<sitemap></sitemap>')
+  })
+
+  describe('GET /sitemap.xml', () => {
+    it('should load sitemap', async () => {
+      await request(server)
+        .get('/sitemap.xml')
+        .expect(200, '<sitemap></sitemap>')
+    })
   })
 
   describe('POST /api/contact', () => {
