@@ -115,7 +115,10 @@ export default graphql(gql`
               >
                 <TrainingContainer>
                   <TrainingTitle>{training.name}</TrainingTitle>
-                  <TrainingDuration>{training.duration} jours</TrainingDuration>
+                  <TrainingDuration>
+                    {training.duration}{' '}
+                    {training.duration > 1 ? 'jours' : 'jour'}
+                  </TrainingDuration>
                   <TrainingContent>
                     <img
                       alt={training.name}

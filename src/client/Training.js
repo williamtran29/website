@@ -383,7 +383,12 @@ export default compose(
                       <AmountSmall>HT / personne</AmountSmall>
                     </Amount>
                     <InfoLabel>Durée :</InfoLabel>
-                    <Amount>{training && `${training.duration} jours`}</Amount>
+                    <Amount>
+                      {training &&
+                        `${training.duration} ${training.duration > 1
+                          ? 'jours'
+                          : 'jour'}`}
+                    </Amount>
                     <LinkButton to="/contact">Demander un devis</LinkButton>
                   </SidebarSection>
                   <SidebarSection>
