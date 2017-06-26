@@ -86,7 +86,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
     {
       name: 'Node.js',
       abstract: 'Libérez la puissance du JavaScript côté serveur.',
-      color: '#1F421E',
+      color: '#192D12',
       duration: 4,
       price: 2000,
       description: `En quelques années Node.js a complètement révolutionné le développement des applications web. Offrant des **performances optimales** et une **flexibilité sans égale**, Node.js a su s'imposer comme le choix de prédilection pour concevoir des applications web. **Basé sur le moteur V8 du navigateur Chrome**, il permet de **faire tourner le même code côté client et côté serveur**. Node.js tire également sa force de son **gestionnaire de paquet "npm"** qui contabilise plus de **475 000 modules disponibles**.
@@ -207,7 +207,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
 #### Scaler une application Node.js
 - Utilisation du mode cluster de Node.js
 - Créer des jobs / workers`,
-      cloudinary_id: 'training-nodejs',
+      cloudinary_id: 'training-nodejs-2',
       slug: 'formation-nodejs',
     },
     {
