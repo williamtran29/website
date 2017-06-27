@@ -234,9 +234,13 @@ const StyledScrollLink = styled(ScrollLink)`
 `
 
 const TrainerPicture = styled.img`
-  float: left;
   display: block;
-  margin: 0 15px 15px 0;
+  margin: 0 auto;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    float: left;
+    margin: 0 15px 15px 0;
+  }
 `
 
 const TrainerDescription = Paragraph.extend`
@@ -392,16 +396,23 @@ export default compose(
                 width="200"
               />
               <TrainerDescription>
-                Greg Bergé est passionné depuis toujours par le web, depuis ses
-                premiers sites
-                dans les années 2000 à aujourd’hui, il a su évoluer et renforcer
-                son expertise dans le développement JavaScript. D’abord
-                stagiaire au Monde.fr, il devient rapidement lead développeur
-                sur le projet de refonte du CMS en Node.js et en Angular.
-                Il offre ensuite son expertise en tant que freelance pour
-                plusieurs startups, et donne des formations dans le monde
-                entier. Il participe activement à l’open source et est auteur de
-                plusieurs projets à succès comme Shipit.
+                <a href="https://github.com/neoziro/">Greg Bergé</a> est
+                passionné depuis toujours par le web et plus
+                particulièrement par le langage JavaScript. Développeur depuis
+                les années 2000, il a su évoluer et renforcer son expertise au
+                fil du temps. Il commence sa carrière professionnel comme
+                stagiaire au monde. En 3 ans, il devient lead développeur et
+                fait ses preuves sur le projet de refonte du système
+                de gestion de contenu (CMS) du groupe Le Monde en Node.js et
+                AngularJS.
+                Par la suite, il offre son expertise comme freelance pour
+                plusieurs startups (dont Doctolib pendant 2 ans) et
+                donne des formations dans le monde entier : Paris, San
+                Francisco, Genêve, Nouméa...
+                Il est aussi auteur de plusieurs projets open-source dont le
+                plus célèbre est{' '}
+                <a href="https://github.com/shipitjs/shipit">Shipit</a> (+3.7K
+                stars sur GitHub).
               </TrainerDescription>
             </ScrollElement>
           </StickyContainer>
