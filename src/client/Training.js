@@ -17,6 +17,7 @@ import Header from 'client/Header'
 import Footer from 'client/Footer'
 import Hero from 'modules/components/Hero'
 import MainTitle from 'modules/components/MainTitle'
+import Paragraph from 'modules/components/Paragraph'
 import Lead from 'modules/components/Lead'
 import Button from 'modules/components/Button'
 
@@ -232,6 +233,17 @@ const StyledScrollLink = styled(ScrollLink)`
   }
 `
 
+const TrainerPicture = styled.img`
+  float: left;
+  display: block;
+  margin: 0 15px 15px 0;
+`
+
+const TrainerDescription = Paragraph.extend`
+  font-size: 15px;
+  text-align: justify;
+`
+
 const TRAINING_QUERY = gql`
   query trainingData($slug: ID!) {
     training(slug: $slug) {
@@ -348,6 +360,18 @@ export default compose(
                       Programme
                     </StyledScrollLink>
                   </span>
+                  <span aria-hidden="true"> · </span>
+                  <span>
+                    <StyledScrollLink
+                      activeClass="active"
+                      spy
+                      smooth
+                      offset={-60}
+                      to="trainer"
+                    >
+                      Formateur
+                    </StyledScrollLink>
+                  </span>
                 </Nav>}
             </Sticky>
             <ScrollElement name="description">
@@ -358,6 +382,27 @@ export default compose(
               <SectionTitle>Programme</SectionTitle>
               {trainingDetail &&
                 <ReactMarkdown source={trainingDetail.outline} />}
+            </ScrollElement>
+            <ScrollElement name="trainer">
+              <SectionTitle>Formateur</SectionTitle>
+              <TrainerPicture
+                alt="Greg Bergé"
+                src={clUrl('profile_greg_ihxwjo', 'c_fill,g_face,h_200,w_200')}
+                height="200"
+                width="200"
+              />
+              <TrainerDescription>
+                Greg Bergé est passionné depuis toujours par le web, depuis ses
+                premiers sites
+                dans les années 2000 à aujourd’hui, il a su évoluer et renforcer
+                son expertise dans le développement JavaScript. D’abord
+                stagiaire au Monde.fr, il devient rapidement lead développeur
+                sur le projet de refonte du CMS en Node.js et en Angular.
+                Il offre ensuite son expertise en tant que freelance pour
+                plusieurs startups, et donne des formations dans le monde
+                entier. Il participe activement à l’open source et est auteur de
+                plusieurs projets à succès comme Shipit.
+              </TrainerDescription>
             </ScrollElement>
           </StickyContainer>
         </Content>
@@ -389,7 +434,7 @@ export default compose(
                   <SidebarSection>
                     <SidebarTitle>Une question ?</SidebarTitle>
                     <SidebarText>
-                      Vous avez besoin d’un renseignement ou d&apos;une
+                      Vous avez besoin d’un renseignement ou d’une
                       formation personnalisée ?<br />
                       Nous nous ferons un plaisir de répondre à
                       vos questions.
