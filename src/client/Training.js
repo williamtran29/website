@@ -17,6 +17,7 @@ import Header from 'client/Header'
 import Footer from 'client/Footer'
 import Hero from 'modules/components/Hero'
 import MainTitle from 'modules/components/MainTitle'
+import Paragraph from 'modules/components/Paragraph'
 import Lead from 'modules/components/Lead'
 import Button from 'modules/components/Button'
 
@@ -232,6 +233,21 @@ const StyledScrollLink = styled(ScrollLink)`
   }
 `
 
+const TrainerPicture = styled.img`
+  display: block;
+  margin: 0 auto;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    float: left;
+    margin: 0 15px 15px 0;
+  }
+`
+
+const TrainerDescription = Paragraph.extend`
+  font-size: 15px;
+  text-align: justify;
+`
+
 const TRAINING_QUERY = gql`
   query trainingData($slug: ID!) {
     training(slug: $slug) {
@@ -348,6 +364,18 @@ export default compose(
                       Programme
                     </StyledScrollLink>
                   </span>
+                  <span aria-hidden="true"> · </span>
+                  <span>
+                    <StyledScrollLink
+                      activeClass="active"
+                      spy
+                      smooth
+                      offset={-60}
+                      to="trainer"
+                    >
+                      Formateur
+                    </StyledScrollLink>
+                  </span>
                 </Nav>}
             </Sticky>
             <ScrollElement name="description">
@@ -358,6 +386,34 @@ export default compose(
               <SectionTitle>Programme</SectionTitle>
               {trainingDetail &&
                 <ReactMarkdown source={trainingDetail.outline} />}
+            </ScrollElement>
+            <ScrollElement name="trainer">
+              <SectionTitle>Formateur</SectionTitle>
+              <TrainerPicture
+                alt="Greg Bergé"
+                src={clUrl('profile_greg_ihxwjo', 'c_fill,g_face,h_200,w_200')}
+                height="200"
+                width="200"
+              />
+              <TrainerDescription>
+                <a href="https://github.com/neoziro/">Greg Bergé</a> est
+                passionné depuis toujours par le web et plus
+                particulièrement par le langage JavaScript. Développeur depuis
+                les années 2000, il a su évoluer et renforcer son expertise au
+                fil du temps. Il commence sa carrière professionnel comme
+                stagiaire au monde. En 3 ans, il devient lead développeur et
+                fait ses preuves sur le projet de refonte du système
+                de gestion de contenu (CMS) du groupe Le Monde en Node.js et
+                AngularJS.
+                Par la suite, il offre son expertise comme freelance pour
+                plusieurs startups (dont Doctolib pendant 2 ans) et
+                donne des formations dans le monde entier : Paris, San
+                Francisco, Genêve, Nouméa...
+                Il est aussi auteur de plusieurs projets open-source dont le
+                plus célèbre est{' '}
+                <a href="https://github.com/shipitjs/shipit">Shipit</a> (+3.7K
+                stars sur GitHub).
+              </TrainerDescription>
             </ScrollElement>
           </StickyContainer>
         </Content>
@@ -394,7 +450,7 @@ export default compose(
                   <SidebarSection>
                     <SidebarTitle>Une question ?</SidebarTitle>
                     <SidebarText>
-                      Vous avez besoin d’un renseignement ou d&apos;une
+                      Vous avez besoin d’un renseignement ou d’une
                       formation personnalisée ?<br />
                       Nous nous ferons un plaisir de répondre à
                       vos questions.
