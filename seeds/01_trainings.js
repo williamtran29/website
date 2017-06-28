@@ -89,7 +89,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
       color: '#0b1209',
       duration: 4,
       price: 2000,
-      description: `En quelques années Node.js a complètement révolutionné le développement des applications web. Offrant des **performances optimales** et une **flexibilité sans égale**, Node.js a su s'imposer comme le choix de prédilection pour concevoir des applications web. **Basé sur le moteur V8 du navigateur Chrome**, il permet de **faire tourner le même code côté client et côté serveur**. Node.js tire également sa force de son **gestionnaire de paquet "npm"** qui contabilise plus de **475 000 modules disponibles**.
+      description: `En quelques années Node.js a complètement révolutionné le développement des applications web. Offrant des **performances optimales** et une **flexibilité sans égale**, Node.js a su s'imposer comme le choix de prédilection pour concevoir des applications web. **Basé sur le moteur V8 du navigateur Chrome**, il permet de **faire tourner le même code côté client et côté serveur**. Node.js tire également sa force de son **gestionnaire de paquet "npm"** qui comptabilise plus de **475 000 modules disponibles**.
 
 Utilisé par tous [**les géants du web**](https://nodejs.org/en/foundation/case-studies/), Node.js est aujourd'hui incontournable. En plus de permettre la **création d'applications web réactives grâce à WebSocket**, Node.js permet d'utiliser les **nouveaux outils de développement en ligne de commande** comme Webpack, Babel ou ESLint.
 
