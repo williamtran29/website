@@ -114,7 +114,9 @@ export default graphql(gql`
                 )})`}
               >
                 <TrainingContainer>
-                  <TrainingTitle>{training.name}</TrainingTitle>
+                  <TrainingTitle>
+                    {training.name}
+                  </TrainingTitle>
                   <TrainingDuration>
                     {training.duration}{' '}
                     {training.duration > 1 ? 'jours' : 'jour'}

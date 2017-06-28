@@ -11,6 +11,7 @@ import Customers from 'client/home/Customers'
 import Technos from 'client/home/Technos'
 import Trainers from 'client/home/Trainers'
 import Workshop from 'client/home/Workshop'
+import { clUrl } from 'modules/cloudinary'
 import { Story, Trainings, Training, Contact } from 'client/Routes'
 
 Trainings.load()
@@ -20,8 +21,8 @@ Contact.load()
 
 const Cover = styled.div`
   position: relative;
-  background-color: #261D16;
-  background-image: url(//res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509180/home-cover_pqehlq);
+  background-color: #261d16;
+  background-image: url("${clUrl('home-cover_pqehlq')}");
   background-size: cover;
   height: 600px;
   overflow: hidden;
@@ -33,7 +34,8 @@ const Cover = styled.div`
   padding: 0 10px;
   color: white;
 
-  h1, p {
+  h1,
+  p {
     z-index: 2;
   }
 `
@@ -48,22 +50,16 @@ const CoverShadow = styled.div`
   z-index: 0;
 `
 
-const LinkButton = Button.extend`
-  margin-top: 80px;
-`.withComponent(Link)
+const LinkButton = Button.withComponent(Link)
 
 export default () =>
   <PageContainer>
     <Header transparent />
     <Cover>
       <CoverShadow />
-      <MainTitle>
-        Notre savoir-faire à votre service.
-      </MainTitle>
-      <Lead>
-        Des formations par des développeurs pour des développeurs.
-      </Lead>
-      <LinkButton to="/trainings">
+      <MainTitle>Notre savoir-faire à votre service.</MainTitle>
+      <Lead>Des formations par des développeurs pour des développeurs.</Lead>
+      <LinkButton to="/trainings" style={{ marginTop: 80 }}>
         Consulter nos formations
       </LinkButton>
     </Cover>

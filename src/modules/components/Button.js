@@ -10,14 +10,16 @@ const Button = styled.button`
   text-align: center;
   font-size: 16px;
   line-height: 38px;
-  white-space: nowrap;;
+  white-space: nowrap;
   color: white;
   cursor: pointer;
   transition: background-color 200ms;
   text-decoration: none;
   border: 0;
   background-color: ${theme.colors.primary};
-  &:hover, &:focus {
+
+  &:hover,
+  &:focus {
     background-color: ${darken(0.2, theme.colors.primary)};
     outline: none;
   }

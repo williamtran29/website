@@ -26,8 +26,9 @@ const Picture = styled.div`
   height: 150px;
   width: 150px;
   ${props =>
-    props.background ? `background-image: url(${props.background});` : ''}
-  background-repeat: no-repeat;
+    props.background
+      ? `background-image: url(${props.background});`
+      : ''} background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 `
@@ -39,13 +40,10 @@ const Container = styled.div`
   max-width: 1000px;
   width: 100%;
   flex-direction: column;
+
   @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row;
   }
-`
-
-const TrainingHero = Hero.extend`
-  height: 406px;
 `
 
 const Content = styled.div`
@@ -114,7 +112,7 @@ const SidebarSection = styled.div`
     padding: 40px 30px;
 
     &:first-child {
-      border-top: 0
+      border-top: 0;
     }
   }
 `
@@ -125,9 +123,7 @@ const SidebarTitle = styled.h3`
   font-size: 30px;
 `
 
-const SidebarText = styled.p`
-  font-size: 16px;
-`
+const SidebarText = styled.p`font-size: 16px;`
 
 const ContactItem = styled.div`
   font-size: 24px;
@@ -163,9 +159,7 @@ const Sibling = styled(Link)`
     transform: scale(1.05);
   }
 `
-const SiblingImage = styled.img`
-  flex-shrink: 0;
-`
+const SiblingImage = styled.img`flex-shrink: 0;`
 const SiblingName = styled.h3`
   margin: 0;
   font-size: 24px;
@@ -175,9 +169,7 @@ const SiblingAbstract = styled.div`
   font-size: 16px;
   font-weight: 300;
 `
-const SiblingInfo = styled.div`
-  padding: 10px;
-`
+const SiblingInfo = styled.div`padding: 10px;`
 
 const InfoLabel = styled.div`
   margin-bottom: 10px;
@@ -191,9 +183,7 @@ const Amount = styled.div`
   font-size: 35px;
 `
 
-const AmountSmall = styled.span`
-  font-size: 15px;
-`
+const AmountSmall = styled.span`font-size: 15px;`
 
 const LinkButton = Button.extend`
   display: block;
@@ -300,7 +290,9 @@ export default compose(
   }) =>
     <PageContainer>
       <Helmet>
-        <title>{training && `Formation ${training.name}`}</title>
+        <title>
+          {training && `Formation ${training.name}`}
+        </title>
         <meta name="description" content={training && training.abstract} />
         <meta
           property="og:title"
@@ -315,7 +307,8 @@ export default compose(
         />
       </Helmet>
       <Header transparent />
-      <TrainingHero
+      <Hero
+        style={{ height: 406 }}
         background={
           training &&
           `linear-gradient(180deg, ${training.color}, ${lighten(
@@ -333,8 +326,10 @@ export default compose(
         <MainTitle itemProp="name">
           {training && `Formation ${training.name}`}
         </MainTitle>
-        <Lead itemProp="description">{training && training.abstract}</Lead>
-      </TrainingHero>
+        <Lead itemProp="description">
+          {training && training.abstract}
+        </Lead>
+      </Hero>
       <Container>
         <Content>
           <StickyContainer>
@@ -397,20 +392,17 @@ export default compose(
               />
               <TrainerDescription>
                 <a href="https://github.com/neoziro/">Greg Bergé</a> est
-                passionné depuis toujours par le web et plus
-                particulièrement par le langage JavaScript. Développeur depuis
-                les années 2000, il a su évoluer et renforcer son expertise au
-                fil du temps. Il commence sa carrière professionnel comme
-                stagiaire au monde. En 3 ans, il devient lead développeur et
-                fait ses preuves sur le projet de refonte du système
-                de gestion de contenu (CMS) du groupe Le Monde en Node.js et
-                AngularJS.
-                Par la suite, il offre son expertise comme freelance pour
-                plusieurs startups (dont Doctolib pendant 2 ans) et
-                donne des formations dans le monde entier : Paris, San
-                Francisco, Genêve, Nouméa...
-                Il est aussi auteur de plusieurs projets open-source dont le
-                plus célèbre est{' '}
+                passionné depuis toujours par le web et plus particulièrement
+                par le langage JavaScript. Développeur depuis les années 2000,
+                il a su évoluer et renforcer son expertise au fil du temps. Il
+                commence sa carrière professionnel comme stagiaire au monde. En
+                3 ans, il devient lead développeur et fait ses preuves sur le
+                projet de refonte du système de gestion de contenu (CMS) du
+                groupe Le Monde en Node.js et AngularJS. Par la suite, il offre
+                son expertise comme freelance pour plusieurs startups (dont
+                Doctolib pendant 2 ans) et donne des formations dans le monde
+                entier : Paris, San Francisco, Genêve, Nouméa... Il est aussi
+                auteur de plusieurs projets open-source dont le plus célèbre est{' '}
                 <a href="https://github.com/shipitjs/shipit">Shipit</a> (+3.7K
                 stars sur GitHub).
               </TrainerDescription>
@@ -435,7 +427,9 @@ export default compose(
                       >
                         {trainingDetail ? trainingDetail.price : '-'}
                       </span>
-                      <span content="EUR" itemProp="priceCurrency">€</span>{' '}
+                      <span content="EUR" itemProp="priceCurrency">
+                        €
+                      </span>{' '}
                       <AmountSmall>HT / personne</AmountSmall>
                     </Amount>
                     <InfoLabel>Durée :</InfoLabel>
@@ -450,10 +444,9 @@ export default compose(
                   <SidebarSection>
                     <SidebarTitle>Une question ?</SidebarTitle>
                     <SidebarText>
-                      Vous avez besoin d’un renseignement ou d’une
-                      formation personnalisée ?<br />
-                      Nous nous ferons un plaisir de répondre à
-                      vos questions.
+                      Vous avez besoin d’un renseignement ou d’une formation
+                      personnalisée ?<br />
+                      Nous nous ferons un plaisir de répondre à vos questions.
                     </SidebarText>
                     <ContactItem>
                       <a href="tel:+33650588079">
@@ -467,9 +460,7 @@ export default compose(
                     </ContactItem>
                   </SidebarSection>
                   <SidebarSection>
-                    <SidebarTitle>
-                      Autres formations
-                    </SidebarTitle>
+                    <SidebarTitle>Autres formations</SidebarTitle>
                     {trainingDetail &&
                       trainingDetail.siblings.map(sibling =>
                         <Sibling
@@ -486,7 +477,9 @@ export default compose(
                             )}
                           />
                           <SiblingInfo>
-                            <SiblingName>{sibling.name}</SiblingName>
+                            <SiblingName>
+                              {sibling.name}
+                            </SiblingName>
                             <SiblingAbstract>
                               {sibling.abstract}
                             </SiblingAbstract>

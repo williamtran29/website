@@ -63,9 +63,7 @@ const Links = styled.ul`
   }
 `
 
-const Copyright = styled.div`
-  font-size: 14px;
-`
+const Copyright = styled.div`font-size: 14px;`
 
 const Contact = styled.div`
   font-size: 14px;
@@ -122,9 +120,15 @@ const Footer = () =>
     <Wrapper>
       <Left>
         <Links>
-          <li><Link to="/trainings">Formations</Link></li>
-          <li><Link to="/story">Notre histoire</Link></li>
-          <li><Link to="/contact">Nous contacter</Link></li>
+          <li>
+            <Link to="/trainings">Formations</Link>
+          </li>
+          <li>
+            <Link to="/story">Notre histoire</Link>
+          </li>
+          <li>
+            <Link to="/contact">Nous contacter</Link>
+          </li>
         </Links>
         <Copyright>© Smooth Code</Copyright>
       </Left>
@@ -135,7 +139,9 @@ const Footer = () =>
           75003 Paris<br />
         </Address>
         <Contact>
-          <a href="tel:+33650588079"><FaPhone /> 06 50 58 80 79</a>
+          <a href="tel:+33650588079">
+            <FaPhone /> 06 50 58 80 79
+          </a>
           <a href="mailto:contact@smooth-code.com">
             <FaEnvelope /> contact@smooth-code.com
           </a>
@@ -144,7 +150,9 @@ const Footer = () =>
           <a href="https://www.facebook.com/smoothcodetraining/">
             <FaFacebook />
           </a>
-          <a href="https://twitter.com/smooth_code"><FaTwitter /></a>
+          <a href="https://twitter.com/smooth_code">
+            <FaTwitter />
+          </a>
           <FooterLogo />
         </Social>
       </Right>

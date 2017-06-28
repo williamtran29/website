@@ -7,20 +7,18 @@ import FaRocket from 'react-icons/lib/fa/rocket'
 import FaCodeFork from 'react-icons/lib/fa/code-fork'
 import FaCloud from 'react-icons/lib/fa/cloud'
 import SectionWrapper from 'client/home/SectionWrapper'
+import { clUrl } from 'modules/cloudinary'
 
-const Container = styled.div`
-  text-align: center;
-`
+const Container = styled.div`text-align: center;`
 
-const Wrapper = SectionWrapper.extend`
-  flex-direction: column;
-`
+const Wrapper = SectionWrapper.extend`flex-direction: column;`
 
 const Content = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
   @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row-reverse;
   }
@@ -31,6 +29,7 @@ const List = styled.ul`
   padding: 0;
   text-align: left;
   flex: 45;
+
   @media (min-width: ${theme.medias.phablet}) {
     margin: 0 0 0 40px;
   }
@@ -67,6 +66,7 @@ const Screen = styled.div`
   height: 274px;
   position: relative;
   overflow: hidden;
+
   @media (min-width: ${theme.medias.phablet}) {
     height: 507px;
   }
@@ -74,13 +74,14 @@ const Screen = styled.div`
 
 const ScreenBackground = styled.div`
   position: absolute;
-  background-image: url(//res.cloudinary.com/smooth/image/upload/q_auto/v1497506391/atom-editor_so5uom.png);
+  background-image: url("${clUrl('atom-editor_so5uom')}");
   background-size: 518px 214px;
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
   height: 234px;
   margin: 20px 0;
+
   @media (min-width: ${theme.medias.phablet}) {
     position: absolute;
     border-radius: 4px;
@@ -108,8 +109,7 @@ const Workshop = () =>
         <List>
           <Item>
             <FaRocket />
-            Construisez un projet de zéro tout au long de la
-            formation.
+            Construisez un projet de zéro tout au long de la formation.
           </Item>
           <Item>
             <FaCodeFork />
