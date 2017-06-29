@@ -3,6 +3,7 @@ import Koa from 'koa'
 import morgan from 'koa-morgan'
 import favicon from 'koa-favicon'
 import serve from 'koa-static'
+import conditional from 'koa-conditional-get'
 import etag from 'koa-etag'
 import compress from 'koa-compress'
 import bodyParser from 'koa-bodyparser'
@@ -48,9 +49,10 @@ const PUBLIC = path.join(__dirname, '../../public')
 
 app.use(error())
 app.use(bodyParser())
-app.use(etag())
 app.use(serve(PUBLIC, { immutable: true, maxage: 31536000000 }))
 app.use(compress({ filter: contentType => /text/i.test(contentType) }))
+app.use(conditional())
+app.use(etag())
 
 if (config.get('env') !== 'test') {
   app.use(morgan(config.get('server.logFormat')))
