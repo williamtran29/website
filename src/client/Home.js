@@ -12,12 +12,6 @@ import Technos from 'client/home/Technos'
 import Trainers from 'client/home/Trainers'
 import Workshop from 'client/home/Workshop'
 import { clUrl } from 'modules/cloudinary'
-import { Story, Trainings, Training, Contact } from 'client/Routes'
-
-Trainings.load()
-Training.load()
-Story.load()
-Contact.load()
 
 const Cover = styled.div`
   position: relative;

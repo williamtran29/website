@@ -9,10 +9,6 @@ import Card3D from 'modules/components/Card3D'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
 import PageContainer from 'client/PageContainer'
-import { Story, Training as TrainingRoute } from 'client/Routes'
-
-Story.load()
-TrainingRoute.load()
 
 const fadeIn = keyframes`
   0% {
