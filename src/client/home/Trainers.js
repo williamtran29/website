@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import theme from 'style/theme'
 import SectionWrapper from 'client/home/SectionWrapper'
 import SecondaryTitle from 'modules/components/SecondaryTitle'
+import { clUrl } from 'modules/cloudinary'
 
 const Container = styled.div`
   border-top: 1px solid ${theme.colors.grayLight};
@@ -19,7 +20,7 @@ const Wrapper = SectionWrapper.extend`
 const Picture = styled.div`
   flex: 1;
   height: 400px;
-  background-image: url(//res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497509336/trainers_kohhw1);
+  background-image: url("${clUrl('trainers_kohhw1')}");
   background-repeat: no-repeat;
   background-size: cover;
   @media (min-width: ${theme.medias.phablet}) {
@@ -58,9 +59,7 @@ const Trainers = () =>
     <Wrapper flexDirection="column" lgFlexDirection="row">
       <Picture />
       <Content>
-        <Title>
-          Des formateurs, mais avant tout des développeurs.
-        </Title>
+        <Title>Des formateurs, mais avant tout des développeurs.</Title>
         <Text>
           En plus d’être pédagogue, à l’écoute et expérimentés, nos formateurs
           sont aussi des développeurs. Ils utilisent chaque jour en production

@@ -119,15 +119,9 @@ const Header = compose(
         <Logo />
       </LogoLink>
       <Links show={toggled} transparent={transparent}>
-        <NavLink to="/trainings">
-          Formations
-        </NavLink>
-        <NavLink to="/story">
-          Notre histoire
-        </NavLink>
-        <RaisedNavLink to="/contact">
-          Nous contacter
-        </RaisedNavLink>
+        <NavLink to="/trainings">Formations</NavLink>
+        <NavLink to="/story">Notre histoire</NavLink>
+        <RaisedNavLink to="/contact">Nous contacter</RaisedNavLink>
       </Links>
       <MenuToggle onClick={onToggle} />
     </Wrapper>

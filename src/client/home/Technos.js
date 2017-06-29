@@ -7,6 +7,7 @@ import pure from 'recompact/pure'
 import raf from 'raf'
 import MdArrowForward from 'react-icons/lib/md/arrow-forward'
 import SecondaryTitle from 'modules/components/SecondaryTitle'
+import { clUrl } from 'modules/cloudinary'
 import theme from 'style/theme'
 
 const noop = () => {}
@@ -92,6 +93,7 @@ const labels = [
 const Title = SecondaryTitle.extend`
   margin: 0 10px 60px;
   text-align: center;
+
   @media (min-width: ${theme.medias.phablet}) {
     margin-top: 70px;
     text-align: center;
@@ -100,6 +102,7 @@ const Title = SecondaryTitle.extend`
 
 const Subtitle = styled.span`
   color: ${theme.colors.primary};
+
   @media (min-width: ${theme.medias.phablet}) {
     display: block;
   }
@@ -168,9 +171,8 @@ const Bubble = pure(styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url(//res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497969754/technos_gighwg);
+  background-image: url("${clUrl('technos_gighwg')}");
   background-size: 750px 750px;
-  background-position: ${props => props.bgPosition};
   box-shadow: 0 15px 35px rgba(0,0,0,.1), 0 3px 10px rgba(0,0,0,.07);
   -webkit-tap-highlight-color: transparent;
 `)
@@ -181,7 +183,7 @@ const Label = pure(styled.div`
   bottom: -40px;
   padding: 5px 12px;
   background: #fff;
-  box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);
+  box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(0, 0, 0, .07);
   border-radius: 50px;
   white-space: nowrap;
   font-size: 16px;
@@ -195,7 +197,7 @@ const Label = pure(styled.div`
   transform: translate(-50%, ${props => (props.show ? 0 : -10)}px);
   opacity: ${props => (props.show ? 1 : 0)};
   will-change: opacity, transform;
-  transition-property: opacity,transform;
+  transition-property: opacity, transform;
   transition-duration: .25s;
   transition-timing-function: ease-out;
 `)
@@ -205,10 +207,11 @@ const Banner = styled.div`
   line-height: 1.4;
   color: white;
   text-align: center;
-  background: linear-gradient(30deg, ${theme.colors.primary}, ${lighten(
-  0.1,
-  theme.colors.primary,
-)});
+  background: linear-gradient(
+    30deg,
+    ${theme.colors.primary},
+    ${lighten(0.1, theme.colors.primary)}
+  );
   text-transform: uppercase;
   font-size: 16px;
   padding: 20px 10px;
@@ -249,13 +252,13 @@ class LabelledBubble extends React.Component {
   render() {
     const { x, y, scale, opacity } = this.props
     const style = {
+      backgroundPosition: this.props.bgPosition,
       transform: `translate(${x}px, ${y}px) scale(${scale})`,
       opacity,
     }
 
     return (
       <Bubble
-        bgPosition={this.props.bgPosition}
         onClick={noop}
         onMouseOut={this.handleMouseOut}
         onMouseOver={this.handleMouseOver}

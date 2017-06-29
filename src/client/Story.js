@@ -15,10 +15,9 @@ import Footer from 'client/Footer'
 import Code from 'client/story/Code'
 import Rocket from 'client/story/Rocket'
 import Target from 'client/story/Target'
+import { clUrl } from 'modules/cloudinary'
 
-const Content = styled.div`
-  flex: 1;
-`
+const Content = styled.div`flex: 1;`
 
 const Wrapper = styled.div`
   width: 100%;
@@ -62,24 +61,25 @@ const FounderInfo = styled.div`
   }
 `
 
-const SectionTitle = MainTitle.extend`
+const SectionTitle = styled(MainTitle.withComponent('h2'))`
   text-align: center;
   margin: 40px 0 20px;
-`.withComponent('h2')
+`
 
 const Vision = styled.div`
   margin: 60px 0;
   padding: 20px 0;
-  background-image: linear-gradient(0, ${theme.colors.primary}, ${darken(
-  0.2,
-  theme.colors.primary,
-)});
+  background-image: linear-gradient(
+    0,
+    ${theme.colors.primary},
+    ${darken(0.2, theme.colors.primary)}
+  );
   color: white;
 
   ${Paragraph}, ${List} {
     color: ${lighten(0.4, theme.colors.primary)};
     mix-blend-mode: luminosity;
-    text-shadow: 0 1px 2px rgba(0,0,0,.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .2);
   }
 
   @media (min-width: ${theme.medias.phablet}) {
@@ -145,7 +145,7 @@ export default () =>
       <Wrapper>
         <Founder>
           <FounderPicture
-            src="//res.cloudinary.com/smooth/image/upload/c_scale,h_400,w_300,dpr_2/v1497877192/profile_greg_ihxwjo.jpg"
+            src={clUrl('profile_greg_ihxwjo', 'c_scale,h_400,w_300')}
             alt="Greg Bergé"
             width="300"
             height="400"
@@ -157,17 +157,17 @@ export default () =>
               Senior full-stack développeur, blogueur et conférencier.
             </Paragraph>
             <Paragraph>
-              Passionné de JavaScript, il participe activement à
-              l’évolution du langage JavaScript.
+              Passionné de JavaScript, il participe activement à l’évolution du
+              langage JavaScript.
             </Paragraph>
             <Paragraph>
               Sa mission consiste à accompagner et former les développeurs dans
-              l’apprentissage et l’intégration des nouvelles
-              librairies JavaScript.
+              l’apprentissage et l’intégration des nouvelles librairies
+              JavaScript.
             </Paragraph>
             <Paragraph>
-              Il compte parmi ses références Le Monde,
-              Doctolib, Entefy, WisePops...
+              Il compte parmi ses références Le Monde, Doctolib, Entefy,
+              WisePops...
             </Paragraph>
           </FounderInfo>
         </Founder>
@@ -176,7 +176,7 @@ export default () =>
       <Wrapper>
         <Founder inverse>
           <FounderPicture
-            src="//res.cloudinary.com/smooth/image/upload/c_scale,h_400,w_300,dpr_2/v1497877282/profile_jeremy_vdqdbb.jpg"
+            src={clUrl('profile_jeremy_vdqdbb', 'c_scale,h_400,w_300')}
             alt="Jérémy Sfez"
             width="300"
             height="400"
@@ -185,8 +185,8 @@ export default () =>
             <SecondaryTitle>Jérémy Sfez</SecondaryTitle>
             <ThirdTitle>Co-fondateur et DG de Smooth Code</ThirdTitle>
             <Paragraph>
-              Développeur, entrepreneur, passionné de développement
-              web et d’actualité tech.
+              Développeur, entrepreneur, passionné de développement web et
+              d’actualité tech.
             </Paragraph>
             <Paragraph>
               Ses missions consistent à répondre aux besoins business et
@@ -205,8 +205,8 @@ export default () =>
         <Wrapper>
           <SecondaryTitle>Notre vision</SecondaryTitle>
           <Paragraph small>
-            JavaScript évolue très vite, répond à de nombreux objectifs
-            business et s’impose sur tous les environnements :
+            JavaScript évolue très vite, répond à de nombreux objectifs business
+            et s’impose sur tous les environnements :
           </Paragraph>
           <List small>
             <li>Création d’interfaces utilisateur interactives avec React</li>
@@ -223,9 +223,8 @@ export default () =>
             Experts dans notre domaine et focalisés sur un périmètre restreint
             de libraires JavaScript comme React, Redux ou RxJS nous proposons
             des formations courtes de haut niveau sur ces nouvelles méthodes de
-            développement.
-            Notre expertise porte également sur les outils tels que
-            Atom, Webpack, Babel, Prettier ou ESLint.
+            développement. Notre expertise porte également sur les outils tels
+            que Atom, Webpack, Babel, Prettier ou ESLint.
           </Paragraph>
         </Wrapper>
       </Vision>
@@ -247,10 +246,10 @@ export default () =>
             <Rocket />
             <ThirdTitle>Une expertise complète</ThirdTitle>
             <Paragraph small>
-              Nous nous positionnons comme expert du langage JavaScript.
-              Notre veille technologique régulière nous permet de maîtriser les
-              dernières technologies et de vous fournir les bonnes pratiques
-              les plus récentes.
+              Nous nous positionnons comme expert du langage JavaScript. Notre
+              veille technologique régulière nous permet de maîtriser les
+              dernières technologies et de vous fournir les bonnes pratiques les
+              plus récentes.
             </Paragraph>
           </SmoothTouch>
           <SmoothTouch>

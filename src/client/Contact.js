@@ -9,6 +9,7 @@ import ContactForm from 'client/contact/ContactForm'
 import MainTitle from 'modules/components/MainTitle'
 import Lead from 'modules/components/Lead'
 import Hero from 'modules/components/Hero'
+import { clUrl } from 'modules/cloudinary'
 
 const Container = styled.div`
   flex: 1;
@@ -23,9 +24,7 @@ const Container = styled.div`
   }
 `
 
-const FormContainer = styled.div`
-  flex: 2;
-`
+const FormContainer = styled.div`flex: 2;`
 
 const Infos = styled.div`
   flex: 1;
@@ -63,7 +62,7 @@ const Contact = () =>
       <title>Nous contacter</title>
     </Helmet>
     <Header />
-    <Hero background="#655C52 url(//res.cloudinary.com/smooth/image/upload/f_auto,q_auto/v1497534886/typewriter-8019212_hiim90.jpg)">
+    <Hero background={`#655C52 url("${clUrl('typewriter-8019212_hiim90')}")`}>
       <MainTitle>Contactez-nous</MainTitle>
       <Lead>L’équipe Smooth Code est à votre service.</Lead>
     </Hero>
@@ -71,10 +70,14 @@ const Contact = () =>
       <Infos>
         <Label>Adresse</Label>
         <Info>
-          <address>41 rue Réaumur<br />75003 Paris</address>
+          <address>
+            41 rue Réaumur<br />75003 Paris
+          </address>
         </Info>
         <Label>Téléphone</Label>
-        <Info><a href="tel:0650588079">06 50 58 80 79</a></Info>
+        <Info>
+          <a href="tel:0650588079">06 50 58 80 79</a>
+        </Info>
         <Label>Email</Label>
         <Info>
           <a href="mailto:contact@smooth-code.com">contact@smooth-code.com</a>

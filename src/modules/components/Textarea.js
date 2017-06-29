@@ -11,10 +11,13 @@ const Textarea = styled.textarea`
   border-width: 1px;
   border-style: solid;
   font-family: ${theme.fontFamilies.primary};
-  border-color: ${props => (props.error ? theme.colors.danger : theme.colors.gray)};
+  border-color: ${props =>
+    props.error ? theme.colors.danger : theme.colors.gray};
   color: ${theme.colors.grayDark};
+
   &:focus: {
-    border-color: ${props => (props.error ? theme.colors.danger : theme.colors.grayDark)};
+    border-color: ${props =>
+      props.error ? theme.colors.danger : theme.colors.grayDark};
     outline: 0;
   }
 `

@@ -7,6 +7,7 @@ const Lead = styled.p`
   line-height: 1.2;
   margin: 0;
   letter-spacing: 0.05em;
+
   @media (min-width: ${theme.medias.phablet}) {
     font-size: 30px;
   }

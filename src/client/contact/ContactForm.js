@@ -38,6 +38,7 @@ const FormRow = styled.div`
   flex: 1;
   flex-direction: column;
   margin: 0 -10px;
+
   @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row;
   }
@@ -58,11 +59,7 @@ const AlertMessage = connect(state => ({
 }))(({ status }) => {
   switch (status) {
     case 'ERROR':
-      return (
-        <Alert ui="danger">
-          Erreur, veuillez rééessayer.
-        </Alert>
-      )
+      return <Alert ui="danger">Erreur, veuillez rééessayer.</Alert>
     case 'SUCCESS':
       return (
         <Alert ui="success">
@@ -88,9 +85,7 @@ const ContactForm = ({ className, onSubmit }) =>
     <AlertMessage />
     <FormRow>
       <FormGroup>
-        <Label htmlFor="name">
-          Nom
-        </Label>
+        <Label htmlFor="name">Nom</Label>
         <Control
           component={Input}
           model=".name"
@@ -101,9 +96,7 @@ const ContactForm = ({ className, onSubmit }) =>
         <StyledErrors show="touched" model=".name" messages={errorMessages} />
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="company">
-          Société
-        </Label>
+        <Label htmlFor="company">Société</Label>
         <Control
           component={Input}
           model=".company"
@@ -119,9 +112,7 @@ const ContactForm = ({ className, onSubmit }) =>
     </FormRow>
     <FormRow>
       <FormGroup>
-        <Label htmlFor="email">
-          Email
-        </Label>
+        <Label htmlFor="email">Email</Label>
         <Control
           type="email"
           component={Input}
@@ -133,9 +124,7 @@ const ContactForm = ({ className, onSubmit }) =>
         <StyledErrors show="touched" model=".email" messages={errorMessages} />
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="phone">
-          Téléphone
-        </Label>
+        <Label htmlFor="phone">Téléphone</Label>
         <Control
           component={Input}
           model=".phone"
@@ -147,9 +136,7 @@ const ContactForm = ({ className, onSubmit }) =>
     </FormRow>
     <FormRow>
       <FormGroup>
-        <Label htmlFor="message">
-          Message
-        </Label>
+        <Label htmlFor="message">Message</Label>
         <Control
           component={Textarea}
           model=".message"
