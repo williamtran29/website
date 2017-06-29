@@ -160,22 +160,22 @@ const BubblesContainer = styled.div`
   height: 440px;
   width: ${CONTAINER_WIDTH}px;
   position: relative;
-`
 
-const Bubble = pure(styled.div`
-  border-radius: 50%;
-  background-color: white;
-  height: ${ITEM_SIZE}px;
-  width: ${ITEM_SIZE}px;
-  will-change: transform, opacity;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-image: url("${clUrl('technos_gighwg')}");
-  background-size: 750px 750px;
-  box-shadow: 0 15px 35px rgba(0,0,0,.1), 0 3px 10px rgba(0,0,0,.07);
-  -webkit-tap-highlight-color: transparent;
-`)
+  .bubble {
+    border-radius: 50%;
+    background-color: white;
+    height: ${ITEM_SIZE}px;
+    width: ${ITEM_SIZE}px;
+    will-change: transform, opacity;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("${clUrl('technos_gighwg')}");
+    background-size: 750px 750px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.1), 0 3px 10px rgba(0,0,0,.07);
+    -webkit-tap-highlight-color: transparent;
+  }
+`
 
 const Label = pure(styled.div`
   position: absolute;
@@ -257,8 +257,10 @@ class LabelledBubble extends React.Component {
       opacity,
     }
 
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
-      <Bubble
+      <div
+        className="bubble"
         onClick={noop}
         onMouseOut={this.handleMouseOut}
         onMouseOver={this.handleMouseOver}
@@ -267,8 +269,9 @@ class LabelledBubble extends React.Component {
         <Label show={this.state.showLabel}>
           {this.props.label}
         </Label>
-      </Bubble>
+      </div>
     )
+    /* eslint-enable jsx-a11y/no-static-element-interactions */
   }
 }
 
