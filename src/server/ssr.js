@@ -71,7 +71,7 @@ export default () => async ({ request, response }) => {
     response.headers = { Location: context.url }
   } else {
     const assets = await getAssets()
-    response.set('Cache-Control', 's-max-age=0, max-age=0')
+    response.set('Cache-Control', 's-max-age=10, max-age=10')
     response.body = `<!DOCTYPE html>${renderToString(
       <Html
         assets={assets}
