@@ -190,11 +190,17 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
 
 #### Test, debug et optimisation
 - Tester son code de bout en bout avec Selenium et Webdriver
-- Déboguer et optimiser son code avec l'inspecteur Chrome
+- Déboguer son code grâce à l'inspecteur Chrome
+- Apprendre à profiler son application (fuites mémoire, CPU)
 
 #### Websockets
-- Rendre son application reactive avec Socket.io
-- Découvrir comment scaler une application reactive
+- Rendre son application réactive avec Socket.io
+- Découvrir comment scaler une application réactive avec Redis
+
+#### Scaler une application Node.js
+- Les limites du single-thread de Node.js
+- Utilisation du mode cluster de Node.js
+- Architecturer une application avec des jobs / workers avec RabbitMQ
 
 #### Création d'outil en ligne de commande
 - Utiliser minimist ou commander
@@ -202,11 +208,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
 
 #### Isomorphisme
 - Compiler son code pour le browser avec Webpack
-- Utiliser le même code côté client et serveur avec React
-
-#### Scaler une application Node.js
-- Utilisation du mode cluster de Node.js
-- Créer des jobs / workers`,
+- Utiliser le même code côté client et serveur avec React`,
       cloudinary_id: 'nodejs_jxent0',
       slug: 'formation-nodejs',
     },
