@@ -3,10 +3,10 @@ import tmp from 'tmp-promise'
 import { createReadStream } from 'fs'
 import { exec } from 'mz/child_process'
 import config from 'server/config'
-import { trainingRoute } from 'modules/routePaths'
+import { trainingPdfRoute } from 'modules/routePaths'
 
 async function generatePdf(training) {
-  const trainingPath = trainingRoute(training.slug)
+  const trainingPath = trainingPdfRoute(training.slug)
   const trainingUrl = `${config.get('server.externalUrl')}${trainingPath}`
   const { path: tmpFile } = await tmp.file()
   const chromeBin = config.get('chrome.bin')
