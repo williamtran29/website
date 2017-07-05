@@ -26,12 +26,12 @@ const Container = styled.div`
 
 const Content = styled.div`
   flex: 1;
-  margin: 20px 20px 20px;
+  margin: 20px;
   font-size: 17px;
   font-weight: 300;
   letter-spacing: 0.2px;
   line-height: 22px;
-  padding-bottom:40px;
+  padding-bottom: 40px;
 
   strong {
     font-weight: 400;
@@ -54,8 +54,8 @@ const ColoredLogo = styled(Logo)`
 `
 
 const ParagraphPrint = styled(Paragraph)`
-  font-size:12px;
-  margin:0px;
+  font-size: 12px;
+  margin: 0;
 `
 
 const MainTitleSmall = styled(MainTitle)`
@@ -64,6 +64,7 @@ const MainTitleSmall = styled(MainTitle)`
 
 const AbstractContent = styled.div`
   height: 50px;
+
   ${FloatRigthContainer} {
     padding-left: 10px;
     border-left: 1px solid black;
@@ -78,8 +79,8 @@ const Picture = styled.img`
 const AbstractParagraph = styled(ParagraphPrint)`
   height: 50px;
   width: 380px;
-  padding-left:60px;
-  margin-top:40px;
+  padding-left: 60px;
+  margin-top: 40px;
 `
 
 const Section = styled.div`
@@ -89,30 +90,42 @@ const Section = styled.div`
     padding: 0;
     color: ${theme.colors.primary};
     font-weight: bold;
-    line-height: 1.5em;
+    line-height: 1.5;
   }
 
   p {
     padding: 0;
     font-size: 12px;
-    line-height: 1.5em;
+    line-height: 1.5;
   }
 
   h3 + p {
     margin: 0;
   }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    line-height: 1.5;
+  }
 `
 
-const Objectives = ({ description }) => {
-  const descriptionSplitting = description
-    .replace(/- /g, '')
-    .split('### Objectifs')
-  return (
-    <Section>
-      <ReactMarkdown source={`### Objectifs${descriptionSplitting[1]}`} />
-    </Section>
-  )
+const splitDescription = ({ fullDescription }) => {
+  const splitPattern = '### '
+  const descriptionParts = fullDescription.split(splitPattern)
+  return {
+    description: `${splitPattern} Description \n ${descriptionParts[0]}`,
+    objectives: splitPattern + descriptionParts[1],
+    requirements: splitPattern + descriptionParts[2],
+  }
 }
+
+const DescriptionPart = ({ fullDescription, partName }) =>
+  <Section>
+    <ReactMarkdown source={splitDescription({ fullDescription })[partName]} />
+  </Section>
 
 const SectionTitle = styled.h2`
   margin: 20px 0 0 0;
@@ -124,7 +137,7 @@ const SectionTitle = styled.h2`
 const Planning = styled.div`
   flex: 1;
   display: flex;
-  margin: 5px 0 10px 0;
+  margin: 5px 0 10px;
 `
 
 const ProgrammeDay = styled.div`
@@ -145,19 +158,18 @@ const ProgrammeDay = styled.div`
 
   li {
     margin: 0;
-    line-height: 1.2em;
+    line-height: 1.2;
   }
 `
 const ProgrammeDayTitle = styled(SectionTitle)`
   margin: 0 0 5px 0;
   padding: 0;
-  ${'' /* margin-bottom:5px; */}
   font-weight: bold;
   border-left: 4px ${theme.colors.primary} solid;
   padding-left: 10px;
   font-size: 12px;
   color: black;
-  line-height: 1em;
+  line-height: 1;
 `
 
 const ProgrammeArray = ({ programmeContent }) => {
@@ -177,18 +189,7 @@ const ProgrammeArray = ({ programmeContent }) => {
   return (
     <Planning>
       {res}
-      {/* {<ReactMarkdown source={daySplitting[1]} />} */}
     </Planning>
-  )
-}
-
-const Description = ({ descriptionContent }) => {
-  const descriptionSplitting = descriptionContent.split('### Objectifs')
-
-  return (
-    <Section>
-      <ReactMarkdown source={`### Description\n${descriptionSplitting[0]}`} />
-    </Section>
   )
 }
 
@@ -234,6 +235,7 @@ export default withTraining(
             <title>
               {`Formation ${training.name}`}
             </title>
+            <meta name="robots" content="noindex" />
           </Helmet>
           <Container>
             <Content>
@@ -247,7 +249,9 @@ export default withTraining(
               <AbstractContent>
                 <FloatRigthContainer>
                   <ParagraphPrint>
-                    <strong>DURÉE: </strong>
+                    <strong style={{ textTransform: 'uppercase' }}>
+                      Durée:{' '}
+                    </strong>
                     {`${training.duration} ${training.duration > 1
                       ? 'jours'
                       : 'jours'}`}
@@ -257,21 +261,28 @@ export default withTraining(
                   </ParagraphPrint>
                 </FloatRigthContainer>
                 <Picture
-                  alt="icone"
-                  src={
-                    training &&
-                    clUrl(training.cloudinary_id, 'c_scale,w_50,h_50,dpr_2')
-                  }
+                  alt={`${training.name} icon`}
+                  src={clUrl(training.cloudinary_id, 'c_scale,w_50,h_50,dpr_2')}
                 />
-                <AbstractParagraph itemProp="description">
+                <AbstractParagraph>
                   {training.abstract}
                 </AbstractParagraph>
               </AbstractContent>
 
-              <Objectives description={training.description} />
+              <DescriptionPart
+                fullDescription={training.description}
+                partName="objectives"
+              />
+              <DescriptionPart
+                fullDescription={training.description}
+                partName="requirements"
+              />
               <SectionTitle>Programme</SectionTitle>
               <ProgrammeArray programmeContent={training.outline} />
-              <Description descriptionContent={training.description} />
+              <DescriptionPart
+                fullDescription={training.description}
+                partName="description"
+              />
               <Footer>
                 <hr />
                 <ParagraphPrint>
