@@ -14,3 +14,4 @@ before_script:
   - psql -c 'CREATE DATABASE test;' -U postgres
 addons:
   postgresql: '9.6'
+  chrome: stable

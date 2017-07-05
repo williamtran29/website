@@ -8,7 +8,20 @@ const config = convict({
     default: 'development',
     env: 'NODE_ENV',
   },
+  chrome: {
+    bin: {
+      doc: 'Google Chrome binary',
+      format: 'String',
+      default: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+      env: 'GOOGLE_CHROME_BIN',
+    },
+  },
   server: {
+    externalUrl: {
+      doc: 'The server external url',
+      format: 'url',
+      default: 'https://www.smooth-code.com',
+    },
     port: {
       doc: 'The server port number',
       format: 'port',
