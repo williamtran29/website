@@ -60,7 +60,7 @@ router.get('/trainings/:slug/download-pdf', async ctx => {
 
   ctx.type = 'pdf'
   ctx.attachment(`${training.slug}-smooth-code.pdf`)
-  ctx.body = await generatePdf({ slug: 'formation-nodejs' })
+  ctx.body = await generatePdf(training)
 })
 
 const PUBLIC = path.join(__dirname, '../../public')
