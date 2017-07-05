@@ -3,7 +3,14 @@ import 'style/bootstrap'
 import React from 'react'
 import { Route, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import { Home, Story, Trainings, Training, Contact } from 'client/Routes'
+import {
+  Home,
+  Story,
+  Trainings,
+  Training,
+  TrainingPdf,
+  Contact,
+} from 'client/Routes'
 
 const App = ({ location }) =>
   <div>
@@ -65,7 +72,8 @@ const App = ({ location }) =>
     <Route exact path="/" component={Home} />
     <Route path="/story" component={Story} />
     <Route exact path="/trainings" component={Trainings} />
-    <Route path="/trainings/:slug" component={Training} />
+    <Route exact path="/trainings/:slug/pdf" component={TrainingPdf} />
+    <Route exact path="/trainings/:slug" component={Training} />
     <Route path="/contact" component={Contact} />
   </div>
 
