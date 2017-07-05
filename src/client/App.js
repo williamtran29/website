@@ -11,6 +11,7 @@ import {
   TrainingPdf,
   Contact,
 } from 'client/Routes'
+import { trainingRoute } from 'modules/routePaths'
 
 const App = ({ location }) =>
   <div>
@@ -73,7 +74,7 @@ const App = ({ location }) =>
     <Route path="/story" component={Story} />
     <Route exact path="/trainings" component={Trainings} />
     <Route exact path="/trainings/:slug/pdf" component={TrainingPdf} />
-    <Route exact path="/trainings/:slug" component={Training} />
+    <Route exact path={trainingRoute(':slug')} component={Training} />
     <Route path="/contact" component={Contact} />
   </div>
 

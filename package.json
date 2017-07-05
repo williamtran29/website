@@ -97,6 +97,7 @@
     "sendgrid": "^5.1.2",
     "sitemap": "^1.13.0",
     "styled-components": "^2.1.1",
+    "tmp-promise": "^1.0.3",
     "webpack": "^3.0.0"
   },
   "devDependencies": {
