@@ -26,7 +26,7 @@ const Container = styled.div`
 
 const Content = styled.div`
   flex: 1;
-  margin: 20px;
+  margin: 20px 0 0;
   font-size: 17px;
   font-weight: 300;
   letter-spacing: 0.2px;
