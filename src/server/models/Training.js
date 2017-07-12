@@ -28,10 +28,25 @@ export default class Training extends BaseModel {
     },
   })
 
-  siblings() {
+  static relationMappings = {
+    sessions: {
+      relation: BaseModel.HasManyRelation,
+      modelClass: 'TrainingSession',
+      join: {
+        from: 'trainings.id',
+        to: 'training_sessions.training_id',
+      },
+    },
+  }
+
+  async siblings() {
     return Training.query()
       .whereNot({ id: this.id })
       .orderByRaw('random()')
       .limit(2)
+  }
+
+  async sessions() {
+    return this.$relatedQuery('sessions')
   }
 }

@@ -81,6 +81,83 @@ CREATE TABLE knex_migrations_lock (
 ALTER TABLE knex_migrations_lock OWNER TO postgres;
 
 --
+-- Name: training_locations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE training_locations (
+    id bigint NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    name character varying(255) NOT NULL,
+    address character varying(255) NOT NULL,
+    city character varying(255) NOT NULL,
+    zipcode character varying(255) NOT NULL,
+    country character varying(255) NOT NULL
+);
+
+
+ALTER TABLE training_locations OWNER TO postgres;
+
+--
+-- Name: training_locations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE training_locations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE training_locations_id_seq OWNER TO postgres;
+
+--
+-- Name: training_locations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE training_locations_id_seq OWNED BY training_locations.id;
+
+
+--
+-- Name: training_sessions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE training_sessions (
+    id bigint NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    training_id bigint,
+    training_location_id bigint
+);
+
+
+ALTER TABLE training_sessions OWNER TO postgres;
+
+--
+-- Name: training_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE training_sessions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE training_sessions_id_seq OWNER TO postgres;
+
+--
+-- Name: training_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE training_sessions_id_seq OWNED BY training_sessions.id;
+
+
+--
 -- Name: trainings; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -131,6 +208,20 @@ ALTER TABLE ONLY knex_migrations ALTER COLUMN id SET DEFAULT nextval('knex_migra
 
 
 --
+-- Name: training_locations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY training_locations ALTER COLUMN id SET DEFAULT nextval('training_locations_id_seq'::regclass);
+
+
+--
+-- Name: training_sessions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY training_sessions ALTER COLUMN id SET DEFAULT nextval('training_sessions_id_seq'::regclass);
+
+
+--
 -- Name: trainings id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -143,6 +234,22 @@ ALTER TABLE ONLY trainings ALTER COLUMN id SET DEFAULT nextval('trainings_id_seq
 
 ALTER TABLE ONLY knex_migrations
     ADD CONSTRAINT knex_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: training_locations training_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY training_locations
+    ADD CONSTRAINT training_locations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: training_sessions training_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY training_sessions
+    ADD CONSTRAINT training_sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -162,6 +269,22 @@ ALTER TABLE ONLY trainings
 
 
 --
+-- Name: training_sessions training_sessions_training_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY training_sessions
+    ADD CONSTRAINT training_sessions_training_id_foreign FOREIGN KEY (training_id) REFERENCES trainings(id);
+
+
+--
+-- Name: training_sessions training_sessions_training_location_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY training_sessions
+    ADD CONSTRAINT training_sessions_training_location_id_foreign FOREIGN KEY (training_location_id) REFERENCES training_locations(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -170,3 +293,4 @@ ALTER TABLE ONLY trainings
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170603173516_init.js, 1, NOW());
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170604191541_trainings-slug.js, 1, NOW());
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170616152405_add-columns-to-training.js, 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170712113822_create_table_training_sessions.js, 1, NOW());

@@ -21,5 +21,14 @@ injectGlobal`
   * {
     box-sizing: border-box;
   }
+
+  a {
+    text-decoration: none;
+    color: ${theme.colors.primary};
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `
 /* eslint-enable no-unused-expressions */

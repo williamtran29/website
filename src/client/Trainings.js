@@ -88,6 +88,7 @@ export default graphql(gql`
       duration
       slug
       color
+      price
     }
   }
 `)(({ data }) =>

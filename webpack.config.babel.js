@@ -15,7 +15,7 @@ module.exports = {
     ...(development
       ? [
           'react-hot-loader/patch',
-          'webpack-dev-server/client?http://localhost:8080',
+          'webpack-dev-server/client?http://www.smooth-code.dev:8080',
           'webpack/hot/only-dev-server',
         ]
       : []),
@@ -115,6 +115,7 @@ module.exports = {
           hot: true,
           contentBase: DIST_PATH,
           publicPath: '/dist/',
+          allowedHosts: ['www.smooth-code.dev'],
           proxy: {
             '*': {
               target: 'http://localhost:8000',

@@ -16,6 +16,13 @@ describe('graphql', () => {
             description
             duration
             name
+            sessions {
+              start_date
+              location {
+                name
+                city
+              }
+            }
           }
         }`,
         rootValue,

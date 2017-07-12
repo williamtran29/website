@@ -8,10 +8,15 @@ import {
   Story,
   Trainings,
   Training,
+  Session,
   TrainingPdf,
   Contact,
 } from 'client/Routes'
-import { trainingRoute, trainingPdfRoute } from 'modules/routePaths'
+import {
+  trainingRoute,
+  trainingPdfRoute,
+  sessionRoute,
+} from 'modules/routePaths'
 
 const App = ({ location }) =>
   <div>
@@ -73,6 +78,11 @@ const App = ({ location }) =>
     <Route exact path="/" component={Home} />
     <Route path="/story" component={Story} />
     <Route exact path="/trainings" component={Trainings} />
+    <Route
+      exact
+      path={sessionRoute(':trainingSlug', ':sessionId', ':city', ':month')}
+      component={Session}
+    />
     <Route exact path={trainingPdfRoute(':slug')} component={TrainingPdf} />
     <Route exact path={trainingRoute(':slug')} component={Training} />
     <Route path="/contact" component={Contact} />

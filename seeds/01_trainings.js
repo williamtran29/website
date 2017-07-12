@@ -1,7 +1,11 @@
 exports.seed = async knex => {
-  await knex('trainings').truncate()
+  await knex.raw('truncate training_sessions cascade')
+  await knex.raw('truncate training_locations cascade')
+  await knex.raw('truncate trainings cascade')
+
   await knex('trainings').insert([
     {
+      id: 1,
       name: 'JavaScript ES2017',
       abstract:
         'Découvrez les nouveautés apportées par ES6 / ES2015, ES2016 et ES2017',
@@ -84,6 +88,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
       slug: 'formation-javascript-es2017',
     },
     {
+      id: 2,
       name: 'Node.js',
       abstract: 'Libérez la puissance du JavaScript côté serveur.',
       color: '#0b1209',
@@ -213,6 +218,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
       slug: 'formation-nodejs',
     },
     {
+      id: 3,
       name: 'React',
       abstract:
         'Apprenez à créer des interfaces web modernes, fluides et interactives',
@@ -262,6 +268,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation pour vou
       slug: 'formation-react',
     },
     {
+      id: 4,
       name: 'RxJS',
       abstract: 'Maîtrisez la programmation réactive',
       color: '#400127',
@@ -340,6 +347,7 @@ Plusieurs exercices concrets tout au long de la formation vous permettront de me
       slug: 'formation-rxjs',
     },
     {
+      id: 5,
       name: 'GraphQL',
       abstract: 'Créez des API modernes et évolutives avec GraphQL',
       color: '#171E26',
@@ -389,6 +397,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
       slug: 'formation-graphql',
     },
     {
+      id: 6,
       name: 'Jest',
       abstract: 'Passez à la vitesse supérieure en matière de test JavaScript',
       color: '#99424F',
@@ -428,6 +437,77 @@ Nous implémenterons des tests sur des exemples précis pour  vous permettre de 
 `,
       cloudinary_id: 'training-jest',
       slug: 'formation-jest-react',
+    },
+    {
+      id: 7,
+      name: 'Initiation à React',
+      abstract: 'Créez votre première application React en une journée.',
+      color: '#6E1402',
+      duration: 1,
+      price: 150,
+      description: `Vous avez probablement déjà entendu parlé de React, cette technologie popularisée par Facebook permettant de créer des applications réactives et performantes. React a maintenant une place incontestable dans l'écosystème JavaScript. Le maîtriser vous ouvrira les portes du développement front-end, la compétence la plus demandée sur le marché aujourd'hui.
+
+Grâce à cette initiation, vous découvrirez comment créer une application React, l'architecturer, la tester et l'optimiser. Vous serez capable de le mettre en pratique dès demain sur vos projets personnels ou chez des clients.
+
+Tout au long de la journée, vous serez guidé dans la réalisation d'un projet complet en alternant théorie et pratique.
+
+### Objectifs
+- Découvrir React
+- Construire votre première application React
+- Avoir les bases pour aller plus loin
+
+### Pré-requis
+- Niveau JavaScript intermédiaire
+- Votre ordinateur portable`,
+      outline: `### Jour 1
+
+#### Introduction
+
+- Histoire et philosophie de React
+- Installation de l'environnement de développement
+- ES2017 en 10 minutes
+
+#### Les bases de React
+
+- La syntaxe JSX
+- Les components et les props
+- La gestion du state
+- Le cycle de vie des components
+
+#### Une application complète
+
+- Mettre en place react-router
+- Se connecter à une API avec Apollo
+- Gérer son state avec Redux
+- Styler ses composants avec styled-components
+
+#### Pour aller plus loin...
+
+- Tester son code avec Jest
+- Optimiser les performances de son application`,
+      cloudinary_id: 'react-intro_eiiuhv',
+      slug: 'formation-initiation-react',
+    },
+  ])
+
+  await knex('training_locations').insert([
+    {
+      id: 1,
+      name: 'Smooth Code',
+      address: '41 rue Réaumur',
+      city: 'Paris',
+      zipcode: '75003',
+      country: 'France',
+    },
+  ])
+
+  await knex('training_sessions').insert([
+    {
+      id: 1,
+      start_date: '2017-07-26',
+      end_date: '2017-07-26',
+      training_id: 7,
+      training_location_id: 1,
     },
   ])
 }

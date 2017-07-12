@@ -24,7 +24,10 @@ const Container = styled.div`
   }
 `
 
-const FormContainer = styled.div`flex: 2;`
+const FormContainer = styled.div`
+  flex: 2;
+  padding: 20px;
+`
 
 const Infos = styled.div`
   flex: 1;
