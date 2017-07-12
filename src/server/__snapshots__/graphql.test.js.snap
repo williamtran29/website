@@ -21,6 +21,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
 - Notions de base en développement ou connaissance d'un autre langage de programmation.",
         "duration": 4,
         "name": "JavaScript ES2017",
+        "sessions": Array [],
       },
       Object {
         "abstract": "Libérez la puissance du JavaScript côté serveur.",
@@ -45,6 +46,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
 - Notions de fonctionnement basiques du web (client, server, HTTP,  requêtes, etc...)",
         "duration": 4,
         "name": "Node.js",
+        "sessions": Array [],
       },
       Object {
         "abstract": "Apprenez à créer des interfaces web modernes, fluides et interactives",
@@ -67,6 +69,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation pour vou
 - Niveau JavaScript intermédiaire",
         "duration": 3,
         "name": "React",
+        "sessions": Array [],
       },
       Object {
         "abstract": "Maîtrisez la programmation réactive",
@@ -90,6 +93,7 @@ Plusieurs exercices concrets tout au long de la formation vous permettront de me
 - Niveau intermédiaire en JavaScript",
         "duration": 2,
         "name": "RxJS",
+        "sessions": Array [],
       },
       Object {
         "abstract": "Créez des API modernes et évolutives avec GraphQL",
@@ -111,6 +115,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
 - Des bases en React",
         "duration": 2,
         "name": "GraphQL",
+        "sessions": Array [],
       },
       Object {
         "abstract": "Passez à la vitesse supérieure en matière de test JavaScript",
@@ -130,6 +135,36 @@ Nous implémenterons des tests sur des exemples précis pour  vous permettre de 
 - Notions de base en Node.js",
         "duration": 1,
         "name": "Jest",
+        "sessions": Array [],
+      },
+      Object {
+        "abstract": "Créez votre première application React en une journée.",
+        "cloudinary_id": "react-intro_eiiuhv",
+        "description": "Vous avez probablement déjà entendu parlé de React, cette technologie popularisée par Facebook permettant de créer des applications réactives et performantes. React a maintenant une place incontestable dans l'écosystème JavaScript. Le maîtriser vous ouvrira les portes du développement front-end, la compétence la plus demandée sur le marché aujourd'hui.
+
+Grâce à cette initiation, vous découvrirez comment créer une application React, l'architecturer, la tester et l'optimiser. Vous serez capable de le mettre en pratique dès demain sur vos projets personnels ou chez des clients.
+
+Tout au long de la journée, vous serez guidé dans la réalisation d'un projet complet en alternant théorie et pratique.
+
+### Objectifs
+- Découvrir React
+- Construire votre première application React
+- Avoir les bases pour aller plus loin
+
+### Pré-requis
+- Niveau JavaScript intermédiaire
+- Votre ordinateur portable",
+        "duration": 1,
+        "name": "Initiation à React",
+        "sessions": Array [
+          Object {
+            "location": Object {
+              "city": "Paris",
+              "name": "Smooth Code",
+            },
+            "start_date": "2017-07-26",
+          },
+        ],
       },
     ],
   },

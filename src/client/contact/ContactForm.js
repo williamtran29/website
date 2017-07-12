@@ -13,7 +13,6 @@ import Textarea from 'modules/components/Textarea'
 const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
-  padding: 20px;
   width: 100%;
   margin: '0 auto';
 `
@@ -80,7 +79,7 @@ const errorMessages = {
   typeMismatch: 'Email invalide',
 }
 
-const ContactForm = ({ className, onSubmit }) =>
+const ContactForm = ({ className, onSubmit, initialMessage = '' }) =>
   <StyledForm className={className} onSubmit={onSubmit} model="forms.contact">
     <AlertMessage />
     <FormRow>
@@ -144,6 +143,7 @@ const ContactForm = ({ className, onSubmit }) =>
           rows={5}
           mapProps={mapProps}
           validators={{ required }}
+          defaultValue={initialMessage}
         />
         <StyledErrors
           show="touched"

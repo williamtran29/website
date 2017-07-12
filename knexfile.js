@@ -10,6 +10,7 @@ const config = {
     connection: {
       user: 'postgres',
       database: 'development',
+      timezone: 'utc',
     },
     seeds: {
       directory: './seeds',
@@ -20,6 +21,7 @@ const config = {
     connection: {
       user: 'postgres',
       database: 'test',
+      timezone: 'utc',
     },
   },
   production: {
@@ -44,6 +46,7 @@ if (process.env.DATABASE_URL) {
     password: pgProd.auth.split(':')[1],
     database: pgProd.path.substring(1),
     ssl: true,
+    timezone: 'utc',
   }
 }
 

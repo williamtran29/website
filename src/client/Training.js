@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import compose from 'recompact/compose'
-import { lighten } from 'polished'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
 import ReactMarkdown from 'react-markdown'
@@ -11,27 +10,15 @@ import { StickyContainer, Sticky } from 'react-sticky'
 import FaPhone from 'react-icons/lib/fa/phone'
 import FaEnvelope from 'react-icons/lib/fa/envelope'
 import theme from 'style/theme'
+import moment from 'modules/moment'
 import { clUrl } from 'modules/cloudinary'
+import { humanizeDate } from 'modules/dateUtils'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
-import Hero from 'modules/components/Hero'
-import MainTitle from 'modules/components/MainTitle'
 import Paragraph from 'modules/components/Paragraph'
-import Lead from 'modules/components/Lead'
 import Button from 'modules/components/Button'
-
-const Picture = styled.div`
-  flex-shrink: 0;
-  height: 150px;
-  width: 150px;
-  ${props =>
-    props.background
-      ? `background-image: url(${props.background});`
-      : ''} background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-`
+import TrainingHero from 'modules/components/TrainingHero'
 
 const Container = styled.div`
   flex: 1;
@@ -238,6 +225,89 @@ const TrainerDescription = Paragraph.extend`
   text-align: justify;
 `
 
+const Sessions = styled.div`
+  margin-top: 20px;
+  display: flex;
+`
+
+const SessionLink = styled(Link)`
+  display: block;
+  flex-shrink: 0;
+  border: 1px solid ${theme.colors.grayLight};
+  border-radius: 5px;
+  text-align: center;
+  width: 90px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: ${theme.colors.grayDark};
+  will-change: transform;
+  transition: transform 300ms;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    text-decoration: none;
+  }
+`
+const SessionMonth = styled.div`
+  background-color: #e16565;
+  text-transform: uppercase;
+  color: white;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 4px 4px 0 0;
+  letter-spacing: 0.1em;
+`
+
+const SessionDate = styled.div`
+  font-size: 35px;
+  height: 70px;
+  line-height: 70px;
+`
+
+const SessionCity = styled.div`
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 5px;
+`
+
+const Session = ({ training, session }) => {
+  const startDate = moment.utc(session.start_date)
+  const endDate = moment.utc(session.end_date)
+  const humanizedDate = humanizeDate({ startDate, endDate })
+  const title = `Formation ${training.name}`
+  return (
+    <div itemScope itemType="http://data-vocabulary.org/Event">
+      <meta content={title} itemProp="name" />
+      <meta content={training.abstract} itemProp="summary" />
+      <meta content={session.start_date} itemProp="startDate" />
+      <meta content={session.end_date} itemProp="endDate" />
+      <meta
+        content={clUrl(training.cloudinary_id, 'c_scale,w_400,h_400')}
+        itemProp="photo"
+      />
+      <SessionLink
+        to={session.link}
+        itemProp="url"
+        title={`${title} ${humanizedDate}`}
+      >
+        <SessionMonth>
+          {startDate.format('MMMM')}
+        </SessionMonth>
+        <SessionDate>
+          {startDate.format('DD')}
+        </SessionDate>
+        <SessionCity>
+          {session.location.city}
+        </SessionCity>
+      </SessionLink>
+    </div>
+  )
+}
+
 const TRAINING_QUERY = gql`
   query trainingData($slug: ID!) {
     training(slug: $slug) {
@@ -247,6 +317,7 @@ const TRAINING_QUERY = gql`
       duration
       slug
       color
+      price
     }
   }
 `
@@ -263,6 +334,15 @@ const TRAINING_DETAIL_QUERY = gql`
         slug
         name
         abstract
+      }
+      sessions {
+        id
+        start_date
+        end_date
+        link
+        location {
+          city
+        }
       }
     }
   }
@@ -307,29 +387,7 @@ export default compose(
         />
       </Helmet>
       <Header transparent />
-      <Hero
-        style={{ height: 406 }}
-        background={
-          training &&
-          `linear-gradient(180deg, ${training.color}, ${lighten(
-            0.2,
-            training.color,
-          )})`
-        }
-      >
-        <Picture
-          background={
-            training &&
-            clUrl(training.cloudinary_id, 'c_scale,w_150,h_150,dpr_2')
-          }
-        />
-        <MainTitle itemProp="name">
-          {training && `Formation ${training.name}`}
-        </MainTitle>
-        <Lead itemProp="description">
-          {training && training.abstract}
-        </Lead>
-      </Hero>
+      <TrainingHero training={training} />
       <Container>
         <Content>
           <StickyContainer>
@@ -441,6 +499,21 @@ export default compose(
                     </Amount>
                     <LinkButton to="/contact">Demander un devis</LinkButton>
                   </SidebarSection>
+                  {trainingDetail &&
+                    training &&
+                    trainingDetail.sessions.length > 0 &&
+                    <SidebarSection>
+                      <SidebarTitle>Sessions</SidebarTitle>
+                      <Sessions>
+                        {trainingDetail.sessions.map(session =>
+                          <Session
+                            key={session.start_date}
+                            session={session}
+                            training={training}
+                          />,
+                        )}
+                      </Sessions>
+                    </SidebarSection>}
                   <SidebarSection>
                     <SidebarTitle>Une question ?</SidebarTitle>
                     <SidebarText>

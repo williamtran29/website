@@ -10,6 +10,9 @@ describe('#generateSitemap', () => {
     await knex('trainings').update({
       updated_at: '2017-01-01T00:00:00.000Z',
     })
+    await knex('training_sessions').update({
+      updated_at: '2017-01-01T00:00:00.000Z',
+    })
   })
 
   it('should generate sitemap', async () => {
