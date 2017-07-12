@@ -28,7 +28,7 @@
     "heroku-postbuild": "yarn build && yarn db:migrate",
     "lint": "eslint .",
     "storybook": "start-storybook -p 6006",
-    "test": "jest"
+    "test": "jest -i"
   },
   "engines": {
     "node": "8.1.2"
