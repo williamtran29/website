@@ -29,6 +29,8 @@ const Html = ({ assets, content, helmet, sheet, loadableState, state }) => {
             __html: `WebFont.load({ google: { families: ['Roboto:300,400,700'] } });`,
           }}
         />
+        {helmet.script.toComponent()}
+        {helmet.noscript.toComponent()}
       </body>
     </html>
   )
