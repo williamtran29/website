@@ -31,7 +31,7 @@
     "test": "jest --runInBand --forceExit"
   },
   "engines": {
-    "node": "8.1.2"
+    "node": "8.1.4"
   },
   "dependencies": {
     "apollo-local-query": "^0.3.0",
