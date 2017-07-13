@@ -170,15 +170,6 @@ export default compose(
               training && clUrl(training.cloudinary_id, 'c_scale,w_400,h_400')
             }
           />
-          <script src="//platform.twitter.com/oct.js" />
-          <script
-          >{`twttr.conversion.trackPid('nxsfp', { tw_sale_amount: 0, tw_order_quantity: 0 });`}</script>
-          <noscript>
-            {`
-              <img height="1" width="1" style="display:none;" alt="" src="https://analytics.twitter.com/i/adsct?txn_id=nxsfp&p_id=Twitter&tw_sale_amount=0&tw_order_quantity=0" />
-              <img height="1" width="1" style="display:none;" alt="" src="//t.co/i/adsct?txn_id=nxsfp&p_id=Twitter&tw_sale_amount=0&tw_order_quantity=0" />
-            `}
-          </noscript>
         </Helmet>
         <Header transparent />
         <TrainingHero training={training} />
