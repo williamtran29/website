@@ -13,16 +13,18 @@ import { loadComponents } from 'loadable-components'
 
 ReactGA.initialize('UA-101358560-1')
 
+if (process.env.NODE_ENV !== 'production') {
+  ReactGA.ga('set', 'sendHitTask', null)
+}
+
+ReactGA.pageview(`${window.location.pathname}${window.location.search}`)
+
 function onUpdate(location) {
   window.scrollTo(0, 0)
   const page = `${location.pathname}${location.search}`
   ReactGA.set({ page })
   ReactGA.pageview(page)
   if (window.twq) window.twq('track', 'PageView')
-}
-
-if (process.env.NODE_ENV !== 'production') {
-  ReactGA.ga('set', 'sendHitTask', null)
 }
 
 const App = require('client/App').default
