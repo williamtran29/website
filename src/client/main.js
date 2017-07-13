@@ -18,6 +18,7 @@ function onUpdate(location) {
   const page = `${location.pathname}${location.search}`
   ReactGA.set({ page })
   ReactGA.pageview(page)
+  if (window.twq) window.twq('track', 'PageView')
 }
 
 if (process.env.NODE_ENV !== 'production') {
