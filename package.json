@@ -98,6 +98,7 @@
     "regenerator-runtime": "^0.10.5",
     "sendgrid": "^5.1.2",
     "sitemap": "^1.13.0",
+    "slug": "^0.9.1",
     "styled-components": "^2.1.1",
     "tmp-promise": "^1.0.3",
     "webpack": "^3.2.0"

@@ -1,3 +1,4 @@
+import slug from 'slug'
 import BaseModel, { mergeSchemas } from 'server/models/BaseModel'
 import moment from 'modules/moment'
 import { sessionRoute } from 'modules/routePaths'
@@ -39,8 +40,8 @@ export default class TrainingSession extends BaseModel {
     return sessionRoute(
       training.slug,
       this.id,
-      location.city.toLowerCase(),
-      moment.utc(this.start_date).format('MMMM'),
+      slug(location.city.toLowerCase()),
+      slug(moment.utc(this.start_date).format('MMMM')),
     )
   }
 
