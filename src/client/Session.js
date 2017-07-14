@@ -185,7 +185,8 @@ export default compose(
               <Title>S’inscrire</Title>
               <ContactFormContainer>
                 <ContactForm
-                  initialMessage={`Objet: Inscription formation "${training.name}" du ${humanizedDate}\n\n`}
+                  messageLabel="Commentaire"
+                  subject={`Inscription formation "${training.name}" du ${humanizedDate}`}
                 />
               </ContactFormContainer>
               <PhoneBlock>

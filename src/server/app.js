@@ -28,15 +28,29 @@ router.get('/sitemap.xml', async ctx => {
 })
 
 router.post('/api/contact', async ctx => {
-  const { name, company, email, phone, message } = ctx.request.body
+  const {
+    name,
+    company,
+    email,
+    phone,
+    message,
+    subject = `${ctx.request.body.name} nous a contactés sur smooth-code.com`,
+  } = ctx.request.body
   await sendEmail({
     from: email,
     to: 'contact@smooth-code.com',
-    subject: `Nouveau message de ${name}`,
+    subject,
     textContent: `
+${subject}
+
+-----
+
 Nom: ${name}
+
 Société: ${company}
+
 Email: ${email}
+
 Téléphone: ${phone}
 
 -----

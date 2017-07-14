@@ -79,80 +79,105 @@ const errorMessages = {
   typeMismatch: 'Email invalide',
 }
 
-const ContactForm = ({ className, onSubmit, initialMessage = '' }) =>
+const ContactForm = ({
+  className,
+  onSubmit,
+  initialMessage = '',
+  messageLabel = 'Message',
+  success,
+}) =>
   <StyledForm className={className} onSubmit={onSubmit} model="forms.contact">
     <AlertMessage />
-    <FormRow>
-      <FormGroup>
-        <Label htmlFor="name">Nom</Label>
-        <Control
-          component={Input}
-          model=".name"
-          id="name"
-          validators={{ required }}
-          mapProps={mapProps}
-        />
-        <StyledErrors show="touched" model=".name" messages={errorMessages} />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="company">Société</Label>
-        <Control
-          component={Input}
-          model=".company"
-          id="company"
-          mapProps={mapProps}
-        />
-        <StyledErrors
-          show="touched"
-          model=".company"
-          messages={errorMessages}
-        />
-      </FormGroup>
-    </FormRow>
-    <FormRow>
-      <FormGroup>
-        <Label htmlFor="email">Email</Label>
-        <Control
-          type="email"
-          component={Input}
-          model=".email"
-          id="email"
-          mapProps={mapProps}
-          validators={{ required }}
-        />
-        <StyledErrors show="touched" model=".email" messages={errorMessages} />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="phone">Téléphone</Label>
-        <Control
-          component={Input}
-          model=".phone"
-          id="phone"
-          mapProps={mapProps}
-        />
-        <StyledErrors show="touched" model=".phone" messages={errorMessages} />
-      </FormGroup>
-    </FormRow>
-    <FormRow>
-      <FormGroup>
-        <Label htmlFor="message">Message</Label>
-        <Control
-          component={Textarea}
-          model=".message"
-          id="message"
-          rows={5}
-          mapProps={mapProps}
-          validators={{ required }}
-          defaultValue={initialMessage}
-        />
-        <StyledErrors
-          show="touched"
-          model=".message"
-          messages={errorMessages}
-        />
-      </FormGroup>
-    </FormRow>
-    <Button type="submit">Envoyer</Button>
+    {!success &&
+      <div>
+        <FormRow>
+          <FormGroup>
+            <Label htmlFor="name">Nom</Label>
+            <Control
+              component={Input}
+              model=".name"
+              id="name"
+              validators={{ required }}
+              mapProps={mapProps}
+            />
+            <StyledErrors
+              show="touched"
+              model=".name"
+              messages={errorMessages}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="company">Société</Label>
+            <Control
+              component={Input}
+              model=".company"
+              id="company"
+              mapProps={mapProps}
+            />
+            <StyledErrors
+              show="touched"
+              model=".company"
+              messages={errorMessages}
+            />
+          </FormGroup>
+        </FormRow>
+        <FormRow>
+          <FormGroup>
+            <Label htmlFor="email">Email</Label>
+            <Control
+              type="email"
+              component={Input}
+              model=".email"
+              id="email"
+              mapProps={mapProps}
+              validators={{ required }}
+            />
+            <StyledErrors
+              show="touched"
+              model=".email"
+              messages={errorMessages}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="phone">Téléphone</Label>
+            <Control
+              component={Input}
+              model=".phone"
+              id="phone"
+              mapProps={mapProps}
+            />
+            <StyledErrors
+              show="touched"
+              model=".phone"
+              messages={errorMessages}
+            />
+          </FormGroup>
+        </FormRow>
+        <FormRow>
+          <FormGroup>
+            <Label htmlFor="message">
+              {messageLabel}
+            </Label>
+            <Control
+              component={Textarea}
+              model=".message"
+              id="message"
+              rows={5}
+              mapProps={mapProps}
+              validators={{ required }}
+              defaultValue={initialMessage}
+            />
+            <StyledErrors
+              show="touched"
+              model=".message"
+              messages={errorMessages}
+            />
+          </FormGroup>
+        </FormRow>
+        <Button type="submit" style={{ marginTop: 20 }}>
+          Envoyer
+        </Button>
+      </div>}
   </StyledForm>
 
 const fetchContact = async values => {
@@ -176,13 +201,23 @@ const fetchContact = async values => {
 
 export default recompact.compose(
   connect(
-    state => ({ form: state.forms.contact }),
-    dispatch => ({
+    state => ({
+      success: state.forms.forms.contact.$form.validity === true,
+    }),
+    (dispatch, props) => ({
       onResetForm() {
         dispatch(actions.reset('forms.contact'))
       },
       onSubmit(values) {
-        dispatch(actions.submit('forms.contact', fetchContact(values)))
+        dispatch(
+          actions.submit(
+            'forms.contact',
+            fetchContact({
+              ...values,
+              subject: props.subject,
+            }),
+          ),
+        )
       },
     }),
   ),

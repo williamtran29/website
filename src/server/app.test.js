@@ -37,11 +37,18 @@ describe('app', () => {
 
       expect(sendEmail).toHaveBeenCalledWith({
         from: 'hubert@oss117.com',
-        subject: 'Nouveau message de Noël Flantier',
+        subject: 'Noël Flantier nous a contactés sur smooth-code.com',
         textContent: `
+Noël Flantier nous a contactés sur smooth-code.com
+
+-----
+
 Nom: Noël Flantier
+
 Société: SKEP
+
 Email: hubert@oss117.com
+
 Téléphone: 0606060606
 
 -----
