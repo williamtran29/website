@@ -37,6 +37,18 @@ export default class Training extends BaseModel {
         to: 'training_sessions.training_id',
       },
     },
+    trainers: {
+      relation: BaseModel.ManyToManyRelation,
+      modelClass: 'Trainer',
+      join: {
+        from: 'trainings.id',
+        through: {
+          from: 'trainings_trainers.training_id',
+          to: 'trainings_trainers.trainer_id',
+        },
+        to: 'trainers.id',
+      },
+    },
   }
 
   async siblings() {
@@ -48,5 +60,11 @@ export default class Training extends BaseModel {
 
   async sessions() {
     return this.$relatedQuery('sessions')
+      .whereRaw("start_date > now() + interval '1 day'")
+      .orderBy('start_date', 'asc')
+  }
+
+  async trainers() {
+    return this.$relatedQuery('trainers')
   }
 }

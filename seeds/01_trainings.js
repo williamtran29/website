@@ -1,8 +1,4 @@
 exports.seed = async knex => {
-  await knex.raw('truncate training_sessions cascade')
-  await knex.raw('truncate training_locations cascade')
-  await knex.raw('truncate trainings cascade')
-
   await knex('trainings').insert([
     {
       id: 1,
@@ -487,27 +483,6 @@ Tout au long de la journée, vous serez guidé dans la réalisation d'un projet 
 - Optimiser les performances de son application`,
       cloudinary_id: 'react-intro_eiiuhv',
       slug: 'formation-initiation-react',
-    },
-  ])
-
-  await knex('training_locations').insert([
-    {
-      id: 1,
-      name: 'Smooth Code',
-      address: '41 rue Réaumur',
-      city: 'Paris',
-      zipcode: '75003',
-      country: 'France',
-    },
-  ])
-
-  await knex('training_sessions').insert([
-    {
-      id: 1,
-      start_date: '2017-07-26',
-      end_date: '2017-07-26',
-      training_id: 7,
-      training_location_id: 1,
     },
   ])
 }

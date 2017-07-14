@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet'
 import {
   Home,
   Story,
+  Trainer,
   Trainings,
   Training,
   Session,
@@ -13,6 +14,7 @@ import {
   Contact,
 } from 'client/Routes'
 import {
+  trainerRoute,
   trainingRoute,
   trainingPdfRoute,
   sessionRoute,
@@ -85,6 +87,7 @@ const App = ({ location }) =>
     />
     <Route exact path={trainingPdfRoute(':slug')} component={TrainingPdf} />
     <Route exact path={trainingRoute(':slug')} component={Training} />
+    <Route exact path={trainerRoute(':slug')} component={Trainer} />
     <Route path="/contact" component={Contact} />
   </div>
 

@@ -30,5 +30,35 @@ describe('graphql', () => {
 
       expect(result).toMatchSnapshot()
     })
+
+    it('should return custom training', async () => {
+      const result = await graphql(
+        schema,
+        `{
+          training(slug: "formation-nodejs") {
+            trainers {
+              fullName
+            }
+          }
+        }`,
+        rootValue,
+      )
+
+      expect(result).toMatchSnapshot()
+    })
+
+    it('should return custom trainer', async () => {
+      const result = await graphql(
+        schema,
+        `{
+          trainer(slug: "greg-berge") {
+            fullName
+          }
+        }`,
+        rootValue,
+      )
+
+      expect(result).toMatchSnapshot()
+    })
   })
 })

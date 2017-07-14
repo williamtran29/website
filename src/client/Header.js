@@ -71,6 +71,7 @@ const NavLink = styled(Link)`
 
   &:hover {
     color: white;
+    text-decoration: none;
   }
 
   @media (min-width: ${theme.medias.phablet}) {

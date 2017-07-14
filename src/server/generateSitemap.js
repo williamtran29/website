@@ -4,8 +4,13 @@ import TrainingSession from 'server/models/TrainingSession'
 import { trainingRoute } from 'modules/routePaths'
 
 async function generateSitemap() {
-  const trainings = await Training.query().orderBy('updated_at', 'desc')
-  const sessions = await TrainingSession.query().orderBy('updated_at', 'desc')
+  const trainings = await Training.query().orderByRaw(
+    'updated_at desc, id desc',
+  )
+  const sessions = await TrainingSession.query()
+    .eager('[training, location]')
+    .whereRaw("start_date > now() + interval '14 day'")
+    .orderBy('start_date', 'desc')
   const sessionLinks = await Promise.all(
     sessions.map(session => session.link()),
   )
