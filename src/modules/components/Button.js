@@ -22,6 +22,7 @@ const Button = styled.button`
   &:focus {
     background-color: ${darken(0.2, theme.colors.primary)};
     outline: none;
+    text-decoration: none;
   }
 `
 

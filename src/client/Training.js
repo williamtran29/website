@@ -16,7 +16,6 @@ import { humanizeDate } from 'modules/dateUtils'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
-import Paragraph from 'modules/components/Paragraph'
 import Button from 'modules/components/Button'
 import TrainingHero from 'modules/components/TrainingHero'
 
@@ -144,6 +143,7 @@ const Sibling = styled(Link)`
 
   &:hover {
     transform: scale(1.05);
+    text-decoration: none;
   }
 `
 const SiblingImage = styled.img`flex-shrink: 0;`
@@ -192,6 +192,7 @@ const Nav = styled.nav`
 `
 
 const StyledScrollLink = styled(ScrollLink)`
+  font-size: 14px;
   color: ${theme.colors.primary};
   cursor: pointer;
 
@@ -210,24 +211,41 @@ const StyledScrollLink = styled(ScrollLink)`
   }
 `
 
+const Trainer = styled.div`margin-bottom: 40px;`
+const TrainerName = styled.div`
+  font-size: 24px;
+  font-weight: 300;
+  margin: 30px 0 20px;
+`
+const TrainerDescription = styled.div`
+  font-size: 14px;
+  line-height: 1.5;
+
+  p {
+    margin: 0;
+  }
+`
 const TrainerPicture = styled.img`
   display: block;
   margin: 0 auto;
 
   @media (min-width: ${theme.medias.phablet}) {
     float: left;
-    margin: 0 15px 15px 0;
+    margin-right: 15px;
   }
-`
-
-const TrainerDescription = Paragraph.extend`
-  font-size: 15px;
-  text-align: justify;
 `
 
 const Sessions = styled.div`
   margin-top: 20px;
   display: flex;
+`
+
+const TrainingSession = styled.div`
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
 `
 
 const SessionLink = styled(Link)`
@@ -237,15 +255,10 @@ const SessionLink = styled(Link)`
   border-radius: 5px;
   text-align: center;
   width: 90px;
-  margin-right: 10px;
   text-decoration: none;
   color: ${theme.colors.grayDark};
   will-change: transform;
   transition: transform 300ms;
-
-  &:last-child {
-    margin-right: 0;
-  }
 
   &:hover {
     transform: scale(1.05);
@@ -280,7 +293,7 @@ const Session = ({ training, session }) => {
   const humanizedDate = humanizeDate({ startDate, endDate })
   const title = `Formation ${training.name}`
   return (
-    <div itemScope itemType="http://data-vocabulary.org/Event">
+    <TrainingSession itemScope itemType="http://data-vocabulary.org/Event">
       <meta content={title} itemProp="name" />
       <meta content={training.abstract} itemProp="summary" />
       <meta content={session.start_date} itemProp="startDate" />
@@ -304,7 +317,7 @@ const Session = ({ training, session }) => {
           {session.location.city}
         </SessionCity>
       </SessionLink>
-    </div>
+    </TrainingSession>
   )
 }
 
@@ -343,6 +356,13 @@ const TRAINING_DETAIL_QUERY = gql`
         location {
           city
         }
+      }
+      trainers {
+        slug
+        fullName
+        description
+        link
+        cloudinary_id
       }
     }
   }
@@ -424,9 +444,9 @@ export default compose(
                       spy
                       smooth
                       offset={-60}
-                      to="trainer"
+                      to="trainers"
                     >
-                      Formateur
+                      Formateurs
                     </StyledScrollLink>
                   </span>
                 </Nav>}
@@ -440,31 +460,32 @@ export default compose(
               {trainingDetail &&
                 <ReactMarkdown source={trainingDetail.outline} />}
             </ScrollElement>
-            <ScrollElement name="trainer">
-              <SectionTitle>Formateur</SectionTitle>
-              <TrainerPicture
-                alt="Greg Bergé"
-                src={clUrl('profile_greg_ihxwjo', 'c_fill,g_face,h_200,w_200')}
-                height="200"
-                width="200"
-              />
-              <TrainerDescription>
-                <a href="https://github.com/neoziro/">Greg Bergé</a> est
-                passionné depuis toujours par le web et plus particulièrement
-                par le langage JavaScript. Développeur depuis les années 2000,
-                il a su évoluer et renforcer son expertise au fil du temps. Il
-                commence sa carrière professionnel comme stagiaire au monde. En
-                3 ans, il devient lead développeur et fait ses preuves sur le
-                projet de refonte du système de gestion de contenu (CMS) du
-                groupe Le Monde en Node.js et AngularJS. Par la suite, il offre
-                son expertise comme freelance pour plusieurs startups (dont
-                Doctolib pendant 2 ans) et donne des formations dans le monde
-                entier : Paris, San Francisco, Genêve, Nouméa... Il est aussi
-                auteur de plusieurs projets open-source dont le plus célèbre est{' '}
-                <a href="https://github.com/shipitjs/shipit">Shipit</a> (+3.7K
-                stars sur GitHub).
-              </TrainerDescription>
-            </ScrollElement>
+            {trainingDetail &&
+              trainingDetail.trainers.length > 0 &&
+              <ScrollElement name="trainers">
+                <SectionTitle>Formateurs</SectionTitle>
+                {trainingDetail.trainers.map(trainer =>
+                  <Trainer key={trainer.slug}>
+                    <TrainerName>
+                      {trainer.fullName}
+                    </TrainerName>
+                    <Link to={trainer.link}>
+                      <TrainerPicture
+                        alt={trainer.fullName}
+                        src={clUrl(
+                          trainer.cloudinary_id,
+                          'c_fill,g_face,h_180,w_180,dpr_2',
+                        )}
+                        height="180"
+                        width="180"
+                      />
+                    </Link>
+                    <TrainerDescription>
+                      <ReactMarkdown source={trainer.description} />
+                    </TrainerDescription>
+                  </Trainer>,
+                )}
+              </ScrollElement>}
           </StickyContainer>
         </Content>
         <Sidebar>
@@ -507,7 +528,7 @@ export default compose(
                       <Sessions>
                         {trainingDetail.sessions.map(session =>
                           <Session
-                            key={session.start_date}
+                            key={session.id}
                             session={session}
                             training={training}
                           />,

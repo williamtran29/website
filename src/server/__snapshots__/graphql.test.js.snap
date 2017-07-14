@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`graphql trainings should return custom trainer 1`] = `
+Object {
+  "data": Object {
+    "trainer": Object {
+      "fullName": "Greg Bergé",
+    },
+  },
+}
+`;
+
+exports[`graphql trainings should return custom training 1`] = `
+Object {
+  "data": Object {
+    "training": Object {
+      "trainers": Array [
+        Object {
+          "fullName": "Greg Bergé",
+        },
+        Object {
+          "fullName": "Adrien Joly",
+        },
+      ],
+    },
+  },
+}
+`;
+
 exports[`graphql trainings should return trainings 1`] = `
 Object {
   "data": Object {
@@ -163,6 +190,13 @@ Tout au long de la journée, vous serez guidé dans la réalisation d'un projet 
               "name": "Smooth Code",
             },
             "start_date": "2017-07-26",
+          },
+          Object {
+            "location": Object {
+              "city": "Paris",
+              "name": "Smooth Code",
+            },
+            "start_date": "2017-12-07",
           },
         ],
       },

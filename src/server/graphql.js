@@ -1,4 +1,5 @@
 import Training from 'server/models/Training'
+import Trainer from 'server/models/Trainer'
 import TrainingSession from 'server/models/TrainingSession'
 import { GraphQLDate } from 'graphql-iso-date'
 import { makeExecutableSchema } from 'graphql-tools'
@@ -33,6 +34,17 @@ export const schema = makeExecutableSchema({
       name: String
       siblings: [Training]
       sessions: [TrainingSession]
+      trainers: [Trainer]
+    }
+
+    type Trainer {
+      id: ID!
+      slug: ID!
+      fullName: String
+      description: String
+      cloudinary_id: String
+      link: String
+      trainings: [Training]
     }
 
     type TrainingSession {
@@ -47,6 +59,7 @@ export const schema = makeExecutableSchema({
       trainings: [Training]
       training(slug: ID!): Training
       trainingSession(id: ID!): TrainingSession
+      trainer(slug: ID!): Trainer
     }
   `,
   resolvers,
@@ -54,12 +67,15 @@ export const schema = makeExecutableSchema({
 
 export const rootValue = {
   async trainings() {
-    return Training.query()
+    return Training.query().orderBy('id', 'asc')
   },
   async training({ slug }) {
     return Training.query().where({ slug }).first()
   },
   async trainingSession({ id }) {
     return TrainingSession.query().where({ id }).first()
+  },
+  async trainer({ slug }) {
+    return Trainer.query().where({ slug }).first()
   },
 }

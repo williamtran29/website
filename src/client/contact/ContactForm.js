@@ -84,6 +84,7 @@ const ContactForm = ({
   onSubmit,
   initialMessage = '',
   messageLabel = 'Message',
+  submitLabel = 'Envoyer',
   success,
 }) =>
   <StyledForm className={className} onSubmit={onSubmit} model="forms.contact">
@@ -175,7 +176,7 @@ const ContactForm = ({
           </FormGroup>
         </FormRow>
         <Button type="submit" style={{ marginTop: 20 }}>
-          Envoyer
+          {submitLabel}
         </Button>
       </div>}
   </StyledForm>

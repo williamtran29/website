@@ -73,11 +73,20 @@ const Columns = styled.div`
   }
 `
 
-const ContactColumn = styled.div`flex: 1;`
+const ContactColumn = styled.div`
+  flex: 1;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    margin-right: 30px;
+  }
+`
 
 const InfoColumn = styled.div`
   flex-shrink: 0;
-  width: 350px;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    width: 350px;
+  }
 `
 
 const Address = styled.address`
@@ -185,6 +194,7 @@ export default compose(
               <Title>S’inscrire</Title>
               <ContactFormContainer>
                 <ContactForm
+                  submitLabel="S'inscrire à la session"
                   messageLabel="Commentaire"
                   subject={`Inscription formation "${training.name}" du ${humanizedDate}`}
                 />

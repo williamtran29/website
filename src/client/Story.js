@@ -145,7 +145,7 @@ export default () =>
       <Wrapper>
         <Founder>
           <FounderPicture
-            src={clUrl('profile_greg_ihxwjo', 'c_scale,h_400,w_300')}
+            src={clUrl('profile_greg_ihxwjo', 'c_scale,h_400,w_300,dpr_2')}
             alt="Greg Bergé"
             width="300"
             height="400"
@@ -176,7 +176,7 @@ export default () =>
       <Wrapper>
         <Founder inverse>
           <FounderPicture
-            src={clUrl('profile_jeremy_vdqdbb', 'c_scale,h_400,w_300')}
+            src={clUrl('profile_jeremy_vdqdbb', 'c_scale,h_400,w_300,dpr_2')}
             alt="Jérémy Sfez"
             width="300"
             height="400"
