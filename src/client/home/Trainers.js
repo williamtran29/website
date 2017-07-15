@@ -4,6 +4,7 @@ import theme from 'style/theme'
 import SectionWrapper from 'client/home/SectionWrapper'
 import SecondaryTitle from 'modules/components/SecondaryTitle'
 import { clUrl } from 'modules/cloudinary'
+import LazyLoad from 'react-lazyload'
 
 const Container = styled.div`
   border-top: 1px solid ${theme.colors.grayLight};
@@ -57,7 +58,9 @@ const Title = SecondaryTitle.extend`
 const Trainers = () =>
   <Container>
     <Wrapper flexDirection="column" lgFlexDirection="row">
-      <Picture />
+      <LazyLoad height={400} once offset={100}>
+        <Picture />
+      </LazyLoad>
       <Content>
         <Title>Des formateurs, mais avant tout des développeurs.</Title>
         <Text>
