@@ -4,20 +4,18 @@ import theme from 'style/theme'
 import { clUrl } from 'modules/cloudinary'
 import MainTitle from 'modules/components/MainTitle'
 import SectionWrapper from 'client/home/SectionWrapper'
+import LazyLoad from 'react-lazyload'
 
-const Container = styled.div`
-  text-align: center;
-`
+const Container = styled.div`text-align: center;`
 
-const Wrapper = SectionWrapper.extend`
-  flex-direction: column;
-`
+const Wrapper = SectionWrapper.extend`flex-direction: column;`
 
 const Pictures = styled.div`
   margin-top: 30px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  height: 60px;
 
   @media (min-width: ${theme.medias.phablet}) {
     margin-top: 50px;
@@ -52,16 +50,28 @@ const Customers = () =>
       <Title>Ils nous font confiance</Title>
       <Pictures>
         <Picture>
-          <img alt="Le Monde.fr" src={clUrl('lemonde_oea6fk')} />
+          <LazyLoad height={60} once offset={100}>
+            <img
+              alt="Le Monde.fr"
+              src={clUrl('lemonde_oea6fk', 'c_scale,h_60,dpr_2')}
+            />
+          </LazyLoad>
         </Picture>
         <Picture>
-          <img alt="Doctolib" src={clUrl('doctolib_uzkmp9')} />
+          <LazyLoad height={60} once offset={100}>
+            <img
+              alt="Doctolib"
+              src={clUrl('doctolib_uzkmp9', 'c_scale,h_60,dpr_2')}
+            />
+          </LazyLoad>
         </Picture>
         <Picture>
-          <img
-            alt="Institut de Formation à l'Administration Publique"
-            src={clUrl('ifap_kxpz6c')}
-          />
+          <LazyLoad height={60} once offset={100}>
+            <img
+              alt="Institut de Formation à l'Administration Publique"
+              src={clUrl('ifap_kxpz6c', 'c_scale,h_60,dpr_2')}
+            />
+          </LazyLoad>
         </Picture>
       </Pictures>
     </Wrapper>
