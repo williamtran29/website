@@ -15,7 +15,6 @@ const Pictures = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 60px;
 
   @media (min-width: ${theme.medias.phablet}) {
     margin-top: 50px;
@@ -26,6 +25,7 @@ const Pictures = styled.div`
 const Picture = styled.div`
   flex: 1;
   margin: 20px;
+  height: 60px;
 
   img {
     filter: grayscale(1);
@@ -35,10 +35,6 @@ const Picture = styled.div`
 
   @media (min-width: ${theme.medias.phablet}) {
     margin: 0 30px;
-
-    img {
-      max-height: 100px;
-    }
   }
 `
 
@@ -54,6 +50,7 @@ const Customers = () =>
             <img
               alt="Le Monde.fr"
               src={clUrl('lemonde_oea6fk', 'c_scale,h_60,dpr_2')}
+              height="60"
             />
           </LazyLoad>
         </Picture>
@@ -62,6 +59,7 @@ const Customers = () =>
             <img
               alt="Doctolib"
               src={clUrl('doctolib_uzkmp9', 'c_scale,h_60,dpr_2')}
+              height="60"
             />
           </LazyLoad>
         </Picture>
@@ -70,6 +68,7 @@ const Customers = () =>
             <img
               alt="Institut de Formation à l'Administration Publique"
               src={clUrl('ifap_kxpz6c', 'c_scale,h_60,dpr_2')}
+              height="60"
             />
           </LazyLoad>
         </Picture>
