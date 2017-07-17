@@ -62,6 +62,7 @@ export default class Training extends BaseModel {
     return this.$relatedQuery('sessions')
       .whereRaw("start_date > now() + interval '1 day'")
       .orderBy('start_date', 'asc')
+      .limit(3)
   }
 
   async trainers() {
