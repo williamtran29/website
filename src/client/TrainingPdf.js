@@ -7,96 +7,77 @@ import ReactMarkdown from 'react-markdown'
 import theme from 'style/theme'
 import { clUrl } from 'modules/cloudinary'
 import PageContainer from 'client/PageContainer'
-import MainTitle from 'modules/components/MainTitle'
-import Paragraph from 'modules/components/Paragraph'
+import Separator from 'modules/components/Separator'
 import Logo from 'client/Logo'
 
 const Container = styled.div`
   flex: 1;
-  display: flex;
   align-self: center;
   max-width: 1000px;
   width: 700px;
-  flex-direction: column;
+  margin: 20px 0 0;
+  position: relative;
+  padding-bottom: 80px;
 
   @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row;
   }
 `
 
-const Content = styled.div`
+const Footer = styled.footer`
+  position: absolute;
+  bottom: 0;
+  width: 700px;
+  padding-top: 50px;
+`
+const FooterText = styled.div`font-size: 12px;`
+
+const Header = styled.header`
+  display: flex;
+  margin-bottom: 40px;
+`
+const HeaderMain = styled.div`
   flex: 1;
-  margin: 20px 0 0;
+  display: flex;
+  margin-right: 20px;
+`
+const HeaderImg = styled.img`
+  margin-right: 10px;
+  flex-shrink: 0;
+`
+const Titles = styled.div``
+const Title = styled.h1`
+  font-size: 20px;
+  font-weight: 400;
+  flex: 1;
+  margin: 0;
+`
+const Subtitle = styled.div`
   font-size: 17px;
   font-weight: 300;
-  letter-spacing: 0.2px;
-  line-height: 22px;
-  padding-bottom: 40px;
-
-  strong {
-    font-weight: 400;
-  }
-
-  h3 {
-    font-size: 22px;
-    font-weight: 400;
-    letter-spacing: -0.2px;
-    line-height: 28px;
-  }
-}
 `
-
-const FloatRigthContainer = styled.div`float: right;`
-
+const Brand = styled.div`width: 160px;`
 const ColoredLogo = styled(Logo)`
   color: ${theme.colors.primary};
   width: 160px;
 `
-
-const ParagraphPrint = styled(Paragraph)`
+const Website = styled.div`
   font-size: 12px;
-  margin: 0;
+  font-weight: 300;
 `
-
-const MainTitleSmall = styled(MainTitle)`
-  font-size: 20px;
-`
-
-const AbstractContent = styled.div`
-  height: 50px;
-
-  ${FloatRigthContainer} {
-    padding-left: 10px;
-    border-left: 1px solid black;
-  }
-`
-
-const Picture = styled.img`
-  width: 50px;
-  float: left;
-`
-
-const AbstractParagraph = styled(ParagraphPrint)`
-  height: 50px;
-  width: 380px;
-  padding-left: 60px;
-  margin-top: 40px;
-`
-
 const Section = styled.div`
+  font-size: 13px;
+  line-height: 1.3;
+  margin-bottom: 20px;
+
   h3 {
-    font-size: 14px;
-    margin: 15px 0 0 0;
-    padding: 0;
+    font-size: 15px;
+    margin: 0 0 10px 0;
     color: ${theme.colors.primary};
     font-weight: bold;
     line-height: 1.5;
-  }
-
-  p {
-    padding: 0;
-    font-size: 12px;
-    line-height: 1.5;
+    break-after: avoid;
+    page-break-after: avoid;
   }
 
   h3 + p {
@@ -104,197 +85,181 @@ const Section = styled.div`
   }
 
   ul {
-    list-style: none;
     margin: 0;
+    padding-left: 20px;
+  }
+
+  h4 {
+    margin: 8px 0 5px;
     padding: 0;
-    font-size: 12px;
-    line-height: 1.5;
   }
-`
-
-const splitDescription = ({ fullDescription }) => {
-  const splitPattern = '### '
-  const descriptionParts = fullDescription.split(splitPattern)
-  return {
-    description: `${splitPattern} Description \n ${descriptionParts[0]}`,
-    objectives: splitPattern + descriptionParts[1],
-    requirements: splitPattern + descriptionParts[2],
-  }
-}
-
-const DescriptionPart = ({ fullDescription, partName }) =>
-  <Section>
-    <ReactMarkdown source={splitDescription({ fullDescription })[partName]} />
-  </Section>
-
-const SectionTitle = styled.h2`
-  margin: 20px 0 0 0;
-  font-size: 14px;
-  font-weight: bold;
-  color: ${theme.colors.primary};
 `
 
 const Planning = styled.div`
-  flex: 1;
   display: flex;
-  margin: 5px 0 10px;
+  margin: 10px 0 20px;
 `
 
-const ProgrammeDay = styled.div`
-  margin-right: 5px;
+const Day = styled.div`
   flex: 1;
-  font-size: 11px;
+  margin-right: 5px;
+  font-size: 12px;
 
-  h4 {
-    margin: 5px 0 0 0;
-    padding: 0;
-  }
-
-  ul {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 15px;
-  }
-
-  li {
-    margin: 0;
-    line-height: 1.2;
+  &:last-child {
+    margin-right: 0;
   }
 `
-const ProgrammeDayTitle = styled(SectionTitle)`
-  margin: 0 0 5px 0;
-  padding: 0;
-  font-weight: bold;
+const DayTitle = styled.div`
   border-left: 4px ${theme.colors.primary} solid;
   padding-left: 10px;
-  font-size: 12px;
-  color: black;
-  line-height: 1;
+  font-size: 14px;
+  font-weight: 600;
+`
+const Intro = styled.div`
+  display: flex;
+
+  ${Section} {
+    flex: 1;
+    margin-right: 20px;
+  }
 `
 
-const ProgrammeArray = ({ programmeContent }) => {
-  const daySplitting = programmeContent.split(/### Jour \d+/)
-  daySplitting.shift()
-  const res = daySplitting.map((day, i) =>
-    <Planning key={i}>
-      <ProgrammeDay>
-        <ProgrammeDayTitle>
-          Jour {i + 1}
-        </ProgrammeDayTitle>
-        <ReactMarkdown source={day} />
-      </ProgrammeDay>
-    </Planning>,
-  )
+const Infos = styled.div`
+  flex-shrink: 0;
+  width: 160px;
+`
 
-  return (
-    <Planning>
-      {res}
-    </Planning>
-  )
+const Info = styled.div`margin-bottom: 10px;`
+
+const InfoLabel = styled.div`
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+`
+
+const InfoContent = styled.div`font-size: 18px;`
+
+const Outline = ({ outline }) =>
+  <Planning>
+    {outline.split(/### Jour \d+[\s-]*/).filter(day => day).map((day, i) =>
+      <Day key={i}>
+        <DayTitle>
+          Jour {i + 1}
+        </DayTitle>
+        <ReactMarkdown source={day} />
+      </Day>,
+    )}
+  </Planning>
+
+const expandDescription = description => {
+  const SPLIT_PATTERN = '### '
+  const parts = description.split(SPLIT_PATTERN)
+  return {
+    description: `${SPLIT_PATTERN} Description \n ${parts[0]}`,
+    objectives: `${SPLIT_PATTERN}${parts[1]}`,
+    requirements: `${SPLIT_PATTERN}${parts[2]}`,
+  }
 }
 
-const Footer = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 700px;
-  padding-top: 20;
-
-  hr {
-    width: 250px;
-  }
-`
-
-const TRAINING_QUERY = gql`
-  query trainingData($slug: ID!) {
-    training(slug: $slug) {
-      cloudinary_id
-      name
-      abstract
-      duration
-      slug
-      color
-      outline
-      description
-      price
+const withTraining = graphql(
+  gql`
+    query trainingData($slug: ID!) {
+      training(slug: $slug) {
+        cloudinary_id
+        name
+        abstract
+        duration
+        slug
+        color
+        outline
+        description
+        price
+      }
     }
-  }
-`
-
-const options = ({ match }) => ({ variables: { slug: match.params.slug } })
-
-const withTraining = graphql(TRAINING_QUERY, {
-  name: 'trainingData',
-  options,
-})
-
-export default withTraining(
-  ({ trainingData: { training } }) =>
-    training
-      ? <PageContainer>
-          <Helmet>
-            <title>
-              {`Formation ${training.name}`}
-            </title>
-            <meta name="robots" content="noindex" />
-          </Helmet>
-          <Container>
-            <Content>
-              <FloatRigthContainer>
-                <ColoredLogo />
-                <ParagraphPrint>www.smooth-code.com</ParagraphPrint>
-              </FloatRigthContainer>
-              <MainTitleSmall itemProp="name">
-                {`Formation ${training.name}`}
-              </MainTitleSmall>
-              <AbstractContent>
-                <FloatRigthContainer>
-                  <ParagraphPrint>
-                    <strong style={{ textTransform: 'uppercase' }}>
-                      Durée:{' '}
-                    </strong>
-                    {`${training.duration} ${training.duration > 1
-                      ? 'jours'
-                      : 'jours'}`}
-                    <br />
-                    <strong>PRIX: </strong>
-                    {`${training.price}`}
-                  </ParagraphPrint>
-                </FloatRigthContainer>
-                <Picture
-                  alt={`${training.name} icon`}
-                  src={clUrl(training.cloudinary_id, 'c_scale,w_50,h_50,dpr_2')}
-                />
-                <AbstractParagraph>
-                  {training.abstract}
-                </AbstractParagraph>
-              </AbstractContent>
-
-              <DescriptionPart
-                fullDescription={training.description}
-                partName="objectives"
-              />
-              <DescriptionPart
-                fullDescription={training.description}
-                partName="requirements"
-              />
-              <SectionTitle>Programme</SectionTitle>
-              <ProgrammeArray programmeContent={training.outline} />
-              <DescriptionPart
-                fullDescription={training.description}
-                partName="description"
-              />
-              <Footer>
-                <hr />
-                <ParagraphPrint>
-                  <strong>Une question ?</strong> Vous avez besoin d’un
-                  renseignement ou d’une formation personnalisée ? Nous nous
-                  ferons un plaisir de répondre à vos questions.{' '}
-                  <strong>Tel.</strong> 06 50 58 80 79 - <strong>Mail :</strong>
-                  contact@smooth-code.com
-                </ParagraphPrint>
-              </Footer>
-            </Content>
-          </Container>
-        </PageContainer>
-      : null,
+  `,
+  {
+    options: ({ match }) => ({ variables: { slug: match.params.slug } }),
+  },
 )
+
+export default withTraining(({ data: { training } }) => {
+  if (!training) return null
+  const { description, objectives, requirements } = expandDescription(
+    training.description,
+  )
+  return (
+    <PageContainer>
+      <Helmet>
+        <title>
+          {`Formation ${training.name}`}
+        </title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
+      <Container>
+        <Header>
+          <HeaderMain>
+            <HeaderImg
+              alt={`${training.name}`}
+              width="50"
+              height="50"
+              src={clUrl(training.cloudinary_id, 'c_scale,w_50,h_50,dpr_2')}
+            />
+            <Titles>
+              <Title>
+                {`Formation ${training.name}`}
+              </Title>
+              <Subtitle>
+                {training.abstract}
+              </Subtitle>
+            </Titles>
+          </HeaderMain>
+          <Brand>
+            <ColoredLogo />
+            <Website>www.smooth-code.com</Website>
+          </Brand>
+        </Header>
+        <Intro>
+          <Section>
+            <ReactMarkdown source={objectives} />
+          </Section>
+          <Infos>
+            <Info>
+              <InfoLabel>Durée :</InfoLabel>
+              <InfoContent>
+                {`${training.duration} ${training.duration > 1
+                  ? 'jours'
+                  : 'jour'}`}
+              </InfoContent>
+            </Info>
+            <Info>
+              <InfoLabel>Prix :</InfoLabel>
+              <InfoContent>
+                {`${training.price} € HT / pers.`}
+              </InfoContent>
+            </Info>
+          </Infos>
+        </Intro>
+        <Section>
+          <ReactMarkdown source={requirements} />
+        </Section>
+        <Section>
+          <h3>Programme</h3>
+          <Outline outline={training.outline} />
+        </Section>
+        <Section>
+          <ReactMarkdown source={description} />
+        </Section>
+        <Footer>
+          <Separator style={{ width: 250, margin: '10px auto' }} />
+          <FooterText>
+            <strong>Une question ?</strong> Vous avez besoin d’un renseignement
+            ou d’une formation personnalisée ? Nous nous ferons un plaisir de
+            répondre à vos questions. <strong>Tél. :</strong> 06 50 58 80 79 -{' '}
+            <strong>Email :</strong> contact@smooth-code.com
+          </FooterText>
+        </Footer>
+      </Container>
+    </PageContainer>
+  )
+})
