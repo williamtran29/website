@@ -269,10 +269,10 @@ const SessionMonth = styled.div`
   background-color: #e16565;
   text-transform: uppercase;
   color: white;
-  font-size: 14px;
+  font-size: 13px;
   padding: 5px;
   border-radius: 4px 4px 0 0;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
 `
 
 const SessionDate = styled.div`
