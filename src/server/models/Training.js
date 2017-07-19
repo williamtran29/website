@@ -73,6 +73,6 @@ export default class Training extends BaseModel {
 
   ogImageUrl() {
     const cloudinaryId = this.og_cloudinary_id || this.cloudinary_id
-    return clUrl(cloudinaryId, 'c_scale,w_1200')
+    return `https${clUrl(cloudinaryId, 'c_scale,w_1200')}`
   }
 }
