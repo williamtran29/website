@@ -174,6 +174,11 @@ export default compose(
           <meta property="og:title" content={`Smooth Code - ${title}`} />
           <meta property="og:type" content="website" />
           <meta property="og:image" content={training && training.ogImageUrl} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:image"
+            content={training && training.ogImageUrl}
+          />
         </Helmet>
         <Header transparent />
         <TrainingHero training={training} />

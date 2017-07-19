@@ -75,6 +75,13 @@ const App = ({ location }) =>
         property="og:image"
         content={clUrl('smooth-code-shield', 'c_scale,w_1200')}
       />
+      <meta name="twitter:site" content="@smooth_code" />
+      <meta name="twitter:creator" content="@neoziro" />
+      <meta name="twitter:card" content="summary" />
+      <meta
+        property="twitter:image"
+        content={clUrl('smooth-code-shield', 'c_scale,w_1200')}
+      />
     </Helmet>
     <Route exact path="/" component={Home} />
     <Route path="/story" component={Story} />

@@ -404,6 +404,11 @@ export default compose(
           property="og:image"
           content={trainingDetail && trainingDetail.ogImageUrl}
         />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:image"
+          content={trainingDetail && trainingDetail.ogImageUrl}
+        />
       </Helmet>
       <Header transparent />
       <TrainingHero training={training} />
