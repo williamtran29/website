@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import compose from 'recompact/compose'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
-import { clUrl } from 'modules/cloudinary'
 import { longHumanizeDate } from 'modules/dateUtils'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
@@ -112,6 +111,7 @@ const withTraining = graphql(
         slug
         color
         price
+        ogImageUrl
       }
     }
   `,
@@ -173,12 +173,7 @@ export default compose(
           <meta name="description" content={description} />
           <meta property="og:title" content={`Smooth Code - ${title}`} />
           <meta property="og:type" content="website" />
-          <meta
-            property="og:image"
-            content={
-              training && clUrl(training.cloudinary_id, 'c_scale,w_400,h_400')
-            }
-          />
+          <meta property="og:image" content={training && training.ogImageUrl} />
         </Helmet>
         <Header transparent />
         <TrainingHero training={training} />

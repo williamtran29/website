@@ -1,4 +1,5 @@
 import BaseModel, { mergeSchemas } from 'server/models/BaseModel'
+import { clUrl } from 'modules/cloudinary'
 
 export default class Training extends BaseModel {
   static tableName = 'trainings'
@@ -24,6 +25,7 @@ export default class Training extends BaseModel {
       description: { type: 'string ' },
       outline: { type: 'string ' },
       cloudinary_id: { type: 'string ' },
+      og_cloudinary_id: { type: 'string ' },
       slug: { type: 'string ' },
     },
   })
@@ -67,5 +69,10 @@ export default class Training extends BaseModel {
 
   async trainers() {
     return this.$relatedQuery('trainers')
+  }
+
+  ogImageUrl() {
+    const cloudinaryId = this.og_cloudinary_id || this.cloudinary_id
+    return clUrl(cloudinaryId, 'c_scale,w_1200')
   }
 }

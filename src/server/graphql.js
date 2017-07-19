@@ -32,6 +32,7 @@ export const schema = makeExecutableSchema({
       price: Int
       duration: Int
       name: String
+      ogImageUrl: String
       siblings: [Training]
       sessions: [TrainingSession]
       trainers: [Trainer]

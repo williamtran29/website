@@ -342,6 +342,7 @@ const TRAINING_DETAIL_QUERY = gql`
       outline
       description
       price
+      ogImageUrl
       siblings {
         cloudinary_id
         slug
@@ -401,9 +402,7 @@ export default compose(
         <meta property="og:type" content="website" />
         <meta
           property="og:image"
-          content={
-            training && clUrl(training.cloudinary_id, 'c_scale,w_400,h_400')
-          }
+          content={trainingDetail && trainingDetail.ogImageUrl}
         />
       </Helmet>
       <Header transparent />

@@ -19,6 +19,7 @@ import {
   trainingPdfRoute,
   sessionRoute,
 } from 'modules/routePaths'
+import { clUrl } from 'modules/cloudinary'
 
 const App = ({ location }) =>
   <div>
@@ -72,10 +73,8 @@ const App = ({ location }) =>
       />
       <meta
         property="og:image"
-        content="//res.cloudinary.com/smooth/image/upload/c_scale,h_400,q_auto,w_400/v1497963998/smooth-code-shield.png"
+        content={clUrl('smooth-code-shield', 'c_scale,w_1200')}
       />
-      <meta property="og:image:width" content="400" />
-      <meta property="og:image:height" content="400" />
     </Helmet>
     <Route exact path="/" component={Home} />
     <Route path="/story" component={Story} />
