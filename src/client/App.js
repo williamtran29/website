@@ -66,6 +66,10 @@ const App = ({ location }) =>
         property="og:title"
         content="Smooth Code : Formations JavaScript, React et Node.js"
       />
+      <meta
+        property="og:description"
+        content="Formations JavaScript, React et Node.js destinées aux développeurs."
+      />
       <meta property="og:type" content="website" />
       <meta
         property="og:url"

@@ -399,6 +399,10 @@ export default compose(
           property="og:title"
           content={training && `Smooth Code - Formation ${training.name}`}
         />
+        <meta
+          property="og:description"
+          content={training && training.abstract}
+        />
         <meta property="og:type" content="website" />
         <meta
           property="og:image"

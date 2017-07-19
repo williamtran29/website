@@ -172,6 +172,10 @@ export default compose(
           <meta name="title" content={title} />
           <meta name="description" content={description} />
           <meta property="og:title" content={`Smooth Code - ${title}`} />
+          <meta
+            property="og:description"
+            content={training && training.abstract}
+          />
           <meta property="og:type" content="website" />
           <meta property="og:image" content={training && training.ogImageUrl} />
           <meta name="twitter:card" content="summary_large_image" />
