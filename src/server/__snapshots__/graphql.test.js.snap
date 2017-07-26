@@ -189,13 +189,6 @@ Tout au long de la journée, vous serez guidé dans la réalisation d'un projet 
               "city": "Paris",
               "name": "Smooth Code",
             },
-            "start_date": "2017-07-26",
-          },
-          Object {
-            "location": Object {
-              "city": "Paris",
-              "name": "Smooth Code",
-            },
             "start_date": "2017-12-07",
           },
         ],
