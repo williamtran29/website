@@ -51,7 +51,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
         "sessions": Array [],
       },
       Object {
-        "abstract": "Libérez la puissance du JavaScript côté serveur.",
+        "abstract": "Libérez la puissance du JavaScript côté serveur",
         "cloudinary_id": "nodejs_jxent0",
         "description": "En quelques années Node.js a complètement révolutionné le développement des applications web. Offrant des **performances optimales** et une **flexibilité sans égale**, Node.js a su s'imposer comme le choix de prédilection pour concevoir des applications web. **Basé sur le moteur V8 du navigateur Chrome**, il permet de **faire tourner le même code côté client et côté serveur**. Node.js tire également sa force de son **gestionnaire de paquet \\"npm\\"** qui comptabilise plus de **475 000 modules disponibles**.
 
@@ -165,7 +165,7 @@ Nous implémenterons des tests sur des exemples précis pour  vous permettre de 
         "sessions": Array [],
       },
       Object {
-        "abstract": "Créez votre première application React en une journée.",
+        "abstract": "Créez votre première application React en une journée",
         "cloudinary_id": "react-intro_eiiuhv",
         "description": "Vous avez probablement déjà entendu parlé de React, cette technologie popularisée par Facebook permettant de créer des applications réactives et performantes. React a maintenant une place incontestable dans l'écosystème JavaScript. Le maîtriser vous ouvrira les portes du développement front-end, la compétence la plus demandée sur le marché aujourd'hui.
 
@@ -189,7 +189,7 @@ Tout au long de la journée, vous serez guidé dans la réalisation d'un projet 
               "city": "Paris",
               "name": "Smooth Code",
             },
-            "start_date": "2017-12-07",
+            "start_date": "2017-12-06",
           },
         ],
       },
