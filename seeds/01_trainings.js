@@ -86,7 +86,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
     {
       id: 2,
       name: 'Node.js',
-      abstract: 'Libérez la puissance du JavaScript côté serveur.',
+      abstract: 'Libérez la puissance du JavaScript côté serveur',
       color: '#0b1209',
       duration: 4,
       price: 2000,
@@ -437,7 +437,7 @@ Nous implémenterons des tests sur des exemples précis pour  vous permettre de 
     {
       id: 7,
       name: 'Initiation à React',
-      abstract: 'Créez votre première application React en une journée.',
+      abstract: 'Créez votre première application React en une journée',
       color: '#6E1402',
       duration: 1,
       price: 150,

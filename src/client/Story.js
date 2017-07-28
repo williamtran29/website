@@ -77,7 +77,7 @@ const Vision = styled.div`
   color: white;
 
   ${Paragraph}, ${List} {
-    color: ${lighten(0.4, theme.colors.primary)};
+    color: ${lighten(0.8, theme.colors.primary)};
     mix-blend-mode: luminosity;
     text-shadow: 0 1px 2px rgba(0, 0, 0, .2);
   }
