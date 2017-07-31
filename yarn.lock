@@ -2617,7 +2617,19 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.12, fbjs@^0.8.5, fbjs@^0.8.9:
+fbjs@^0.8.14:
+  version "0.8.14"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.14.tgz#d1dbe2be254c35a91e09f31f9cd50a40b2a0ed1c"
+  dependencies:
+    core-js "^1.0.0"
+    isomorphic-fetch "^2.1.1"
+    loose-envify "^1.0.0"
+    object-assign "^4.1.0"
+    promise "^7.1.1"
+    setimmediate "^1.0.5"
+    ua-parser-js "^0.7.9"
+
+fbjs@^0.8.5, fbjs@^0.8.9:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
   dependencies:
@@ -3115,6 +3127,10 @@ hoist-non-react-statics@^1.0.3, hoist-non-react-statics@^1.2.0:
 hoist-non-react-statics@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.2.0.tgz#b099ca82f3640b1244309c8a526a2bd60ad9d7d9"
+
+hoist-non-react-statics@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.2.1.tgz#a7e41c760121d0abfc7a2339b331d29a26389e52"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -5567,9 +5583,9 @@ react-proxy@^3.0.0-alpha.0:
   dependencies:
     lodash "^4.6.1"
 
-react-redux-form@^1.13.2:
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/react-redux-form/-/react-redux-form-1.13.2.tgz#ca23dcb7c72be312fa4d82936317f13fac41e926"
+react-redux-form@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/react-redux-form/-/react-redux-form-1.14.0.tgz#f229cfcd882f7fb0050415530f4abf4c8041e2cd"
   dependencies:
     icepick "^1.1.0"
     invariant "~2.2.1"
@@ -5734,12 +5750,12 @@ rechoir@^0.6.2:
   dependencies:
     resolve "^1.1.6"
 
-recompact@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/recompact/-/recompact-3.0.3.tgz#4deaee692c362244451015d826b08d310a4288dd"
+recompact@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/recompact/-/recompact-3.0.5.tgz#cae7461335bca475fe375c3c24c63eda913971f4"
   dependencies:
-    fbjs "^0.8.12"
-    hoist-non-react-statics "^1.2.0"
+    fbjs "^0.8.14"
+    hoist-non-react-statics "^2.2.1"
     object.omit "^2.0.1"
     object.pick "^1.2.0"
     symbol-observable "^1.0.4"
@@ -6918,9 +6934,9 @@ webpack-sources@^1.0.1:
     source-list-map "^2.0.0"
     source-map "~0.5.3"
 
-webpack@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-3.4.0.tgz#e9465b660ad79dd2d33874d968b31746ea9a8e63"
+webpack@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-3.4.1.tgz#4c3f4f3fb318155a4db0cb6a36ff05c5697418f4"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"

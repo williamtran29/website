@@ -40,15 +40,31 @@ const Content = styled.div`
   letter-spacing: 0.2px;
   line-height: 22px;
 
+  hr {
+    border: 0;
+    border-top: 1px solid ${theme.colors.grayLight};
+  }
+
   strong {
     font-weight: 400;
   }
 
   h3 {
-    font-size: 22px;
     font-weight: 400;
-    letter-spacing: -0.2px;
-    line-height: 28px;
+    font-size: 24px;
+    line-height: 30px;
+    margin: 30px 0;
+  }
+
+  h4 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px
+    margin: 20px 0;
+  }
+
+  ul {
+    margin: 20px 0 30px;
   }
 `
 
@@ -179,9 +195,11 @@ const LinkButton = Button.extend`
 
 const SectionTitle = styled.h2`
   margin: 60px 0 20px;
-  font-size: 30px;
-  line-height: 1.2;
+  font-size: 32px;
+  line-height: 40px;
   font-weight: 400;
+  padding-bottom: 10px;
+  border-bottom: 1px solid ${theme.colors.grayLight};
 `
 
 const Nav = styled.nav`

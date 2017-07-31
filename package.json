@@ -88,12 +88,12 @@
     "react-lazyload": "^2.2.7",
     "react-markdown": "^2.5.0",
     "react-redux": "^5.0.5",
-    "react-redux-form": "^1.13.2",
+    "react-redux-form": "^1.14.0",
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "react-scroll": "^1.5.4",
     "react-sticky": "^6.0.1",
-    "recompact": "^3.0.3",
+    "recompact": "^3.0.5",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "regenerator-runtime": "^0.10.5",
@@ -102,7 +102,7 @@
     "slug": "^0.9.1",
     "styled-components": "^2.1.1",
     "tmp-promise": "^1.0.3",
-    "webpack": "^3.4.0"
+    "webpack": "^3.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
