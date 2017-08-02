@@ -83,6 +83,7 @@ const ContactForm = ({
   className,
   onSubmit,
   initialMessage = '',
+  messageRequired = false,
   messageLabel = 'Message',
   submitLabel = 'Envoyer',
   success,
@@ -165,7 +166,7 @@ const ContactForm = ({
               id="message"
               rows={5}
               mapProps={mapProps}
-              validators={{ required }}
+              validators={messageRequired ? { required } : undefined}
               defaultValue={initialMessage}
             />
             <StyledErrors

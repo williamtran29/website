@@ -87,7 +87,7 @@ const Contact = () =>
         </Info>
       </Infos>
       <FormContainer>
-        <ContactForm />
+        <ContactForm messageRequired />
       </FormContainer>
     </Container>
     <Footer />
