@@ -223,19 +223,19 @@ apollo-server-core@^1.0.2:
   optionalDependencies:
     "@types/graphql" "^0.9.0"
 
-apollo-server-koa@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/apollo-server-koa/-/apollo-server-koa-1.0.4.tgz#0dbe35acdc3bfdee6ad6b6675c08fa6c32eedb97"
+apollo-server-koa@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/apollo-server-koa/-/apollo-server-koa-1.0.5.tgz#743cbf1423abb7eee0cd9db4210cc736ddd168c4"
   dependencies:
     apollo-server-core "^1.0.2"
-    apollo-server-module-graphiql "^1.0.4"
+    apollo-server-module-graphiql "^1.0.5"
   optionalDependencies:
     "@types/graphql" "^0.9.1"
     "@types/koa" "^2.0.39"
 
-apollo-server-module-graphiql@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/apollo-server-module-graphiql/-/apollo-server-module-graphiql-1.0.4.tgz#d6db21a8c60f052649124da5cde1d88dab702319"
+apollo-server-module-graphiql@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/apollo-server-module-graphiql/-/apollo-server-module-graphiql-1.0.5.tgz#31639acb1dc4bd7e2edb334cf619f84ebff600a6"
 
 append-transform@^0.4.0:
   version "0.4.0"
@@ -2983,11 +2983,11 @@ graphql-iso-date@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/graphql-iso-date/-/graphql-iso-date-3.2.0.tgz#21f9352d165e624599ec4ea249e806966197f1dc"
 
-graphql-server-koa@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/graphql-server-koa/-/graphql-server-koa-1.0.4.tgz#5a5da35e453ea55203c10398b8ac7aab6ea69e93"
+graphql-server-koa@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/graphql-server-koa/-/graphql-server-koa-1.0.5.tgz#aecf5638f009eb79e8cde68bab1e8ada8bf881bf"
   dependencies:
-    apollo-server-koa "^1.0.4"
+    apollo-server-koa "^1.0.5"
 
 graphql-tag@^2.0.0:
   version "2.3.0"
@@ -5493,9 +5493,9 @@ react-addons-test-utils@^15.5.1:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.6.0.tgz#062d36117fe8d18f3ba5e06eb33383b0b85ea5b9"
 
-react-apollo@^1.4.8:
-  version "1.4.8"
-  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-1.4.8.tgz#b510f207b08ce4bd1e3adbd46a3ede68e3af27e7"
+react-apollo@^1.4.10:
+  version "1.4.10"
+  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-1.4.10.tgz#a3c77b120402245ea9d3a518118237c2a314a3a1"
   dependencies:
     apollo-client "^1.4.0"
     graphql-anywhere "^3.0.0"
