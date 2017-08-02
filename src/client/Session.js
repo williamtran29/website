@@ -112,6 +112,11 @@ const withTraining = graphql(
         color
         price
         ogImageUrl
+        trainers {
+          slug
+          fullName
+          link
+        }
       }
     }
   `,
@@ -145,6 +150,9 @@ const withSession = graphql(
     }),
   },
 )
+
+const fullUrl = url => `https://www.smooth-code.com${url}`
+
 export default compose(
   withTraining,
   withSession,
@@ -183,7 +191,21 @@ export default compose(
         </Helmet>
         <Header transparent />
         <TrainingHero training={training} />
-        <Container>
+        <Container itemScope itemType="http://schema.org/Event">
+          <meta itemProp="name" content={title} />
+          <meta itemProp="description" content={description} />
+          <meta itemProp="image" content={training.ogImageUrl} />
+          {training.trainers.map(trainer =>
+            <span
+              key={trainer.slug}
+              itemScope
+              itemProp="performer"
+              itemType="http://schema.org/Person"
+            >
+              <meta itemProp="name" content={trainer.fullName} />
+              <meta itemProp="url" content={fullUrl(trainer.link)} />
+            </span>,
+          )}
           <Breadcrumb>
             <Link to={trainingRoute(training.slug)}>
               {`Formation ${training.name}`}
@@ -208,20 +230,52 @@ export default compose(
             </ContactColumn>
             <InfoColumn>
               <Title>Date</Title>
+              <meta itemProp="startDate" content={session.start_date} />
+              <meta itemProp="endDate" content={session.end_date} />
               <Info>
                 {humanizedDate}
               </Info>
               <Title>Prix</Title>
-              <Info>
-                {training.price} €
+              <Info
+                itemScope
+                itemProp="offers"
+                itemType="http://schema.org/Offer"
+              >
+                <link
+                  itemProp="availability"
+                  href="http://schema.org/InStock"
+                />
+                <span itemProp="price">{training.price}</span>{' '}
+                <span itemProp="priceCurrency" content="EUR">
+                  €
+                </span>
               </Info>
               <Title>Lieu</Title>
-              <Address>
-                {session.location.name}
+              <Address
+                itemProp="location"
+                itemScope
+                itemType="http://schema.org/Place"
+              >
+                <span itemProp="name">
+                  {session.location.name}
+                </span>
                 <br />
-                {session.location.address}
-                <br />
-                {session.location.zipcode} {session.location.city}
+                <span
+                  itemScope
+                  itemProp="address"
+                  itemType="http://schema.org/PostalAddress"
+                >
+                  <span itemProp="streetAddress">
+                    {session.location.address}
+                  </span>
+                  <br />
+                  <span itemProp="postalCode">
+                    {session.location.zipcode}
+                  </span>{' '}
+                  <span itemProp="addressLocality">
+                    {session.location.city}
+                  </span>
+                </span>
               </Address>
               <Iframe
                 title={session.location.name}

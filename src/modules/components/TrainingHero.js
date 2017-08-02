@@ -29,6 +29,13 @@ const TrainingHero = ({ training }) =>
       )})`
     }
   >
+    <meta
+      itemProp="image"
+      content={`https:${clUrl(
+        training.cloudinary_id,
+        'c_scale,w_150,h_150,dpr_2',
+      )}`}
+    />
     <Picture
       background={
         training && clUrl(training.cloudinary_id, 'c_scale,w_150,h_150,dpr_2')

@@ -12,7 +12,7 @@ import FaEnvelope from 'react-icons/lib/fa/envelope'
 import theme from 'style/theme'
 import moment from 'modules/moment'
 import { clUrl } from 'modules/cloudinary'
-import { humanizeDate } from 'modules/dateUtils'
+import { longHumanizeDate } from 'modules/dateUtils'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
@@ -305,34 +305,71 @@ const SessionCity = styled.div`
   padding: 5px;
 `
 
-const Session = ({ training, session }) => {
+const fullUrl = url => `https://www.smooth-code.com${url}`
+
+const Session = ({ training, trainingDetail, session }) => {
   const startDate = moment.utc(session.start_date)
-  const endDate = moment.utc(session.end_date)
-  const humanizedDate = humanizeDate({ startDate, endDate })
-  const title = `Formation ${training.name}`
+  const longHumanizedDate = longHumanizeDate({
+    startDate: session.start_date,
+    endDate: session.end_date,
+  })
+  const title = `Session formation "${training.name}" du ${longHumanizedDate}`
+  const description = `Inscrivez-vous pour la formation "${training.name}" du ${longHumanizedDate}. Les places sont limités !`
+
   return (
-    <TrainingSession itemScope itemType="http://data-vocabulary.org/Event">
-      <meta content={title} itemProp="name" />
-      <meta content={training.abstract} itemProp="summary" />
-      <meta content={session.start_date} itemProp="startDate" />
-      <meta content={session.end_date} itemProp="endDate" />
-      <meta
-        content={clUrl(training.cloudinary_id, 'c_scale,w_400,h_400')}
-        itemProp="photo"
-      />
-      <SessionLink
-        to={session.link}
-        itemProp="url"
-        title={`${title} ${humanizedDate}`}
-      >
+    <TrainingSession itemScope itemType="http://schema.org/Event">
+      <meta itemProp="name" content={title} />
+      <meta itemProp="description" content={description} />
+      <meta itemProp="startDate" content={session.start_date} />
+      <meta itemProp="endDate" content={session.end_date} />
+      <meta itemProp="image" content={trainingDetail.ogImageUrl} />
+      {trainingDetail.trainers.map(trainer =>
+        <span
+          key={trainer.slug}
+          itemScope
+          itemProp="performer"
+          itemType="http://schema.org/Person"
+        >
+          <meta itemProp="name" content={trainer.fullName} />
+          <meta itemProp="url" content={fullUrl(trainer.link)} />
+        </span>,
+      )}
+      <span itemProp="offers" itemScope itemType="http://schema.org/Offer">
+        <meta itemProp="price" content={trainingDetail.price} />
+        <meta itemProp="priceCurrency" content="EUR" />
+        <link itemProp="availability" href="http://schema.org/InStock" />
+      </span>
+      <SessionLink to={session.link} itemProp="url" title={title}>
         <SessionMonth>
           {startDate.format('MMMM')}
         </SessionMonth>
         <SessionDate>
           {startDate.format('DD')}
         </SessionDate>
-        <SessionCity>
-          {session.location.city}
+        <SessionCity
+          itemProp="location"
+          itemScope
+          itemType="http://schema.org/Place"
+        >
+          <meta itemProp="name" content={session.location.city} />
+          <meta
+            itemProp="description"
+            content={`Dans les locaux de ${session.location.name} à ${session
+              .location.city}`}
+          />
+          <span
+            itemProp="address"
+            itemScope
+            itemType="http://schema.org/PostalAddress"
+          >
+            <meta itemProp="streetAddress" content={session.location.address} />
+            <meta itemProp="postalCode" content={session.location.zipcode} />
+            <meta
+              itemProp="addressLocality"
+              content={`${session.location.city}, ${session.location.country}`}
+            />
+            {session.location.city}
+          </span>
         </SessionCity>
       </SessionLink>
     </TrainingSession>
@@ -373,7 +410,11 @@ const TRAINING_DETAIL_QUERY = gql`
         end_date
         link
         location {
+          name
+          address
           city
+          zipcode
+          country
         }
       }
       trainers {
@@ -433,185 +474,194 @@ export default compose(
         />
       </Helmet>
       <Header transparent />
-      <TrainingHero training={training} />
-      <Container>
-        <Content>
-          <StickyContainer>
-            <Sticky>
-              {({ style }) =>
-                <Nav style={style}>
-                  <span>
-                    <StyledScrollLink
-                      activeClass="active"
-                      spy
-                      smooth
-                      offset={-60}
-                      to="description"
-                    >
-                      Description
-                    </StyledScrollLink>
-                  </span>
-                  <span aria-hidden="true"> · </span>
-                  <span>
-                    <StyledScrollLink
-                      activeClass="active"
-                      spy
-                      smooth
-                      offset={-60}
-                      to="outline"
-                    >
-                      Programme
-                    </StyledScrollLink>
-                  </span>
-                  <span aria-hidden="true"> · </span>
-                  <span>
-                    <StyledScrollLink
-                      activeClass="active"
-                      spy
-                      smooth
-                      offset={-60}
-                      to="trainers"
-                    >
-                      Formateurs
-                    </StyledScrollLink>
-                  </span>
-                </Nav>}
-            </Sticky>
-            <ScrollElement name="description">
-              {trainingDetail &&
-                <ReactMarkdown source={trainingDetail.description} />}
-            </ScrollElement>
-            <ScrollElement name="outline">
-              <SectionTitle>Programme</SectionTitle>
-              {trainingDetail &&
-                <ReactMarkdown source={trainingDetail.outline} />}
-            </ScrollElement>
-            {trainingDetail &&
-              trainingDetail.trainers.length > 0 &&
-              <ScrollElement name="trainers">
-                <SectionTitle>Formateurs</SectionTitle>
-                {trainingDetail.trainers.map(trainer =>
-                  <Trainer key={trainer.slug}>
-                    <TrainerName>
-                      {trainer.fullName}
-                    </TrainerName>
-                    <Link to={trainer.link}>
-                      <TrainerPicture
-                        alt={trainer.fullName}
-                        src={clUrl(
-                          trainer.cloudinary_id,
-                          'c_fill,g_face,h_180,w_180,dpr_2',
-                        )}
-                        height="180"
-                        width="180"
-                      />
-                    </Link>
-                    <TrainerDescription>
-                      <ReactMarkdown source={trainer.description} />
-                    </TrainerDescription>
-                  </Trainer>,
-                )}
-              </ScrollElement>}
-          </StickyContainer>
-        </Content>
-        <Sidebar>
-          <SidebarStickyContainer>
-            <Sticky>
-              {({ style }) =>
-                <SidebarSticky style={style}>
-                  <SidebarSection>
-                    <InfoLabel>Prix :</InfoLabel>
-                    <Amount
-                      itemProp="offers"
-                      itemScope
-                      itemType="http://schema.org/Offer"
-                    >
-                      <span
-                        content={trainingDetail && trainingDetail.price}
-                        itemProp="price"
+      <div itemScope itemType="http://schema.org/Course">
+        <meta itemProp="accessMode" content="auditory" />
+        <meta itemProp="learningResourceType" content="presentation" />
+        <TrainingHero training={training} />
+        <Container>
+          <Content>
+            <StickyContainer>
+              <Sticky>
+                {({ style }) =>
+                  <Nav style={style}>
+                    <span>
+                      <StyledScrollLink
+                        activeClass="active"
+                        spy
+                        smooth
+                        offset={-60}
+                        to="description"
                       >
-                        {trainingDetail ? trainingDetail.price : '-'}
-                      </span>
-                      <span content="EUR" itemProp="priceCurrency">
-                        €
-                      </span>{' '}
-                      <AmountSmall>HT / personne</AmountSmall>
-                    </Amount>
-                    <InfoLabel>Durée :</InfoLabel>
-                    <Amount>
-                      {training &&
-                        `${training.duration} ${training.duration > 1
-                          ? 'jours'
-                          : 'jour'}`}
-                    </Amount>
-                    <LinkButton to="/contact">Demander un devis</LinkButton>
-                  </SidebarSection>
-                  {trainingDetail &&
-                    training &&
-                    trainingDetail.sessions.length > 0 &&
+                        Description
+                      </StyledScrollLink>
+                    </span>
+                    <span aria-hidden="true"> · </span>
+                    <span>
+                      <StyledScrollLink
+                        activeClass="active"
+                        spy
+                        smooth
+                        offset={-60}
+                        to="outline"
+                      >
+                        Programme
+                      </StyledScrollLink>
+                    </span>
+                    <span aria-hidden="true"> · </span>
+                    <span>
+                      <StyledScrollLink
+                        activeClass="active"
+                        spy
+                        smooth
+                        offset={-60}
+                        to="trainers"
+                      >
+                        Formateurs
+                      </StyledScrollLink>
+                    </span>
+                  </Nav>}
+              </Sticky>
+              <ScrollElement name="description">
+                {trainingDetail &&
+                  <ReactMarkdown source={trainingDetail.description} />}
+              </ScrollElement>
+              <ScrollElement name="outline">
+                <SectionTitle>Programme</SectionTitle>
+                {trainingDetail &&
+                  <ReactMarkdown source={trainingDetail.outline} />}
+              </ScrollElement>
+              {trainingDetail &&
+                trainingDetail.trainers.length > 0 &&
+                <ScrollElement name="trainers">
+                  <SectionTitle>Formateurs</SectionTitle>
+                  {trainingDetail.trainers.map(trainer =>
+                    <Trainer
+                      key={trainer.slug}
+                      itemScope
+                      itemType="http://schema.org/Person"
+                    >
+                      <TrainerName>
+                        {trainer.fullName}
+                      </TrainerName>
+                      <Link to={trainer.link}>
+                        <TrainerPicture
+                          alt={trainer.fullName}
+                          src={clUrl(
+                            trainer.cloudinary_id,
+                            'c_fill,g_face,h_180,w_180,dpr_2',
+                          )}
+                          height="180"
+                          width="180"
+                        />
+                      </Link>
+                      <TrainerDescription>
+                        <ReactMarkdown source={trainer.description} />
+                      </TrainerDescription>
+                    </Trainer>,
+                  )}
+                </ScrollElement>}
+            </StickyContainer>
+          </Content>
+          <Sidebar>
+            <SidebarStickyContainer>
+              <Sticky>
+                {({ style }) =>
+                  <SidebarSticky style={style}>
                     <SidebarSection>
-                      <SidebarTitle>Sessions</SidebarTitle>
-                      <Sessions>
-                        {trainingDetail.sessions.map(session =>
-                          <Session
-                            key={session.id}
-                            session={session}
-                            training={training}
-                          />,
-                        )}
-                      </Sessions>
-                    </SidebarSection>}
-                  <SidebarSection>
-                    <SidebarTitle>Une question ?</SidebarTitle>
-                    <SidebarText>
-                      Vous avez besoin d’un renseignement ou d’une formation
-                      personnalisée ?<br />
-                      Nous nous ferons un plaisir de répondre à vos questions.
-                    </SidebarText>
-                    <ContactItem>
-                      <a href="tel:+33650588079">
-                        <FaPhone /> <span>06 50 58 80 79</span>
-                      </a>
-                    </ContactItem>
-                    <ContactItem>
-                      <a href="mailto:contact@smooth-code.com?subject=Demande%20d%27information">
-                        <FaEnvelope /> <span>Email</span>
-                      </a>
-                    </ContactItem>
-                  </SidebarSection>
-                  <SidebarSection>
-                    <SidebarTitle>Autres formations</SidebarTitle>
-                    {trainingDetail &&
-                      trainingDetail.siblings.map(sibling =>
-                        <Sibling
-                          key={sibling.slug}
-                          to={`/trainings/${sibling.slug}`}
+                      <InfoLabel>Prix :</InfoLabel>
+                      <Amount
+                        itemProp="offers"
+                        itemScope
+                        itemType="http://schema.org/Offer"
+                      >
+                        <span
+                          content={trainingDetail && trainingDetail.price}
+                          itemProp="price"
                         >
-                          <SiblingImage
-                            alt={sibling.name}
-                            width="140"
-                            height="140"
-                            src={clUrl(
-                              sibling.cloudinary_id,
-                              'c_scale,w_140,h_140,dpr_2',
-                            )}
-                          />
-                          <SiblingInfo>
-                            <SiblingName>
-                              {sibling.name}
-                            </SiblingName>
-                            <SiblingAbstract>
-                              {sibling.abstract}
-                            </SiblingAbstract>
-                          </SiblingInfo>
-                        </Sibling>,
-                      )}
-                  </SidebarSection>
-                </SidebarSticky>}
-            </Sticky>
-          </SidebarStickyContainer>
-        </Sidebar>
-      </Container>
-      <Footer />
+                          {trainingDetail ? trainingDetail.price : '-'}
+                        </span>
+                        <span content="EUR" itemProp="priceCurrency">
+                          €
+                        </span>{' '}
+                        <AmountSmall>HT / personne</AmountSmall>
+                      </Amount>
+                      <InfoLabel>Durée :</InfoLabel>
+                      <Amount>
+                        {training &&
+                          `${training.duration} ${training.duration > 1
+                            ? 'jours'
+                            : 'jour'}`}
+                      </Amount>
+                      <LinkButton to="/contact">Demander un devis</LinkButton>
+                    </SidebarSection>
+                    {trainingDetail &&
+                      training &&
+                      trainingDetail.sessions.length > 0 &&
+                      <SidebarSection>
+                        <SidebarTitle>Sessions</SidebarTitle>
+                        <Sessions>
+                          {trainingDetail.sessions.map(session =>
+                            <Session
+                              key={session.id}
+                              session={session}
+                              training={training}
+                              trainingDetail={trainingDetail}
+                            />,
+                          )}
+                        </Sessions>
+                      </SidebarSection>}
+                    <SidebarSection>
+                      <SidebarTitle>Une question ?</SidebarTitle>
+                      <SidebarText>
+                        Vous avez besoin d’un renseignement ou d’une formation
+                        personnalisée ?<br />
+                        Nous nous ferons un plaisir de répondre à vos questions.
+                      </SidebarText>
+                      <ContactItem>
+                        <a href="tel:+33650588079">
+                          <FaPhone /> <span>06 50 58 80 79</span>
+                        </a>
+                      </ContactItem>
+                      <ContactItem>
+                        <a href="mailto:contact@smooth-code.com?subject=Demande%20d%27information">
+                          <FaEnvelope /> <span>Email</span>
+                        </a>
+                      </ContactItem>
+                    </SidebarSection>
+                    <SidebarSection>
+                      <SidebarTitle>Autres formations</SidebarTitle>
+                      {trainingDetail &&
+                        trainingDetail.siblings.map(sibling =>
+                          <Sibling
+                            key={sibling.slug}
+                            to={`/trainings/${sibling.slug}`}
+                          >
+                            <SiblingImage
+                              alt={sibling.name}
+                              width="140"
+                              height="140"
+                              src={clUrl(
+                                sibling.cloudinary_id,
+                                'c_scale,w_140,h_140,dpr_2',
+                              )}
+                            />
+                            <SiblingInfo>
+                              <SiblingName>
+                                {sibling.name}
+                              </SiblingName>
+                              <SiblingAbstract>
+                                {sibling.abstract}
+                              </SiblingAbstract>
+                            </SiblingInfo>
+                          </Sibling>,
+                        )}
+                    </SidebarSection>
+                  </SidebarSticky>}
+              </Sticky>
+            </SidebarStickyContainer>
+          </Sidebar>
+        </Container>
+        <Footer />
+      </div>
     </PageContainer>,
 )
