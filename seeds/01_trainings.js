@@ -1,7 +1,6 @@
 exports.seed = async knex => {
   await knex('trainings').insert([
     {
-      id: 1,
       name: 'JavaScript ES2017',
       abstract:
         'Découvrez les nouveautés apportées par ES6 / ES2015, ES2016 et ES2017',
@@ -84,7 +83,6 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
       slug: 'formation-javascript-es2017',
     },
     {
-      id: 2,
       name: 'Node.js',
       abstract: 'Libérez la puissance du JavaScript côté serveur',
       color: '#0b1209',
@@ -214,7 +212,6 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
       slug: 'formation-nodejs',
     },
     {
-      id: 3,
       name: 'React',
       abstract:
         'Apprenez à créer des interfaces web modernes, fluides et interactives',
@@ -264,7 +261,6 @@ Un projet complet sera réalisé en fil rouge durant toute la formation pour vou
       slug: 'formation-react',
     },
     {
-      id: 4,
       name: 'RxJS',
       abstract: 'Maîtrisez la programmation réactive',
       color: '#400127',
@@ -343,7 +339,6 @@ Plusieurs exercices concrets tout au long de la formation vous permettront de me
       slug: 'formation-rxjs',
     },
     {
-      id: 5,
       name: 'GraphQL',
       abstract: 'Créez des API modernes et évolutives avec GraphQL',
       color: '#171E26',
@@ -393,7 +388,6 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
       slug: 'formation-graphql',
     },
     {
-      id: 6,
       name: 'Jest',
       abstract: 'Passez à la vitesse supérieure en matière de test JavaScript',
       color: '#99424F',
@@ -435,7 +429,6 @@ Nous implémenterons des tests sur des exemples précis pour  vous permettre de 
       slug: 'formation-jest-react',
     },
     {
-      id: 7,
       name: 'Initiation à React',
       abstract: 'Créez votre première application React en une journée',
       color: '#6E1402',

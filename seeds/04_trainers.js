@@ -1,7 +1,6 @@
 exports.seed = async knex => {
   await knex('trainers').insert([
     {
-      id: 1,
       first_name: 'Greg',
       last_name: 'Bergé',
       slug: 'greg-berge',
@@ -9,7 +8,6 @@ exports.seed = async knex => {
       cloudinary_id: 'profile_greg_ihxwjo',
     },
     {
-      id: 2,
       first_name: 'Adrien',
       last_name: 'Joly',
       slug: 'adrien-joly',
@@ -18,26 +16,20 @@ exports.seed = async knex => {
     },
   ])
 
-  await knex('trainings_trainers').insert([
-    {
-      id: 1,
-      training_id: 1,
-      trainer_id: 1,
-    },
-    {
-      id: 2,
-      training_id: 2,
-      trainer_id: 1,
-    },
-    {
-      id: 3,
-      training_id: 1,
-      trainer_id: 2,
-    },
-    {
-      id: 4,
-      training_id: 2,
-      trainer_id: 2,
-    },
-  ])
+  const trainings = await knex('trainings').orderBy('id', 'asc').limit(2)
+
+  const trainers = await knex('trainers')
+
+  await knex('trainings_trainers').insert(
+    trainings.reduce(
+      (inserts, { id: training_id }) => [
+        ...inserts,
+        ...trainers.map(({ id: trainer_id }) => ({
+          training_id,
+          trainer_id,
+        })),
+      ],
+      [],
+    ),
+  )
 }
