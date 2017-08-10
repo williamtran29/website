@@ -1,8 +1,10 @@
+import Path from 'server/models/Path'
 import Training from 'server/models/Training'
 import Trainer from 'server/models/Trainer'
 import TrainingSession from 'server/models/TrainingSession'
 import { GraphQLDate } from 'graphql-iso-date'
 import { makeExecutableSchema } from 'graphql-tools'
+import graphqlFields from 'graphql-fields'
 
 const resolvers = {
   Date: GraphQLDate,
@@ -11,6 +13,14 @@ const resolvers = {
 export const schema = makeExecutableSchema({
   typeDefs: `
     scalar Date
+
+    type Path {
+      id: ID!
+      title: String
+      color: String
+      icon: String
+      trainings: [Training]
+    }
 
     type TrainingLocation {
       id: ID!
@@ -23,19 +33,12 @@ export const schema = makeExecutableSchema({
 
     type Training {
       id: ID!
-      slug: ID!
+      title: String
       abstract: String
-      cloudinary_id: String
-      description: String
-      color: String
-      outline: String
-      price: Int
-      duration: Int
-      name: String
-      ogImageUrl: String
-      siblings: [Training]
-      sessions: [TrainingSession]
-      trainers: [Trainer]
+      icon: String
+      link: String
+      duration: String
+      intraPrice: Float
     }
 
     type Trainer {
@@ -57,6 +60,7 @@ export const schema = makeExecutableSchema({
     }
 
     type Query {
+      paths: [Path]
       trainings: [Training]
       training(slug: ID!): Training
       trainingSession(id: ID!): TrainingSession
@@ -66,9 +70,40 @@ export const schema = makeExecutableSchema({
   resolvers,
 })
 
+const eagerResolver = {
+  paths(fields) {
+    if (fields.trainings) {
+      const trainingsEagerPath = eagerResolver.trainings(fields.trainings)
+
+      return {
+        path: `trainings(orderByRank)${trainingsEagerPath
+          ? `.${trainingsEagerPath}`
+          : ''}`,
+        modifiers: {
+          orderByRank(builder) {
+            builder.orderBy('rank', 'asc')
+          },
+        },
+      }
+    }
+
+    return null
+  },
+  trainings(fields) {
+    if (fields.duration || fields.intraPrice) return 'courses'
+    return null
+  },
+}
+
 export const rootValue = {
+  async paths(args, obj, context) {
+    const eager = eagerResolver.paths(graphqlFields(context))
+    const query = Path.query().orderBy('rank', 'asc')
+    if (eager) return query.eager(eager.path, eager.modifiers)
+    return query
+  },
   async trainings() {
-    return Training.query().orderBy('id', 'asc')
+    return Training.query().orderBy('rank', 'asc')
   },
   async training({ slug }) {
     return Training.query().where({ slug }).first()

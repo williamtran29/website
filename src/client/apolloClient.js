@@ -1,5 +1,4 @@
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
-import { customResolvers, dataIdFromObject } from 'modules/apollo'
 
 /* eslint-disable no-underscore-dangle */
 const client = new ApolloClient({
@@ -12,8 +11,6 @@ const client = new ApolloClient({
       credentials: 'same-origin',
     },
   }),
-  customResolvers,
-  dataIdFromObject,
 })
 /* eslint-enable no-underscore-dangle */
 

@@ -1,6 +1,7 @@
 import * as database from 'server/services/database'
+import { truncateAll } from 'server/dbUtils'
 
-export const useDatabase = () => {
+function useDatabase() {
   let knex
 
   beforeAll(async () => {
@@ -12,6 +13,8 @@ export const useDatabase = () => {
   })
 
   beforeEach(async () => {
-    await knex.seed.run()
+    await truncateAll(knex)
   })
 }
+
+export default useDatabase

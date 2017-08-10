@@ -1,64 +1,48 @@
 import { graphql } from 'graphql'
-import { useDatabase } from 'server/testUtils'
+import { useDatabase, factory } from 'server/test'
 import { schema, rootValue } from 'server/graphql'
+
+const gql = lines => graphql(schema, lines.join(''), rootValue)
 
 describe('graphql', () => {
   useDatabase()
 
-  describe('trainings', () => {
-    it('should return trainings', async () => {
-      const result = await graphql(
-        schema,
-        `{
-          trainings {
-            abstract
-            cloudinary_id
-            description
-            duration
-            name
-            sessions {
-              start_date
-              location {
-                name
-                city
-              }
-            }
-          }
-        }`,
-        rootValue,
-      )
-
-      expect(result).toMatchSnapshot()
+  describe('paths', () => {
+    beforeEach(async () => {
+      const paths = await factory.createMany('path', 5, [
+        { title: 'JavaScript' },
+      ])
+      await factory.createMany('training', 5, {
+        path_id: paths[0].id,
+      })
     })
 
-    it('should return custom training', async () => {
-      const result = await graphql(
-        schema,
-        `{
-          training(slug: "formation-nodejs") {
-            trainers {
-              fullName
-            }
+    it('should return path without trainings', async () => {
+      const result = await gql`
+        {
+          paths {
+            title
           }
-        }`,
-        rootValue,
-      )
+        }
+      `
 
-      expect(result).toMatchSnapshot()
+      expect(result.data.paths[0].title).toBe('JavaScript')
     })
 
-    it('should return custom trainer', async () => {
-      const result = await graphql(
-        schema,
-        `{
-          trainer(slug: "greg-berge") {
-            fullName
+    it('should return path with trainings', async () => {
+      const result = await gql`
+        {
+          paths {
+            title
+            trainings {
+              title
+              duration
+            }
           }
-        }`,
-        rootValue,
-      )
+        }
+      `
 
-      expect(result).toMatchSnapshot()
+      expect(result.data.paths[0].trainings.length).toBe(5)
     })
   })
 })

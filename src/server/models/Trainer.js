@@ -5,19 +5,13 @@ export default class Trainer extends BaseModel {
   static tableName = 'trainers'
 
   static jsonSchema = mergeSchemas(BaseModel.jsonSchema, {
-    required: [
-      'first_name',
-      'last_name',
-      'description',
-      'slug',
-      'cloudinary_id',
-    ],
+    required: ['first_name', 'last_name', 'description', 'slug', 'picture'],
     properties: {
       first_name: { type: 'string' },
       last_name: { type: 'string' },
       description: { type: 'string' },
       slug: { type: 'string' },
-      cloudinary_id: { type: 'string ' },
+      picture: { type: 'string ' },
     },
   })
 

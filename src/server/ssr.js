@@ -9,7 +9,6 @@ import { ApolloClient, ApolloProvider, getDataFromTree } from 'react-apollo'
 import { createLocalInterface } from 'apollo-local-query'
 import * as graphql from 'graphql'
 import { schema, rootValue } from 'server/graphql'
-import { customResolvers, dataIdFromObject } from 'modules/apollo'
 import config from 'server/config'
 import App from 'client/App'
 import Html from 'server/Html'
@@ -42,8 +41,6 @@ export default () => async ({ request, response }) => {
     networkInterface: createLocalInterface(graphql, schema, {
       rootValue,
     }),
-    customResolvers,
-    dataIdFromObject,
   })
 
   const context = {}

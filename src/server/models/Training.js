@@ -1,3 +1,4 @@
+import { trainingRoute } from 'modules/routePaths'
 import BaseModel, { mergeSchemas } from 'server/models/BaseModel'
 import { clUrl } from 'modules/cloudinary'
 
@@ -5,32 +6,31 @@ export default class Training extends BaseModel {
   static tableName = 'trainings'
 
   static jsonSchema = mergeSchemas(BaseModel.jsonSchema, {
-    required: [
-      'name',
-      'duration',
-      'price',
-      'abstract',
-      'color',
-      'description',
-      'outline',
-      'cloudinary_id',
-      'slug',
-    ],
+    required: ['title', 'icon', 'slug'],
     properties: {
-      name: { type: 'string' },
-      duration: { type: 'integer' },
-      price: { type: 'integer' },
-      abstract: { type: 'string ' },
-      color: { type: 'string ' },
-      description: { type: 'string ' },
-      outline: { type: 'string ' },
-      cloudinary_id: { type: 'string ' },
-      og_cloudinary_id: { type: 'string ' },
-      slug: { type: 'string ' },
+      rank: { type: 'integer' },
+      title: { type: 'string' },
+      abstract: { type: 'integer' },
+      description: { type: 'string' },
+      objectives: { type: 'string' },
+      prerequisites: { type: 'string' },
+      icon: { type: 'string' },
+      slug: { type: 'string' },
+      social_icon: { type: 'string' },
+      social_title: { type: 'string' },
+      social_abstract: { type: 'string' },
     },
   })
 
   static relationMappings = {
+    path: {
+      relation: BaseModel.BelongsToOneRelation,
+      modelClass: 'Path',
+      join: {
+        from: 'trainings.path_id',
+        to: 'paths.id',
+      },
+    },
     sessions: {
       relation: BaseModel.HasManyRelation,
       modelClass: 'TrainingSession',
@@ -51,6 +51,44 @@ export default class Training extends BaseModel {
         to: 'trainers.id',
       },
     },
+    courses: {
+      relation: BaseModel.ManyToManyRelation,
+      modelClass: 'Course',
+      join: {
+        from: 'trainings.id',
+        through: {
+          from: 'trainings_courses.training_id',
+          to: 'trainings_courses.course_id',
+        },
+        to: 'courses.id',
+      },
+    },
+  }
+
+  link() {
+    return trainingRoute(this.slug)
+  }
+
+  socialPicture() {
+    const cloudinaryId = this.social_icon || this.icon
+    return `https:${clUrl(cloudinaryId, 'c_scale,w_1200')}`
+  }
+
+  duration() {
+    if (!this.courses) {
+      throw new Error('Courses must be loaded to get "duration".')
+    }
+
+    return this.courses.length / 2
+  }
+
+  intraPrice() {
+    if (!this.courses) {
+      throw new Error('Courses must be loaded to get "intraPrice".')
+    }
+
+    // 200 € / course
+    return this.courses.length * 200
   }
 
   async siblings() {
@@ -69,10 +107,5 @@ export default class Training extends BaseModel {
 
   async trainers() {
     return this.$relatedQuery('trainers')
-  }
-
-  ogImageUrl() {
-    const cloudinaryId = this.og_cloudinary_id || this.cloudinary_id
-    return `https:${clUrl(cloudinaryId, 'c_scale,w_1200')}`
   }
 }
