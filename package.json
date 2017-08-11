@@ -24,6 +24,8 @@
     "db:reset": "yarn db:drop && yarn db:create && yarn db:load",
     "dev:client": "webpack-dev-server",
     "dev:server": "nodemon --watch src src/server/main.js",
+    "dev:admin": "nodemon --watch src src/server/admin.js",
+    "dev:admin:client": "webpack-dev-server --config webpack.admin.config.babel.js",
     "format": "prettier --write --single-quote --no-semi --trailing-comma all src/**/*.js *.js",
     "heroku-postbuild": "yarn build && yarn db:migrate",
     "lint": "eslint .",
@@ -34,6 +36,7 @@
     "node": "8.1.4"
   },
   "dependencies": {
+    "admin-on-rest": "^1.2.2",
     "apollo-local-query": "^0.3.0",
     "assets-webpack-plugin": "^3.5.1",
     "babel-cli": "^6.24.1",
@@ -48,15 +51,18 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.17.2",
     "classnames": "^2.2.5",
     "compression-webpack-plugin": "^1.0.0",
     "convict": "^4.0.0",
     "dom-helpers": "^3.2.1",
+    "express": "^4.15.4",
     "graphql": "^0.10.5",
     "graphql-fields": "^1.0.2",
     "graphql-iso-date": "^3.2.0",
     "graphql-server-koa": "^1.1.0",
     "graphql-tools": "^1.1.0",
+    "html-webpack-plugin": "^2.30.1",
     "iltorb": "^1.3.5",
     "knex": "^0.13.0",
     "koa": "^2.3.0",
@@ -129,12 +135,8 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "modulePaths": [
-      "<rootDir>/src"
-    ],
+    "roots": ["<rootDir>/src"],
+    "modulePaths": ["<rootDir>/src"],
     "coverageDirectory": "./coverage/"
   }
 }
