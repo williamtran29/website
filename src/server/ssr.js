@@ -35,7 +35,7 @@ const getAssets = async () => {
   return assets
 }
 
-export default () => async ({ request, response }) => {
+export default () => async ctx => {
   const apolloClient = new ApolloClient({
     ssrMode: true,
     networkInterface: createLocalInterface(graphql, schema, {
@@ -47,7 +47,7 @@ export default () => async ({ request, response }) => {
   const sheet = new ServerStyleSheet()
   const app = sheet.collectStyles(
     <ApolloProvider store={store} client={apolloClient}>
-      <StaticRouter location={request.url} context={context}>
+      <StaticRouter location={ctx.request.url} context={context}>
         <App />
       </StaticRouter>
     </ApolloProvider>,
@@ -64,11 +64,11 @@ export default () => async ({ request, response }) => {
   const helmet = Helmet.renderStatic()
 
   if (context.url) {
-    response.status = 301
-    response.headers = { Location: context.url }
+    ctx.status = 301
+    ctx.redirect(context.url)
   } else {
     const assets = await getAssets()
-    response.body = `<!DOCTYPE html>${renderToString(
+    ctx.body = `<!DOCTYPE html>${renderToString(
       <Html
         assets={assets}
         content={html}

@@ -2,7 +2,7 @@ exports.seed = async knex => {
   await knex('paths').insert([
     {
       title: 'JavaScript',
-      color: '#F3C41D',
+      color: '#FFC600',
       icon: 'training-javascript',
       rank: 0,
     },
