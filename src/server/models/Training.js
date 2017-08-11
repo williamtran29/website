@@ -10,7 +10,7 @@ export default class Training extends BaseModel {
     properties: {
       rank: { type: 'integer' },
       title: { type: 'string' },
-      abstract: { type: 'integer' },
+      abstract: { type: 'string' },
       description: { type: 'string' },
       objectives: { type: 'string' },
       prerequisites: { type: 'string' },

@@ -35,10 +35,6 @@ export default (apiUrl, httpClient = fetchJson) => {
     let url = ''
     const options = {}
 
-    // console.log(type)
-    // console.log(resource)
-    // console.log(params)
-
     switch (type) {
       case GET_LIST: {
         const { page, perPage } = params.pagination
@@ -63,7 +59,7 @@ export default (apiUrl, httpClient = fetchJson) => {
         break
       case GET_MANY: {
         const query = {
-          'id:in': JSON.stringify({ id: params.ids }),
+          'id:in': params.ids.join(','),
         }
         url = `${apiUrl}/${resource}?${queryParameters(query)}`
         break
@@ -118,8 +114,16 @@ export default (apiUrl, httpClient = fetchJson) => {
     const headers = new Map([
       ['content-range', `${response.json.total} / ${response.json.total}`],
     ])
+
+    console.log(response)
+    console.log(type)
+    console.log(resource)
+    console.log(params)
+
     switch (type) {
       case GET_ONE:
+        return { data: response.json }
+      case GET_MANY:
         return { data: response.json }
       case GET_LIST:
       case GET_MANY_REFERENCE:

@@ -135,8 +135,12 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "roots": ["<rootDir>/src"],
-    "modulePaths": ["<rootDir>/src"],
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "modulePaths": [
+      "<rootDir>/src"
+    ],
     "coverageDirectory": "./coverage/"
   }
 }

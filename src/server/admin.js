@@ -4,6 +4,8 @@ import ObjectionRest from 'objection-rest'
 import bodyParser from 'body-parser'
 import Trainer from 'server/models/Trainer'
 import Training from 'server/models/Training'
+import Path from 'server/models/Path'
+import Course from 'server/models/Course'
 import * as database from 'server/services/database'
 import path from 'path'
 
@@ -16,7 +18,9 @@ ObjectionRest(objection)
   .routePrefix('/api')
   .pluralizer(x => x)
   .addModel(Trainer)
+  .addModel(Path)
   .addModel(Training)
+  .addModel(Course)
   .generate(app)
 
 app.use(express.static(path.join(__dirname, '../../public-admin/dist')))
