@@ -8,6 +8,7 @@ injectGlobal`
     font-family: ${theme.fontFamilies.primary};
     color: ${theme.colors.grayDark};
     height: 100%;
+    -webkit-font-smoothing: antialiased;
   }
 
   #main {

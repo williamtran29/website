@@ -1,10 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { lighten } from 'polished'
+import { lighten, darken } from 'polished'
 import { clUrl } from 'modules/cloudinary'
 import Hero from 'modules/components/Hero'
-import MainTitle from 'modules/components/MainTitle'
-import Lead from 'modules/components/Lead'
 
 const Picture = styled.div`
   flex-shrink: 0;
@@ -16,36 +14,41 @@ const Picture = styled.div`
       : ''} background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  margin-top: 10px;
 `
 
-const TrainingHero = ({ training }) =>
+const Title = styled.h1`
+  margin: 20px 0 0;
+  font-size: 50px;
+  line-height: 60px;
+  font-weight: 300;
+  color: #fff;
+  text-shadow: ;
+`
+
+const Lead = styled.div`
+  margin: 10px 0 0;
+  font-size: 30px;
+  line-height: 40px;
+  font-weight: 300;
+`
+
+const TrainingHero = ({ icon, title, abstract, path }) =>
   <Hero
-    style={{ minHeight: 406 }}
-    background={
-      training &&
-      `linear-gradient(180deg, ${training.color}, ${lighten(
-        0.2,
-        training.color,
-      )})`
-    }
+    style={{ height: 420 }}
+    background={`linear-gradient(0, ${path.color} -20%, ${darken(
+      0.35,
+      path.color,
+    )} 120%)`}
   >
-    <meta
-      itemProp="image"
-      content={`https:${clUrl(
-        training.cloudinary_id,
-        'c_scale,w_150,h_150,dpr_2',
-      )}`}
-    />
-    <Picture
-      background={
-        training && clUrl(training.cloudinary_id, 'c_scale,w_150,h_150,dpr_2')
-      }
-    />
-    <MainTitle itemProp="name">
-      {training && `Formation ${training.name}`}
-    </MainTitle>
-    <Lead itemProp="description">
-      {training && training.abstract}
+    <Picture background={clUrl(icon, 'c_scale,w_150,h_150,dpr_2')} />
+    <Title>
+      {title}
+    </Title>
+    <Lead>
+      {abstract}
     </Lead>
   </Hero>
 

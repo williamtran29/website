@@ -32,13 +32,17 @@ export const schema = makeExecutableSchema({
     }
 
     type Training {
-      id: ID!
+      slug: ID!
       title: String
       abstract: String
       icon: String
       link: String
       duration: String
       intraPrice: Float
+      path: Path
+      description: String
+      objectives: String
+      prerequisites: String
     }
 
     type Trainer {
@@ -73,16 +77,17 @@ export const schema = makeExecutableSchema({
 const eagerResolver = {
   paths(fields) {
     if (fields.trainings) {
-      const trainingsEagerPath = eagerResolver.trainings(fields.trainings)
+      const trainingsEager = eagerResolver.trainings(fields.trainings)
 
       return {
-        path: `trainings(orderByRank)${trainingsEagerPath
-          ? `.${trainingsEagerPath}`
+        path: `trainings(orderByRank)${trainingsEager
+          ? `.${trainingsEager.path}`
           : ''}`,
         modifiers: {
           orderByRank(builder) {
             builder.orderBy('rank', 'asc')
           },
+          ...(trainingsEager ? trainingsEager.modifiers : {}),
         },
       }
     }
@@ -90,8 +95,11 @@ const eagerResolver = {
     return null
   },
   trainings(fields) {
-    if (fields.duration || fields.intraPrice) return 'courses'
-    return null
+    const paths = []
+    if (fields.duration || fields.intraPrice) paths.push('courses')
+    if (fields.path) paths.push('path')
+    if (!paths.length) return null
+    return { path: `[${paths.join(',')}]`, modifiers: [] }
   },
 }
 
@@ -105,8 +113,11 @@ export const rootValue = {
   async trainings() {
     return Training.query().orderBy('rank', 'asc')
   },
-  async training({ slug }) {
-    return Training.query().where({ slug }).first()
+  async training({ slug }, obj, context) {
+    const eager = eagerResolver.trainings(graphqlFields(context))
+    const query = Training.query().where({ slug }).first()
+    if (eager) return query.eager(eager.path, eager.modifiers)
+    return query
   },
   async trainingSession({ id }) {
     return TrainingSession.query().where({ id }).first()

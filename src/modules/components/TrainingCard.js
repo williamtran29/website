@@ -71,19 +71,10 @@ const Footer = styled.div`
 `
 
 const Duration = styled.div`font-weight: 600;`
-const Price = styled.div``
 
 const pluralize = (word, count) => (count > 1 ? `${word}s` : word)
 
-const TrainingCard = ({
-  title,
-  abstract,
-  icon,
-  link,
-  duration,
-  intraPrice,
-  path,
-}) =>
+const TrainingCard = ({ title, abstract, icon, duration, intraPrice, path }) =>
   <Container>
     <Head color={path.color}>
       <HeadIcon src={clUrl(icon, null, 'svg')} alt={title} />
@@ -103,9 +94,9 @@ const TrainingCard = ({
       <Duration>
         {`${duration} ${pluralize('jour', duration)}`}
       </Duration>
-      <Price>
+      <div>
         À partir de {intraPrice} € HT
-      </Price>
+      </div>
     </Footer>
   </Container>
 

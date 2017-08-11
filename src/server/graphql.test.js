@@ -29,7 +29,7 @@ describe('graphql', () => {
       expect(result.data.paths[0].title).toBe('JavaScript')
     })
 
-    it('should return path with trainings', async () => {
+    it('should return path with trainings[duration, title]', async () => {
       const result = await gql`
         {
           paths {
@@ -43,6 +43,26 @@ describe('graphql', () => {
       `
 
       expect(result.data.paths[0].trainings.length).toBe(5)
+    })
+
+    it('should return path with trainings[duration, title, path]', async () => {
+      const result = await gql`
+        {
+          paths {
+            title
+            trainings {
+              title
+              duration
+              path {
+                title
+              }
+            }
+          }
+        }
+      `
+
+      expect(result.data.paths[0].trainings.length).toBe(5)
+      expect(result.data.paths[0].trainings[0].path.title).toBe('JavaScript')
     })
   })
 })

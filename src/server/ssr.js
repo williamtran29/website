@@ -14,6 +14,7 @@ import App from 'client/App'
 import Html from 'server/Html'
 import store from 'client/store'
 import { getLoadableState } from 'loadable-components/server'
+import { customResolvers, dataIdFromObject } from 'modules/apollo'
 
 const PUBLIC = path.join(__dirname, '../../public')
 const production = config.get('env') === 'production'
@@ -41,6 +42,8 @@ export default () => async ctx => {
     networkInterface: createLocalInterface(graphql, schema, {
       rootValue,
     }),
+    customResolvers,
+    dataIdFromObject,
   })
 
   const context = {}

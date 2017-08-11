@@ -3,13 +3,16 @@ import styled, { keyframes } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
-import theme from 'style/theme'
-import TrainingCard from 'modules/components/TrainingCard'
-import Header from 'client/Header'
-import Footer from 'client/Footer'
-import PageContainer from 'client/PageContainer'
 import { Link as ScrollLink, Element as ScrollElement } from 'react-scroll'
 import { StickyContainer, Sticky } from 'react-sticky'
+import theme from 'style/theme'
+import { completeUrl } from 'modules/urlUtil'
+import TrainingCard from 'modules/components/TrainingCard'
+import JsonLd from 'modules/components/JsonLd'
+import Header from 'client/Header'
+import Footer from 'client/Footer'
+import TrainingsQuery from 'client/queries/TrainingsQuery'
+import PageContainer from 'client/PageContainer'
 
 const Container = styled.div`
   flex: 1;
@@ -172,27 +175,35 @@ const TrainingLink = styled(Link)`
 `
 
 export default graphql(gql`
-  query paths {
+  query allTrainings {
     paths {
       id
       title
       color
       icon
       trainings {
-        id
-        title
-        abstract
-        icon
-        link
-        duration
-        intraPrice
+        ...TrainingEssential
       }
     }
   }
+
+  ${TrainingsQuery.fragments.trainingEssential}
 `)(({ data }) =>
   <PageContainer>
     <Helmet>
-      <title>Nos formations JavaScript</title>
+      <title>Formations JavaScript, Node.js, React, RxJS et GraphQL</title>
+      <meta
+        name="description"
+        content="Devenez opérationnel sur les sujets tels que JavaScript, Node.js, React, RxJS et GraphQL avec nos formations professionnelles de 1 à 4 jours."
+      />
+      <meta
+        property="og:title"
+        content="Formations JavaScript, Node.js, React, RxJS et GraphQL"
+      />
+      <meta
+        property="og:description"
+        content="Devenez opérationnel sur les sujets tels que JavaScript, Node.js, React, RxJS et GraphQL avec nos formations professionnelles de 1 à 4 jours."
+      />
     </Helmet>
     <Header />
     <Container>
@@ -229,14 +240,33 @@ export default graphql(gql`
               <PathColorLine style={{ backgroundColor: path.color }} />
               <Trainings>
                 {path.trainings.map(training =>
-                  <TrainingLink key={training.id} to={training.link}>
-                    <TrainingCard {...training} path={path} />
+                  <TrainingLink key={training.slug} to={training.link}>
+                    <TrainingCard {...training} />
                   </TrainingLink>,
                 )}
               </Trainings>
             </PathBlock>,
           )}
       </Main>
+      {data.paths &&
+        <JsonLd>
+          {JSON.stringify({
+            '@context': 'http://schema.org',
+            '@type': 'ItemList',
+            itemListElement: data.paths
+              .reduce(
+                (items, { trainings }) => [
+                  ...items,
+                  ...trainings.map(training => ({
+                    '@type': 'ListItem',
+                    url: completeUrl(training.link),
+                  })),
+                ],
+                [],
+              )
+              .map((item, index) => ({ ...item, position: index + 1 })),
+          })}
+        </JsonLd>}
     </Container>
     <Footer />
   </PageContainer>,
