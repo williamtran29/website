@@ -4,18 +4,20 @@ import styled from 'styled-components'
 import { gql, graphql } from 'react-apollo'
 import theme from 'style/theme'
 import SecondaryTitle from 'modules/components/SecondaryTitle'
+import Markdown from 'modules/components/Markdown'
 import TrainingList from 'modules/components/TrainingList'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
 import { clUrl } from 'modules/cloudinary'
-import ReactMarkdown from 'react-markdown'
+import { pluralize } from 'modules/i18n'
+import TrainingsQuery from 'client/queries/TrainingsQuery'
 
 const Content = styled.div`flex: 1;`
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 1000px;
+  max-width: 1034px;
   margin: 0 auto 40px;
   padding: 0 20px;
 `
@@ -30,13 +32,14 @@ const Trainer = styled.div`
     flex-direction: row;
 
     &:last-child {
-      flex-direction: ${props => (props.inverse ? 'row-reverse' : 'row')};
+      flex-direction: row;
     }
   }
 `
 
 const TrainerPicture = styled.img`
   flex-shrink: 0;
+  border-radius: 50%;
   width: 100%;
   height: auto;
 
@@ -49,13 +52,13 @@ const TrainerPicture = styled.img`
 const TrainerInfo = styled.div`
   flex: 1;
   margin: 20px 0 0;
-  font-size: 15px;
-  line-height: 1.5;
 
   @media (min-width: ${theme.medias.phablet}) {
     margin: 0 30px;
   }
 `
+
+const TrainingListContainer = styled.div`margin-top: 30px;`
 
 const withTrainer = graphql(
   gql`
@@ -65,18 +68,14 @@ const withTrainer = graphql(
         fullName
         description
         link
-        cloudinary_id
+        picture
         trainings {
-          cloudinary_id
-          name
-          abstract
-          duration
-          slug
-          color
-          price
+          ...TrainingEssential
         }
       }
     }
+
+    ${TrainingsQuery.fragments.trainingEssential}
   `,
   {
     options: ({ match }) => ({
@@ -84,8 +83,6 @@ const withTrainer = graphql(
     }),
   },
 )
-
-const pluralize = (str, nb) => (nb > 2 ? `${str}s` : str)
 
 export default withTrainer(
   ({ data: { trainer } }) =>
@@ -99,7 +96,7 @@ export default withTrainer(
                 .trainings.length} ${pluralize(
                 'formation',
                 trainer.trainings.length,
-              )} de haut niveau.`}
+              )} JavaScript de haut niveau.`}
             />
             <meta
               property="og:title"
@@ -108,7 +105,7 @@ export default withTrainer(
             <meta
               property="og:image"
               content={clUrl(
-                trainer.cloudinary_id,
+                trainer.picture,
                 'c_fill,g_face,h_400,w_400,dpr_2',
               )}
             />
@@ -119,22 +116,24 @@ export default withTrainer(
               <Trainer>
                 <TrainerPicture
                   src={clUrl(
-                    trainer.cloudinary_id,
+                    trainer.picture,
                     'c_fill,g_face,h_300,w_300,dpr_2',
                   )}
                   alt={trainer.fullName}
                   width="300"
-                  height="400"
+                  height="300"
                 />
                 <TrainerInfo>
                   <SecondaryTitle>
                     {trainer.fullName}
                   </SecondaryTitle>
-                  <ReactMarkdown source={trainer.description} />
+                  <Markdown source={trainer.description} />
                 </TrainerInfo>
               </Trainer>
-              <SecondaryTitle>Formations proposées</SecondaryTitle>
-              <TrainingList trainings={trainer.trainings} />
+              <SecondaryTitle>Formations dispensés</SecondaryTitle>
+              <TrainingListContainer>
+                <TrainingList trainings={trainer.trainings} />
+              </TrainingListContainer>
             </Wrapper>
           </Content>
           <Footer />

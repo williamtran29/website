@@ -87,88 +87,142 @@ export const schema = makeExecutableSchema({
   resolvers,
 })
 
+const normalizeQuery = pathOrQuery =>
+  typeof pathOrQuery === 'string'
+    ? {
+        path: pathOrQuery,
+        modifiers: {},
+      }
+    : pathOrQuery
+
+class Eager {
+  paths = []
+  modifiers = {}
+
+  add(pathOrQuery) {
+    const query = normalizeQuery(pathOrQuery)
+    this.paths = [...this.paths, query.path]
+    this.modifiers = { ...this.modifiers, ...query.modifiers }
+  }
+
+  toQuery() {
+    if (this.paths.length === 0) return null
+    return {
+      path: `[${this.paths.join(',')}]`,
+      modifiers: this.modifiers,
+    }
+  }
+}
+
+const joinQuery = (source, join) => {
+  const sourceQuery = normalizeQuery(source)
+  const joinQuery = normalizeQuery(join)
+
+  return {
+    path: `${sourceQuery.path}${joinQuery ? `.${joinQuery.path}` : ''}`,
+    modifiers: {
+      ...sourceQuery.modifiers,
+      ...(joinQuery ? joinQuery.modifiers : {}),
+    },
+  }
+}
+
 const eagerResolver = {
   paths(fields) {
-    if (fields.trainings) {
-      const trainingsEager = eagerResolver.trainings(fields.trainings)
-
-      return {
-        path: `trainings(orderByRank)${trainingsEager
-          ? `.${trainingsEager.path}`
-          : ''}`,
-        modifiers: {
-          orderByRank(builder) {
-            builder.orderBy('trainings.rank', 'asc')
+    const eager = new Eager()
+    if (fields.trainings)
+      eager.add(
+        joinQuery(
+          {
+            path: 'trainings(orderByRank)',
+            modifiers: {
+              orderByRank(builder) {
+                builder.orderBy('trainings.rank', 'asc')
+              },
+            },
           },
-          ...(trainingsEager ? trainingsEager.modifiers : {}),
-        },
-      }
-    }
+          eagerResolver.trainings(fields.trainings),
+        ),
+      )
 
-    return null
+    return eager.toQuery()
   },
   trainings(fields) {
-    const paths = []
-    const modifiers = {}
-    if (fields.duration || fields.intraPrice || fields.extraPrice)
-      paths.push('courses')
-    if (fields.path) paths.push('path')
-    if (fields.trainers) paths.push('trainers')
-    if (fields.courses) {
-      const coursesEager = eagerResolver.courses(fields.courses)
-      paths.push(`courses${coursesEager ? `.${coursesEager.path}` : ''}`)
+    const eager = new Eager()
+    if (fields.duration || fields.intraPrice || fields.extraPrice) {
+      eager.add('courses')
     }
-    if (fields.sessions) {
-      const sessionsEager = eagerResolver.sessions(fields.sessions)
-      paths.push(
-        `sessions(liveSessions)${sessionsEager
-          ? `.${sessionsEager.path}`
-          : ''}`,
+    if (fields.path) eager.add('path')
+    if (fields.trainers) eager.add('trainers')
+    if (fields.courses)
+      eager.add(joinQuery('courses', eagerResolver.courses(fields.courses)))
+    if (fields.sessions)
+      eager.add(
+        joinQuery(
+          {
+            path: 'sessions(liveSessions)',
+            modifiers: {
+              liveSessions(builder) {
+                return builder
+                  .whereRaw(
+                    "training_sessions.start_date > now() + interval '1 day'",
+                  )
+                  .orderBy('training_sessions.start_date', 'asc')
+                  .limit(3)
+              },
+            },
+          },
+          eagerResolver.sessions(fields.sessions),
+        ),
       )
-      modifiers.liveSessions = builder =>
-        builder
-          .whereRaw("training_sessions.start_date > now() + interval '1 day'")
-          .orderBy('training_sessions.start_date', 'asc')
-          .limit(3)
-    }
-    if (!paths.length) return null
-    return { path: `[${paths.join(',')}]`, modifiers }
+    return eager.toQuery()
   },
   courses(fields) {
-    const paths = []
-    if (fields.path) paths.push('path')
-    if (!paths.length) return null
-    return { path: `[${paths.join(',')}]`, modifiers: {} }
+    const eager = new Eager()
+    if (fields.path) eager.add('path')
+    return eager.toQuery()
   },
   sessions(fields) {
-    const paths = []
-    if (fields.location || fields.link) paths.push('location')
-    if (fields.training || fields.link) paths.push('training')
-    if (!paths.length) return null
-    return { path: `[${paths.join(',')}]`, modifiers: {} }
+    const eager = new Eager()
+    if (fields.location || fields.link) eager.add('location')
+    if (fields.training || fields.link) eager.add('training')
+    return eager.toQuery()
   },
+  trainers(fields) {
+    const eager = new Eager()
+    if (fields.trainings)
+      eager.add(
+        joinQuery('trainings', eagerResolver.trainings(fields.trainings)),
+      )
+    return eager.toQuery()
+  },
+}
+
+const enhanceQuery = (query, eagerQuery) => {
+  if (eagerQuery) return query.eager(eagerQuery.path, eagerQuery.modifiers)
+  return query
 }
 
 export const rootValue = {
   async paths(args, obj, context) {
-    const eager = eagerResolver.paths(graphqlFields(context))
-    const query = Path.query().orderBy('rank', 'asc')
-    if (eager) return query.eager(eager.path, eager.modifiers)
-    return query
-  },
-  async trainings() {
-    return Training.query().orderBy('rank', 'asc')
+    return enhanceQuery(
+      Path.query().orderBy('rank', 'asc'),
+      eagerResolver.paths(graphqlFields(context)),
+    )
   },
   async training({ slug }, obj, context) {
-    const eager = eagerResolver.trainings(graphqlFields(context))
-    const query = Training.query().where({ 'trainings.slug': slug }).first()
-    if (eager) return query.eager(eager.path, eager.modifiers)
-    return query
+    return enhanceQuery(
+      Training.query().where({ 'trainings.slug': slug }).first(),
+      eagerResolver.trainings(graphqlFields(context)),
+    )
   },
   async trainingSession({ id }) {
     return TrainingSession.query().where({ id }).first()
   },
-  async trainer({ slug }) {
-    return Trainer.query().where({ slug }).first()
+  async trainer({ slug }, obj, context) {
+    return enhanceQuery(
+      Trainer.query().where({ 'trainers.slug': slug }).first(),
+      eagerResolver.trainers(graphqlFields(context)),
+    )
   },
 }

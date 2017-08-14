@@ -1,13 +1,12 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
 import { Link as ScrollLink, Element as ScrollElement } from 'react-scroll'
 import { StickyContainer, Sticky } from 'react-sticky'
 import theme from 'style/theme'
 import { completeUrl } from 'modules/urlUtil'
-import TrainingCard from 'modules/components/TrainingCard'
+import TrainingList from 'modules/components/TrainingList'
 import JsonLd from 'modules/components/JsonLd'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
@@ -114,6 +113,7 @@ const PathColorLine = styled.div`
   will-change: transform;
   transition: transform 300ms;
   transform-origin: left;
+  margin-bottom: 30px;
 `
 
 const PathBlock = styled(ScrollElement)`
@@ -132,46 +132,6 @@ const PathTitle = styled.h2`
   font-weight: 300;
   line-height: 40px;
   margin: 0 0 10px;
-`
-
-const Trainings = styled.div`
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  @media (min-width: ${theme.medias.phablet}) {
-    flex-direction: row;
-  }
-`
-
-const TrainingLink = styled(Link)`
-  display: block;
-  margin: 0 0 30px;
-  width: 100%;
-  max-width: 260px;
-  text-decoration: none;
-  color: ${theme.colors.grayDark};
-  transition: transform 300ms;
-  will-change: transform;
-
-  &:hover {
-    text-decoration: none;
-    transform: translateY(-8px);
-  }
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  @media (min-width: ${theme.medias.phablet}) {
-    margin: 0 20px 0;
-    width: 220px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
 `
 
 export default graphql(gql`
@@ -238,13 +198,7 @@ export default graphql(gql`
                 {path.title}
               </PathTitle>
               <PathColorLine style={{ backgroundColor: path.color }} />
-              <Trainings>
-                {path.trainings.map(training =>
-                  <TrainingLink key={training.slug} to={training.link}>
-                    <TrainingCard {...training} />
-                  </TrainingLink>,
-                )}
-              </Trainings>
+              <TrainingList trainings={path.trainings} />
             </PathBlock>,
           )}
       </Main>

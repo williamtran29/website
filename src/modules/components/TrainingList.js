@@ -1,115 +1,53 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
-import { lighten } from 'polished'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { clUrl } from 'modules/cloudinary'
-import Card3D from 'modules/components/Card3D'
+import theme from 'style/theme'
+import TrainingCard from 'modules/components/TrainingCard'
 
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`
-
-const Container = styled.ul`
+const Trainings = styled.div`
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 0;
-  list-style-type: none;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    flex-direction: row;
+  }
 `
 
-const Training = styled.li`
-  margin: 10px;
-  animation: 500ms ${fadeIn} ease-out;
-`
-
-const TrainingContainer = styled.div`
-  overflow: hidden;
-  position: relative;
+const TrainingLink = styled(Link)`
+  display: block;
+  margin: 0 0 30px;
   width: 100%;
-  height: 100%;
-  color: white;
-`
+  max-width: 260px;
+  text-decoration: none;
+  transition: transform 300ms;
+  will-change: transform;
 
-const TrainingTitle = styled.h3`
-  margin: 0;
-  font-weight: 300;
-  padding-top: 10px;
-  text-align: center;
-  font-size: 22px;
-  line-height: 30px;
-  width: 100%;
-`
+  &:hover {
+    transform: translateY(-8px);
+  }
 
-const TrainingContent = styled.div`
-  display: flex;
-  padding: 0 20px 20px;
-`
+  &:last-child {
+    margin-bottom: 0;
+  }
 
-const TrainingDescription = styled.div`
-  flex: 1;
-  font-weight: 300;
-  font-size: 15px;
-  line-height: 1.4;
-  margin-left: 20px;
-`
+  @media (min-width: ${theme.medias.phablet}) {
+    margin: 0 20px 0;
+    width: 220px;
 
-const TrainingDuration = styled.div`
-  font-weight: 300;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-size: 12px;
-  line-height: 20px;
-  text-align: center;
-  margin-bottom: 10px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 `
 
 const TrainingList = ({ trainings }) =>
-  <Container>
-    {trainings &&
-      trainings.map(training =>
-        <Training key={training.slug}>
-          <Link to={`/trainings/${training.slug}`}>
-            <Card3D
-              height={180}
-              width={300}
-              background={`linear-gradient(180deg, ${training.color}, ${lighten(
-                0.2,
-                training.color,
-              )})`}
-            >
-              <TrainingContainer>
-                <TrainingTitle>
-                  {training.name}
-                </TrainingTitle>
-                <TrainingDuration>
-                  {training.duration} {training.duration > 1 ? 'jours' : 'jour'}
-                </TrainingDuration>
-                <TrainingContent>
-                  <img
-                    alt={training.name}
-                    src={clUrl(
-                      training.cloudinary_id,
-                      'c_scale,w_100,h_100,dpr_2',
-                    )}
-                    width="100"
-                    height="100"
-                  />
-                  <TrainingDescription>
-                    {training.abstract}
-                  </TrainingDescription>
-                </TrainingContent>
-              </TrainingContainer>
-            </Card3D>
-          </Link>
-        </Training>,
-      )}
-  </Container>
+  <Trainings>
+    {trainings.map(training =>
+      <TrainingLink key={training.slug} to={training.link}>
+        <TrainingCard {...training} />
+      </TrainingLink>,
+    )}
+  </Trainings>
 
 export default TrainingList

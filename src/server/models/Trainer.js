@@ -37,8 +37,4 @@ export default class Trainer extends BaseModel {
   link() {
     return trainerRoute(this.slug)
   }
-
-  async trainings() {
-    return this.$relatedQuery('trainings')
-  }
 }
