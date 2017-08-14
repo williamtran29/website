@@ -4,7 +4,7 @@ import React from 'react'
 const JsonLd = ({ children }) =>
   <script
     type="application/ld+json"
-    dangerouslySetInnerHTML={{ __html: children }}
+    dangerouslySetInnerHTML={{ __html: JSON.stringify(children) }}
   />
 
 export default JsonLd

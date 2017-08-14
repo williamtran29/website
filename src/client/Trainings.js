@@ -204,7 +204,7 @@ export default graphql(gql`
       </Main>
       {data.paths &&
         <JsonLd>
-          {JSON.stringify({
+          {{
             '@context': 'http://schema.org',
             '@type': 'ItemList',
             itemListElement: data.paths
@@ -219,7 +219,7 @@ export default graphql(gql`
                 [],
               )
               .map((item, index) => ({ ...item, position: index + 1 })),
-          })}
+          }}
         </JsonLd>}
     </Container>
     <Footer />

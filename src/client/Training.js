@@ -23,6 +23,7 @@ import CourseCard from 'modules/components/CourseCard'
 import TrainerCard from 'modules/components/TrainerCard'
 import SessionCard from 'modules/components/SessionCard'
 import Markdown from 'modules/components/Markdown'
+import { trainerLd } from 'client/linkedData'
 
 const Container = styled.div`
   flex: 1;
@@ -472,7 +473,7 @@ export default compose(
     <Footer />
     {training &&
       <JsonLd>
-        {JSON.stringify({
+        {{
           '@context': 'http://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
@@ -493,11 +494,11 @@ export default compose(
               },
             },
           ],
-        })}
+        }}
       </JsonLd>}
     {training &&
       <JsonLd>
-        {JSON.stringify({
+        {{
           '@context': 'http://schema.org',
           '@type': 'Product',
           name: `Formation ${training.title}`,
@@ -513,11 +514,11 @@ export default compose(
               url: 'https://www.smooth-code.com',
             },
           },
-        })}
+        }}
       </JsonLd>}
     {training &&
       <JsonLd>
-        {JSON.stringify({
+        {{
           '@context': 'http://schema.org',
           '@type': 'Course',
           name: `Formation ${training.name}`,
@@ -527,68 +528,58 @@ export default compose(
             name: 'Smooth Code',
             url: 'https://www.smooth-code.com',
           },
-        })}
+        }}
       </JsonLd>}
     {training &&
       <JsonLd>
-        {JSON.stringify(
-          training.sessions.map(session => ({
-            '@context': 'http://schema.org',
-            '@type': 'EducationEvent',
-            '@id': completeUrl(session.link),
-            name: `Formation ${training.title}`,
-            description: training.abstract,
-            url: completeUrl(session.link),
-            image: absClUrl(training.icon, 'c_scale,w_150,h_150,dpr_2'),
-            eventStatus: 'http://schema.org/EventScheduled',
-            startDate: session.start_date,
-            endDate: session.end_date,
-            location: {
-              '@type': 'Place',
-              name: session.location.name,
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: session.location.address,
-                postalCode: session.location.zipcode,
-                addressLocality: session.location.city,
-                addressCountry: 'FR',
+        {training.sessions.map(session => ({
+          '@context': 'http://schema.org',
+          '@type': 'EducationEvent',
+          '@id': completeUrl(session.link),
+          name: `Formation ${training.title}`,
+          description: training.abstract,
+          url: completeUrl(session.link),
+          image: absClUrl(training.icon, 'c_scale,w_150,h_150,dpr_2'),
+          eventStatus: 'http://schema.org/EventScheduled',
+          startDate: session.start_date,
+          endDate: session.end_date,
+          location: {
+            '@type': 'Place',
+            name: session.location.name,
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: session.location.address,
+              postalCode: session.location.zipcode,
+              addressLocality: session.location.city,
+              addressCountry: 'FR',
+            },
+          },
+          offers: [
+            {
+              '@type': 'Offer',
+              name: 'Tarif inter-entreprise',
+              description:
+                'Assistez à une session de formation avec maximum 10 élèves.',
+              category: 'Primary',
+              price: `${training.extraPrice}.00`,
+              priceCurrency: 'EUR',
+              url: completeUrl(training.link),
+              availability: 'http://schema.org/InStock',
+              availabilityStarts: session.created_at,
+              validFrom: session.created_at,
+              inventoryLevel: {
+                '@type': 'QuantitativeValue',
+                value: 10,
+                minValue: 0,
+                maxValue: 10,
+                unitText: 'place',
               },
             },
-            offers: [
-              {
-                '@type': 'Offer',
-                name: 'Tarif inter-entreprise',
-                description:
-                  'Assistez à une session de formation avec maximum 10 élèves.',
-                category: 'Primary',
-                price: `${training.extraPrice}.00`,
-                priceCurrency: 'EUR',
-                url: completeUrl(training.link),
-                availability: 'http://schema.org/InStock',
-                availabilityStarts: session.created_at,
-                validFrom: session.created_at,
-                inventoryLevel: {
-                  '@type': 'QuantitativeValue',
-                  value: 10,
-                  minValue: 0,
-                  maxValue: 10,
-                  unitText: 'place',
-                },
-              },
-            ],
-            performers: training.trainers.map(trainer => ({
-              '@type': 'Person',
-              '@id': completeUrl(trainer.link),
-              gender: 'http://schema.org/Male',
-              name: trainer.fullName,
-              url: completeUrl(trainer.link),
-              image: absClUrl(
-                trainer.picture,
-                'dpr_2,c_fill,g_face,w_150,h_150',
-              ),
-            })),
-          })),
-        )}
+          ],
+          performers: training.trainers.map(trainer =>
+            trainerLd({ trainer }, { id: true }),
+          ),
+        }))}
       </JsonLd>}
   </PageContainer>,
 )

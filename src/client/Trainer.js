@@ -9,9 +9,11 @@ import TrainingList from 'modules/components/TrainingList'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
+import JsonLd from 'modules/components/JsonLd'
 import { clUrl } from 'modules/cloudinary'
 import { pluralize } from 'modules/i18n'
 import TrainingsQuery from 'client/queries/TrainingsQuery'
+import { trainerLd } from 'client/linkedData'
 
 const Content = styled.div`flex: 1;`
 
@@ -137,6 +139,9 @@ export default withTrainer(
             </Wrapper>
           </Content>
           <Footer />
+          <JsonLd>
+            {trainerLd({ trainer })}
+          </JsonLd>
         </PageContainer>
       : null,
 )
