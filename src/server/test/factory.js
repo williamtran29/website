@@ -14,6 +14,12 @@ factory.define('path', Path, {
   icon: factory.chance('word'),
 })
 
+factory.define('course', Path, {
+  title: factory.chance('last'),
+  outline: factory.chance('paragraph'),
+  path_id: factory.assoc('path', 'id'),
+})
+
 factory.define('training', Training, {
   rank: factory.sequence('training.rank'),
   title: factory.chance('last'),

@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { darken, lighten } from 'polished'
 import { clUrl } from 'modules/cloudinary'
+import { pluralize } from 'modules/i18n'
 
 const Container = styled.div`
   position: relative;
@@ -71,8 +72,6 @@ const Footer = styled.div`
 `
 
 const Duration = styled.div`font-weight: 600;`
-
-const pluralize = (word, count) => (count > 1 ? `${word}s` : word)
 
 const TrainingCard = ({ title, abstract, icon, duration, intraPrice, path }) =>
   <Container>

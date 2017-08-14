@@ -15,8 +15,10 @@ exports.seed = async knex => {
 Nous présenterons la **destructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**. Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**. Côté outillage nous parlerons de **Babel**, **Webpack** et **ESLint** pour vous permettre d'intégrer les nouvelles fonctionnalités dans vos projets.
 
 Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les nouveautés évoquées tout au long de la formation.`,
-      objectives: `- Découvrir les nouveautés apportées par ES2015 (ES6), ES2016 et ES2017
-      - Être capable d’utiliser ces nouveautés en production dès le lendemain`,
+      objectives: `
+- Découvrir les nouveautés apportées par ES2015 (ES6), ES2016 et ES2017
+- Être capable d’utiliser ces nouveautés en production dès le lendemain
+      `,
       prerequisites: `- Notions de base en développement ou connaissance d'un autre langage de programmation.`,
       icon: 'ES2017_Starter_ehl6lk',
       slug: 'es2017-starter',
@@ -183,6 +185,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
   const jsTraining = await knex('trainings')
     .where({ slug: 'es2017-starter' })
     .first()
+
   const courses = await knex('courses')
 
   await knex('trainings_courses').insert(

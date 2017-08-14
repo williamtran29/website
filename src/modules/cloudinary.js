@@ -4,3 +4,6 @@ export const clUrl = (publicId, options, format) =>
     : ''}${options ? `${options}/` : ''}v1497970667/${publicId}${format
     ? `.${format}`
     : ''}`
+
+export const absClUrl = (publicId, options, format) =>
+  `https:${clUrl(publicId, options, format)}`

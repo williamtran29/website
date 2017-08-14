@@ -22,7 +22,14 @@ export const schema = makeExecutableSchema({
       trainings: [Training]
     }
 
-    type TrainingLocation {
+    type Course {
+      id: ID!
+      title: String
+      outline: String
+      path: Path
+    }
+
+    type Location {
       id: ID!
       name: String
       address: String
@@ -37,29 +44,35 @@ export const schema = makeExecutableSchema({
       abstract: String
       icon: String
       link: String
-      duration: String
-      intraPrice: Float
+      duration: Int
+      coursePrice: Int
+      dayPrice: Int
+      intraPrice: Int
+      extraPrice: Int
       path: Path
       description: String
       objectives: String
       prerequisites: String
+      courses: [Course]
+      trainers: [Trainer]
+      sessions: [Session]
     }
 
     type Trainer {
-      id: ID!
       slug: ID!
       fullName: String
       description: String
-      cloudinary_id: String
+      picture: String
       link: String
       trainings: [Training]
     }
 
-    type TrainingSession {
+    type Session {
       id: ID!
+      created_at: Date
       start_date: Date
       end_date: Date
-      location: TrainingLocation
+      location: Location
       link: String
     }
 
@@ -67,7 +80,7 @@ export const schema = makeExecutableSchema({
       paths: [Path]
       trainings: [Training]
       training(slug: ID!): Training
-      trainingSession(id: ID!): TrainingSession
+      session(id: ID!): Session
       trainer(slug: ID!): Trainer
     }
   `,
@@ -85,7 +98,7 @@ const eagerResolver = {
           : ''}`,
         modifiers: {
           orderByRank(builder) {
-            builder.orderBy('rank', 'asc')
+            builder.orderBy('trainings.rank', 'asc')
           },
           ...(trainingsEager ? trainingsEager.modifiers : {}),
         },
@@ -96,10 +109,43 @@ const eagerResolver = {
   },
   trainings(fields) {
     const paths = []
-    if (fields.duration || fields.intraPrice) paths.push('courses')
+    const modifiers = {}
+    if (fields.duration || fields.intraPrice || fields.extraPrice)
+      paths.push('courses')
+    if (fields.path) paths.push('path')
+    if (fields.trainers) paths.push('trainers')
+    if (fields.courses) {
+      const coursesEager = eagerResolver.courses(fields.courses)
+      paths.push(`courses${coursesEager ? `.${coursesEager.path}` : ''}`)
+    }
+    if (fields.sessions) {
+      const sessionsEager = eagerResolver.sessions(fields.sessions)
+      paths.push(
+        `sessions(liveSessions)${sessionsEager
+          ? `.${sessionsEager.path}`
+          : ''}`,
+      )
+      modifiers.liveSessions = builder =>
+        builder
+          .whereRaw("training_sessions.start_date > now() + interval '1 day'")
+          .orderBy('training_sessions.start_date', 'asc')
+          .limit(3)
+    }
+    if (!paths.length) return null
+    return { path: `[${paths.join(',')}]`, modifiers }
+  },
+  courses(fields) {
+    const paths = []
     if (fields.path) paths.push('path')
     if (!paths.length) return null
-    return { path: `[${paths.join(',')}]`, modifiers: [] }
+    return { path: `[${paths.join(',')}]`, modifiers: {} }
+  },
+  sessions(fields) {
+    const paths = []
+    if (fields.location || fields.link) paths.push('location')
+    if (fields.training || fields.link) paths.push('training')
+    if (!paths.length) return null
+    return { path: `[${paths.join(',')}]`, modifiers: {} }
   },
 }
 
@@ -115,7 +161,7 @@ export const rootValue = {
   },
   async training({ slug }, obj, context) {
     const eager = eagerResolver.trainings(graphqlFields(context))
-    const query = Training.query().where({ slug }).first()
+    const query = Training.query().where({ 'trainings.slug': slug }).first()
     if (eager) return query.eager(eager.path, eager.modifiers)
     return query
   },

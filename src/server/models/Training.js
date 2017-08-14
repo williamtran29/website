@@ -76,19 +76,30 @@ export default class Training extends BaseModel {
 
   duration() {
     if (!this.courses) {
-      throw new Error('Courses must be loaded to get "duration".')
+      throw new Error('"courses" must be loaded to get "duration".')
     }
 
     return this.courses.length / 2
   }
 
-  intraPrice() {
+  coursePrice() {
+    return 200
+  }
+
+  extraPrice() {
     if (!this.courses) {
-      throw new Error('Courses must be loaded to get "intraPrice".')
+      throw new Error('"courses" must be loaded to get "intraPrice".')
     }
 
-    // 200 € / course
-    return this.courses.length * 200
+    return this.courses.length * this.coursePrice()
+  }
+
+  dayPrice() {
+    return 500
+  }
+
+  intraPrice() {
+    return this.duration() * this.dayPrice()
   }
 
   async siblings() {
@@ -96,16 +107,5 @@ export default class Training extends BaseModel {
       .whereNot({ id: this.id })
       .orderByRaw('random()')
       .limit(2)
-  }
-
-  async sessions() {
-    return this.$relatedQuery('sessions')
-      .whereRaw("start_date > now() + interval '1 day'")
-      .orderBy('start_date', 'asc')
-      .limit(3)
-  }
-
-  async trainers() {
-    return this.$relatedQuery('trainers')
   }
 }

@@ -12,6 +12,14 @@ export default class Course extends BaseModel {
   })
 
   static relationMappings = {
+    path: {
+      relation: BaseModel.BelongsToOneRelation,
+      modelClass: 'Path',
+      join: {
+        from: 'courses.path_id',
+        to: 'paths.id',
+      },
+    },
     trainings: {
       relation: BaseModel.ManyToManyRelation,
       modelClass: 'Training',

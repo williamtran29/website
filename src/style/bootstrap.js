@@ -25,10 +25,10 @@ injectGlobal`
 
   a {
     text-decoration: none;
-    color: ${theme.colors.primary};
+    color: inherit;
 
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 `

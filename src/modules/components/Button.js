@@ -1,15 +1,17 @@
+import { omitProps } from 'recompact'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { darken } from 'polished'
 import theme from 'style/theme'
 
 const Button = styled.button`
   border-radius: 3px;
-  display: inline-block;
-  height: 38px;
-  padding: 0 30px;
+  display: ${props => (props.block ? 'block' : 'inline-block')};
+  padding: 8px 30px;
   text-align: center;
-  font-size: 16px;
-  line-height: 38px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
   white-space: nowrap;
   color: white;
   cursor: pointer;
@@ -25,5 +27,7 @@ const Button = styled.button`
     text-decoration: none;
   }
 `
+
+export const LinkButton = Button.withComponent(omitProps('block')(Link))
 
 export default Button

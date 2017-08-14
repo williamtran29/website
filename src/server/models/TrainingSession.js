@@ -34,18 +34,15 @@ export default class TrainingSession extends BaseModel {
     },
   }
 
-  async link() {
-    const training = await this.$relatedQuery('training')
-    const location = await this.$relatedQuery('location')
+  link() {
+    if (!this.training || !this.location)
+      throw new Error('"training" and "location" must be loaded to get "link".')
+
     return sessionRoute(
-      training.slug,
+      this.training.slug,
       this.id,
-      slug(location.city.toLowerCase()),
+      slug(this.location.city.toLowerCase()),
       slug(moment.utc(this.start_date).format('MMMM')),
     )
-  }
-
-  location() {
-    return this.$relatedQuery('location')
   }
 }
