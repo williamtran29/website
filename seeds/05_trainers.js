@@ -54,8 +54,8 @@ Désormais, Adrien enseigne la programmation JavaScript aux étudiants de premi�
   await setTrainerTrainings(
     'adrien-joly',
     await knex('trainings').whereIn('slug', [
-      'es2017-starter',
-      'es2017',
+      'javascript-es2017-starter',
+      'javascript-es2017',
       'nodejs-starter',
       'nodejs',
     ]),
@@ -63,8 +63,8 @@ Désormais, Adrien enseigne la programmation JavaScript aux étudiants de premi�
   await setTrainerTrainings(
     'thomas-jeanneau',
     await knex('trainings').whereIn('slug', [
-      'es2017-starter',
-      'es2017',
+      'javascript-es2017-starter',
+      'javascript-es2017',
       'nodejs-starter',
       'nodejs',
     ]),

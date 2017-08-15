@@ -13,7 +13,8 @@ import mount from 'koa-mount'
 import Training from 'server/models/Training'
 import { graphqlKoa, graphiqlKoa } from 'graphql-server-koa'
 import config from 'server/config'
-import ssr from 'server/ssr'
+import ssr from 'server/middlewares/ssr'
+import redirect from 'server/middlewares/redirect'
 import generateSitemap from 'server/generateSitemap'
 import generatePdf from 'server/generatePdf'
 import sendEmail from 'server/email/sendEmail'
@@ -21,6 +22,47 @@ import { schema, rootValue } from 'server/graphql'
 
 const app = new Koa()
 const router = new Router()
+
+app.use(
+  redirect([
+    {
+      match: /^\/trainings\/formation-javascript-es2017/,
+      redirect: '/formations/javascript-es2017',
+    },
+    {
+      match: /^\/trainings\/formation-nodejs/,
+      redirect: '/formations/nodejs',
+    },
+    {
+      match: /^\/trainings\/formation-react/,
+      redirect: '/formations/react',
+    },
+    {
+      match: /^\/trainings\/formation-rxjs/,
+      redirect: '/formations/rxjs',
+    },
+    {
+      match: /^\/trainings\/formation-graphql/,
+      redirect: '/formations/graphql',
+    },
+    {
+      match: /^\/trainings\/formation-jest/,
+      redirect: '/formations/react',
+    },
+    {
+      match: /^\/trainings\/formation-initiation-react/,
+      redirect: '/formations/react',
+    },
+    {
+      match: /^\/trainings$/,
+      redirect: '/formations',
+    },
+    {
+      match: /^\/story/,
+      redirect: '/notre-histoire',
+    },
+  ]),
+)
 
 router.get('/sitemap.xml', async ctx => {
   ctx.response.type = 'xml'

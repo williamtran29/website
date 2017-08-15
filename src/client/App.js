@@ -10,13 +10,15 @@ import {
   Trainings,
   Training,
   Session,
-  TrainingPdf,
   Contact,
 } from 'client/Routes'
 import {
+  homeRoute,
+  storyRoute,
+  contactRoute,
   trainerRoute,
   trainingRoute,
-  trainingPdfRoute,
+  trainingsRoute,
   sessionRoute,
 } from 'modules/routePaths'
 import { clUrl } from 'modules/cloudinary'
@@ -87,18 +89,17 @@ const App = ({ location }) =>
         content={clUrl('smooth-code-shield', 'c_scale,w_1200')}
       />
     </Helmet>
-    <Route exact path="/" component={Home} />
-    <Route path="/story" component={Story} />
-    <Route exact path="/trainings" component={Trainings} />
+    <Route exact path={homeRoute()} component={Home} />
+    <Route path={storyRoute()} component={Story} />
+    <Route exact path={trainingsRoute()} component={Trainings} />
     <Route
       exact
       path={sessionRoute(':trainingSlug', ':sessionId', ':city', ':month')}
       component={Session}
     />
-    <Route exact path={trainingPdfRoute(':slug')} component={TrainingPdf} />
     <Route exact path={trainingRoute(':slug')} component={Training} />
     <Route exact path={trainerRoute(':slug')} component={Trainer} />
-    <Route path="/contact" component={Contact} />
+    <Route path={contactRoute()} component={Contact} />
   </div>
 
 export default withRouter(App)

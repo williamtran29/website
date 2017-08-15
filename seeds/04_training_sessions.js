@@ -1,6 +1,6 @@
 exports.seed = async knex => {
   const jsTraining = await knex('trainings')
-    .where({ slug: 'es2017-starter' })
+    .where({ slug: 'javascript-es2017-starter' })
     .first()
   const smoothCodeLocation = await knex('training_locations')
     .where({ name: 'Smooth Code' })

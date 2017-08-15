@@ -13,6 +13,7 @@ import Breadcrumb from 'modules/components/Breadcrumb'
 import ContactForm from 'client/contact/ContactForm'
 import TrainingsQuery from 'client/queries/TrainingsQuery'
 import { sessionLd } from 'client/linkedData'
+import { trainingsRoute } from 'modules/routePaths'
 import theme from 'style/theme'
 
 const Container = styled.div`
@@ -175,7 +176,7 @@ export default compose(
           <Breadcrumb
             links={[
               {
-                url: '/trainings',
+                url: trainingsRoute(),
                 name: 'Nos formations',
               },
               {

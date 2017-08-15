@@ -23,6 +23,7 @@ import CourseCard from 'modules/components/CourseCard'
 import TrainerCard from 'modules/components/TrainerCard'
 import SessionCard from 'modules/components/SessionCard'
 import Markdown from 'modules/components/Markdown'
+import { trainingsRoute, contactRoute } from 'modules/routePaths'
 import { sessionLd, breadcrumbLd } from 'client/linkedData'
 
 const Container = styled.div`
@@ -456,7 +457,7 @@ export default compose(
                       Il vous est possible d’accueillir la formation dans vos
                       locaux et de la personnaliser.
                     </SidebarText>
-                    <LinkButton to="/contact" block>
+                    <LinkButton to={contactRoute()} block>
                       Demander un devis
                     </LinkButton>
                   </SidebarSection>
@@ -488,7 +489,7 @@ export default compose(
       <JsonLd>
         {breadcrumbLd({
           links: [
-            { url: completeUrl('/trainings'), name: 'Nos formations' },
+            { url: completeUrl(trainingsRoute()), name: 'Nos formations' },
             { url: completeUrl(training.link), name: training.title },
           ],
         })}

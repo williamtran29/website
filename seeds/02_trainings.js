@@ -25,7 +25,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
 - Connaissance de JavaScript ES5
 `,
       icon: 'ES2017_Starter_ehl6lk',
-      slug: 'es2017-starter',
+      slug: 'javascript-es2017-starter',
       path_id: js.id,
     },
     {
@@ -47,7 +47,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
 - Notions de base en développement ou connaissance d'un autre langage de programmation
 `,
       icon: 'ES2017_Full_buu67y',
-      slug: 'es2017',
+      slug: 'javascript-es2017',
       path_id: js.id,
     },
     {
@@ -868,8 +868,8 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
     )
   }
 
-  fillCourses('es2017-starter', 'JavaScript', [2, 4])
-  fillCourses('es2017', 'JavaScript')
+  fillCourses('javascript-es2017-starter', 'JavaScript', [2, 4])
+  fillCourses('javascript-es2017', 'JavaScript')
   fillCourses('nodejs-starter', 'Node.js', [0, 4])
   fillCourses('nodejs', 'Node.js')
   fillCourses('react-redux', 'React')
