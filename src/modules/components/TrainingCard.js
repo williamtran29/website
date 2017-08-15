@@ -73,7 +73,7 @@ const Footer = styled.div`
 
 const Duration = styled.div`font-weight: 600;`
 
-const TrainingCard = ({ title, abstract, icon, duration, intraPrice, path }) =>
+const TrainingCard = ({ title, abstract, icon, duration, interPrice, path }) =>
   <Container>
     <Head color={path.color}>
       <HeadIcon src={clUrl(icon, null, 'svg')} alt={title} />
@@ -94,7 +94,7 @@ const TrainingCard = ({ title, abstract, icon, duration, intraPrice, path }) =>
         {`${duration} ${pluralize('jour', duration)}`}
       </Duration>
       <div>
-        À partir de {intraPrice} € HT
+        À partir de {interPrice} € HT
       </div>
     </Footer>
   </Container>

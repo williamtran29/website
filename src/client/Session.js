@@ -7,17 +7,22 @@ import { longHumanizeDate } from 'modules/dateUtils'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
+import JsonLd from 'modules/components/JsonLd'
 import TrainingHero from 'modules/components/TrainingHero'
-import { Link } from 'react-router-dom'
+import Link, { RouterLink } from 'modules/components/Link'
 import ContactForm from 'client/contact/ContactForm'
 import { trainingRoute } from 'modules/routePaths'
+import TrainingsQuery from 'client/queries/TrainingsQuery'
+import { sessionLd, breadcrumbLd } from 'client/linkedData'
+import { completeUrl } from 'modules/urlUtil'
 import theme from 'style/theme'
 
 const Container = styled.div`
   flex: 1;
   margin: 10px auto;
   padding: 10px;
-  max-width: 1000px;
+  max-width: 1034px;
+  min-height: 500px;
   width: 100%;
 `
 
@@ -30,6 +35,7 @@ const Title = styled.div`
 
 const Info = styled.div`
   font-size: 30px;
+  line-height: 40px;
   margin-bottom: 30px;
 `
 
@@ -38,7 +44,9 @@ const ContactFormContainer = styled.div`
   width: 100%;
 `
 
-const Iframe = styled.iframe`
+const Iframe = styled.iframe.attrs({
+  frameBorder: 0,
+})`
   border: 0;
   margin-bottom: 30px;
   max-width: 600px;
@@ -48,19 +56,11 @@ const Iframe = styled.iframe`
 
 const Breadcrumb = styled.div`
   font-size: 20px;
+  line-height: 24px;
   font-weight: 300;
   padding-bottom: 15px;
   margin-bottom: 15px;
   border-bottom: 1px solid ${theme.colors.grayLight};
-
-  a {
-    color: ${theme.colors.primary};
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 `
 
 const Columns = styled.div`
@@ -89,6 +89,7 @@ const InfoColumn = styled.div`
 `
 
 const Address = styled.address`
+  font-style: normal;
   font-size: 18px;
   margin-bottom: 20px;
 `
@@ -104,21 +105,11 @@ const withTraining = graphql(
   gql`
     query trainingData($slug: ID!) {
       training(slug: $slug) {
-        cloudinary_id
-        name
-        abstract
-        duration
-        slug
-        color
-        price
-        ogImageUrl
-        trainers {
-          slug
-          fullName
-          link
-        }
+        ...TrainingEssential
       }
     }
+
+    ${TrainingsQuery.fragments.trainingEssential}
   `,
   {
     name: 'trainingData',
@@ -132,6 +123,8 @@ const withSession = graphql(
   gql`
     query trainingSessionData($id: ID!) {
       trainingSession(id: $id) {
+        link
+        created_at
         start_date
         end_date
         location {
@@ -139,6 +132,14 @@ const withSession = graphql(
           address
           city
           zipcode
+        }
+        training {
+          trainers {
+            slug
+            fullName
+            link
+            picture
+          }
         }
       }
     }
@@ -151,8 +152,6 @@ const withSession = graphql(
   },
 )
 
-const fullUrl = url => `https://www.smooth-code.com${url}`
-
 export default compose(
   withTraining,
   withSession,
@@ -161,133 +160,124 @@ export default compose(
     trainingData: { training },
     trainingSessionData: { trainingSession: session },
   }) => {
-    if (!training || !session) return null
+    const humanizedDate =
+      session &&
+      longHumanizeDate({
+        startDate: session.start_date,
+        endDate: session.end_date,
+      })
 
-    const humanizedDate = longHumanizeDate({
-      startDate: session.start_date,
-      endDate: session.end_date,
-    })
+    const title =
+      humanizedDate &&
+      training &&
+      `Formation "${training.title}" du ${humanizedDate}`
 
-    const title = `Session formation "${training.name}" du ${humanizedDate}`
-    const description = `Inscrivez-vous pour la formation "${training.name}" du ${humanizedDate}. Les places sont limités !`
+    const description =
+      humanizedDate &&
+      training &&
+      `Inscrivez-vous pour la formation "${training.title}" du ${humanizedDate}.`
 
     return (
       <PageContainer>
-        <Helmet>
-          <title>
-            {title}
-          </title>
-          <meta name="title" content={title} />
-          <meta name="description" content={description} />
-          <meta property="og:title" content={`Smooth Code - ${title}`} />
-          <meta property="og:description" content={description} />
-          <meta property="og:type" content="website" />
-          <meta property="og:image" content={training && training.ogImageUrl} />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta
-            name="twitter:image"
-            content={training && training.ogImageUrl}
-          />
-        </Helmet>
+        {title &&
+          description &&
+          training &&
+          <Helmet>
+            <title>
+              {title}
+            </title>
+            <meta name="title" content={title} />
+            <meta name="description" content={description} />
+            <meta property="og:title" content={`Smooth Code - ${title}`} />
+            <meta property="og:description" content={description} />
+            <meta property="og:image" content={training.socialPicture} />
+            <meta name="twitter:card" content="summary_large_image" />
+          </Helmet>}
         <Header transparent />
-        <TrainingHero training={training} />
-        <Container itemScope itemType="http://schema.org/Event">
-          <meta itemProp="name" content={title} />
-          <meta itemProp="description" content={description} />
-          <meta itemProp="image" content={training.ogImageUrl} />
-          {training.trainers.map(trainer =>
-            <span
-              key={trainer.slug}
-              itemScope
-              itemProp="performer"
-              itemType="http://schema.org/Person"
-            >
-              <meta itemProp="name" content={trainer.fullName} />
-              <meta itemProp="url" content={fullUrl(trainer.link)} />
-            </span>,
-          )}
-          <Breadcrumb>
-            <Link to={trainingRoute(training.slug)}>
-              {`Formation ${training.name}`}
-            </Link>
-            {` > Session du ${humanizedDate}`}
-          </Breadcrumb>
-          <Columns>
-            <ContactColumn>
-              <Title>S’inscrire</Title>
-              <ContactFormContainer>
-                <ContactForm
-                  submitLabel="S'inscrire à la session"
-                  messageLabel="Commentaire"
-                  subject={`Inscription formation "${training.name}" du ${humanizedDate}`}
-                />
-              </ContactFormContainer>
-              <PhoneBlock>
-                Pour toute question, n’hésitez pas à nous appeler au{' '}
-                <a href="tel:+33650588079">06 50 58 80 79</a>, nous nous ferons
-                une joie de vous répondre !
-              </PhoneBlock>
-            </ContactColumn>
-            <InfoColumn>
-              <Title>Date</Title>
-              <meta itemProp="startDate" content={session.start_date} />
-              <meta itemProp="endDate" content={session.end_date} />
-              <Info>
-                {humanizedDate}
-              </Info>
-              <Title>Prix</Title>
-              <Info
-                itemScope
-                itemProp="offers"
-                itemType="http://schema.org/Offer"
-              >
-                <link
-                  itemProp="availability"
-                  href="http://schema.org/InStock"
-                />
-                <span itemProp="price">{training.price}</span>{' '}
-                <span itemProp="priceCurrency" content="EUR">
-                  €
-                </span>
-              </Info>
-              <Title>Lieu</Title>
-              <Address
-                itemProp="location"
-                itemScope
-                itemType="http://schema.org/Place"
-              >
-                <span itemProp="name">
+        {training && <TrainingHero {...training} />}
+        <Container>
+          {session &&
+            training &&
+            <Breadcrumb>
+              <RouterLink to="/trainings">Nos formations</RouterLink>
+              {' > '}
+              <RouterLink to={trainingRoute(training.slug)}>
+                {training.title}
+              </RouterLink>
+              {` > Session ${humanizedDate}`}
+              <JsonLd>
+                {breadcrumbLd({
+                  links: [
+                    {
+                      url: completeUrl('/trainings'),
+                      name: 'Nos formations',
+                    },
+                    {
+                      url: completeUrl(training.link),
+                      name: training.title,
+                    },
+                    {
+                      url: completeUrl(session.link),
+                      name: `Session ${humanizedDate}`,
+                    },
+                  ],
+                })}
+              </JsonLd>
+            </Breadcrumb>}
+          {session &&
+            training &&
+            <Columns>
+              <ContactColumn>
+                <Title>S’inscrire</Title>
+                <ContactFormContainer>
+                  <ContactForm
+                    submitLabel="S'inscrire à la session"
+                    messageLabel="Commentaire"
+                    subject={`Inscription formation "${training.title}" du ${humanizedDate}`}
+                  />
+                </ContactFormContainer>
+                <PhoneBlock>
+                  Pour toute question, n’hésitez pas à nous appeler au{' '}
+                  <Link href="tel:+33650588079">06 50 58 80 79</Link>, nous nous
+                  ferons une joie de vous répondre !
+                </PhoneBlock>
+              </ContactColumn>
+              <InfoColumn>
+                <Title>Date</Title>
+                <Info>
+                  {humanizedDate}
+                </Info>
+                <Title>Prix</Title>
+                <Info>
+                  {training.interPrice}€ HT / pers.
+                </Info>
+                <Title>Lieu</Title>
+                <Address>
                   {session.location.name}
-                </span>
-                <br />
-                <span
-                  itemScope
-                  itemProp="address"
-                  itemType="http://schema.org/PostalAddress"
-                >
-                  <span itemProp="streetAddress">
-                    {session.location.address}
-                  </span>
                   <br />
-                  <span itemProp="postalCode">
-                    {session.location.zipcode}
-                  </span>{' '}
-                  <span itemProp="addressLocality">
-                    {session.location.city}
-                  </span>
-                </span>
-              </Address>
-              <Iframe
-                title={session.location.name}
-                frameBorder="0"
-                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAivoHcnOYXoBJfO3vq_PmdADJTEOEcKrg&q=${encodeURIComponent(
-                  session.location.name,
-                )}`}
-              />
-            </InfoColumn>
-          </Columns>
+                  {session.location.address}
+                  <br />
+                  {session.location.zipcode} {session.location.city}
+                </Address>
+                <Iframe
+                  title={session.location.name}
+                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAivoHcnOYXoBJfO3vq_PmdADJTEOEcKrg&q=${encodeURIComponent(
+                    session.location.name,
+                  )}`}
+                />
+              </InfoColumn>
+            </Columns>}
         </Container>
         <Footer />
+        {session &&
+          training &&
+          <JsonLd>
+            {sessionLd({
+              session,
+              training,
+              trainers: session.training.trainers,
+            })}
+          </JsonLd>}
       </PageContainer>
     )
   },

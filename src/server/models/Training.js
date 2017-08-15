@@ -86,7 +86,7 @@ export default class Training extends BaseModel {
     return 200
   }
 
-  extraPrice() {
+  interPrice() {
     if (!this.courses) {
       throw new Error('"courses" must be loaded to get "intraPrice".')
     }

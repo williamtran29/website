@@ -10,7 +10,7 @@ const TrainingsQuery = {
         icon
         link
         duration
-        intraPrice
+        interPrice
         path {
           id
           color

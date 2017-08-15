@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { lighten, darken } from 'polished'
+import { darken } from 'polished'
 import { clUrl } from 'modules/cloudinary'
+import theme from 'style/theme'
 import Hero from 'modules/components/Hero'
 
 const Picture = styled.div`
@@ -21,18 +22,27 @@ const Picture = styled.div`
 
 const Title = styled.h1`
   margin: 20px 0 0;
-  font-size: 50px;
-  line-height: 60px;
+  font-size: 35px;
+  line-height: 45px;
   font-weight: 300;
   color: #fff;
-  text-shadow: ;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 50px;
+    line-height: 60px;
+  }
 `
 
 const Lead = styled.div`
   margin: 10px 0 0;
-  font-size: 30px;
-  line-height: 40px;
+  font-size: 25px;
+  line-height: 35px;
   font-weight: 300;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 30px;
+    line-height: 40px;
+  }
 `
 
 const TrainingHero = ({ icon, title, abstract, path }) =>

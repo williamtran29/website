@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
+import { lighten } from 'polished'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
 import { Link as ScrollLink, Element as ScrollElement } from 'react-scroll'
@@ -81,20 +82,19 @@ const SidebarNavLink = styled(ScrollLink).attrs({
   spy: true,
   smooth: true,
 })`
-  color: ${theme.colors.grayDark};
+  transition: colors 200ms;
+  will-change: color;
+  color: ${lighten(0.1, theme.colors.grayDark)};
   cursor: pointer;
 
   &:hover {
-    text-decoration: underline;
+     color: ${theme.colors.grayDark};
   }
 
   &.active {
+    color: ${theme.colors.grayDark};
     font-weight: 600;
     cursor: default;
-
-    &:hover {
-      text-decoration: none;
-    }
   }
 `
 

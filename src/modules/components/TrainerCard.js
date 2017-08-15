@@ -32,10 +32,10 @@ const PictureLink = styled(Link)`
 `
 
 const Infos = styled.div`
-  margin-top: 20px;
+  margin: 20px 0 0;
 
   @media (min-width: ${theme.medias.phablet}) {
-    margin-left: 30px;
+    margin: 0 0 0 30px;
   }
 `
 

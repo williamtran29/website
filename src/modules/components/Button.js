@@ -1,4 +1,4 @@
-import { omitProps } from 'recompact'
+import omitProps from 'recompact/omitProps'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { darken } from 'polished'

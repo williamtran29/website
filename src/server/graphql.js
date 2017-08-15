@@ -48,7 +48,7 @@ export const schema = makeExecutableSchema({
       coursePrice: Int
       dayPrice: Int
       intraPrice: Int
-      extraPrice: Int
+      interPrice: Int
       path: Path
       description: String
       objectives: String
@@ -74,13 +74,14 @@ export const schema = makeExecutableSchema({
       end_date: Date
       location: Location
       link: String
+      training: Training
     }
 
     type Query {
       paths: [Path]
       trainings: [Training]
       training(slug: ID!): Training
-      session(id: ID!): Session
+      trainingSession(id: ID!): Session
       trainer(slug: ID!): Trainer
     }
   `,
@@ -134,10 +135,10 @@ const eagerResolver = {
       eager.add(
         joinQuery(
           {
-            path: 'trainings(orderByRank)',
+            path: 'trainings',
             modifiers: {
               orderByRank(builder) {
-                builder.orderBy('trainings.rank', 'asc')
+                return builder.orderBy('trainings.rank', 'asc')
               },
             },
           },
@@ -149,13 +150,17 @@ const eagerResolver = {
   },
   trainings(fields) {
     const eager = new Eager()
-    if (fields.duration || fields.intraPrice || fields.extraPrice) {
-      eager.add('courses')
-    }
     if (fields.path) eager.add('path')
     if (fields.trainers) eager.add('trainers')
-    if (fields.courses)
-      eager.add(joinQuery('courses', eagerResolver.courses(fields.courses)))
+    if (
+      fields.courses ||
+      fields.duration ||
+      fields.intraPrice ||
+      fields.interPrice
+    )
+      eager.add(
+        joinQuery('courses', eagerResolver.courses(fields.courses || {})),
+      )
     if (fields.sessions)
       eager.add(
         joinQuery(
@@ -185,7 +190,11 @@ const eagerResolver = {
   sessions(fields) {
     const eager = new Eager()
     if (fields.location || fields.link) eager.add('location')
-    if (fields.training || fields.link) eager.add('training')
+    if (fields.training || fields.link) {
+      eager.add(
+        joinQuery('training', eagerResolver.trainings(fields.training || {})),
+      )
+    }
     return eager.toQuery()
   },
   trainers(fields) {
@@ -206,7 +215,7 @@ const enhanceQuery = (query, eagerQuery) => {
 export const rootValue = {
   async paths(args, obj, context) {
     return enhanceQuery(
-      Path.query().orderBy('rank', 'asc'),
+      Path.query().orderBy('paths.rank', 'asc'),
       eagerResolver.paths(graphqlFields(context)),
     )
   },
@@ -216,8 +225,11 @@ export const rootValue = {
       eagerResolver.trainings(graphqlFields(context)),
     )
   },
-  async trainingSession({ id }) {
-    return TrainingSession.query().where({ id }).first()
+  async trainingSession({ id }, obj, context) {
+    return enhanceQuery(
+      TrainingSession.query().where({ 'training_sessions.id': id }).first(),
+      eagerResolver.sessions(graphqlFields(context)),
+    )
   },
   async trainer({ slug }, obj, context) {
     return enhanceQuery(

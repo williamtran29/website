@@ -4,13 +4,10 @@ import { transparentize, darken } from 'polished'
 import Markdown from 'modules/components/Markdown'
 
 const Container = styled.div`
-  background-image: linear-gradient(
-    -180deg,
-    ${props => transparentize(0.95, props.color)} 0%,
-    ${props => transparentize(0.9, props.color)} 100%
-  );
-  box-shadow: 0 7px 14px 0 rgba(93, 60, 50, 0.10),
-    0 3px 6px 0 rgba(0, 0, 0, 0.08);
+  border: 1px solid ${props => transparentize(0.9, props.bgColor)};
+  background-color: #fff;
+  box-shadow: 0 7px 14px 0 rgba(93, 60, 50, 0.06),
+    0 3px 6px 0 rgba(0, 0, 0, 0.05);
   border-radius: 4px;
   padding: 20px;
 `
@@ -24,7 +21,7 @@ const Title = styled.h4`
 `
 
 const CourseCard = ({ title, outline, path }) =>
-  <Container color={path.color}>
+  <Container bgColor={path.color}>
     <Title color={path.color}>
       {title}
     </Title>
