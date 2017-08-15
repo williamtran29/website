@@ -272,6 +272,10 @@ const COMPLETE_QUERY = gql`
       slug
       link
       title
+      longTitle
+      socialTitle
+      socialAbstract
+      socialPicture
       abstract
       description
       objectives
@@ -298,9 +302,9 @@ const COMPLETE_QUERY = gql`
       }
       sessions {
         id
-        created_at
-        start_date
-        end_date
+        validFrom
+        startDate
+        endDate
         link
         location {
           name
@@ -330,7 +334,18 @@ export default compose(
   withComplete,
 )(({ essential: { training: essential }, complete: { training } }) =>
   <PageContainer>
-    <Helmet />
+    {training &&
+      <Helmet>
+        <title>
+          {training.longTitle}
+        </title>
+        <meta name="description" content={training.abstract} />
+        <meta property="og:title" content={training.socialTitle} />
+        <meta property="og:description" content={training.socialAbstract} />
+        <meta property="og:image" content={training.socialPicture} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={training.socialPicture} />
+      </Helmet>}
     <Header transparent />
     {essential && <TrainingHero {...essential} />}
     <Container>
@@ -483,7 +498,7 @@ export default compose(
         {{
           '@context': 'http://schema.org',
           '@type': 'Product',
-          name: `Formation ${training.title}`,
+          name: training.longTitle,
           description: training.abstract,
           offers: {
             '@type': 'Offer',
@@ -503,7 +518,7 @@ export default compose(
         {{
           '@context': 'http://schema.org',
           '@type': 'Course',
-          name: `Formation ${training.title}`,
+          name: training.longTitle,
           description: training.abstract,
           provider: {
             '@type': 'Organization',

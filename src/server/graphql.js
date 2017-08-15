@@ -41,7 +41,11 @@ export const schema = makeExecutableSchema({
     type Training {
       slug: ID!
       title: String
+      longTitle: String
       abstract: String
+      socialTitle: String
+      socialAbstract: String
+      socialPicture: String
       icon: String
       link: String
       duration: Int
@@ -69,9 +73,12 @@ export const schema = makeExecutableSchema({
 
     type Session {
       id: ID!
-      created_at: Date
-      start_date: Date
-      end_date: Date
+      title: String
+      abstract: String
+      humanizedPeriod: String
+      validFrom: Date
+      startDate: Date
+      endDate: Date
       location: Location
       link: String
       training: Training
@@ -190,7 +197,7 @@ const eagerResolver = {
   sessions(fields) {
     const eager = new Eager()
     if (fields.location || fields.link) eager.add('location')
-    if (fields.training || fields.link) {
+    if (fields.training || fields.link || fields.title || fields.abstract) {
       eager.add(
         joinQuery('training', eagerResolver.trainings(fields.training || {})),
       )

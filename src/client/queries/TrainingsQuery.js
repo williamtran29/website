@@ -6,6 +6,7 @@ const TrainingsQuery = {
       fragment TrainingEssential on Training {
         slug
         title
+        longTitle
         abstract
         icon
         link

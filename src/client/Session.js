@@ -3,18 +3,16 @@ import styled from 'styled-components'
 import compose from 'recompact/compose'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
-import { longHumanizeDate } from 'modules/dateUtils'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
 import JsonLd from 'modules/components/JsonLd'
 import TrainingHero from 'modules/components/TrainingHero'
-import Link, { RouterLink } from 'modules/components/Link'
+import Link from 'modules/components/Link'
+import Breadcrumb from 'modules/components/Breadcrumb'
 import ContactForm from 'client/contact/ContactForm'
-import { trainingRoute } from 'modules/routePaths'
 import TrainingsQuery from 'client/queries/TrainingsQuery'
-import { sessionLd, breadcrumbLd } from 'client/linkedData'
-import { completeUrl } from 'modules/urlUtil'
+import { sessionLd } from 'client/linkedData'
 import theme from 'style/theme'
 
 const Container = styled.div`
@@ -52,15 +50,6 @@ const Iframe = styled.iframe.attrs({
   max-width: 600px;
   height: 300px;
   width: 100%;
-`
-
-const Breadcrumb = styled.div`
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 300;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid ${theme.colors.grayLight};
 `
 
 const Columns = styled.div`
@@ -123,10 +112,13 @@ const withSession = graphql(
   gql`
     query trainingSessionData($id: ID!) {
       trainingSession(id: $id) {
+        title
+        abstract
+        humanizedPeriod
         link
-        created_at
-        start_date
-        end_date
+        validFrom
+        startDate
+        endDate
         location {
           name
           address
@@ -159,126 +151,96 @@ export default compose(
   ({
     trainingData: { training },
     trainingSessionData: { trainingSession: session },
-  }) => {
-    const humanizedDate =
-      session &&
-      longHumanizeDate({
-        startDate: session.start_date,
-        endDate: session.end_date,
-      })
-
-    const title =
-      humanizedDate &&
-      training &&
-      `Formation "${training.title}" du ${humanizedDate}`
-
-    const description =
-      humanizedDate &&
-      training &&
-      `Inscrivez-vous pour la formation "${training.title}" du ${humanizedDate}.`
-
-    return (
-      <PageContainer>
-        {title &&
-          description &&
-          training &&
-          <Helmet>
-            <title>
-              {title}
-            </title>
-            <meta name="title" content={title} />
-            <meta name="description" content={description} />
-            <meta property="og:title" content={`Smooth Code - ${title}`} />
-            <meta property="og:description" content={description} />
-            <meta property="og:image" content={training.socialPicture} />
-            <meta name="twitter:card" content="summary_large_image" />
-          </Helmet>}
-        <Header transparent />
-        {training && <TrainingHero {...training} />}
-        <Container>
-          {session &&
-            training &&
-            <Breadcrumb>
-              <RouterLink to="/trainings">Nos formations</RouterLink>
-              {' > '}
-              <RouterLink to={trainingRoute(training.slug)}>
-                {training.title}
-              </RouterLink>
-              {` > Session ${humanizedDate}`}
-              <JsonLd>
-                {breadcrumbLd({
-                  links: [
-                    {
-                      url: completeUrl('/trainings'),
-                      name: 'Nos formations',
-                    },
-                    {
-                      url: completeUrl(training.link),
-                      name: training.title,
-                    },
-                    {
-                      url: completeUrl(session.link),
-                      name: `Session ${humanizedDate}`,
-                    },
-                  ],
-                })}
-              </JsonLd>
-            </Breadcrumb>}
-          {session &&
-            training &&
-            <Columns>
-              <ContactColumn>
-                <Title>S’inscrire</Title>
-                <ContactFormContainer>
-                  <ContactForm
-                    submitLabel="S'inscrire à la session"
-                    messageLabel="Commentaire"
-                    subject={`Inscription formation "${training.title}" du ${humanizedDate}`}
-                  />
-                </ContactFormContainer>
-                <PhoneBlock>
-                  Pour toute question, n’hésitez pas à nous appeler au{' '}
-                  <Link href="tel:+33650588079">06 50 58 80 79</Link>, nous nous
-                  ferons une joie de vous répondre !
-                </PhoneBlock>
-              </ContactColumn>
-              <InfoColumn>
-                <Title>Date</Title>
-                <Info>
-                  {humanizedDate}
-                </Info>
-                <Title>Prix</Title>
-                <Info>
-                  {training.interPrice}€ HT / pers.
-                </Info>
-                <Title>Lieu</Title>
-                <Address>
-                  {session.location.name}
-                  <br />
-                  {session.location.address}
-                  <br />
-                  {session.location.zipcode} {session.location.city}
-                </Address>
-                <Iframe
-                  title={session.location.name}
-                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAivoHcnOYXoBJfO3vq_PmdADJTEOEcKrg&q=${encodeURIComponent(
-                    session.location.name,
-                  )}`}
-                />
-              </InfoColumn>
-            </Columns>}
-        </Container>
-        <Footer />
+  }) =>
+    <PageContainer>
+      {session &&
+        training &&
+        <Helmet>
+          <title>
+            {session.title}
+          </title>
+          <meta name="title" content={session.title} />
+          <meta name="description" content={session.abstract} />
+          <meta property="og:title" content={session.title} />
+          <meta property="og:description" content={session.abstract} />
+          <meta property="og:image" content={training.socialPicture} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:image" content={training.socialPicture} />
+        </Helmet>}
+      <Header transparent />
+      {training && <TrainingHero {...training} />}
+      <Container>
         {session &&
           training &&
-          <JsonLd>
-            {sessionLd({
-              session,
-              training,
-              trainers: session.training.trainers,
-            })}
-          </JsonLd>}
-      </PageContainer>
-    )
-  },
+          <Breadcrumb
+            links={[
+              {
+                url: '/trainings',
+                name: 'Nos formations',
+              },
+              {
+                url: training.link,
+                name: training.title,
+              },
+              {
+                url: session.link,
+                name: `Session ${session.humanizedPeriod}`,
+              },
+            ]}
+          />}
+        {session &&
+          training &&
+          <Columns>
+            <ContactColumn>
+              <Title>S’inscrire</Title>
+              <ContactFormContainer>
+                <ContactForm
+                  submitLabel="S'inscrire à la session"
+                  messageLabel="Commentaire"
+                  subject={`Inscription formation ${training.title} du ${session.humanizedPeriod}`}
+                />
+              </ContactFormContainer>
+              <PhoneBlock>
+                Pour toute question, n’hésitez pas à nous appeler au{' '}
+                <Link href="tel:+33650588079">06 50 58 80 79</Link>, nous nous
+                ferons une joie de vous répondre !
+              </PhoneBlock>
+            </ContactColumn>
+            <InfoColumn>
+              <Title>Date</Title>
+              <Info>
+                {session.humanizedPeriod}
+              </Info>
+              <Title>Prix</Title>
+              <Info>
+                {training.interPrice}€ HT / pers.
+              </Info>
+              <Title>Lieu</Title>
+              <Address>
+                {session.location.name}
+                <br />
+                {session.location.address}
+                <br />
+                {session.location.zipcode} {session.location.city}
+              </Address>
+              <Iframe
+                title={session.location.name}
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAivoHcnOYXoBJfO3vq_PmdADJTEOEcKrg&q=${encodeURIComponent(
+                  session.location.name,
+                )}`}
+              />
+            </InfoColumn>
+          </Columns>}
+      </Container>
+      <Footer />
+      {session &&
+        training &&
+        <JsonLd>
+          {sessionLd({
+            session,
+            training,
+            trainers: session.training.trainers,
+          })}
+        </JsonLd>}
+    </PageContainer>,
 )

@@ -69,9 +69,21 @@ export default class Training extends BaseModel {
     return trainingRoute(this.slug)
   }
 
+  longTitle() {
+    return `Formation ${this.title}`
+  }
+
   socialPicture() {
     const cloudinaryId = this.social_icon || this.icon
     return `https:${clUrl(cloudinaryId, 'c_scale,w_1200')}`
+  }
+
+  socialTitle() {
+    return this.social_title || this.longTitle()
+  }
+
+  socialAbstract() {
+    return this.social_abstract || this.abstract
   }
 
   duration() {
