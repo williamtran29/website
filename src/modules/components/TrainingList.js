@@ -8,9 +8,12 @@ const Trainings = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
 
   @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row;
+    margin-left: -10px;
+    margin-right: -10px;
   }
 `
 
@@ -32,11 +35,11 @@ const TrainingLink = styled(Link)`
   }
 
   @media (min-width: ${theme.medias.phablet}) {
-    margin: 0 20px 0;
+    margin: 0 10px 30px;
     width: 220px;
 
     &:last-child {
-      margin-right: 0;
+      margin-bottom: 30px;
     }
   }
 `
