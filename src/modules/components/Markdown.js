@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 import { darken } from 'polished'
 import theme from 'style/theme'
+import { clUrl } from 'modules/cloudinary'
 
 const Markdown = styled(ReactMarkdown)`
   font-size: 17px;
@@ -46,7 +47,7 @@ const Markdown = styled(ReactMarkdown)`
     line-height: 26px;
 
     &:before {
-      content: url(https://stripe.com/img/v3/connect/features/lawyer-friendly-checkmark.svg);
+      content: url(${clUrl('lawyer-friendly-checkmark_hfplwq', null, 'svg')});
       position: absolute;
       top: 3px;
       left: 0;
