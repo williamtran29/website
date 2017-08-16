@@ -361,19 +361,30 @@ export default compose(
               {({ style }) =>
                 <NavContainer style={style}>
                   <Nav>
-                    <NavItemLink to="description">Description</NavItemLink>
+                    <NavItemLink to="description" offset={-60}>
+                      Description
+                    </NavItemLink>
                     <NavItemSeparator />
-                    <NavItemLink to="objectives">Objectives</NavItemLink>
+                    <NavItemLink to="objectives" offset={-60}>
+                      Objectives
+                    </NavItemLink>
                     <NavItemSeparator />
-                    <NavItemLink to="prerequisites">Pré-requis</NavItemLink>
+                    <NavItemLink to="prerequisites" offset={-60}>
+                      Pré-requis
+                    </NavItemLink>
                     <NavItemSeparator />
-                    <NavItemLink to="outline">Programme</NavItemLink>
+                    <NavItemLink to="outline" offset={-60}>
+                      Programme
+                    </NavItemLink>
                     <NavItemSeparator />
-                    <NavItemLink to="trainers">Formateurs</NavItemLink>
+                    <NavItemLink to="trainers" offset={-60}>
+                      Formateurs
+                    </NavItemLink>
                   </Nav>
                 </NavContainer>}
             </Sticky>
             <Section id="description">
+              <SectionTitle>Description</SectionTitle>
               <Markdown source={training.description} />
             </Section>
             <Section id="objectives">

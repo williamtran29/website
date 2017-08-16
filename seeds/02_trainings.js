@@ -12,18 +12,23 @@ exports.seed = async knex => {
       title: 'ES2017 Focus',
       abstract:
         'Passez de ES5 à ES2017 avec les classes, arrow functions, déstructuration et async/await.',
-      description: `JavaScript est un langage en perpétuelle évolution, chaque année des nouveautés y sont apportées. La formation **JavaScript ES2017** se focalise sur les innovations apportées au langage par **ES2015 (ES6)**, **ES2016** et **ES2017**.
+      description: `
+JavaScript est un langage en perpétuelle évolution, chaque année des nouveautés y sont apportées.
+La formation **JavaScript ES2017** se focalise sur les innovations apportées au langage par **ES2015 (ES6)**, **ES2016 (ES7)** et **ES2017 (ES7)**.
 
-Nous présenterons la **déstructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**. Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**. Côté outillage nous parlerons de **Babel**, **Webpack** et **ESLint** pour vous permettre d'intégrer les nouvelles fonctionnalités dans vos projets.
+Nous présenterons la **déstructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**.
+Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**.
+Côté outillage nous parlerons de **Babel**, **Webpack** et **ESLint** pour vous permettre d'intégrer les nouvelles fonctionnalités dans vos projets.
 
 Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les nouveautés évoquées tout au long de la formation.`,
       objectives: `
-- Tirer partie des nouveautés apportées par ES2015 (ES6), ES2016 et ES2017
+- Découvrir l'ensemble des nouveautés apportées par ES2017
+- Utiliser les nouveaux outils de développement
 - Être capable d’appliquer les nouveaux paradigmes en production
       `,
       prerequisites: `
 - Connaissance de JavaScript ES5
-`,
+      `,
       icon: 'ES2017_Starter_ehl6lk',
       slug: 'javascript-es2017-focus',
       path_id: js.id,
@@ -33,19 +38,29 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
       title: 'ES2017 Complet',
       abstract:
         'Plongez dans le coeur du langage JavaScript et toutes les nouveautés de ES5 à ES2017.',
-      description: `JavaScript est un langage en perpétuelle évolution, chaque année des nouveautés y sont apportées. La formation **JavaScript ES2017** se focalise sur les innovations apportées au langage par **ES2015 (ES6)**, **ES2016** et **ES2017**.
+      description: `
+JavaScript est un langage en perpétuelle évolution, chaque année des nouveautés y sont apportées.
+La formation **JavaScript ES2017** se focalise sur les innovations apportées au langage par **ES2015 (ES6)**, **ES2016 (ES7)** et **ES2017 (ES7)**.
 
-  Nous présenterons la **déstructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**. Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**. Côté outillage nous parlerons de **Babel**, **Webpack** et **ESLint** pour vous permettre d'intégrer les nouvelles fonctionnalités dans vos projets.
+Nous présenterons la **déstructuration**, les **modules**, les **arrow functions**, les **classes** et les **générateurs**.
+Nous aborderons aussi la gestion de l’asynchrone de manière élégante avec les **promises** et **async / await**.
+Côté outillage nous parlerons de **Babel**, **Webpack** et **ESLint** pour vous permettre d'intégrer les nouvelles fonctionnalités dans vos projets.
 
-  Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les nouveautés évoquées tout au long de la formation.`,
+Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les nouveautés évoquées tout au long de la formation.`,
       objectives: `
 - Comprendre en détail le coeur du langage JavaScript
-- Découvrir l'ensemble des nouveautés apportées par ES2015 (ES6), ES2016 et ES2017
+- Démarrrer un projet JavaSript ES2017
 - Être capable d’appliquer les nouveaux paradigmes en production
+- Découvrir l'ensemble des nouveautés apportées par ES2015 (ES6), ES2016 et ES2017
+- Découvrir les concepts avancés introduits par ES2017
       `,
       prerequisites: `
-- Notions de base en développement ou connaissance d'un autre langage de programmation
-`,
+Nos formations s’adressent aux développeurs web amenés à développer des applications web complexes et optimisées.
+
+Tout intégrateur ou développeur web utilisant JavaScript a normalement les connaissances nécessaires.
+- Une connaissance minimale de la couche client : HTML et CSS
+- une connaissance minimale de JavaScript : tableaux, objets et boucles
+      `,
       icon: 'ES2017_Full_buu67y',
       slug: 'javascript-es2017',
       path_id: js.id,
@@ -56,14 +71,15 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
       abstract:
         'Créez une application web avec Node.js en suivant les bonnes pratiques.',
       description: `
-En quelques années Node.js a complètement révolutionné le développement des applications web. Offrant des **performances optimales** et une **flexibilité sans égale**, Node.js a su s'imposer comme le choix de prédilection pour concevoir des applications web. **Basé sur le moteur V8 du navigateur Chrome**, il permet de **faire tourner le même code côté client et côté serveur**. Node.js tire également sa force de son **gestionnaire de paquet "npm"** qui comptabilise plus de **475 000 modules disponibles**.
+Node.js s'est imposé comme le choix de prédilection de tous [**les géants du web**](https://nodejs.org/en/foundation/case-studies/)
+Il permet de developper en JavaScript côté serveur et offre des **performances optimales** et une **flexibilité sans égale**.
+Node.js tire sa force de son **gestionnaire de paquet "npm"** (plus de **475 000 modules disponibles**), des **nouveaux outils de développement en ligne de commande** comme Webpack, Babel ou ESLint.
 
-Utilisé par tous [**les géants du web**](https://nodejs.org/en/foundation/case-studies/), Node.js est aujourd'hui incontournable. En plus de permettre la **création d'applications web réactives grâce à WebSocket**, Node.js permet d'utiliser les **nouveaux outils de développement en ligne de commande** comme Webpack, Babel ou ESLint.
+Dans cette formation vous découvrirez comment écrire du code **JavaScript moderne (ES2017) avec [Babel](https://babeljs.io/)**, profiter de l'écosystème grâce à **[npm](https://www.npmjs.com),
+maîtriser **l'asynchrone avec \`async\` / \`await\`**,  créer un **serveur web avec [Express](https://expressjs.com/)**,  créer des **interfaces réactives avec [Socket.io](https://socket.io/)** et écrire
+du **code isomorphique (client et serveur)**, **se connecter à une base de données avec [knex](http://knexjs.org/)**, **tester son code avec [Jest](https://facebook.github.io/jest/)**.
 
-Dans cette formation vous découvrirez comment écrire du code **JavaScript moderne (ES2017) avec [Babel](https://babeljs.io/)**, profiter de l'écosystème grâce à **[npm](https://www.npmjs.com) et ses modules**,  maîtriser **l'asynchrone avec \`async\` / \`await\`**,  créer un **serveur web avec [Express](https://expressjs.com/)**,  créer des **interfaces réactives avec [Socket.io](https://socket.io/)** et écrire du **code isomorphique (client et serveur)**, **se connecter à une base de données avec [knex](http://knexjs.org/)**, **tester son code avec [Jest](https://facebook.github.io/jest/)**.
-
-Un projet complet sera réalisé en fil rouge durant toute la formation, cela vous permettra de mettre en pratique toutes les nouveautés qui vous seront présentées.
-        `,
+Un projet complet sera réalisé en fil rouge durant toute la formation, cela vous permettra de mettre en pratique toutes les nouveautés qui vous seront présentées.        `,
       objectives: `
   - Savoir installer et utiliser Node.js et npm
   - Comprendre le fonctionnement de Node.js
@@ -72,8 +88,11 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
   - Être capable de tester son code Node.js
         `,
       prerequisites: `
-  - Des bases en JavaScript
-  - Notions de fonctionnement basiques du web (client, server, HTTP,  requêtes, etc...)
+Nos formations s’adressent aux développeurs web amenés à développer des applications web complexes et optimisées.
+
+Tout intégrateur ou développeur web utilisant JavaScript a normalement les connaissances nécessaires.
+- Une connaissance minimale de la couche client : HTML et CSS
+- une connaissance minimale de JavaScript : tableaux, objets et boucles
         `,
       icon: 'Node.js_Starter_wnfoll',
       slug: 'nodejs-focus',
@@ -85,11 +104,15 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
       abstract:
         'Un tour d’horizon complet de Node.js : application web, tests, CLI, Streams...',
       description: `
-En quelques années Node.js a complètement révolutionné le développement des applications web. Offrant des **performances optimales** et une **flexibilité sans égale**, Node.js a su s'imposer comme le choix de prédilection pour concevoir des applications web. **Basé sur le moteur V8 du navigateur Chrome**, il permet de **faire tourner le même code côté client et côté serveur**. Node.js tire également sa force de son **gestionnaire de paquet "npm"** qui comptabilise plus de **475 000 modules disponibles**.
+Node.js s'est imposé comme le choix de prédilection de tous [**les géants du web**](https://nodejs.org/en/foundation/case-studies/)
+Il permet de developper en JavaScript côté serveur et offre des **performances optimales** et une **flexibilité sans égale**.
+Node.js tire sa force de son **gestionnaire de paquet "npm"** (plus de **475 000 modules disponibles**), des **nouveaux outils de développement en ligne de commande** comme Webpack, Babel ou ESLint.
 
-Utilisé par tous [**les géants du web**](https://nodejs.org/en/foundation/case-studies/), Node.js est aujourd'hui incontournable. En plus de permettre la **création d'applications web réactives grâce à WebSocket**, Node.js permet d'utiliser les **nouveaux outils de développement en ligne de commande** comme Webpack, Babel ou ESLint.
+Dans cette formation vous découvrirez comment écrire du code **JavaScript moderne (ES2017) avec [Babel](https://babeljs.io/)**, profiter de l'écosystème grâce à **[npm](https://www.npmjs.com),
+maîtriser **l'asynchrone avec \`async\` / \`await\`**,  créer un **serveur web avec [Express](https://expressjs.com/)**,  créer des **interfaces réactives avec [Socket.io](https://socket.io/)** et écrire
+du **code isomorphique (client et serveur)**, **se connecter à une base de données avec [knex](http://knexjs.org/)**, **tester son code avec [Jest](https://facebook.github.io/jest/)**.
 
-Dans cette formation vous découvrirez comment écrire du code **JavaScript moderne (ES2017) avec [Babel](https://babeljs.io/)**, profiter de l'écosystème grâce à **[npm](https://www.npmjs.com) et ses modules**,  maîtriser **l'asynchrone avec \`async\` / \`await\`**,  créer un **serveur web avec [Express](https://expressjs.com/)**,  créer des **interfaces réactives avec [Socket.io](https://socket.io/)** et écrire du **code isomorphique (client et serveur)**, **se connecter à une base de données avec [knex](http://knexjs.org/)**, **tester son code avec [Jest](https://facebook.github.io/jest/)**.
+Dans la partie avancée, nous aborderons **les modules de base**, les **evénements, Flux et tests**, comment **déployer et scaler son application** et les **CLI, tests et les outiles de débogage**.
 
 Un projet complet sera réalisé en fil rouge durant toute la formation, cela vous permettra de mettre en pratique toutes les nouveautés qui vous seront présentées.
       `,
@@ -99,10 +122,16 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
 - Savoir créer une application web avec Node.js
 - Apprendre à structurer son code de manière optimale
 - Être capable de tester son code Node.js
+- Gérer les evénements, Flux et tests
+- Déployer et scaler son application
+- Maitriser les CLI, tests et les outiles de débogage
       `,
       prerequisites: `
-- Des bases en JavaScript
-- Notions de fonctionnement basiques du web (client, server, HTTP,  requêtes, etc...)
+Nos formations s’adressent aux développeurs web amenés à développer des applications web complexes et optimisées.
+
+Tout intégrateur ou développeur web utilisant JavaScript a normalement les connaissances nécessaires.
+- Une connaissance minimale de la couche client : HTML et CSS
+- une connaissance minimale de JavaScript : tableaux, objets et boucles
       `,
       icon: 'Node.js_Full_g6j9tm',
       slug: 'nodejs',
@@ -116,19 +145,23 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
       description: `
 React est un moteur de rendu développé par Facebook se démarquant de la concurrence grâce à son architecture innovante, efficace et performante. React a maintenant une place incontestable dans l'écosystème JavaScript.
 
-Pendant cette formation, vous découvrirez l'univers React et comment l'utiliser de façon optimal dans vos projets. Nous aborderons tous les aspects de React : sa philosophie, les **composants**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **déboguer**. Nous vous accompagnerons dans l'installation d'un environnement complet pour le développement en React avec les outils : **Atom**, **Babel**, **Prettier** et **ESLint**.
+Pendant cette formation, vous découvrirez l'univers React et comment l'utiliser de façon optimal dans vos projets. Nous aborderons tous les aspects de React&nbsp;: sa philosophie, les **composants**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **déboguer**. Nous vous accompagnerons dans l'installation d'un environnement complet pour le développement en React avec les outils : **Atom**, **Babel**, **Prettier** et **ESLint**.
 
 Un projet complet sera réalisé en fil rouge durant toute la formation pour vous permettre de mettre en pratique chacune des nouveautés présentées.
       `,
       objectives: `
 - Découvrir React et maîtriser ses particularités
-- Construire votre première application React en respectant les bonnes pratiques
+- Construire sa première application React en respectant les bonnes pratiques
 - Utiliser les outils de développement adaptés
 - Installer, configurer et utiliser les bibliothèques nécessaires
-- Savoir comment intégrer React dans vos projets dès demain
+- Savoir comment intégrer React dans vos projets dès le demain
       `,
       prerequisites: `
-- Bonne connaissance du langage JavaScript ES5
+Nos formations s’adressent aux développeurs web amenés à développer des applications web complexes et optimisées.
+
+Tout intégrateur ou développeur web utilisant JavaScript a normalement les connaissances nécessaires.
+- Une connaissance minimale de la couche client : HTML et CSS
+- une connaissance minimale de JavaScript : tableaux, objets et boucles
       `,
       icon: 'React_knbxrb',
       slug: 'react',
@@ -140,21 +173,26 @@ Un projet complet sera réalisé en fil rouge durant toute la formation pour vou
       abstract:
         'Apprenez à maîtriser l’état de votre application grâce à Redux, mais aussi à la tester et à la déboguer.',
       description: `
-React est un moteur de rendu développé par Facebook se démarquant de la concurrence grâce à son architecture innovante, efficace et performante. React a maintenant une place incontestable dans l'écosystème JavaScript.
+Redux est une implémentation dérivée de Flux permettant de créer un Store contenant un état réagissant à des actions.
+On peut souscrire à ce store pour être notifié des changements et ainsi mettre à jour le DOM.
+Il permet également l'ajout de middlewares, qui peuvent pré-processer les actions.
 
-Pendant cette formation, vous découvrirez l'univers React et comment l'utiliser de façon optimal dans vos projets. Nous aborderons tous les aspects de React : sa philosophie, les **composants**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **déboguer**. Nous vous accompagnerons dans l'installation d'un environnement complet pour le développement en React avec les outils : **Atom**, **Babel**, **Prettier** et **ESLint**.
+Pendant cette formation, vous découvrirez le Store Redux, comment le combiner avec React pour l'utiliser de façon optimal et comment tester vos reducers.
 
 Un projet complet sera réalisé en fil rouge durant toute la formation pour vous permettre de mettre en pratique chacune des nouveautés présentées.
         `,
       objectives: `
-- Découvrir React et maîtriser ses particularités
-- Construire votre première application React en respectant les bonnes pratiques
-- Utiliser les outils de développement adaptés
+- Découvrir le modèle Flux et maîtriser les particularités de Redux
+- Construire votre première application Redux en respectant les bonnes pratiques
 - Installer, configurer et utiliser les bibliothèques nécessaires
-- Savoir comment intégrer React dans vos projets dès demain
+- Tester vos reducers avec Jest
+- Déboguer son state Redux avec extension Chrome
         `,
       prerequisites: `
-- Bonne connaissance du langage JavaScript ES5
+Nos formations s’adressent aux développeurs web amenés à développer des applications web complexes et optimisées.
+- Une connaissance minimale de la couche client : HTML et CSS
+- une connaissance minimale de JavaScript : tableaux, objets et boucles
+- Connaissance de bases de React : composants, state, evenements (cf. formation <a href="/formations/react">React</a>)
         `,
       icon: 'Redux_zipijf',
       slug: 'redux',
@@ -166,9 +204,16 @@ Un projet complet sera réalisé en fil rouge durant toute la formation pour vou
       abstract:
         'Découvrez comment créer des applications fluides avec React et comment gérer l’état de votre application grâce à Redux.',
       description: `
-React est un moteur de rendu développé par Facebook se démarquant de la concurrence grâce à son architecture innovante, efficace et performante. React a maintenant une place incontestable dans l'écosystème JavaScript.
+React est un moteur de rendu développé par Facebook se démarquant de la concurrence grâce à son architecture innovante, efficace et performante.
+React a maintenant une place incontestable dans l'écosystème JavaScript.
 
-Pendant cette formation, vous découvrirez l'univers React et comment l'utiliser de façon optimal dans vos projets. Nous aborderons tous les aspects de React : sa philosophie, les **composants**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **déboguer**. Nous vous accompagnerons dans l'installation d'un environnement complet pour le développement en React avec les outils : **Atom**, **Babel**, **Prettier** et **ESLint**.
+
+Pendant cette formation, vous découvrirez l'univers React et comment l'utiliser de façon optimal dans vos projets.
+Nous aborderons tous les aspects de React&nbsp;: sa philosophie, les **composants**, les **applications isomorphiques**, mais aussi **comment bien architecturer son application**, l'**optimiser** et la **déboguer**.
+Nous vous accompagnerons dans l'installation d'un environnement complet pour le développement en React avec les outils : **Atom**, **Babel**, **Prettier** et **ESLint**.
+
+Redux est une implémentation dérivée de Flux permettant de créer un **store** contenant un état réagissant à des actions.
+Nous verrons comment **intégrer Redux** dans votre projet React, **tester vos reducers** et **déboguer son state**.
 
 Un projet complet sera réalisé en fil rouge durant toute la formation pour vous permettre de mettre en pratique chacune des nouveautés présentées.
           `,
@@ -178,9 +223,14 @@ Un projet complet sera réalisé en fil rouge durant toute la formation pour vou
 - Utiliser les outils de développement adaptés
 - Installer, configurer et utiliser les bibliothèques nécessaires
 - Savoir comment intégrer React dans vos projets dès demain
+- Découvrir Redux et l'intégrer dans un projet React
           `,
       prerequisites: `
-- Bonne connaissance du langage JavaScript ES5
+Nos formations s’adressent aux développeurs web amenés à développer des applications web complexes et optimisées.
+
+Tout intégrateur ou développeur web utilisant JavaScript a normalement les connaissances nécessaires.
+- Une connaissance minimale de la couche client : HTML et CSS
+- une connaissance minimale de JavaScript : tableaux, objets et boucles
           `,
       icon: 'React_Redux_vuoqdy',
       slug: 'react-redux',
@@ -566,7 +616,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
   // React
   await knex('courses').insert([
     {
-      title: 'Presentation de React et notions de ES2017',
+      title: 'Présentation de React et notions de ES2017',
       outline: `
 - Premier pas avec React
 	- Histoire et philosophie de React
