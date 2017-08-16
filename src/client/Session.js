@@ -113,6 +113,7 @@ const withSession = graphql(
   gql`
     query trainingSessionData($id: ID!) {
       trainingSession(id: $id) {
+        id
         title
         abstract
         humanizedPeriod
@@ -121,12 +122,14 @@ const withSession = graphql(
         startDate
         endDate
         location {
+          id
           name
           address
           city
           zipcode
         }
         training {
+          slug
           trainers {
             slug
             fullName

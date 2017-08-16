@@ -291,6 +291,7 @@ const COMPLETE_QUERY = gql`
         title
         outline
         path {
+          id
           color
         }
       }
@@ -308,6 +309,7 @@ const COMPLETE_QUERY = gql`
         endDate
         link
         location {
+          id
           name
           address
           zipcode
