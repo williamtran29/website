@@ -16,7 +16,7 @@ import store from 'client/store'
 import { getLoadableState } from 'loadable-components/server'
 import { customResolvers, dataIdFromObject } from 'modules/apollo'
 
-const PUBLIC = path.join(__dirname, '../../public')
+const PUBLIC = path.join(__dirname, '../../../public')
 const production = config.get('env') === 'production'
 
 let assets
