@@ -57,7 +57,7 @@ const Markdown = styled(ReactMarkdown)`
 
   li > ul > li {
     padding-left: 15px;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 18px;
 
     &:before {

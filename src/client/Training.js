@@ -420,7 +420,7 @@ export default compose(
                   {training.sessions.length > 0 &&
                     <SidebarSection>
                       <SidebarSectionTitle>
-                        Inter-entreprise (max 10 pers.)
+                        Inter-entreprise (de 4 à 10 pers.)
                       </SidebarSectionTitle>
                       <Price>
                         <PriceDetail>
