@@ -35,15 +35,15 @@ const Place = styled.div`
   line-height: 20px;
 `
 
-const SessionCard = ({ start_date, location }) => {
-  const startDate = moment.utc(start_date)
+const SessionCard = ({ startDate, location }) => {
+  const mStartDate = moment.utc(startDate)
   return (
     <Container>
       <Month>
-        {firstLetterUppercase(startDate.format('MMMM'))}
+        {firstLetterUppercase(mStartDate.format('MMMM'))}
       </Month>
       <Day>
-        {startDate.format('DD')}
+        {mStartDate.format('DD')}
       </Day>
       <Place>
         {location.city}
