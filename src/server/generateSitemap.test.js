@@ -8,7 +8,7 @@ describe('#generateSitemap', () => {
     const paths = await factory.createMany('path', 5, [{ title: 'JavaScript' }])
     await factory.createMany('training', 5, {
       slug: factory.seq(),
-      updated_at: '2017-01-01T00:00:00.000Z',
+      updated_at: factory.seq(i => `2017-01-01T0${i}:00:00.000Z`),
       path_id: paths[0].id,
     })
   })

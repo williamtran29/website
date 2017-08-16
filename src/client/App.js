@@ -9,18 +9,11 @@ import {
   Trainer,
   Trainings,
   Training,
+  TrainingPrint,
   Session,
   Contact,
 } from 'client/Routes'
-import {
-  homeRoute,
-  storyRoute,
-  contactRoute,
-  trainerRoute,
-  trainingRoute,
-  trainingsRoute,
-  sessionRoute,
-} from 'modules/routePaths'
+import * as routePaths from 'modules/routePaths'
 import { clUrl } from 'modules/cloudinary'
 
 const App = ({ location }) =>
@@ -89,17 +82,31 @@ const App = ({ location }) =>
         content={clUrl('smooth-code-shield', 'c_scale,w_1200')}
       />
     </Helmet>
-    <Route exact path={homeRoute()} component={Home} />
-    <Route path={storyRoute()} component={Story} />
-    <Route exact path={trainingsRoute()} component={Trainings} />
+    <Route exact path={routePaths.homeRoute()} component={Home} />
+    <Route path={routePaths.storyRoute()} component={Story} />
+    <Route exact path={routePaths.trainingsRoute()} component={Trainings} />
     <Route
       exact
-      path={sessionRoute(':trainingSlug', ':sessionId', ':city', ':month')}
+      path={routePaths.sessionRoute(
+        ':trainingSlug',
+        ':sessionId',
+        ':city',
+        ':month',
+      )}
       component={Session}
     />
-    <Route exact path={trainingRoute(':slug')} component={Training} />
-    <Route exact path={trainerRoute(':slug')} component={Trainer} />
-    <Route path={contactRoute()} component={Contact} />
+    <Route
+      exact
+      path={routePaths.trainingRoute(':slug')}
+      component={Training}
+    />
+    <Route
+      exact
+      path={routePaths.trainingPrintRoute(':slug')}
+      component={TrainingPrint}
+    />
+    <Route exact path={routePaths.trainerRoute(':slug')} component={Trainer} />
+    <Route path={routePaths.contactRoute()} component={Contact} />
   </div>
 
 export default withRouter(App)

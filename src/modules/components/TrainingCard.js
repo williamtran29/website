@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { darken } from 'polished'
-import { clUrl } from 'modules/cloudinary'
 import { pluralize } from 'modules/i18n'
+import TrainingIcon from 'modules/components/TrainingIcon'
 
 const Container = styled.div`
   position: relative;
@@ -24,22 +24,10 @@ const Head = styled.div`
   transform: translateX(-50%);
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-  background-color: ${props => props.bgColor};
-  background-image: linear-gradient(
-    to bottom left,
-    rgba(0, 0, 0, 0.90) 0%,
-    rgba(255, 255, 255, 0.15) 100%
-  );
-  background-blend-mode: overlay;
   border: 4px solid #fff;
   box-shadow: 0 2px 9px 0 rgba(78, 68, 66, 0.08),
     0 10px 40px 0 rgba(78, 68, 66, 0.06);
-`
-
-const HeadIcon = styled.img`
-  margin-top: -4px;
-  margin-left: -4px;
+  border-radius: 50%;
 `
 
 const Content = styled.div`
@@ -86,8 +74,8 @@ const Duration = styled.div`font-weight: 600;`
 
 const TrainingCard = ({ title, abstract, icon, duration, interPrice, path }) =>
   <Container>
-    <Head bgColor={path.color}>
-      <HeadIcon src={clUrl(icon, null, 'svg')} alt={title} />
+    <Head>
+      <TrainingIcon path={path} icon={icon} title={title} />
     </Head>
     <Content>
       <Path color={path.color}>

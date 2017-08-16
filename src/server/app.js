@@ -19,6 +19,7 @@ import generateSitemap from 'server/generateSitemap'
 import generatePdf from 'server/generatePdf'
 import sendEmail from 'server/email/sendEmail'
 import { schema, rootValue } from 'server/graphql'
+import { trainingPdfRoute, trainingPrintRoute } from 'modules/routePaths'
 
 const app = new Koa()
 const router = new Router()
@@ -103,7 +104,7 @@ ${message}
   ctx.body = { error: false }
 })
 
-router.get('/trainings/:slug/download-pdf', async ctx => {
+router.get(trainingPdfRoute(':slug'), async ctx => {
   const training = await Training.query()
     .where({ slug: ctx.params.slug })
     .first()
@@ -116,7 +117,9 @@ router.get('/trainings/:slug/download-pdf', async ctx => {
 
   ctx.type = 'pdf'
   ctx.attachment(`${training.slug}-smooth-code.pdf`)
-  ctx.body = await generatePdf(training)
+  ctx.body = await generatePdf(
+    `${config.get('server.externalUrl')}${trainingPrintRoute(training.slug)}`,
+  )
 })
 
 const PUBLIC = path.join(__dirname, '../../public')
