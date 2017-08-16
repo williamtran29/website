@@ -72,9 +72,12 @@ const SidebarNavItem = styled.li`
   border-left: 3px solid #fff;
   padding-left: 10px;
   margin-bottom: 16px;
-  animation: 400ms ${navItemAnimation} ease-out;
-  animation-fill-mode: backwards;
-  animation-delay: ${props => props['data-delay']}ms;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    animation: 400ms ${navItemAnimation} ease-out;
+    animation-fill-mode: backwards;
+    animation-delay: ${props => props['data-delay']}ms;
+  }
 `
 
 const SidebarNavLink = styled(ScrollLink).attrs({
@@ -118,12 +121,15 @@ const PathColorLine = styled.div`
 
 const PathBlock = styled(ScrollElement)`
   padding-bottom: 90px;
-  animation: 400ms ${navItemAnimation} ease-out;
-  animation-fill-mode: backwards;
-  animation-delay: ${props => props['data-delay']}ms;
 
   &:hover ${PathColorLine} {
     transform: scaleX(1.5);
+  }
+
+  @media (min-width: ${theme.medias.phablet}) {
+    animation: 400ms ${navItemAnimation} ease-out;
+    animation-fill-mode: backwards;
+    animation-delay: ${props => props['data-delay']}ms;
   }
 `
 

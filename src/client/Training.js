@@ -51,8 +51,11 @@ const contentAnimation = keyframes`
 
 const Content = styled.div`
   flex: 1;
-  animation: 400ms ${contentAnimation} ease-out;
-  animation-fill-mode: backwards;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    animation: 400ms ${contentAnimation} ease-out;
+    animation-fill-mode: backwards;
+  }
 `
 
 const NavContainer = styled.div`
@@ -143,10 +146,9 @@ const sidebarAnimation = keyframes`
 `
 
 const Sidebar = styled.aside`
-  animation: 400ms ${sidebarAnimation} ease-out;
-  animation-fill-mode: backwards;
-
   @media (min-width: ${theme.medias.phablet}) {
+    animation: 400ms ${sidebarAnimation} ease-out;
+    animation-fill-mode: backwards;
     width: 374px;
     border-left: 1px solid ${theme.colors.grayLight};
   }
