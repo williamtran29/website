@@ -19,7 +19,7 @@ exports.seed = async knex => {
   }
 
   await createSessions({
-    trainingSlug: 'javascript-es2017-starter',
+    trainingSlug: 'javascript-es2017-focus',
     locationName: 'Smooth Code',
     sessions: [
       ['2017-10-03', '2017-10-04'],
@@ -39,7 +39,7 @@ exports.seed = async knex => {
   })
 
   await createSessions({
-    trainingSlug: 'nodejs-starter',
+    trainingSlug: 'nodejs-focus',
     locationName: 'Smooth Code',
     sessions: [
       ['2017-09-19', '2017-09-20'],

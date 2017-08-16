@@ -9,7 +9,7 @@ exports.seed = async knex => {
   await knex('trainings').insert([
     {
       rank: 0,
-      title: 'ES2017 Starter',
+      title: 'ES2017 Focus',
       abstract:
         'Passez de ES5 à ES2017 avec les classes, arrow functions, déstructuration et async/await.',
       description: `JavaScript est un langage en perpétuelle évolution, chaque année des nouveautés y sont apportées. La formation **JavaScript ES2017** se focalise sur les innovations apportées au langage par **ES2015 (ES6)**, **ES2016** et **ES2017**.
@@ -25,7 +25,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
 - Connaissance de JavaScript ES5
 `,
       icon: 'ES2017_Starter_ehl6lk',
-      slug: 'javascript-es2017-starter',
+      slug: 'javascript-es2017-focus',
       path_id: js.id,
     },
     {
@@ -52,7 +52,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
     },
     {
       rank: 0,
-      title: 'Node.js Starter',
+      title: 'Node.js Focus',
       abstract:
         'Créez une application web avec Node.js en suivant les bonnes pratiques.',
       description: `
@@ -76,7 +76,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
   - Notions de fonctionnement basiques du web (client, server, HTTP,  requêtes, etc...)
         `,
       icon: 'Node.js_Starter_wnfoll',
-      slug: 'nodejs-starter',
+      slug: 'nodejs-focus',
       path_id: node.id,
     },
     {
@@ -868,9 +868,9 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
     )
   }
 
-  fillCourses('javascript-es2017-starter', 'JavaScript', [2, 4])
+  fillCourses('javascript-es2017-focus', 'JavaScript', [2, 4])
   fillCourses('javascript-es2017', 'JavaScript')
-  fillCourses('nodejs-starter', 'Node.js', [0, 4])
+  fillCourses('nodejs-focus', 'Node.js', [0, 4])
   fillCourses('nodejs', 'Node.js')
   fillCourses('react-redux', 'React')
   fillCourses('react', 'React', [0, 6])

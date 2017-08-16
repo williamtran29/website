@@ -37,6 +37,7 @@ const Lead = styled.div`
   font-size: 25px;
   line-height: 35px;
   font-weight: 300;
+  max-width: 1034px;
 
   @media (min-width: ${theme.medias.phablet}) {
     font-size: 30px;
