@@ -82,6 +82,7 @@
     "moment": "^2.18.1",
     "mz": "^2.6.0",
     "objection": "^0.8.6",
+    "objection-rest": "^0.4.0",
     "pg": "^7.1.0",
     "polished": "^1.4.0",
     "prop-types": "^15.5.10",

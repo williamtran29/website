@@ -13,7 +13,6 @@ import {
   ReferenceInput,
   SelectInput,
   required,
-  RichTextField,
   TextInput,
 } from 'admin-on-rest'
 
