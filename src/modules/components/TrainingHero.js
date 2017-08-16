@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { darken } from 'polished'
 import { clUrl } from 'modules/cloudinary'
+import { darken } from 'polished'
 import theme from 'style/theme'
-import Hero from 'modules/components/Hero'
 
 const Picture = styled.div`
   flex-shrink: 0;
@@ -45,14 +44,27 @@ const Lead = styled.div`
   }
 `
 
+const Hero = styled.div`
+  height: 420px;
+  background-color: ${props => darken(0.1, props.bgColor)};
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.90) -20%,
+    rgba(255, 255, 255, 0.15) 120%
+  );
+  background-blend-mode: overlay;
+  color: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 20px;
+  text-align: center;
+`
+
 const TrainingHero = ({ icon, title, abstract, path }) =>
-  <Hero
-    style={{ height: 420 }}
-    background={`linear-gradient(0, ${path.color} -20%, ${darken(
-      0.35,
-      path.color,
-    )} 120%)`}
-  >
+  <Hero bgColor={path.color}>
     <Picture background={clUrl(icon, 'c_scale,w_150,h_150,dpr_2')} />
     <Title>
       {title}

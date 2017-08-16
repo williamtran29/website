@@ -6,7 +6,8 @@ import Markdown from 'modules/components/Markdown'
 const Container = styled.div`
   border: 1px solid ${props => transparentize(0.9, props.bgColor)};
   background-color: #fff;
-  box-shadow: 0 7px 14px 0 rgba(93, 60, 50, 0.06),
+  box-shadow: 0 7px 14px 0
+      ${props => transparentize(0.94, darken(0.2, props.bgColor))},
     0 3px 6px 0 rgba(0, 0, 0, 0.05);
   border-radius: 4px;
   padding: 20px;

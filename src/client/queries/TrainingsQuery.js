@@ -15,6 +15,7 @@ const TrainingsQuery = {
         path {
           id
           color
+          title
         }
       }
     `,
