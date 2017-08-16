@@ -6,8 +6,8 @@ import theme from 'style/theme'
 
 const Picture = styled.div`
   flex-shrink: 0;
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
   ${props =>
     props.background
       ? `background-image: url(${props.background});`
@@ -17,6 +17,11 @@ const Picture = styled.div`
   border: 5px solid #fff;
   border-radius: 50%;
   margin-top: 10px;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    height: 150px;
+    width: 150px;
+  }
 `
 
 const Title = styled.h1`
