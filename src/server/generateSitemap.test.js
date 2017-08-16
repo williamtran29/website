@@ -1,17 +1,15 @@
-import { useDatabase } from 'server/testUtils'
-import * as database from 'server/services/database'
+import { useDatabase, factory } from 'server/test'
 import generateSitemap from './generateSitemap'
 
 describe('#generateSitemap', () => {
   useDatabase()
 
   beforeEach(async () => {
-    const knex = database.connect()
-    await knex('trainings').update({
+    const paths = await factory.createMany('path', 5, [{ title: 'JavaScript' }])
+    await factory.createMany('training', 5, {
+      slug: factory.seq(),
       updated_at: '2017-01-01T00:00:00.000Z',
-    })
-    await knex('training_sessions').update({
-      updated_at: '2017-01-01T00:00:00.000Z',
+      path_id: paths[0].id,
     })
   })
 

@@ -35,6 +35,10 @@ export default class TrainingSession extends BaseModel {
     },
   }
 
+  updatedAt() {
+    return this.updated_at
+  }
+
   link() {
     if (!this.training || !this.location)
       throw new Error('"training" and "location" must be loaded to get "link".')

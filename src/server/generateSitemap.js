@@ -1,44 +1,9 @@
 import sm from 'sitemap'
-import Training from 'server/models/Training'
-import TrainingSession from 'server/models/TrainingSession'
-import { trainingRoute } from 'modules/routePaths'
+import { gql } from 'server/graphql'
+import * as routePaths from 'modules/routePaths'
 
-async function generateSitemap() {
-  const trainings = await Training.query().orderByRaw(
-    'updated_at desc, id desc',
-  )
-  const sessions = await TrainingSession.query()
-    .eager('[training, location]')
-    .whereRaw("start_date > now() + interval '14 day'")
-    .orderBy('start_date', 'desc')
-  const sessionLinks = await Promise.all(
-    sessions.map(session => session.link()),
-  )
-
-  const sitemap = sm.createSitemap({
-    hostname: 'https://www.smooth-code.com',
-    cacheTime: 600000,
-    urls: [
-      { url: '/', changefreq: 'weekly', priority: 1 },
-      { url: '/trainings', changefreq: 'weekly', priority: 0.8 },
-      { url: '/story', priority: 0.6 },
-      { url: '/contact', priority: 0.6 },
-      ...trainings.map(training => ({
-        url: trainingRoute(training.slug),
-        lastmodISO: training.updated_at.toISOString(),
-        changefreq: 'weekly',
-        priority: 0.9,
-      })),
-      ...sessions.map((session, index) => ({
-        url: sessionLinks[index],
-        lastmodISO: session.updated_at.toISOString(),
-        changefreq: 'weekly',
-        priority: 0.7,
-      })),
-    ],
-  })
-
-  return new Promise((resolve, reject) => {
+const siteMapToString = sitemap =>
+  new Promise((resolve, reject) => {
     sitemap.toXML((err, xml) => {
       if (err) {
         reject(err)
@@ -48,6 +13,54 @@ async function generateSitemap() {
       resolve(xml.toString())
     })
   })
+
+async function generateSitemap() {
+  const { data, errors } = await gql`
+    {
+      trainings {
+        updatedAt
+        link
+      }
+      trainingSessions {
+        updatedAt
+        link
+      }
+    }
+  `
+
+  if (errors) {
+    console.error(errors) // eslint-disable-line no-console
+    throw new Error('Error during sitemap generation')
+  }
+
+  return siteMapToString(
+    sm.createSitemap({
+      hostname: 'https://www.smooth-code.com',
+      cacheTime: 600000,
+      urls: [
+        { url: routePaths.homeRoute(), changefreq: 'weekly', priority: 1 },
+        {
+          url: routePaths.trainingsRoute(),
+          changefreq: 'weekly',
+          priority: 0.8,
+        },
+        { url: routePaths.storyRoute(), priority: 0.6 },
+        { url: routePaths.contactRoute(), priority: 0.6 },
+        ...data.trainings.map(training => ({
+          url: training.link,
+          lastmodISO: training.updatedAt,
+          changefreq: 'weekly',
+          priority: 0.9,
+        })),
+        ...data.trainingSessions.map(session => ({
+          url: session.link,
+          lastmodISO: session.updatedAt,
+          changefreq: 'weekly',
+          priority: 0.7,
+        })),
+      ],
+    }),
+  )
 }
 
 export default generateSitemap

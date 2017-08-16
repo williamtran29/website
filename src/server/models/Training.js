@@ -65,6 +65,10 @@ export default class Training extends BaseModel {
     },
   }
 
+  updatedAt() {
+    return this.updated_at
+  }
+
   link() {
     return trainingRoute(this.slug)
   }

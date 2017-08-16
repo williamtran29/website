@@ -2,17 +2,20 @@ import Path from 'server/models/Path'
 import Training from 'server/models/Training'
 import Trainer from 'server/models/Trainer'
 import TrainingSession from 'server/models/TrainingSession'
-import { GraphQLDate } from 'graphql-iso-date'
+import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date'
 import { makeExecutableSchema } from 'graphql-tools'
 import graphqlFields from 'graphql-fields'
+import { graphql } from 'graphql'
 
 const resolvers = {
   Date: GraphQLDate,
+  DateTime: GraphQLDateTime,
 }
 
 export const schema = makeExecutableSchema({
   typeDefs: `
     scalar Date
+    scalar DateTime
 
     type Path {
       id: ID!
@@ -40,6 +43,7 @@ export const schema = makeExecutableSchema({
 
     type Training {
       slug: ID!
+      updatedAt: DateTime
       title: String
       longTitle: String
       abstract: String
@@ -73,6 +77,7 @@ export const schema = makeExecutableSchema({
 
     type Session {
       id: ID!
+      updatedAt: DateTime
       title: String
       abstract: String
       humanizedPeriod: String
@@ -86,10 +91,12 @@ export const schema = makeExecutableSchema({
 
     type Query {
       paths: [Path]
-      trainings: [Training]
       training(slug: ID!): Training
       trainingSession(id: ID!): Session
       trainer(slug: ID!): Trainer
+
+      trainingSessions: [Session]
+      trainings: [Training]
     }
   `,
   resolvers,
@@ -244,4 +251,24 @@ export const rootValue = {
       eagerResolver.trainers(graphqlFields(context)),
     )
   },
+
+  // Sitemap
+  async trainingSessions(args, obj, context) {
+    return enhanceQuery(
+      TrainingSession.query()
+        .whereRaw("training_sessions.start_date > now() + interval '14 day'")
+        .orderBy('training_sessions.start_date', 'desc'),
+      eagerResolver.sessions(graphqlFields(context)),
+    )
+  },
+  async trainings(args, obj, context) {
+    return enhanceQuery(
+      Training.query().orderByRaw(
+        'trainings.updated_at desc, trainings.id desc',
+      ),
+      eagerResolver.trainings(graphqlFields(context)),
+    )
+  },
 }
+
+export const gql = lines => graphql(schema, lines.join(''), rootValue)

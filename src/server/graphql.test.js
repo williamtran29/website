@@ -1,8 +1,5 @@
-import { graphql } from 'graphql'
 import { useDatabase, factory } from 'server/test'
-import { schema, rootValue } from 'server/graphql'
-
-const gql = lines => graphql(schema, lines.join(''), rootValue)
+import { gql } from 'server/graphql'
 
 describe('graphql', () => {
   useDatabase()
