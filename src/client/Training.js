@@ -83,6 +83,7 @@ const NavItemLink = styled(ScrollLink).attrs({
   activeClass: 'active',
   spy: true,
   smooth: true,
+  offset: -60,
 })`
   color: ${theme.colors.primary};
   cursor: pointer;
@@ -361,25 +362,15 @@ export default compose(
               {({ style }) =>
                 <NavContainer style={style}>
                   <Nav>
-                    <NavItemLink to="description" offset={-60}>
-                      Description
-                    </NavItemLink>
+                    <NavItemLink to="description">Description</NavItemLink>
                     <NavItemSeparator />
-                    <NavItemLink to="objectives" offset={-60}>
-                      Objectives
-                    </NavItemLink>
+                    <NavItemLink to="objectives">Objectives</NavItemLink>
                     <NavItemSeparator />
-                    <NavItemLink to="prerequisites" offset={-60}>
-                      Pré-requis
-                    </NavItemLink>
+                    <NavItemLink to="prerequisites">Pré-requis</NavItemLink>
                     <NavItemSeparator />
-                    <NavItemLink to="outline" offset={-60}>
-                      Programme
-                    </NavItemLink>
+                    <NavItemLink to="outline">Programme</NavItemLink>
                     <NavItemSeparator />
-                    <NavItemLink to="trainers" offset={-60}>
-                      Formateurs
-                    </NavItemLink>
+                    <NavItemLink to="trainers">Formateurs</NavItemLink>
                   </Nav>
                 </NavContainer>}
             </Sticky>

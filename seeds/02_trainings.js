@@ -192,7 +192,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation pour vou
 Nos formations s’adressent aux développeurs web amenés à développer des applications web complexes et optimisées.
 - Une connaissance minimale de la couche client : HTML et CSS
 - une connaissance minimale de JavaScript : tableaux, objets et boucles
-- Connaissance de bases de React : composants, state, evenements (cf. formation <a href="/formations/react">React</a>)
+- Connaissance de bases de React : composants, state, evenements (cf. formation [React](/formations/react))
         `,
       icon: 'Redux_zipijf',
       slug: 'redux',
