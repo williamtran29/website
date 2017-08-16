@@ -9,12 +9,12 @@ import { ApolloClient, ApolloProvider, getDataFromTree } from 'react-apollo'
 import { createLocalInterface } from 'apollo-local-query'
 import * as graphql from 'graphql'
 import { schema, rootValue } from 'server/graphql'
-import { customResolvers, dataIdFromObject } from 'modules/apollo'
 import config from 'server/config'
 import App from 'client/App'
-import Html from 'server/Html'
+import Html from 'server/middlewares/Html'
 import store from 'client/store'
 import { getLoadableState } from 'loadable-components/server'
+import { customResolvers, dataIdFromObject } from 'modules/apollo'
 
 const PUBLIC = path.join(__dirname, '../../public')
 const production = config.get('env') === 'production'
@@ -36,7 +36,7 @@ const getAssets = async () => {
   return assets
 }
 
-export default () => async ({ request, response }) => {
+export default () => async ctx => {
   const apolloClient = new ApolloClient({
     ssrMode: true,
     networkInterface: createLocalInterface(graphql, schema, {
@@ -50,7 +50,7 @@ export default () => async ({ request, response }) => {
   const sheet = new ServerStyleSheet()
   const app = sheet.collectStyles(
     <ApolloProvider store={store} client={apolloClient}>
-      <StaticRouter location={request.url} context={context}>
+      <StaticRouter location={ctx.request.url} context={context}>
         <App />
       </StaticRouter>
     </ApolloProvider>,
@@ -67,11 +67,11 @@ export default () => async ({ request, response }) => {
   const helmet = Helmet.renderStatic()
 
   if (context.url) {
-    response.status = 301
-    response.headers = { Location: context.url }
+    ctx.status = 301
+    ctx.redirect(context.url)
   } else {
     const assets = await getAssets()
-    response.body = `<!DOCTYPE html>${renderToString(
+    ctx.body = `<!DOCTYPE html>${renderToString(
       <Html
         assets={assets}
         content={html}

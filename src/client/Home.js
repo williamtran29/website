@@ -12,6 +12,7 @@ import Technos from 'client/home/Technos'
 import Trainers from 'client/home/Trainers'
 import Workshop from 'client/home/Workshop'
 import { clUrl } from 'modules/cloudinary'
+import { trainingsRoute } from 'modules/routePaths'
 
 const Cover = styled.div`
   position: relative;
@@ -53,7 +54,7 @@ export default () =>
       <CoverShadow />
       <MainTitle>Notre savoir-faire à votre service.</MainTitle>
       <Lead>Des formations par des développeurs pour des développeurs.</Lead>
-      <LinkButton to="/trainings" style={{ marginTop: 80 }}>
+      <LinkButton to={trainingsRoute()} style={{ marginTop: 80 }}>
         Consulter nos formations
       </LinkButton>
     </Cover>

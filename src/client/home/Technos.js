@@ -9,6 +9,7 @@ import MdArrowForward from 'react-icons/lib/md/arrow-forward'
 import SecondaryTitle from 'modules/components/SecondaryTitle'
 import { clUrl } from 'modules/cloudinary'
 import theme from 'style/theme'
+import { trainingsRoute } from 'modules/routePaths'
 
 const noop = () => {}
 
@@ -382,7 +383,7 @@ const Technos = () => {
         </Subtitle>
       </Title>
       <Banner>
-        <Link to="/trainings">
+        <Link to={trainingsRoute()}>
           Consulter notre catalogue<MdArrowForward />
         </Link>
       </Banner>

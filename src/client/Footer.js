@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import theme from 'style/theme'
 import Logo from 'client/Logo'
+import { storyRoute, contactRoute, trainingsRoute } from 'modules/routePaths'
 import FaFacebook from 'react-icons/lib/fa/facebook'
 import FaTwitter from 'react-icons/lib/fa/twitter'
 import FaPhone from 'react-icons/lib/fa/phone'
@@ -121,13 +122,13 @@ const Footer = () =>
       <Left>
         <Links>
           <li>
-            <Link to="/trainings">Formations</Link>
+            <Link to={trainingsRoute()}>Formations</Link>
           </li>
           <li>
-            <Link to="/story">Notre histoire</Link>
+            <Link to={storyRoute()}>Notre histoire</Link>
           </li>
           <li>
-            <Link to="/contact">Nous contacter</Link>
+            <Link to={contactRoute()}>Nous contacter</Link>
           </li>
         </Links>
         <Copyright>© Smooth Code</Copyright>

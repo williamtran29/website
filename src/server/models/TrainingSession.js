@@ -2,6 +2,7 @@ import slug from 'slug'
 import BaseModel, { mergeSchemas } from 'server/models/BaseModel'
 import moment from 'modules/moment'
 import { sessionRoute } from 'modules/routePaths'
+import { longHumanizeDate } from 'modules/dateUtils'
 
 export default class TrainingSession extends BaseModel {
   static tableName = 'training_sessions'
@@ -34,18 +35,53 @@ export default class TrainingSession extends BaseModel {
     },
   }
 
-  async link() {
-    const training = await this.$relatedQuery('training')
-    const location = await this.$relatedQuery('location')
+  updatedAt() {
+    return this.updated_at
+  }
+
+  link() {
+    if (!this.training || !this.location)
+      throw new Error('"training" and "location" must be loaded to get "link".')
+
     return sessionRoute(
-      training.slug,
+      this.training.slug,
       this.id,
-      slug(location.city.toLowerCase()),
+      slug(this.location.city.toLowerCase()),
       slug(moment.utc(this.start_date).format('MMMM')),
     )
   }
 
-  location() {
-    return this.$relatedQuery('location')
+  startDate() {
+    return this.start_date
+  }
+
+  endDate() {
+    return this.end_date
+  }
+
+  humanizedPeriod() {
+    return longHumanizeDate({
+      startDate: this.start_date,
+      endDate: this.end_date,
+    })
+  }
+
+  title() {
+    if (!this.training) {
+      throw new Error('"training" must be loaded to get "title".')
+    }
+    return `Formation "${this.training.title}" du ${this.humanizedPeriod()}`
+  }
+
+  abstract() {
+    if (!this.training) {
+      throw new Error('"training" must be loaded to get "abstract".')
+    }
+    return `Inscrivez-vous pour la formation ${this.training
+      .title} du ${this.humanizedPeriod()}.`
+  }
+
+  validFrom() {
+    return this.created_at
   }
 }

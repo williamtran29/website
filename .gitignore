@@ -1,5 +1,6 @@
 node_modules/
-/public/dist/
+/public/dist
+/public-admin/dist
 /lib/
 /coverage/
 !/db/structure.sql

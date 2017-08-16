@@ -1,4 +1,9 @@
-export const clUrl = (publicId, options) =>
-  `//res.cloudinary.com/smooth/image/upload/q_auto,f_auto/${options
-    ? `${options}/`
-    : ''}v1497970667/${publicId}`
+export const clUrl = (publicId, options, format) =>
+  `//res.cloudinary.com/smooth/image/upload/${!format
+    ? 'q_auto,f_auto/'
+    : ''}${options ? `${options}/` : ''}v1497970667/${publicId}${format
+    ? `.${format}`
+    : ''}`
+
+export const absClUrl = (publicId, options, format) =>
+  `https:${clUrl(publicId, options, format)}`

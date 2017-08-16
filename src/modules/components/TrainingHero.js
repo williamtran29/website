@@ -1,51 +1,82 @@
 import React from 'react'
 import styled from 'styled-components'
-import { lighten } from 'polished'
 import { clUrl } from 'modules/cloudinary'
-import Hero from 'modules/components/Hero'
-import MainTitle from 'modules/components/MainTitle'
-import Lead from 'modules/components/Lead'
+import { darken } from 'polished'
+import theme from 'style/theme'
 
 const Picture = styled.div`
   flex-shrink: 0;
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
   ${props =>
     props.background
       ? `background-image: url(${props.background});`
       : ''} background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  margin-top: 10px;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    height: 150px;
+    width: 150px;
+  }
 `
 
-const TrainingHero = ({ training }) =>
-  <Hero
-    style={{ minHeight: 406 }}
-    background={
-      training &&
-      `linear-gradient(180deg, ${training.color}, ${lighten(
-        0.2,
-        training.color,
-      )})`
-    }
-  >
-    <meta
-      itemProp="image"
-      content={`https:${clUrl(
-        training.cloudinary_id,
-        'c_scale,w_150,h_150,dpr_2',
-      )}`}
-    />
-    <Picture
-      background={
-        training && clUrl(training.cloudinary_id, 'c_scale,w_150,h_150,dpr_2')
-      }
-    />
-    <MainTitle itemProp="name">
-      {training && `Formation ${training.name}`}
-    </MainTitle>
-    <Lead itemProp="description">
-      {training && training.abstract}
+const Title = styled.h1`
+  margin: 20px 0 0;
+  font-size: 35px;
+  line-height: 45px;
+  font-weight: 300;
+  color: #fff;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 50px;
+    line-height: 60px;
+  }
+`
+
+const Lead = styled.div`
+  margin: 10px 0 0;
+  font-size: 25px;
+  line-height: 35px;
+  font-weight: 300;
+  max-width: 1034px;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 30px;
+    line-height: 40px;
+  }
+`
+
+const Hero = styled.div`
+  height: 420px;
+  background-color: ${props => darken(0.1, props.bgColor)};
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.90) -20%,
+    rgba(255, 255, 255, 0.15) 120%
+  );
+  background-blend-mode: overlay;
+  color: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 20px;
+  text-align: center;
+`
+
+const TrainingHero = ({ icon, title, abstract, path }) =>
+  <Hero bgColor={path.color}>
+    <Picture background={clUrl(icon, 'c_scale,w_150,h_150,dpr_2')} />
+    <Title>
+      {title}
+    </Title>
+    <Lead>
+      {abstract}
     </Lead>
   </Hero>
 

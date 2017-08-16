@@ -35,6 +35,43 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: courses; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE courses (
+    id bigint NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    title character varying(255) NOT NULL,
+    outline text,
+    path_id bigint NOT NULL
+);
+
+
+ALTER TABLE courses OWNER TO postgres;
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE courses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE courses_id_seq OWNER TO postgres;
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE courses_id_seq OWNED BY courses.id;
+
+
+--
 -- Name: knex_migrations; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -81,6 +118,44 @@ CREATE TABLE knex_migrations_lock (
 ALTER TABLE knex_migrations_lock OWNER TO postgres;
 
 --
+-- Name: paths; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE paths (
+    id bigint NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    rank integer DEFAULT 0,
+    title character varying(255) NOT NULL,
+    color character varying(255) NOT NULL,
+    icon character varying(255) NOT NULL
+);
+
+
+ALTER TABLE paths OWNER TO postgres;
+
+--
+-- Name: paths_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE paths_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE paths_id_seq OWNER TO postgres;
+
+--
+-- Name: paths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE paths_id_seq OWNED BY paths.id;
+
+
+--
 -- Name: trainers; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -90,7 +165,7 @@ CREATE TABLE trainers (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     first_name character varying(255) NOT NULL,
     last_name character varying(255) NOT NULL,
-    cloudinary_id character varying(255) NOT NULL,
+    picture character varying(255) NOT NULL,
     description text NOT NULL,
     slug character varying(255) NOT NULL
 );
@@ -168,8 +243,8 @@ CREATE TABLE training_sessions (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
-    training_id bigint,
-    training_location_id bigint
+    training_id bigint NOT NULL,
+    training_location_id bigint NOT NULL
 );
 
 
@@ -204,19 +279,59 @@ CREATE TABLE trainings (
     id bigint NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
-    name character varying(255) NOT NULL,
-    duration integer NOT NULL,
+    title character varying(255) NOT NULL,
     abstract character varying(255) NOT NULL,
     description text NOT NULL,
-    cloudinary_id character varying(255) NOT NULL,
+    icon character varying(255) NOT NULL,
     slug character varying(255) NOT NULL,
-    color character varying(255) NOT NULL,
-    outline text NOT NULL,
-    price integer NOT NULL
+    social_icon character varying(255),
+    rank integer DEFAULT 0,
+    objectives text,
+    prerequisites text,
+    social_title character varying(255),
+    social_abstract character varying(255),
+    path_id bigint
 );
 
 
 ALTER TABLE trainings OWNER TO postgres;
+
+--
+-- Name: trainings_courses; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE trainings_courses (
+    id bigint NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    rank integer DEFAULT 0,
+    training_id bigint NOT NULL,
+    course_id bigint NOT NULL
+);
+
+
+ALTER TABLE trainings_courses OWNER TO postgres;
+
+--
+-- Name: trainings_courses_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE trainings_courses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE trainings_courses_id_seq OWNER TO postgres;
+
+--
+-- Name: trainings_courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE trainings_courses_id_seq OWNED BY trainings_courses.id;
+
 
 --
 -- Name: trainings_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -247,8 +362,8 @@ CREATE TABLE trainings_trainers (
     id bigint NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
-    training_id bigint,
-    trainer_id bigint
+    training_id bigint NOT NULL,
+    trainer_id bigint NOT NULL
 );
 
 
@@ -276,10 +391,24 @@ ALTER SEQUENCE trainings_trainers_id_seq OWNED BY trainings_trainers.id;
 
 
 --
+-- Name: courses id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY courses ALTER COLUMN id SET DEFAULT nextval('courses_id_seq'::regclass);
+
+
+--
 -- Name: knex_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY knex_migrations ALTER COLUMN id SET DEFAULT nextval('knex_migrations_id_seq'::regclass);
+
+
+--
+-- Name: paths id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY paths ALTER COLUMN id SET DEFAULT nextval('paths_id_seq'::regclass);
 
 
 --
@@ -311,10 +440,25 @@ ALTER TABLE ONLY trainings ALTER COLUMN id SET DEFAULT nextval('trainings_id_seq
 
 
 --
+-- Name: trainings_courses id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trainings_courses ALTER COLUMN id SET DEFAULT nextval('trainings_courses_id_seq'::regclass);
+
+
+--
 -- Name: trainings_trainers id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY trainings_trainers ALTER COLUMN id SET DEFAULT nextval('trainings_trainers_id_seq'::regclass);
+
+
+--
+-- Name: courses courses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY courses
+    ADD CONSTRAINT courses_pkey PRIMARY KEY (id);
 
 
 --
@@ -323,6 +467,14 @@ ALTER TABLE ONLY trainings_trainers ALTER COLUMN id SET DEFAULT nextval('trainin
 
 ALTER TABLE ONLY knex_migrations
     ADD CONSTRAINT knex_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: paths paths_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY paths
+    ADD CONSTRAINT paths_pkey PRIMARY KEY (id);
 
 
 --
@@ -358,6 +510,14 @@ ALTER TABLE ONLY training_sessions
 
 
 --
+-- Name: trainings_courses trainings_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trainings_courses
+    ADD CONSTRAINT trainings_courses_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: trainings trainings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -379,6 +539,20 @@ ALTER TABLE ONLY trainings
 
 ALTER TABLE ONLY trainings_trainers
     ADD CONSTRAINT trainings_trainers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: courses_path_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX courses_path_id_index ON courses USING btree (path_id);
+
+
+--
+-- Name: paths_rank_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX paths_rank_index ON paths USING btree (rank);
 
 
 --
@@ -410,6 +584,41 @@ CREATE INDEX training_sessions_training_location_id_index ON training_sessions U
 
 
 --
+-- Name: trainings_courses_course_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX trainings_courses_course_id_index ON trainings_courses USING btree (course_id);
+
+
+--
+-- Name: trainings_courses_rank_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX trainings_courses_rank_index ON trainings_courses USING btree (rank);
+
+
+--
+-- Name: trainings_courses_training_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX trainings_courses_training_id_index ON trainings_courses USING btree (training_id);
+
+
+--
+-- Name: trainings_path_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX trainings_path_id_index ON trainings USING btree (path_id);
+
+
+--
+-- Name: trainings_rank_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX trainings_rank_index ON trainings USING btree (rank);
+
+
+--
 -- Name: trainings_trainers_trainer_id_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -421,6 +630,14 @@ CREATE INDEX trainings_trainers_trainer_id_index ON trainings_trainers USING btr
 --
 
 CREATE INDEX trainings_trainers_training_id_index ON trainings_trainers USING btree (training_id);
+
+
+--
+-- Name: courses courses_path_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY courses
+    ADD CONSTRAINT courses_path_id_foreign FOREIGN KEY (path_id) REFERENCES paths(id);
 
 
 --
@@ -437,6 +654,30 @@ ALTER TABLE ONLY training_sessions
 
 ALTER TABLE ONLY training_sessions
     ADD CONSTRAINT training_sessions_training_location_id_foreign FOREIGN KEY (training_location_id) REFERENCES training_locations(id);
+
+
+--
+-- Name: trainings_courses trainings_courses_course_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trainings_courses
+    ADD CONSTRAINT trainings_courses_course_id_foreign FOREIGN KEY (course_id) REFERENCES courses(id);
+
+
+--
+-- Name: trainings_courses trainings_courses_training_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trainings_courses
+    ADD CONSTRAINT trainings_courses_training_id_foreign FOREIGN KEY (training_id) REFERENCES trainings(id);
+
+
+--
+-- Name: trainings trainings_path_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trainings
+    ADD CONSTRAINT trainings_path_id_foreign FOREIGN KEY (path_id) REFERENCES paths(id);
 
 
 --
@@ -466,3 +707,5 @@ INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170604191541
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170616152405_add-columns-to-training.js, 1, NOW());
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170712113822_create_table_training_sessions.js, 1, NOW());
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170714122843_create_table_trainers.js, 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170719091316_add_column_social_cloudinary_id_to_trainings.js, 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170810111442_new_trainings.js, 1, NOW());

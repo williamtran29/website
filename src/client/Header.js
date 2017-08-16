@@ -5,6 +5,7 @@ import theme from 'style/theme'
 import { Link } from 'react-router-dom'
 import Logo from 'client/Logo'
 import FaBars from 'react-icons/lib/fa/bars'
+import { storyRoute, contactRoute, trainingsRoute } from 'modules/routePaths'
 
 const Nav = styled.nav`
   padding: 0 10px;
@@ -120,9 +121,9 @@ const Header = compose(
         <Logo />
       </LogoLink>
       <Links show={toggled} transparent={transparent}>
-        <NavLink to="/trainings">Formations</NavLink>
-        <NavLink to="/story">Notre histoire</NavLink>
-        <RaisedNavLink to="/contact">Nous contacter</RaisedNavLink>
+        <NavLink to={trainingsRoute()}>Formations</NavLink>
+        <NavLink to={storyRoute()}>Notre histoire</NavLink>
+        <RaisedNavLink to={contactRoute()}>Nous contacter</RaisedNavLink>
       </Links>
       <MenuToggle onClick={onToggle} />
     </Wrapper>

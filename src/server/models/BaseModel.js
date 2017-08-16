@@ -25,8 +25,8 @@ export default class BaseModel extends Model {
     required: [],
     properties: {
       id: { type: 'string' },
-      createdAt: { type: 'date' },
-      updatedAt: { type: 'date' },
+      created_at: { type: 'date' },
+      updated_at: { type: 'date' },
     },
   }
 
@@ -34,17 +34,10 @@ export default class BaseModel extends Model {
   static modelPaths = [__dirname]
 
   // http://vincit.github.io/objection.js/#defaulteageralgorithm
-  static defaultEagerAlgorithm = Model.JoinEagerAlgorithm
+  // static defaultEagerAlgorithm = Model.JoinEagerAlgorithm
 
-  $beforeInsert() {
-    if (!this.createdAt) {
-      this.createdAt = new Date().toISOString()
-    }
-
-    this.updatedAt = new Date().toISOString()
-  }
-
-  $beforeUpdate() {
-    this.updatedAt = new Date().toISOString()
+  // Used by objection-rest
+  static getFullIdColumn() {
+    return 'id'
   }
 }
