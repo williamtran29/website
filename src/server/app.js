@@ -62,6 +62,18 @@ app.use(
       match: /^\/story/,
       redirect: '/notre-histoire',
     },
+    {
+      match: /^\/trainers\/greg-berge/,
+      redirect: '/formateurs/greg-berge',
+    },
+    {
+      match: /^\/trainers\/adrien-joly/,
+      redirect: '/formateurs/adrien-joly',
+    },
+    {
+      match: /^\/trainers\/thomas-jeanneau/,
+      redirect: '/formateurs/thomas-jeanneau',
+    },
   ]),
 )
 
