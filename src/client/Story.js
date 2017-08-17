@@ -137,7 +137,7 @@ export default () =>
           <Paragraph>
             Smooth Code a été fondée en 2017 à Paris.<br />
             Nous proposons des formations professionnelles destinées aux
-            développeurs afin de leurs permettre d’intégrer de manière efficace
+            développeurs afin de leur permettre d’intégrer de manière efficace
             les librairies JavaScript modernes dans leurs projets.
           </Paragraph>
         </Introduction>
@@ -221,7 +221,7 @@ export default () =>
             Smooth Code propose des formations courtes de haut niveau sur les
             nouvelles méthodes de développement JavaScript.<br />
             Experts dans notre domaine et focalisés sur un périmètre restreint
-            de libraires JavaScript comme React, Redux ou RxJS nous proposons
+            de librairies JavaScript comme React, Redux ou RxJS, nous proposons
             des formations courtes de haut niveau sur ces nouvelles méthodes de
             développement. Notre expertise porte également sur les outils tels
             que Atom, Webpack, Babel, Prettier ou ESLint.
@@ -236,7 +236,7 @@ export default () =>
             <ThirdTitle>Un format court et efficace</ThirdTitle>
             <Paragraph small>
               Le format de nos formations est optimisé pour un apprentissage
-              rapide et efficace : un petit groupe de travail (6 personnes
+              rapide et efficace : un petit groupe de travail (10 personnes
               maximum) et une répartition du temps efficace : 50% de cours, 50%
               d’applications. Tous nos supports et exercices sont également
               accessibles en ligne pendant et après la formation.

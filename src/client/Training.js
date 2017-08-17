@@ -364,7 +364,7 @@ export default compose(
                   <Nav>
                     <NavItemLink to="description">Description</NavItemLink>
                     <NavItemSeparator />
-                    <NavItemLink to="objectives">Objectives</NavItemLink>
+                    <NavItemLink to="objectives">Objectifs</NavItemLink>
                     <NavItemSeparator />
                     <NavItemLink to="prerequisites">Pré-requis</NavItemLink>
                     <NavItemSeparator />
