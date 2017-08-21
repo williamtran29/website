@@ -15,6 +15,7 @@ import {
 } from 'client/Routes'
 import * as routePaths from 'modules/routePaths'
 import { clUrl } from 'modules/cloudinary'
+import JsonLd from 'modules/components/JsonLd'
 
 const App = ({ location }) =>
   <div>
@@ -107,6 +108,14 @@ const App = ({ location }) =>
     />
     <Route exact path={routePaths.trainerRoute(':slug')} component={Trainer} />
     <Route path={routePaths.contactRoute()} component={Contact} />
+    <JsonLd>
+      {{
+        '@context': 'http://schema.org',
+        '@type': 'WebSite',
+        name: 'Smooth Code',
+        url: 'https://www.smooth-code.com',
+      }}
+    </JsonLd>
   </div>
 
 export default withRouter(App)

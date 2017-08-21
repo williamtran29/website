@@ -180,7 +180,7 @@ export default compose(
             links={[
               {
                 url: trainingsRoute(),
-                name: 'Nos formations',
+                name: 'formations',
               },
               {
                 url: training.link,
