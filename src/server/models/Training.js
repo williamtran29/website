@@ -62,6 +62,7 @@ export default class Training extends BaseModel {
         },
         to: 'courses.id',
       },
+      modify: builder => builder.orderBy('trainings_courses.rank', 'asc'),
     },
   }
 
