@@ -180,7 +180,7 @@ export default compose(
             links={[
               {
                 url: trainingsRoute(),
-                name: 'formations',
+                name: 'Nos formations',
               },
               {
                 url: training.link,
@@ -246,5 +246,11 @@ export default compose(
             trainers: session.training.trainers,
           })}
         </JsonLd>}
+      <img
+        alt="Google Tracking"
+        src="//www.googleadservices.com/pagead/conversion/847457408/?label=egR2CPvqp3QQgNmMlAM&amp;guid=ON&amp;script=0"
+        width="1"
+        height="1"
+      />
     </PageContainer>,
 )
