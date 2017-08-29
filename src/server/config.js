@@ -42,6 +42,26 @@ const config = convict({
       env: 'SENDGRID_API_KEY',
     },
   },
+  ghost: {
+    host: {
+      doc: 'Ghost host',
+      format: String,
+      default: '',
+      env: 'GHOST_HOST',
+    },
+    clientId: {
+      doc: 'Ghost client id',
+      format: String,
+      default: '',
+      env: 'GHOST_CLIENT_ID',
+    },
+    clientSecret: {
+      doc: 'Ghost client secret',
+      format: String,
+      default: '',
+      env: 'GHOST_CLIENT_SECRET',
+    },
+  },
 })
 
 const env = config.get('env')

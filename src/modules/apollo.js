@@ -1,7 +1,7 @@
 import { toIdValue } from 'react-apollo'
 
-export const dataIdFromObject = ({ __typename, id, slug }) =>
-  `${__typename}:${id || slug}`
+export const dataIdFromObject = ({ __typename, id, slug, url }) =>
+  `${__typename}:${id || slug || url}`
 
 export const customResolvers = {
   Query: {

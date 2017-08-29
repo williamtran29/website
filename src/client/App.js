@@ -12,12 +12,12 @@ import {
   TrainingPrint,
   Session,
   Contact,
+  Articles,
+  Article,
 } from 'client/Routes'
 import * as routePaths from 'modules/routePaths'
-import { clUrl } from 'modules/cloudinary'
-import JsonLd from 'modules/components/JsonLd'
 
-const App = ({ location }) =>
+const App = ({ location }) => (
   <div>
     <Helmet
       titleTemplate="Smooth Code - %s"
@@ -48,7 +48,7 @@ const App = ({ location }) =>
       <meta name="theme-color" content="#ffffff" />
       <meta
         name="description"
-        content="Formations JavaScript, React et Node.js destinées aux développeurs."
+        content="Formations JavaScript, React et Node.js pour les entreprises et les développeurs."
       />
       <meta
         name="keywords"
@@ -58,29 +58,26 @@ const App = ({ location }) =>
         name="author"
         content="Smooth Code : Formations JavaScript, React et Node.js"
       />
+      <meta property="og:site_name" content="Smooth Code" />
       <meta
         property="og:title"
         content="Smooth Code : Formations JavaScript, React et Node.js"
       />
       <meta
         property="og:description"
-        content="Formations JavaScript, React et Node.js destinées aux développeurs."
+        content="Formations JavaScript, React et Node.js pour les entreprises et les développeurs."
       />
       <meta property="og:type" content="website" />
       <meta
         property="og:url"
         content={`https://www.smooth-code.com${location.pathname}`}
       />
-      <meta
-        property="og:image"
-        content={clUrl('smooth-code-shield', 'c_scale,w_1200')}
-      />
       <meta name="twitter:site" content="@smooth_code" />
       <meta name="twitter:creator" content="@neoziro" />
       <meta name="twitter:card" content="summary" />
       <meta
-        property="twitter:image"
-        content={clUrl('smooth-code-shield', 'c_scale,w_1200')}
+        property="twitter:url"
+        content={`https://www.smooth-code.com${location.pathname}`}
       />
     </Helmet>
     <Route exact path={routePaths.homeRoute()} component={Home} />
@@ -108,14 +105,9 @@ const App = ({ location }) =>
     />
     <Route exact path={routePaths.trainerRoute(':slug')} component={Trainer} />
     <Route path={routePaths.contactRoute()} component={Contact} />
-    <JsonLd>
-      {{
-        '@context': 'http://schema.org',
-        '@type': 'WebSite',
-        name: 'Smooth Code',
-        url: 'https://www.smooth-code.com',
-      }}
-    </JsonLd>
+    <Route exact path={routePaths.articlesRoute()} component={Articles} />
+    <Route path={routePaths.articleRoute(':slug')} component={Article} />
   </div>
+)
 
 export default withRouter(App)

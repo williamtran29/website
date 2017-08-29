@@ -21,9 +21,9 @@ async function generateSitemap() {
         updatedAt
         link
       }
-      trainingSessions {
-        updatedAt
+      articles {
         link
+        updated_at
       }
     }
   `
@@ -52,11 +52,11 @@ async function generateSitemap() {
           changefreq: 'weekly',
           priority: 0.9,
         })),
-        ...data.trainingSessions.map(session => ({
-          url: session.link,
-          lastmodISO: session.updatedAt,
+        ...data.articles.map(article => ({
+          url: article.link,
+          lastmodISO: article.updated_at,
           changefreq: 'weekly',
-          priority: 0.7,
+          priority: 0.9,
         })),
       ],
     }),

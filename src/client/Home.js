@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Button from 'modules/components/Button'
 import MainTitle from 'modules/components/MainTitle'
 import Lead from 'modules/components/Lead'
+import JsonLd from 'modules/components/JsonLd'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
@@ -47,7 +48,7 @@ const CoverShadow = styled.div`
 
 const LinkButton = Button.withComponent(Link)
 
-export default () =>
+export default () => (
   <PageContainer>
     <Header transparent />
     <Cover>
@@ -63,4 +64,37 @@ export default () =>
     <Trainers />
     <Customers />
     <Footer />
+    <JsonLd>
+      {{
+        '@context': 'http://schema.org',
+        '@type': 'WebSite',
+        name: 'Smooth Code',
+        description:
+          'Formations JavaScript, React et Node.js pour les entreprises et les développeurs.',
+        url: 'https://www.smooth-code.com',
+        publisher: {
+          '@type': 'Organization',
+          name: 'Smooth Code',
+          logo: {
+            '@type': 'ImageObject',
+            url:
+              'https://res.cloudinary.com/smooth/image/upload/c_scale,w_473,h_60/v1503925180/bukcynjufd4tepjtpsgp.png',
+            width: 473,
+            height: 60,
+          },
+        },
+        image: {
+          '@type': 'ImageObject',
+          url:
+            'https://res.cloudinary.com/smooth/image/upload/estyol3xy8d9gpmviupd.png',
+          width: 1440,
+          height: 700,
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': 'https://www.smooth-code.com/',
+        },
+      }}
+    </JsonLd>
   </PageContainer>
+)

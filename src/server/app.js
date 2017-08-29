@@ -74,6 +74,18 @@ app.use(
       match: /^\/trainers\/thomas-jeanneau/,
       redirect: '/formateurs/thomas-jeanneau',
     },
+    {
+      match: /^\/creer-app-mac-avec-script-shell/,
+      redirect: '/articles/creer-app-mac-avec-script-shell',
+    },
+    {
+      match: /^\/developpez-plus-vite-avec-prettier/,
+      redirect: '/articles/developpez-plus-vite-avec-prettier',
+    },
+    {
+      match: /^\/pourquoi-react-est-il-si-populaire/,
+      redirect: '/articles/pourquoi-react-est-il-si-populaire',
+    },
   ]),
 )
 
