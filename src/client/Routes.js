@@ -8,7 +8,8 @@ export const Training = loadable(() => import('client/Training'))
 export const TrainingPrint = loadable(() => import('client/TrainingPrint'))
 export const Session = loadable(() => import('client/Session'))
 export const Contact = loadable(() => import('client/Contact'))
-// export const Articles = loadable(() => import('client/Articles'))
+export const Articles = loadable(() => import('client/Articles'))
+export const Article = loadable(() => import('client/Article'))
 
 // Prefetch routes
 Home.load()
@@ -17,6 +18,5 @@ Training.load()
 Session.load()
 Story.load()
 Contact.load()
-
-export { default as Articles } from 'client/Articles'
-export { default as Article } from 'client/Article'
+Articles.load()
+Article.load()
