@@ -13,7 +13,7 @@ export async function get(resource, query) {
   const url = formatUrl({
     protocol: 'https',
     hostname: config.get('ghost.host'),
-    pathname: `/ghost/api/v0.1/${resource}`,
+    pathname: `/ghost/api/v0.1/${resource}/`,
     query: { ...credentials, ...query },
   })
 
