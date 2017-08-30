@@ -6,6 +6,7 @@ import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date'
 import { makeExecutableSchema } from 'graphql-tools'
 import graphqlFields from 'graphql-fields'
 import { graphql } from 'graphql'
+import * as ghostApi from 'server/ghost/ghostApi'
 
 const resolvers = {
   Date: GraphQLDate,
@@ -89,6 +90,47 @@ export const schema = makeExecutableSchema({
       training: Training
     }
 
+    type Image {
+      url: ID!
+      width: Int
+      height: Int
+    }
+
+    type Article {
+      id: ID!
+      slug: ID!
+      title: String
+      html: String
+      feature_image: Image
+      custom_excerpt: String
+      published_at: DateTime
+      updated_at: DateTime
+      author: Author
+      tags: [Tag]
+      meta_title: String
+      meta_description: String
+      og_image: String
+      og_title: String
+      og_description: String
+      twitter_image: String
+      twitter_title: String
+      twitter_description: String
+      link: String
+    }
+
+    type Author {
+      slug: ID!
+      name: String
+      profile_image: Image
+      twitter: String
+      link: String
+    }
+
+    type Tag {
+      slug: ID!
+      name: String
+    }
+
     type Query {
       paths: [Path]
       training(slug: ID!): Training
@@ -97,6 +139,9 @@ export const schema = makeExecutableSchema({
 
       trainingSessions: [Session]
       trainings: [Training]
+
+      articles: [Article]
+      article(slug: ID!): Article
     }
   `,
   resolvers,
@@ -235,19 +280,25 @@ export const rootValue = {
   },
   async training({ slug }, obj, context) {
     return enhanceQuery(
-      Training.query().where({ 'trainings.slug': slug }).first(),
+      Training.query()
+        .where({ 'trainings.slug': slug })
+        .first(),
       eagerResolver.trainings(graphqlFields(context)),
     )
   },
   async trainingSession({ id }, obj, context) {
     return enhanceQuery(
-      TrainingSession.query().where({ 'training_sessions.id': id }).first(),
+      TrainingSession.query()
+        .where({ 'training_sessions.id': id })
+        .first(),
       eagerResolver.sessions(graphqlFields(context)),
     )
   },
   async trainer({ slug }, obj, context) {
     return enhanceQuery(
-      Trainer.query().where({ 'trainers.slug': slug }).first(),
+      Trainer.query()
+        .where({ 'trainers.slug': slug })
+        .first(),
       eagerResolver.trainers(graphqlFields(context)),
     )
   },
@@ -268,6 +319,18 @@ export const rootValue = {
       ),
       eagerResolver.trainings(graphqlFields(context)),
     )
+  },
+
+  // Blog
+  async articles() {
+    return ghostApi.getPosts({
+      status: 'published',
+      include: 'author,tags',
+    })
+  },
+
+  async article({ slug }) {
+    return ghostApi.getPost(slug, { include: 'author,tags' })
   },
 }
 

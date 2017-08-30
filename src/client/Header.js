@@ -5,7 +5,12 @@ import theme from 'style/theme'
 import { Link } from 'react-router-dom'
 import Logo from 'client/Logo'
 import FaBars from 'react-icons/lib/fa/bars'
-import { storyRoute, contactRoute, trainingsRoute } from 'modules/routePaths'
+import {
+  storyRoute,
+  contactRoute,
+  trainingsRoute,
+  articlesRoute,
+} from 'modules/routePaths'
 
 const Nav = styled.nav`
   padding: 0 10px;
@@ -114,7 +119,7 @@ const Header = compose(
   withHandlers({
     onToggle: ({ setToggled, toggled }) => () => setToggled(!toggled),
   }),
-)(({ onToggle, toggled, transparent }) =>
+)(({ onToggle, toggled, transparent }) => (
   <Nav transparent={transparent}>
     <Wrapper>
       <LogoLink to="/">
@@ -122,12 +127,13 @@ const Header = compose(
       </LogoLink>
       <Links show={toggled} transparent={transparent}>
         <NavLink to={trainingsRoute()}>Formations</NavLink>
+        <NavLink to={articlesRoute()}>Articles</NavLink>
         <NavLink to={storyRoute()}>Notre histoire</NavLink>
         <RaisedNavLink to={contactRoute()}>Nous contacter</RaisedNavLink>
       </Links>
       <MenuToggle onClick={onToggle} />
     </Wrapper>
-  </Nav>,
-)
+  </Nav>
+))
 
 export default Header

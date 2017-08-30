@@ -2,12 +2,12 @@
 
 exports[`Input  should render an input 1`] = `
 <input
-  className="Input__Input-s1bt2nh8-0 hSeGky"
+  className="Input-s1bt2nh8-0 gdFHos"
 />
 `;
 
 exports[`Input  should support error 1`] = `
 <input
-  className="Input__Input-s1bt2nh8-0 jwRkJz"
+  className="Input-s1bt2nh8-0 cDxtda"
 />
 `;

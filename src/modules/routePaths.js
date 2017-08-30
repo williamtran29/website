@@ -8,3 +8,5 @@ export const trainingsRoute = () => `/formations`
 export const sessionRoute = (trainingSlug, sessionId, city, month) =>
   `/formations/${trainingSlug}/sessions/${sessionId}-${city}-${month}`
 export const trainerRoute = slug => `/formateurs/${slug}`
+export const articlesRoute = () => '/articles'
+export const articleRoute = slug => `/articles/${slug}`

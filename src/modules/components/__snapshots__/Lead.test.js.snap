@@ -2,7 +2,7 @@
 
 exports[`Lead should render a p 1`] = `
 <p
-  className="Lead__Lead-s78qw09-0 cytdxL"
+  className="Lead-s18kpitn-0 dOXESY"
 >
   Hello
 </p>

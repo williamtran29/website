@@ -24,6 +24,14 @@ import { trainingPdfRoute, trainingPrintRoute } from 'modules/routePaths'
 const app = new Koa()
 const router = new Router()
 
+app.use(async (ctx, next) => {
+  if (ctx.request.headers.host === 'blog.smooth-code.com') {
+    ctx.status = 301
+    ctx.redirect(`https://www.smooth-code.com${ctx.request.url}`)
+  }
+  await next()
+})
+
 app.use(
   redirect([
     {
@@ -73,6 +81,18 @@ app.use(
     {
       match: /^\/trainers\/thomas-jeanneau/,
       redirect: '/formateurs/thomas-jeanneau',
+    },
+    {
+      match: /^\/creer-app-mac-avec-script-shell/,
+      redirect: '/articles/creer-app-mac-avec-script-shell',
+    },
+    {
+      match: /^\/developpez-plus-vite-avec-prettier/,
+      redirect: '/articles/developpez-plus-vite-avec-prettier',
+    },
+    {
+      match: /^\/pourquoi-react-est-il-si-populaire/,
+      redirect: '/articles/pourquoi-react-est-il-si-populaire',
     },
   ]),
 )

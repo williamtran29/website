@@ -4,7 +4,12 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import theme from 'style/theme'
 import Logo from 'client/Logo'
-import { storyRoute, contactRoute, trainingsRoute } from 'modules/routePaths'
+import {
+  storyRoute,
+  contactRoute,
+  trainingsRoute,
+  articlesRoute,
+} from 'modules/routePaths'
 import FaFacebook from 'react-icons/lib/fa/facebook'
 import FaTwitter from 'react-icons/lib/fa/twitter'
 import FaPhone from 'react-icons/lib/fa/phone'
@@ -116,13 +121,16 @@ const FooterLogo = styled(Logo)`
   margin-left: 20px;
 `
 
-const Footer = () =>
+const Footer = () => (
   <Container>
     <Wrapper>
       <Left>
         <Links>
           <li>
             <Link to={trainingsRoute()}>Formations</Link>
+          </li>
+          <li>
+            <Link to={articlesRoute()}>Articles</Link>
           </li>
           <li>
             <Link to={storyRoute()}>Notre histoire</Link>
@@ -159,5 +167,6 @@ const Footer = () =>
       </Right>
     </Wrapper>
   </Container>
+)
 
 export default Footer
