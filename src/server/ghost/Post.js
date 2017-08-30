@@ -1,13 +1,14 @@
 /* eslint-disable camelcase */
 import { articleRoute } from 'modules/routePaths'
-import Author from './Author'
-import Image from './Image'
+import Author from 'server/ghost/Author'
+import Image from 'server/ghost/Image'
 
 class Post {
   constructor(options) {
     Object.assign(this, options)
-    this.author = new Author(options.author)
-    this.feature_image = new Image(options.feature_image)
+    if (this.author) this.author = new Author(options.author)
+    if (this.feature_image)
+      this.feature_image = new Image(options.feature_image)
   }
 
   link() {

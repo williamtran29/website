@@ -1,10 +1,14 @@
 import { useDatabase, factory } from 'server/test'
+import * as ghostApi from 'server/ghost/ghostApi'
 import generateSitemap from './generateSitemap'
+
+jest.mock('server/ghost/ghostApi')
 
 describe('#generateSitemap', () => {
   useDatabase()
 
   beforeEach(async () => {
+    ghostApi.getPosts = () => []
     const paths = await factory.createMany('path', 5, [{ title: 'JavaScript' }])
     await factory.createMany('training', 5, {
       slug: factory.seq(),

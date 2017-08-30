@@ -2,6 +2,7 @@ import fetch from 'node-fetch'
 import { format as formatUrl } from 'url'
 import config from 'server/config'
 import Post from 'server/ghost/Post'
+import Author from 'server/ghost/Author'
 
 const credentials = {
   client_id: config.get('ghost.clientId'),
@@ -32,5 +33,10 @@ export async function getPosts(options) {
 
 export async function getPost(slug, options) {
   const result = await get(`posts/slug/${slug}`, options)
-  return result.posts.map(post => new Post(post))[0]
+  return new Post(result.posts[0])
+}
+
+export async function getAuthor(slug, options) {
+  const result = await get(`users/slug/${slug}`, options)
+  return new Author(result.users[0])
 }

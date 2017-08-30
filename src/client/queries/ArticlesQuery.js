@@ -4,9 +4,11 @@ const ArticlesQuery = {
   fragments: {
     articleEssential: gql`
       fragment ArticleEssential on Article {
+        id
         slug
         link
         title
+        published_at
         feature_image {
           url
         }
@@ -17,6 +19,7 @@ const ArticlesQuery = {
           profile_image {
             url
           }
+          link
         }
         tags {
           slug

@@ -2,6 +2,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Helmet } from 'react-helmet'
+import { Link } from 'react-router-dom'
 import { gql, graphql } from 'react-apollo'
 import theme from 'style/theme'
 import moment from 'modules/moment'
@@ -10,7 +11,10 @@ import Spinner from 'modules/components/Spinner'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
+import { clUrl } from 'modules/cloudinary'
 import { completeUrl } from 'modules/urlUtil'
+import compose from 'recompact/compose'
+import ArticlesQuery from 'client/queries/ArticlesQuery'
 
 const Container = styled.div`
   flex: 1;
@@ -206,49 +210,45 @@ const Comments = styled.section`
   margin-bottom: 100px;
 `
 
-const withArticle = graphql(
-  gql`
-    query article($slug: ID!) {
-      article(slug: $slug) {
-        slug
-        title
-        link
-        feature_image {
-          url
-          width
-          height
-        }
-        custom_excerpt
-        html
-        published_at
-        updated_at
-        meta_title
-        meta_description
-        og_title
-        og_description
-        twitter_title
-        twitter_description
-        author {
-          slug
-          name
-          profile_image {
-            url
-            width
-            height
-          }
-          twitter
-        }
-        tags {
-          slug
-          name
-        }
-      }
-    }
-  `,
-  {
-    options: ({ match }) => ({ variables: { slug: match.params.slug } }),
-  },
-)
+const ArticleFooter = styled.footer`
+  @media (min-width: ${theme.medias.phablet}) {
+    padding: 70px 100px 0;
+  }
+`
+
+const AuthorCardLink = styled(Link)`
+  display: flex;
+  align-items: center;
+`
+
+const AuthorImage = styled.img`
+  width: 100px;
+  height: 100px;
+  margin-right: 15px;
+  border-radius: 50%;
+`
+
+const AuthorCardContent = styled.section``
+
+const AuthorName = styled.h4`
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  margin: 0 0 5px;
+`
+
+const AuthorBio = styled.p`
+  margin: 0;
+  color: #738a94;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 300;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 18px;
+    line-height: 22px;
+  }
+`
 
 class Disqus extends React.Component {
   componentDidMount() {
@@ -268,7 +268,74 @@ class Disqus extends React.Component {
   }
 }
 
-export default withArticle(({ data: { article } }) => (
+const ESSENTIAL_QUERY = gql`
+  query articleEssential($slug: ID!) {
+    article(slug: $slug) {
+      ...ArticleEssential
+    }
+  }
+
+  ${ArticlesQuery.fragments.articleEssential}
+`
+
+const COMPLETE_QUERY = gql`
+  query articleComplete($slug: ID!) {
+    article(slug: $slug) {
+      id
+      slug
+      title
+      link
+      feature_image {
+        url
+        width
+        height
+      }
+      custom_excerpt
+      html
+      published_at
+      updated_at
+      meta_title
+      meta_description
+      og_title
+      og_description
+      twitter_title
+      twitter_description
+      author {
+        slug
+        name
+        bio
+        profile_image {
+          url
+          width
+          height
+        }
+        twitter
+        link
+      }
+      tags {
+        slug
+        name
+      }
+    }
+  }
+`
+
+const options = ({ match }) => ({ variables: { slug: match.params.slug } })
+
+const withEssential = graphql(ESSENTIAL_QUERY, {
+  name: 'essential',
+  options,
+})
+
+const withComplete = graphql(COMPLETE_QUERY, {
+  name: 'complete',
+  options,
+})
+
+export default compose(
+  withEssential,
+  withComplete,
+)(({ essential: { article: essential }, complete: { article } }) => (
   <PageContainer>
     {article && (
       <Helmet>
@@ -335,33 +402,48 @@ export default withArticle(({ data: { article } }) => (
     )}
     <Header />
     <Container>
-      {article ? (
-        <Article>
+      <Article>
+        {essential && (
           <ArticleHeader>
             <Metadata>
               <CreatedDate
-                datetime={moment(article.published_at).format('YYYY-MM-DD')}
+                datetime={moment(essential.published_at).format('YYYY-MM-DD')}
               >
-                {moment(article.created_at).format('DD MMMM YYYY')} /{' '}
-                {article.tags[0].name}
+                {moment(essential.published_at).format('DD MMMM YYYY')} /{' '}
+                {essential.tags[0].name}
               </CreatedDate>
             </Metadata>
-            <Title>{article.title}</Title>
+            <Title>{essential.title}</Title>
           </ArticleHeader>
-          <FullImage image={article.feature_image.url} />
+        )}
+        {essential && <FullImage image={essential.feature_image.url} />}
+        {article ? (
           <Content dangerouslySetInnerHTML={{ __html: article.html }} />
+        ) : (
+          <Loader>
+            <Spinner className="la-dark" />
+          </Loader>
+        )}
+        {article && (
+          <ArticleFooter>
+            <AuthorCardLink to={article.author.link}>
+              <AuthorImage src={article.author.profile_image.url} />
+              <AuthorCardContent>
+                <AuthorName>{article.author.name}</AuthorName>
+                <AuthorBio>{article.author.bio}</AuthorBio>
+              </AuthorCardContent>
+            </AuthorCardLink>
+          </ArticleFooter>
+        )}
+        {essential && (
           <Comments>
             <Disqus
-              url={completeUrl(article.link)}
-              pageIdentifier={`ghost-${article.id}`}
+              url={completeUrl(essential.link)}
+              pageIdentifier={`ghost-${essential.id}`}
             />
           </Comments>
-        </Article>
-      ) : (
-        <Loader>
-          <Spinner className="la-dark" />
-        </Loader>
-      )}
+        )}
+      </Article>
     </Container>
     <Footer />
     {article && (
@@ -374,8 +456,7 @@ export default withArticle(({ data: { article } }) => (
             name: 'Smooth Code',
             logo: {
               '@type': 'ImageObject',
-              url:
-                'https://res.cloudinary.com/smooth/image/upload/c_scale,w_473,h_60/v1503925180/bukcynjufd4tepjtpsgp.png',
+              url: clUrl('bukcynjufd4tepjtpsgp', 'c_scale,w_473,h_60'),
               width: 473,
               height: 60,
             },

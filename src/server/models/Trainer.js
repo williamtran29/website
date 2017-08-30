@@ -1,5 +1,6 @@
 import BaseModel, { mergeSchemas } from 'server/models/BaseModel'
 import { trainerRoute } from 'modules/routePaths'
+import * as ghostApi from 'server/ghost/ghostApi'
 
 export default class Trainer extends BaseModel {
   static tableName = 'trainers'
@@ -36,5 +37,12 @@ export default class Trainer extends BaseModel {
 
   link() {
     return trainerRoute(this.slug)
+  }
+
+  async articles() {
+    return ghostApi.getPosts({
+      filter: `author:${this.slug}`,
+      include: 'author,tags',
+    })
   }
 }

@@ -74,6 +74,7 @@ export const schema = makeExecutableSchema({
       picture: String
       link: String
       trainings: [Training]
+      articles: [Article]
     }
 
     type Session {
@@ -124,6 +125,7 @@ export const schema = makeExecutableSchema({
       profile_image: Image
       twitter: String
       link: String
+      bio: String
     }
 
     type Tag {

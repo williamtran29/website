@@ -37,10 +37,19 @@ Désormais, Adrien enseigne la programmation JavaScript aux étudiants de premi�
 `,
       picture: 'profile_thomas_jeanneau_zfeiaa',
     },
+    {
+      first_name: 'Jérémy',
+      last_name: 'Sfez',
+      slug: 'jeremy-sfez',
+      description: `Co-fondateur et DG de Smooth Code. Développeur, entrepreneur, passionné de développement web et d’actualité tech.`,
+      picture: 'j5ffbdzxu58cfpfl4b84',
+    },
   ])
 
   async function setTrainerTrainings(trainerSlug, trainings) {
-    const trainer = await knex('trainers').where({ slug: trainerSlug }).first()
+    const trainer = await knex('trainers')
+      .where({ slug: trainerSlug })
+      .first()
     if (!trainer) throw new Error(`Trainer ${trainerSlug} not found`)
     await knex('trainings_trainers').insert(
       trainings.map(({ id: training_id }) => ({

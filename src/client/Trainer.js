@@ -6,6 +6,7 @@ import theme from 'style/theme'
 import SecondaryTitle from 'modules/components/SecondaryTitle'
 import Markdown from 'modules/components/Markdown'
 import TrainingList from 'modules/components/TrainingList'
+import ArticleCard from 'modules/components/ArticleCard'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
@@ -13,6 +14,7 @@ import JsonLd from 'modules/components/JsonLd'
 import { clUrl } from 'modules/cloudinary'
 import { pluralize } from 'modules/i18n'
 import TrainingsQuery from 'client/queries/TrainingsQuery'
+import ArticlesQuery from 'client/queries/ArticlesQuery'
 import { trainerLd } from 'client/linkedData'
 
 const Content = styled.div`flex: 1;`
@@ -62,6 +64,12 @@ const TrainerInfo = styled.div`
 
 const TrainingListContainer = styled.div`margin-top: 30px;`
 
+const ArticleListContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -20px;
+`
+
 const withTrainer = graphql(
   gql`
     query trainer($slug: ID!) {
@@ -74,10 +82,14 @@ const withTrainer = graphql(
         trainings {
           ...TrainingEssential
         }
+        articles {
+          ...ArticleEssential
+        }
       }
     }
 
     ${TrainingsQuery.fragments.trainingEssential}
+    ${ArticlesQuery.fragments.articleEssential}
   `,
   {
     options: ({ match }) => ({
@@ -88,60 +100,64 @@ const withTrainer = graphql(
 
 export default withTrainer(
   ({ data: { trainer } }) =>
-    trainer
-      ? <PageContainer>
-          <Helmet>
-            <title>{`${trainer.fullName} - Formateur JavaScript`}</title>
-            <meta
-              name="description"
-              content={`${trainer.fullName} est formateur JavaScript pour Smooth Code, il donne des cours dans ${trainer
-                .trainings.length} ${pluralize(
-                'formation',
-                trainer.trainings.length,
-              )} JavaScript de haut niveau.`}
-            />
-            <meta
-              property="og:title"
-              content={`Smooth Code - ${trainer.fullName} - Formateur JavaScript`}
-            />
-            <meta
-              property="og:image"
-              content={clUrl(
-                trainer.picture,
-                'c_fill,g_face,h_400,w_400,dpr_2',
-              )}
-            />
-          </Helmet>
-          <Header />
-          <Content>
-            <Wrapper>
-              <Trainer>
-                <TrainerPicture
-                  src={clUrl(
-                    trainer.picture,
-                    'c_fill,g_face,h_300,w_300,dpr_2',
-                  )}
-                  alt={trainer.fullName}
-                  width="300"
-                  height="300"
-                />
-                <TrainerInfo>
-                  <SecondaryTitle>
-                    {trainer.fullName}
-                  </SecondaryTitle>
-                  <Markdown source={trainer.description} />
-                </TrainerInfo>
-              </Trainer>
-              <SecondaryTitle>Formations dispensés</SecondaryTitle>
+    trainer ? (
+      <PageContainer>
+        <Helmet>
+          <title>{`${trainer.fullName} - Formateur JavaScript`}</title>
+          <meta
+            name="description"
+            content={`${trainer.fullName} est formateur JavaScript pour Smooth Code, il donne des cours dans ${trainer
+              .trainings.length} ${pluralize(
+              'formation',
+              trainer.trainings.length,
+            )} JavaScript de haut niveau.`}
+          />
+          <meta
+            property="og:title"
+            content={`Smooth Code - ${trainer.fullName} - Formateur JavaScript`}
+          />
+          <meta
+            property="og:image"
+            content={clUrl(trainer.picture, 'c_fill,g_face,h_400,w_400,dpr_2')}
+          />
+        </Helmet>
+        <Header />
+        <Content>
+          <Wrapper>
+            <Trainer>
+              <TrainerPicture
+                src={clUrl(trainer.picture, 'c_fill,g_face,h_300,w_300,dpr_2')}
+                alt={trainer.fullName}
+                width="300"
+                height="300"
+              />
+              <TrainerInfo>
+                <SecondaryTitle>{trainer.fullName}</SecondaryTitle>
+                <Markdown source={trainer.description} />
+              </TrainerInfo>
+            </Trainer>
+            {trainer.trainings.length > 0 && (
+              <SecondaryTitle>Formations dispensées</SecondaryTitle>
+            )}
+            {trainer.trainings.length > 0 && (
               <TrainingListContainer>
                 <TrainingList trainings={trainer.trainings} />
               </TrainingListContainer>
-            </Wrapper>
-          </Content>
-          <Footer />
-          <JsonLd>
-            {trainerLd({ trainer })}
-          </JsonLd>
-        </PageContainer>
-      : null,
+            )}
+            {trainer.articles.length > 0 && (
+              <SecondaryTitle>Derniers articles</SecondaryTitle>
+            )}
+            {trainer.articles.length > 0 && (
+              <ArticleListContainer>
+                {trainer.articles.map(article => (
+                  <ArticleCard key={article.slug} article={article} />
+                ))}
+              </ArticleListContainer>
+            )}
+          </Wrapper>
+        </Content>
+        <Footer />
+        <JsonLd>{trainerLd({ trainer })}</JsonLd>
+      </PageContainer>
+    ) : null,
 )
