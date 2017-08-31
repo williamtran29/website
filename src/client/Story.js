@@ -79,7 +79,7 @@ const Vision = styled.div`
   ${Paragraph}, ${List} {
     color: ${lighten(0.8, theme.colors.primary)};
     mix-blend-mode: luminosity;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   @media (min-width: ${theme.medias.phablet}) {
@@ -121,10 +121,12 @@ const Introduction = styled.section`
 
   ${Paragraph} {
     font-size: 20px;
+    width: 700px;
+    margin: 0 auto;
   }
 `
 
-export default () =>
+export default () => (
   <PageContainer>
     <Helmet>
       <title>Notre histoire</title>
@@ -135,10 +137,11 @@ export default () =>
         <Introduction>
           <MainTitle>Notre histoire</MainTitle>
           <Paragraph>
-            Smooth Code a été fondée en 2017 à Paris.<br />
-            Nous proposons des formations professionnelles destinées aux
-            développeurs afin de leur permettre d’intégrer de manière efficace
-            les librairies JavaScript modernes dans leurs projets.
+            Smooth Code est le meilleur moyen de vous former sur les dernières
+            librairies JavaScript. Nous proposons des formations
+            professionnelles destinées aux développeurs afin de leur permettre
+            d’intégrer de manière efficace les librairies JavaScript modernes
+            dans leurs projets.
           </Paragraph>
         </Introduction>
       </Wrapper>
@@ -267,3 +270,4 @@ export default () =>
     </Content>
     <Footer />
   </PageContainer>
+)
