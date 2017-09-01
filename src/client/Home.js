@@ -53,8 +53,8 @@ export default () => (
     <Header transparent />
     <Cover>
       <CoverShadow />
-      <MainTitle>Notre savoir-faire à votre service.</MainTitle>
-      <Lead>Des formations par des développeurs pour des développeurs.</Lead>
+      <MainTitle>Mentorat pour développeurs JavaScript</MainTitle>
+      <Lead>Formez-vous sur les nouvelles librairies JS</Lead>
       <LinkButton to={trainingsRoute()} style={{ marginTop: 80 }}>
         Consulter nos formations
       </LinkButton>

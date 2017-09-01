@@ -69,11 +69,11 @@ const NavContainer = styled.div`
 `
 
 const Nav = styled.nav`
-  height: 40px;
-  border-bottom: 1px solid ${theme.colors.grayLight};
+  height: 50px;
+  border-bottom: 1px solid ${theme.colors.gray};
   font-size: 15px;
   line-height: 20px;
-  padding: 10px 0;
+  padding: 15px 0;
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
@@ -134,7 +134,11 @@ const DayTitle = styled.div`
 
 const TrainerCardContainer = styled.div`margin: 30px 0;`
 
-const NavItemSeparator = () => <span aria-hidden="true"> · </span>
+const InnerNavItemSeparator = styled.span.attrs({ 'aria-hidden': true })`
+  margin: 0 10px 0;
+`
+
+const NavItemSeparator = () => <InnerNavItemSeparator>·</InnerNavItemSeparator>
 
 const sidebarAnimation = keyframes`
   0% {
@@ -338,28 +342,27 @@ const withComplete = graphql(COMPLETE_QUERY, {
 export default compose(
   withEssential,
   withComplete,
-)(({ essential: { training: essential }, complete: { training } }) =>
+)(({ essential: { training: essential }, complete: { training } }) => (
   <PageContainer>
-    {training &&
+    {training && (
       <Helmet>
-        <title>
-          {training.longTitle}
-        </title>
+        <title>{training.longTitle}</title>
         <meta name="description" content={training.abstract} />
         <meta property="og:title" content={training.socialTitle} />
         <meta property="og:description" content={training.socialAbstract} />
         <meta property="og:image" content={training.socialPicture} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={training.socialPicture} />
-      </Helmet>}
+      </Helmet>
+    )}
     <Header transparent />
     {essential && <TrainingHero {...essential} />}
     <Container>
-      {training &&
+      {training && (
         <Content>
           <StickyContainer>
             <Sticky>
-              {({ style }) =>
+              {({ style }) => (
                 <NavContainer style={style}>
                   <Nav>
                     <NavItemLink to="description">Description</NavItemLink>
@@ -372,7 +375,8 @@ export default compose(
                     <NavItemSeparator />
                     <NavItemLink to="trainers">Formateurs</NavItemLink>
                   </Nav>
-                </NavContainer>}
+                </NavContainer>
+              )}
             </Sticky>
             <Section id="description">
               <SectionTitle>Description</SectionTitle>
@@ -392,9 +396,7 @@ export default compose(
                 if (index % 2 === 0) {
                   const day = index / 2 + 1
                   elements.push(
-                    <DayTitle key={`day-${day}`}>
-                      Jour {day}
-                    </DayTitle>,
+                    <DayTitle key={`day-${day}`}>Jour {day}</DayTitle>,
                   )
                 }
                 elements.push(
@@ -407,21 +409,22 @@ export default compose(
             </Section>
             <Section id="trainers">
               <SectionTitle>Formateurs</SectionTitle>
-              {training.trainers.map(trainer =>
+              {training.trainers.map(trainer => (
                 <TrainerCardContainer key={trainer.slug}>
                   <TrainerCard {...trainer} />
-                </TrainerCardContainer>,
-              )}
+                </TrainerCardContainer>
+              ))}
             </Section>
           </StickyContainer>
-        </Content>}
-      {training &&
+        </Content>
+      )}
+      {training && (
         <Sidebar>
           <SidebarStickyContainer>
             <Sticky>
-              {({ style }) =>
+              {({ style }) => (
                 <SidebarSticky style={style}>
-                  {training.sessions.length > 0 &&
+                  {training.sessions.length > 0 && (
                     <SidebarSection>
                       <SidebarSectionTitle>
                         Inter-entreprise (de 4 à 10 pers.)
@@ -436,16 +439,17 @@ export default compose(
                         </PriceTotal>
                       </Price>
                       <Sessions>
-                        {training.sessions.map(session =>
+                        {training.sessions.map(session => (
                           <SessionCardLink to={session.link} key={session.id}>
                             <SessionCard {...session} />
-                          </SessionCardLink>,
-                        )}
+                          </SessionCardLink>
+                        ))}
                       </Sessions>
                       <LinkButton to={training.sessions[0].link} block>
                         Réserver en ligne
                       </LinkButton>
-                    </SidebarSection>}
+                    </SidebarSection>
+                  )}
                   <SidebarSection>
                     <SidebarSectionTitle>
                       Intra-entreprise (min 3 pers.)
@@ -455,9 +459,7 @@ export default compose(
                         {training.dayPrice}€ x {training.duration}{' '}
                         {pluralize('jour', training.duration)}
                       </PriceDetail>
-                      <PriceTotal>
-                        {training.intraPrice}€ HT / pers.
-                      </PriceTotal>
+                      <PriceTotal>{training.intraPrice}€ HT / pers.</PriceTotal>
                     </Price>
                     <SidebarText>
                       Il vous est possible d’accueillir la formation dans vos
@@ -485,13 +487,15 @@ export default compose(
                       </Email>
                     </Contact>
                   </SidebarSection>
-                </SidebarSticky>}
+                </SidebarSticky>
+              )}
             </Sticky>
           </SidebarStickyContainer>
-        </Sidebar>}
+        </Sidebar>
+      )}
     </Container>
     <Footer />
-    {training &&
+    {training && (
       <JsonLd>
         {breadcrumbLd({
           links: [
@@ -499,8 +503,9 @@ export default compose(
             { url: completeUrl(training.link), name: training.title },
           ],
         })}
-      </JsonLd>}
-    {training &&
+      </JsonLd>
+    )}
+    {training && (
       <JsonLd>
         {{
           '@context': 'http://schema.org',
@@ -519,8 +524,9 @@ export default compose(
             },
           },
         }}
-      </JsonLd>}
-    {training &&
+      </JsonLd>
+    )}
+    {training && (
       <JsonLd>
         {{
           '@context': 'http://schema.org',
@@ -533,8 +539,9 @@ export default compose(
             url: 'https://www.smooth-code.com',
           },
         }}
-      </JsonLd>}
-    {training &&
+      </JsonLd>
+    )}
+    {training && (
       <JsonLd>
         {training.sessions.map(session =>
           sessionLd(
@@ -542,6 +549,7 @@ export default compose(
             { id: true },
           ),
         )}
-      </JsonLd>}
-  </PageContainer>,
-)
+      </JsonLd>
+    )}
+  </PageContainer>
+))
