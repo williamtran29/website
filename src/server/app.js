@@ -10,16 +10,13 @@ import bodyParser from 'koa-bodyparser'
 import error from 'koa-error'
 import Router from 'koa-router'
 import mount from 'koa-mount'
-import Training from 'server/models/Training'
 import { graphqlKoa, graphiqlKoa } from 'graphql-server-koa'
 import config from 'server/config'
 import ssr from 'server/middlewares/ssr'
 import redirect from 'server/middlewares/redirect'
 import generateSitemap from 'server/generateSitemap'
-import generatePdf from 'server/generatePdf'
 import sendEmail from 'server/email/sendEmail'
 import { schema, rootValue } from 'server/graphql'
-import { trainingPdfRoute, trainingPrintRoute } from 'modules/routePaths'
 
 const app = new Koa()
 const router = new Router()
@@ -134,24 +131,6 @@ ${message}
 `,
   })
   ctx.body = { error: false }
-})
-
-router.get(trainingPdfRoute(':slug'), async ctx => {
-  const training = await Training.query()
-    .where({ slug: ctx.params.slug })
-    .first()
-
-  if (!training) {
-    const error = new Error('Training not found')
-    error.status = 404
-    throw error
-  }
-
-  ctx.type = 'pdf'
-  ctx.attachment(`${training.slug}-smooth-code.pdf`)
-  ctx.body = await generatePdf(
-    `${config.get('server.externalUrl')}${trainingPrintRoute(training.slug)}`,
-  )
 })
 
 const PUBLIC = path.join(__dirname, '../../public')
