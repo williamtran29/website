@@ -66,6 +66,10 @@ export default () => async ctx => {
 
   const helmet = Helmet.renderStatic()
 
+  if (context.status) {
+    ctx.status = context.status
+  }
+
   if (context.url) {
     ctx.status = 301
     ctx.redirect(context.url)

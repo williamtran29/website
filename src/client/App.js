@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import 'style/bootstrap'
 import React from 'react'
-import { Route, withRouter } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import {
   Home,
@@ -14,8 +14,20 @@ import {
   Contact,
   Articles,
   Article,
+  NoMatch,
 } from 'client/Routes'
 import * as routePaths from 'modules/routePaths'
+
+const Status = ({ code, children }) => (
+  <Route
+    render={({ staticContext }) => {
+      /* eslint-disable no-param-reassign */
+      if (staticContext) staticContext.status = code
+      /* eslint-enable no-param-reassign */
+      return children
+    }}
+  />
+)
 
 const App = ({ location }) => (
   <div>
@@ -80,33 +92,42 @@ const App = ({ location }) => (
         content={`https://www.smooth-code.com${location.pathname}`}
       />
     </Helmet>
-    <Route exact path={routePaths.homeRoute()} component={Home} />
-    <Route path={routePaths.storyRoute()} component={Story} />
-    <Route exact path={routePaths.trainingsRoute()} component={Trainings} />
-    <Route
-      exact
-      path={routePaths.sessionRoute(
-        ':trainingSlug',
-        ':sessionId',
-        ':city',
-        ':month',
-      )}
-      component={Session}
-    />
-    <Route
-      exact
-      path={routePaths.trainingRoute(':slug')}
-      component={Training}
-    />
-    <Route
-      exact
-      path={routePaths.trainingPrintRoute(':slug')}
-      component={TrainingPrint}
-    />
-    <Route exact path={routePaths.trainerRoute(':slug')} component={Trainer} />
-    <Route path={routePaths.contactRoute()} component={Contact} />
-    <Route exact path={routePaths.articlesRoute()} component={Articles} />
-    <Route path={routePaths.articleRoute(':slug')} component={Article} />
+    <Switch>
+      <Route exact path={routePaths.homeRoute()} component={Home} />
+      <Route path={routePaths.storyRoute()} component={Story} />
+      <Route exact path={routePaths.trainingsRoute()} component={Trainings} />
+      <Route
+        exact
+        path={routePaths.sessionRoute(
+          ':trainingSlug',
+          ':sessionId',
+          ':city',
+          ':month',
+        )}
+        component={Session}
+      />
+      <Route
+        exact
+        path={routePaths.trainingRoute(':slug')}
+        component={Training}
+      />
+      <Route
+        exact
+        path={routePaths.trainingPrintRoute(':slug')}
+        component={TrainingPrint}
+      />
+      <Route
+        exact
+        path={routePaths.trainerRoute(':slug')}
+        component={Trainer}
+      />
+      <Route path={routePaths.contactRoute()} component={Contact} />
+      <Route exact path={routePaths.articlesRoute()} component={Articles} />
+      <Route path={routePaths.articleRoute(':slug')} component={Article} />
+      <Status code={404}>
+        <NoMatch />
+      </Status>
+    </Switch>
   </div>
 )
 

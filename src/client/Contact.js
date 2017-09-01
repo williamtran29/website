@@ -59,7 +59,7 @@ const Info = styled.div`
   }
 `
 
-const Contact = () =>
+const Contact = () => (
   <PageContainer>
     <Helmet>
       <title>Nous contacter</title>
@@ -92,5 +92,6 @@ const Contact = () =>
     </Container>
     <Footer />
   </PageContainer>
+)
 
 export default Contact
