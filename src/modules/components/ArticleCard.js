@@ -52,7 +52,7 @@ const Title = styled.h2`
 const Excerpt = styled.section`
   p {
     font-size: 15px;
-    line-height: 18px;
+    line-height: 22px;
     font-weight: 300;
     margin: 0 0 20px;
   }
@@ -119,7 +119,7 @@ const Article = styled.article`
 
       ${Excerpt} p {
         font-size: 17px;
-        line-height: 20px;
+        line-height: 24px;
       }
 
       ${Title} {
