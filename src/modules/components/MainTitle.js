@@ -3,7 +3,7 @@ import theme from 'style/theme'
 
 const MainTitle = styled.h1`
   font-size: 40px;
-  line-height: 46px;
+  line-height: 65px;
   font-weight: 300;
   margin: 10px 0;
 

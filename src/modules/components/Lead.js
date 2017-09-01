@@ -4,7 +4,7 @@ import theme from 'style/theme'
 const Lead = styled.p`
   font-size: 28px;
   font-weight: 300;
-  line-height: 32px;
+  line-height: 38px;
   margin: 0;
   letter-spacing: 0.7px;
 
