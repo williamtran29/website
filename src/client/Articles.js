@@ -73,7 +73,7 @@ export default graphql(gql`
       <title>Actualité et articles JavaScript</title>
       <meta
         name="description"
-        content="Retrouvez toute l‘actualité de JavaScript, React et Node.js avec Smooth Code."
+        content="Retrouvez toute l’actualité de JavaScript, React et Node.js avec Smooth Code."
       />
       <meta property="og:title" content="Les articles Smooth Code" />
     </Helmet>
@@ -81,7 +81,7 @@ export default graphql(gql`
     <Cover>
       <CoverShadow />
       <MainTitle>Nos articles</MainTitle>
-      <Lead>Retrouvez toute l‘actualité de JavaScript, React et Node.js.</Lead>
+      <Lead>Retrouvez toute l’actualité de JavaScript, React et Node.js.</Lead>
     </Cover>
     <Container>
       {data.articles ? (
