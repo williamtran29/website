@@ -91,6 +91,10 @@ app.use(
       match: /^\/pourquoi-react-est-il-si-populaire/,
       redirect: '/articles/pourquoi-react-est-il-si-populaire',
     },
+    {
+      match: /^\/articles\/la-license-de-react-est-il-une-menace/,
+      redirect: '/articles/la-license-de-react-est-elle-une-menace',
+    },
   ]),
 )
 
