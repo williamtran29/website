@@ -414,6 +414,8 @@ export default compose(
           rel="amphtml"
           href="https://blog.smooth-code.com/developpez-plus-vite-avec-prettier/amp/"
         />
+        <script async defer src="/prism/prism.js" />
+        <link rel="stylesheet" href="/prism/prism.css" />
       </Helmet>
     )}
     <Header />
