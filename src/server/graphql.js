@@ -117,6 +117,7 @@ export const schema = makeExecutableSchema({
       twitter_title: String
       twitter_description: String
       link: String
+      mainPath: Path
     }
 
     type Author {
@@ -274,13 +275,13 @@ const enhanceQuery = (query, eagerQuery) => {
 }
 
 export const rootValue = {
-  async paths(args, obj, context) {
+  paths(args, obj, context) {
     return enhanceQuery(
       Path.query().orderBy('paths.rank', 'asc'),
       eagerResolver.paths(graphqlFields(context)),
     )
   },
-  async training({ slug }, obj, context) {
+  training({ slug }, obj, context) {
     return enhanceQuery(
       Training.query()
         .where({ 'trainings.slug': slug })
@@ -288,7 +289,7 @@ export const rootValue = {
       eagerResolver.trainings(graphqlFields(context)),
     )
   },
-  async trainingSession({ id }, obj, context) {
+  trainingSession({ id }, obj, context) {
     return enhanceQuery(
       TrainingSession.query()
         .where({ 'training_sessions.id': id })
@@ -296,7 +297,7 @@ export const rootValue = {
       eagerResolver.sessions(graphqlFields(context)),
     )
   },
-  async trainer({ slug }, obj, context) {
+  trainer({ slug }, obj, context) {
     return enhanceQuery(
       Trainer.query()
         .where({ 'trainers.slug': slug })
@@ -306,7 +307,7 @@ export const rootValue = {
   },
 
   // Sitemap
-  async trainingSessions(args, obj, context) {
+  trainingSessions(args, obj, context) {
     return enhanceQuery(
       TrainingSession.query()
         .whereRaw("training_sessions.start_date > now() + interval '14 day'")
@@ -314,7 +315,7 @@ export const rootValue = {
       eagerResolver.sessions(graphqlFields(context)),
     )
   },
-  async trainings(args, obj, context) {
+  trainings(args, obj, context) {
     return enhanceQuery(
       Training.query().orderByRaw(
         'trainings.updated_at desc, trainings.id desc',
@@ -324,14 +325,13 @@ export const rootValue = {
   },
 
   // Blog
-  async articles() {
+  articles() {
     return ghostApi.getPosts({
       status: 'published',
       include: 'author,tags',
     })
   },
-
-  async article({ slug }) {
+  article({ slug }) {
     return ghostApi.getPost(slug, { include: 'author,tags' })
   },
 }

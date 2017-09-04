@@ -8,6 +8,7 @@ export default class Path extends BaseModel {
     properties: {
       rank: { type: 'integer' },
       title: { type: 'string' },
+      slug: { type: 'string' },
       color: { type: 'string' },
       icon: { type: 'string' },
     },

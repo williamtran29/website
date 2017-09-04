@@ -14,7 +14,9 @@ import Footer from 'client/Footer'
 import { clUrl } from 'modules/cloudinary'
 import { completeUrl } from 'modules/urlUtil'
 import compose from 'recompact/compose'
+import TrainingList from 'modules/components/TrainingList'
 import ArticlesQuery from 'client/queries/ArticlesQuery'
+import TrainingsQuery from 'client/queries/TrainingsQuery'
 
 const Container = styled.div`
   flex: 1;
@@ -205,10 +207,7 @@ const Loader = styled.div`
   text-align: center;
 `
 
-const Comments = styled.section`
-  margin-top: 50px;
-  margin-bottom: 100px;
-`
+const Comments = styled.section`margin: 50px 0 100px;`
 
 const ArticleFooter = styled.footer`
   @media (min-width: ${theme.medias.phablet}) {
@@ -250,6 +249,14 @@ const AuthorBio = styled.p`
   }
 `
 
+const Trainings = styled.section`margin: 50px 0;`
+
+const TrainingsTitle = styled.h3`
+  font-size: 30px;
+  line-height: 36px;
+  font-weight: 300;
+`
+
 class Disqus extends React.Component {
   componentDidMount() {
     window.disqus_config = function config() {
@@ -279,7 +286,7 @@ const ESSENTIAL_QUERY = gql`
 `
 
 const COMPLETE_QUERY = gql`
-  query articleComplete($slug: ID!) {
+  query complete($slug: ID!) {
     article(slug: $slug) {
       id
       slug
@@ -316,8 +323,17 @@ const COMPLETE_QUERY = gql`
         slug
         name
       }
+      mainPath {
+        id
+        title
+        trainings {
+          ...TrainingEssential
+        }
+      }
     }
   }
+
+  ${TrainingsQuery.fragments.trainingEssential}
 `
 
 const options = ({ match }) => ({ variables: { slug: match.params.slug } })
@@ -435,15 +451,24 @@ export default compose(
             </AuthorCardLink>
           </ArticleFooter>
         )}
-        {essential && (
-          <Comments>
-            <Disqus
-              url={completeUrl(essential.link)}
-              pageIdentifier={`ghost-${essential.id}`}
-            />
-          </Comments>
-        )}
       </Article>
+      {article &&
+      article.mainPath && (
+        <Trainings>
+          <TrainingsTitle>
+            Découvrez nos formations {article.mainPath.title}
+          </TrainingsTitle>
+          <TrainingList trainings={article.mainPath.trainings} />
+        </Trainings>
+      )}
+      {essential && (
+        <Comments>
+          <Disqus
+            url={completeUrl(essential.link)}
+            pageIdentifier={`ghost-${essential.id}`}
+          />
+        </Comments>
+      )}
     </Container>
     <Footer />
     {article && (

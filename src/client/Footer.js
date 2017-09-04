@@ -39,13 +39,21 @@ const Wrapper = styled.div`
 `
 
 const Left = styled.div`
-  display: flex;
-  flex-direction: column;
   padding-bottom: 20px;
   border-bottom: 1px solid ${lighten(0.1, theme.colors.grayDark)};
+
   @media (min-width: ${theme.medias.phablet}) {
     padding-bottom: 0;
     border: 0;
+  }
+`
+
+const LinkColumns = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    flex-direction: row;
   }
 `
 
@@ -58,7 +66,7 @@ const Right = styled.div`
 
 const Links = styled.ul`
   list-style-type: none;
-  margin: 0 0 30px;
+  margin: 0 0 30px 0;
   padding: 0;
 
   a {
@@ -66,6 +74,10 @@ const Links = styled.ul`
     color: ${textColor};
     line-height: 30px;
     text-decoration: none;
+  }
+
+  @media (min-width: ${theme.medias.phablet}) {
+    margin: 0 10vw 30px 0;
   }
 `
 
@@ -125,20 +137,36 @@ const Footer = () => (
   <Container>
     <Wrapper>
       <Left>
-        <Links>
-          <li>
-            <Link to={trainingsRoute()}>Formations</Link>
-          </li>
-          <li>
-            <Link to={articlesRoute()}>Articles</Link>
-          </li>
-          <li>
-            <Link to={storyRoute()}>Notre histoire</Link>
-          </li>
-          <li>
-            <Link to={contactRoute()}>Nous contacter</Link>
-          </li>
-        </Links>
+        <LinkColumns>
+          <Links>
+            <li>
+              <Link to={trainingsRoute()}>Formations</Link>
+            </li>
+            <li>
+              <Link to={articlesRoute()}>Articles</Link>
+            </li>
+            <li>
+              <Link to={storyRoute()}>Notre histoire</Link>
+            </li>
+            <li>
+              <Link to={contactRoute()}>Nous contacter</Link>
+            </li>
+          </Links>
+          <Links>
+            <li>
+              <Link to="/formations/react-redux">Formation React + Redux</Link>
+            </li>
+            <li>
+              <Link to="/formations/nodejs">Formation Node.js</Link>
+            </li>
+            <li>
+              <Link to="/formations/rxjs">Formation RxJS</Link>
+            </li>
+            <li>
+              <Link to="/formations/graphql">Formation GraphQL</Link>
+            </li>
+          </Links>
+        </LinkColumns>
         <Copyright>© Smooth Code</Copyright>
       </Left>
       <Right>
