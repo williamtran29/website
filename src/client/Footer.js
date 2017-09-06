@@ -102,6 +102,14 @@ const Contact = styled.div`
   }
 `
 
+const Legal = styled.div`
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 30px;
+`
+
 const Address = styled.address`
   font-style: normal;
   text-align: right;
@@ -183,6 +191,10 @@ const Footer = () => (
             <FaEnvelope /> contact@smooth-code.com
           </a>
         </Contact>
+        <Legal>
+          <span>SIRET : 830511788 00010</span>
+          <span>Numéro de déclaration d’activité : 11 75 56363 75</span>
+        </Legal>
         <Social>
           <a href="https://www.facebook.com/smoothcodetraining/">
             <FaFacebook />
