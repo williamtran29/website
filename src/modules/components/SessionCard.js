@@ -38,7 +38,7 @@ const Place = styled.div`
 
 const Full = styled.div`
   position: absolute;
-  top: 40px;
+  top: 50%;
   left: 50%;
   font-size: 14px;
   padding: 3px;
@@ -48,14 +48,16 @@ const Full = styled.div`
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 2px;
   font-weight: 600;
-  transform: rotate(-15deg) translateX(-50%);
+  transform-origin: center;
+  transform: rotate(-20deg) translate(-50%, -50%);
+  user-select: none;
 `
 
-const SessionCard = ({ startDate, location, participants }) => {
+const SessionCard = ({ startDate, location, inStock }) => {
   const mStartDate = moment.utc(startDate)
   return (
     <Container>
-      {participants === 10 ? <Full>Complet</Full> : null}
+      {!inStock ? <Full>Complet</Full> : null}
       <Month>{firstLetterUppercase(mStartDate.format('MMMM'))}</Month>
       <Day>{mStartDate.format('DD')}</Day>
       <Place>{location.city}</Place>
