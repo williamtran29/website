@@ -154,7 +154,7 @@ export default graphql(gql`
   }
 
   ${TrainingsQuery.fragments.trainingEssential}
-`)(({ data }) =>
+`)(({ data }) => (
   <PageContainer>
     <Helmet>
       <title>Formations JavaScript, Node.js, React, RxJS et GraphQL</title>
@@ -175,40 +175,37 @@ export default graphql(gql`
     <Container>
       <Sidebar>
         <Sticky>
-          {({ style }) =>
+          {({ style }) => (
             <nav style={style}>
               <SidebarTitle>Explorer</SidebarTitle>
               <SidebarNavList>
                 {data.paths &&
-                  data.paths.map((path, index) =>
+                  data.paths.map((path, index) => (
                     <SidebarNavItem
                       key={path.id}
                       data-delay={index * 75}
                       style={{ borderLeftColor: path.color }}
                     >
-                      <SidebarNavLink to={path.id}>
-                        {path.title}
-                      </SidebarNavLink>
-                    </SidebarNavItem>,
-                  )}
+                      <SidebarNavLink to={path.id}>{path.title}</SidebarNavLink>
+                    </SidebarNavItem>
+                  ))}
               </SidebarNavList>
-            </nav>}
+            </nav>
+          )}
         </Sticky>
       </Sidebar>
       <Main>
         <Title>Nos formations</Title>
         {data.paths &&
-          data.paths.map((path, index) =>
+          data.paths.map((path, index) => (
             <PathBlock name={path.id} key={path.id} data-delay={index * 75}>
-              <PathTitle>
-                {path.title}
-              </PathTitle>
+              <PathTitle>{path.title}</PathTitle>
               <PathColorLine style={{ backgroundColor: path.color }} />
               <TrainingList trainings={path.trainings} />
-            </PathBlock>,
-          )}
+            </PathBlock>
+          ))}
       </Main>
-      {data.paths &&
+      {data.paths && (
         <JsonLd>
           {{
             '@context': 'http://schema.org',
@@ -226,8 +223,9 @@ export default graphql(gql`
               )
               .map((item, index) => ({ ...item, position: index + 1 })),
           }}
-        </JsonLd>}
+        </JsonLd>
+      )}
     </Container>
     <Footer />
-  </PageContainer>,
-)
+  </PageContainer>
+))
