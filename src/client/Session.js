@@ -155,14 +155,12 @@ export default compose(
   ({
     trainingData: { training },
     trainingSessionData: { trainingSession: session },
-  }) =>
+  }) => (
     <PageContainer>
       {session &&
-        training &&
+      training && (
         <Helmet>
-          <title>
-            {session.title}
-          </title>
+          <title>{session.title}</title>
           <meta name="title" content={session.title} />
           <meta name="description" content={session.abstract} />
           <meta property="og:title" content={session.title} />
@@ -170,12 +168,13 @@ export default compose(
           <meta property="og:image" content={training.socialPicture} />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:image" content={training.socialPicture} />
-        </Helmet>}
+        </Helmet>
+      )}
       <Header transparent />
       {training && <TrainingHero {...training} />}
       <Container>
         {session &&
-          training &&
+        training && (
           <Breadcrumb
             links={[
               {
@@ -191,9 +190,10 @@ export default compose(
                 name: `Session ${session.humanizedPeriod}`,
               },
             ]}
-          />}
+          />
+        )}
         {session &&
-          training &&
+        training && (
           <Columns>
             <ContactColumn>
               <Title>S’inscrire</Title>
@@ -212,13 +212,9 @@ export default compose(
             </ContactColumn>
             <InfoColumn>
               <Title>Date</Title>
-              <Info>
-                {session.humanizedPeriod}
-              </Info>
+              <Info>{session.humanizedPeriod}</Info>
               <Title>Prix</Title>
-              <Info>
-                {training.interPrice}€ HT / pers.
-              </Info>
+              <Info>{training.interPrice}€ HT / pers.</Info>
               <Title>Lieu</Title>
               <Address>
                 {session.location.name}
@@ -234,23 +230,26 @@ export default compose(
                 )}`}
               />
             </InfoColumn>
-          </Columns>}
+          </Columns>
+        )}
       </Container>
       <Footer />
       {session &&
-        training &&
+      training && (
         <JsonLd>
           {sessionLd({
             session,
             training,
             trainers: session.training.trainers,
           })}
-        </JsonLd>}
+        </JsonLd>
+      )}
       <img
         alt="Google Tracking"
         src="//www.googleadservices.com/pagead/conversion/847457408/?label=egR2CPvqp3QQgNmMlAM&amp;guid=ON&amp;script=0"
         width="1"
         height="1"
       />
-    </PageContainer>,
+    </PageContainer>
+  ),
 )

@@ -158,26 +158,23 @@ const CourseOutline = Markdown.extend`
   }
 `
 
-const Course = ({ outline, title }) =>
+const Course = ({ outline, title }) => (
   <CourseContainer>
-    <CourseTitle>
-      {title}
-    </CourseTitle>
+    <CourseTitle>{title}</CourseTitle>
     <CourseOutline source={outline} />
   </CourseContainer>
+)
 
 const Outline = ({ courses }) => {
   const days = coursesToDays(courses)
   return (
     <Planning>
-      {days.map((dayCourses, dayIndex) =>
+      {days.map((dayCourses, dayIndex) => (
         <Day key={dayIndex}>
-          <DayTitle>
-            Jour {dayIndex + 1}
-          </DayTitle>
+          <DayTitle>Jour {dayIndex + 1}</DayTitle>
           {dayCourses.map(course => <Course key={course.id} {...course} />)}
-        </Day>,
-      )}
+        </Day>
+      ))}
     </Planning>
   )
 }
@@ -215,77 +212,68 @@ const withTraining = graphql(
 
 export default withTraining(
   ({ data: { training } }) =>
-    training
-      ? <PageContainer>
-          <Helmet>
-            <title>
-              {training.longTitle}
-            </title>
-            <meta name="robots" content="noindex" />
-          </Helmet>
-          <Container>
-            <Header>
-              <HeaderMain>
-                <HeaderPicture>
-                  <TrainingIcon {...training} />
-                </HeaderPicture>
-                <div>
-                  <Title>
-                    {training.longTitle}
-                  </Title>
-                  <Subtitle>
-                    {training.abstract}
-                  </Subtitle>
-                </div>
-              </HeaderMain>
-              <Brand>
-                <ColoredLogo />
-                <Website>www.smooth-code.com</Website>
-              </Brand>
-            </Header>
-            <Intro>
-              <Section>
-                <SectionTitle>Objectifs</SectionTitle>
-                <Markdown source={training.objectives} />
-              </Section>
-              <Infos>
-                <Info>
-                  <InfoLabel>Durée :</InfoLabel>
-                  <InfoContent>
-                    {training.duration} {pluralize('jour', training.duration)}
-                  </InfoContent>
-                </Info>
-                <Info>
-                  <InfoLabel>Prix :</InfoLabel>
-                  <InfoContent>
-                    {training.interPrice}€ HT / pers.
-                  </InfoContent>
-                </Info>
-              </Infos>
-            </Intro>
-            <Section>
-              <SectionTitle>Pré-requis</SectionTitle>
-              <Markdown source={training.prerequisites} />
-            </Section>
-            <Section>
-              <SectionTitle>Programme</SectionTitle>
-              <Outline courses={training.courses} />
-            </Section>
-            <Section>
-              <SectionTitle>Description</SectionTitle>
-              <Markdown source={training.description} />
-            </Section>
-            <Footer>
-              <Separator style={{ width: 250, margin: '10px auto' }} />
+    training ? (
+      <PageContainer>
+        <Helmet>
+          <title>{training.longTitle}</title>
+          <meta name="robots" content="noindex" />
+        </Helmet>
+        <Container>
+          <Header>
+            <HeaderMain>
+              <HeaderPicture>
+                <TrainingIcon {...training} />
+              </HeaderPicture>
               <div>
-                <strong>Une question ?</strong> Vous avez besoin d’un
-                renseignement ou d’une formation personnalisée ? Nous nous
-                ferons un plaisir de répondre à vos questions.{' '}
-                <strong>Tél. :</strong> 06 50 58 80 79 -{' '}
-                <strong>Email :</strong> contact@smooth-code.com
+                <Title>{training.longTitle}</Title>
+                <Subtitle>{training.abstract}</Subtitle>
               </div>
-            </Footer>
-          </Container>
-        </PageContainer>
-      : null,
+            </HeaderMain>
+            <Brand>
+              <ColoredLogo />
+              <Website>www.smooth-code.com</Website>
+            </Brand>
+          </Header>
+          <Intro>
+            <Section>
+              <SectionTitle>Objectifs</SectionTitle>
+              <Markdown source={training.objectives} />
+            </Section>
+            <Infos>
+              <Info>
+                <InfoLabel>Durée :</InfoLabel>
+                <InfoContent>
+                  {training.duration} {pluralize('jour', training.duration)}
+                </InfoContent>
+              </Info>
+              <Info>
+                <InfoLabel>Prix :</InfoLabel>
+                <InfoContent>{training.interPrice}€ HT / pers.</InfoContent>
+              </Info>
+            </Infos>
+          </Intro>
+          <Section>
+            <SectionTitle>Pré-requis</SectionTitle>
+            <Markdown source={training.prerequisites} />
+          </Section>
+          <Section>
+            <SectionTitle>Programme</SectionTitle>
+            <Outline courses={training.courses} />
+          </Section>
+          <Section>
+            <SectionTitle>Description</SectionTitle>
+            <Markdown source={training.description} />
+          </Section>
+          <Footer>
+            <Separator style={{ width: 250, margin: '10px auto' }} />
+            <div>
+              <strong>Une question ?</strong> Vous avez besoin d’un
+              renseignement ou d’une formation personnalisée ? Nous nous ferons
+              un plaisir de répondre à vos questions. <strong>Tél. :</strong>{' '}
+              06 50 58 80 79 - <strong>Email :</strong> contact@smooth-code.com
+            </div>
+          </Footer>
+        </Container>
+      </PageContainer>
+    ) : null,
 )
