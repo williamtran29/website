@@ -15,6 +15,7 @@ import config from 'server/config'
 import ssr from 'server/middlewares/ssr'
 import redirect from 'server/middlewares/redirect'
 import generateSitemap from 'server/generateSitemap'
+import generateRssFeed from 'server/generateRssFeed'
 import sendEmail from 'server/email/sendEmail'
 import { schema, rootValue } from 'server/graphql'
 
@@ -101,6 +102,11 @@ app.use(
 router.get('/sitemap.xml', async ctx => {
   ctx.response.type = 'xml'
   ctx.response.body = await generateSitemap()
+})
+
+router.get('/feed.xml', async ctx => {
+  ctx.response.type = 'xml'
+  ctx.response.body = await generateRssFeed()
 })
 
 router.post('/api/contact', async ctx => {
