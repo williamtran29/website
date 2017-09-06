@@ -30,7 +30,7 @@ async function generateRss() {
   }
 
   const feed = new RSS({
-    title: 'Smooth Code Actualité',
+    title: 'Smooth Code',
     description: 'Actualité JavaScript, React et Node.js.',
     generator: 'Smooth Code',
     feed_url: completeUrl('/feed.xml'),
