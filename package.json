@@ -107,6 +107,7 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "regenerator-runtime": "^0.11.0",
+    "rss": "^1.2.2",
     "sendgrid": "^5.2.3",
     "sitemap": "^1.13.0",
     "slug": "^0.9.1",
