@@ -711,11 +711,11 @@ ALTER TABLE ONLY trainings_trainers
 
 -- Knex migrations
 
-INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170603173516_init.js, 1, NOW());
-INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170604191541_trainings-slug.js, 1, NOW());
-INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170616152405_add-columns-to-training.js, 1, NOW());
-INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170712113822_create_table_training_sessions.js, 1, NOW());
-INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170714122843_create_table_trainers.js, 1, NOW());
-INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170719091316_add_column_social_cloudinary_id_to_trainings.js, 1, NOW());
-INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170810111442_new_trainings.js, 1, NOW());
-INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170904090813_add_column_slug_to_path.js, 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170603173516_init.js', 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170604191541_trainings-slug.js', 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170616152405_add-columns-to-training.js', 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170712113822_create_table_training_sessions.js', 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170714122843_create_table_trainers.js', 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170719091316_add_column_social_cloudinary_id_to_trainings.js', 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170810111442_new_trainings.js', 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170904090813_add_column_slug_to_path.js', 1, NOW());

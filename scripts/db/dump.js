@@ -11,9 +11,7 @@ const getMigrationInserts = async () => {
   const migrations = await readdir(join(__dirname, '../../migrations'))
   return migrations
     .map(
-      migration =>
-        `INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('${migration}` +
-        ', 1, NOW());\n',
+      migration => `INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('${migration}', 1, NOW());\n`,
     )
     .join('')
 }
