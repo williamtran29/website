@@ -1,6 +1,8 @@
 import RSS from 'rss'
 import { gql } from 'server/graphql'
-import * as routePaths from 'modules/routePaths'
+import { articlesRoute } from 'modules/routePaths'
+import { completeUrl } from 'modules/urlUtil'
+import { absClUrl } from 'modules/cloudinary'
 
 async function generateRss() {
   const { data, errors } = await gql`
@@ -8,7 +10,7 @@ async function generateRss() {
       articles {
         title
         link
-        updated_at
+        published_at
         author {
           name
         }
@@ -28,14 +30,13 @@ async function generateRss() {
   }
 
   const feed = new RSS({
-    title: 'Smooth actualité',
-    description: 'Actualité de JavaScript, React et Node.js.',
-    generator: 'Smooth actualité',
-    feed_url: `https://www.smooth-code.com/rss.xml`,
-    site_url: `https://www.smooth-code.com${routePaths.articlesRoute()}`,
-    image_url:
-      'http://res.cloudinary.com/smooth/image/upload/v1504009141/ujjxt9mthnloobzvxfpa.png',
-    managingEditor: 'jeremy@smooth-code.com (Jeremy Sfez)',
+    title: 'Smooth Code Actualité',
+    description: 'Actualité JavaScript, React et Node.js.',
+    generator: 'Smooth Code',
+    feed_url: completeUrl('/feed.xml'),
+    site_url: completeUrl(articlesRoute()),
+    image_url: absClUrl('ujjxt9mthnloobzvxfpa', 'q_auto'),
+    managingEditor: 'contact@smooth-code.com',
     language: 'fr',
   })
 
@@ -43,9 +44,9 @@ async function generateRss() {
     feed.item({
       title: article.title,
       description: article.custom_excerpt,
-      url: `https://www.smooth-code.com${article.link}`,
+      url: completeUrl(article.link),
       categories: article.tags.map(tag => tag.name),
-      author: article.author.link,
+      author: article.author.name,
       date: article.published_at,
     }),
   )
