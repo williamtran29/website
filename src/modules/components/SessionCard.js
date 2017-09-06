@@ -4,6 +4,7 @@ import moment from 'modules/moment'
 import { firstLetterUppercase } from 'modules/stringUtils'
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 80px;
@@ -11,7 +12,7 @@ const Container = styled.div`
   border-radius: 3px;
   text-align: center;
   background-color: #fff;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 `
 
 const Month = styled.div`
@@ -35,19 +36,29 @@ const Place = styled.div`
   line-height: 20px;
 `
 
-const SessionCard = ({ startDate, location }) => {
+const Full = styled.div`
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  font-size: 14px;
+  padding: 3px;
+  text-transform: uppercase;
+  color: #ef5656;
+  border: 2px solid #ef5656;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  font-weight: 600;
+  transform: rotate(-15deg) translateX(-50%);
+`
+
+const SessionCard = ({ startDate, location, participants }) => {
   const mStartDate = moment.utc(startDate)
   return (
     <Container>
-      <Month>
-        {firstLetterUppercase(mStartDate.format('MMMM'))}
-      </Month>
-      <Day>
-        {mStartDate.format('DD')}
-      </Day>
-      <Place>
-        {location.city}
-      </Place>
+      {participants === 10 ? <Full>Complet</Full> : null}
+      <Month>{firstLetterUppercase(mStartDate.format('MMMM'))}</Month>
+      <Day>{mStartDate.format('DD')}</Day>
+      <Place>{location.city}</Place>
     </Container>
   )
 }

@@ -56,12 +56,14 @@ export const sessionLd = ({ session, training, trainers }, { id } = {}) => ({
       price: `${training.interPrice}.00`,
       priceCurrency: 'EUR',
       url: completeUrl(training.link),
-      availability: 'http://schema.org/InStock',
+      availability: session.inStock
+        ? 'http://schema.org/InStock'
+        : 'http://schema.org/OutOfStock',
       availabilityStarts: session.validFrom,
       validFrom: session.validFrom,
       inventoryLevel: {
         '@type': 'QuantitativeValue',
-        value: 10,
+        value: session.participants,
         minValue: 0,
         maxValue: 10,
         unitText: 'place',

@@ -86,6 +86,8 @@ export const schema = makeExecutableSchema({
       validFrom: Date
       startDate: Date
       endDate: Date
+      participants: Int
+      inStock: Boolean
       location: Location
       link: String
       training: Training

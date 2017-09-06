@@ -8,6 +8,7 @@ import Header from 'client/Header'
 import Footer from 'client/Footer'
 import JsonLd from 'modules/components/JsonLd'
 import TrainingHero from 'modules/components/TrainingHero'
+import { Link as RRLink } from 'react-router-dom'
 import Link from 'modules/components/Link'
 import Breadcrumb from 'modules/components/Breadcrumb'
 import ContactForm from 'client/contact/ContactForm'
@@ -15,6 +16,8 @@ import TrainingsQuery from 'client/queries/TrainingsQuery'
 import { sessionLd } from 'client/linkedData'
 import { trainingsRoute } from 'modules/routePaths'
 import theme from 'style/theme'
+
+const StyledLink = Link.withComponent(RRLink)
 
 const Container = styled.div`
   flex: 1;
@@ -121,6 +124,8 @@ const withSession = graphql(
         validFrom
         startDate
         endDate
+        participants
+        inStock
         location {
           id
           name
@@ -147,6 +152,12 @@ const withSession = graphql(
     }),
   },
 )
+
+const Full = styled.div`
+  font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+`
 
 export default compose(
   withTraining,
@@ -196,19 +207,30 @@ export default compose(
         training && (
           <Columns>
             <ContactColumn>
-              <Title>S’inscrire</Title>
-              <ContactFormContainer>
-                <ContactForm
-                  submitLabel="S'inscrire à la session"
-                  messageLabel="Commentaire"
-                  subject={`Inscription formation ${training.title} du ${session.humanizedPeriod}`}
-                />
-              </ContactFormContainer>
-              <PhoneBlock>
-                Pour toute question, n’hésitez pas à nous appeler au{' '}
-                <Link href="tel:+33650588079">06 50 58 80 79</Link>, nous nous
-                ferons une joie de vous répondre !
-              </PhoneBlock>
+              {session.participants === 10 ? (
+                <Full>
+                  Désolé cette session est déjà complète,{' '}
+                  <StyledLink to={training.link}>
+                    consultez les autres sessions disponibles
+                  </StyledLink>.
+                </Full>
+              ) : (
+                <div>
+                  <Title>S’inscrire</Title>
+                  <ContactFormContainer>
+                    <ContactForm
+                      submitLabel="S'inscrire à la session"
+                      messageLabel="Commentaire"
+                      subject={`Inscription formation ${training.title} du ${session.humanizedPeriod}`}
+                    />
+                  </ContactFormContainer>
+                  <PhoneBlock>
+                    Pour toute question, n’hésitez pas à nous appeler au{' '}
+                    <Link href="tel:+33650588079">06 50 58 80 79</Link>, nous
+                    nous ferons une joie de vous répondre !
+                  </PhoneBlock>
+                </div>
+              )}
             </ContactColumn>
             <InfoColumn>
               <Title>Date</Title>

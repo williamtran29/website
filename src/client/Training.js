@@ -224,10 +224,13 @@ const Sessions = styled.div`
   display: flex;
   justify-content: center;
   margin: 30px 0;
+
+  > * {
+    margin: 0 10px;
+  }
 `
 
 const SessionCardLink = styled(RRLink)`
-  margin: 0 10px;
   transition: transform 300ms;
   will-change: transform;
 
@@ -315,6 +318,8 @@ const COMPLETE_QUERY = gql`
         startDate
         endDate
         link
+        participants
+        inStock
         location {
           id
           name
@@ -439,11 +444,19 @@ export default compose(
                         </PriceTotal>
                       </Price>
                       <Sessions>
-                        {training.sessions.map(session => (
-                          <SessionCardLink to={session.link} key={session.id}>
-                            <SessionCard {...session} />
-                          </SessionCardLink>
-                        ))}
+                        {training.sessions.map(
+                          session =>
+                            session.inStock ? (
+                              <SessionCardLink
+                                to={session.link}
+                                key={session.id}
+                              >
+                                <SessionCard {...session} />
+                              </SessionCardLink>
+                            ) : (
+                              <SessionCard {...session} />
+                            ),
+                        )}
                       </Sessions>
                       <LinkButton to={training.sessions[0].link} block>
                         Réserver en ligne

@@ -84,4 +84,8 @@ export default class TrainingSession extends BaseModel {
   validFrom() {
     return this.created_at
   }
+
+  inStock() {
+    return this.participants < 10
+  }
 }
