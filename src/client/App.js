@@ -17,6 +17,7 @@ import {
   NoMatch,
 } from 'client/Routes'
 import * as routePaths from 'modules/routePaths'
+import { completeUrl } from 'modules/urlUtil'
 
 const Status = ({ code, children }) => (
   <Route
@@ -82,15 +83,16 @@ const App = ({ location }) => (
       <meta property="og:type" content="website" />
       <meta
         property="og:url"
-        content={`https://www.smooth-code.com${location.pathname}`}
+        content={completeUrl(location.pathname)}
       />
       <meta name="twitter:site" content="@smooth_code" />
       <meta name="twitter:creator" content="@neoziro" />
       <meta name="twitter:card" content="summary" />
       <meta
         property="twitter:url"
-        content={`https://www.smooth-code.com${location.pathname}`}
+        content={completeUrl(location.pathname)}
       />
+      <link rel="alternate" type="application/rss+xml" href={completeUrl('/feed.xml')} />
     </Helmet>
     <Switch>
       <Route exact path={routePaths.homeRoute()} component={Home} />
