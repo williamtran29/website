@@ -214,7 +214,7 @@ const withTestimonials = graphql(
 const Testimonials = withTestimonials(({ data }) => (
   <PageContainer>
     <Helmet>
-      <title>Nos clients</title>
+      <title>Nos références</title>
     </Helmet>
     <Header />
     <Container>

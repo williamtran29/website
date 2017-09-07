@@ -10,4 +10,4 @@ export const sessionRoute = (trainingSlug, sessionId, city, month) =>
 export const trainerRoute = slug => `/formateurs/${slug}`
 export const articlesRoute = () => '/articles'
 export const articleRoute = slug => `/articles/${slug}`
-export const testimonialsRoute = () => `/clients`
+export const testimonialsRoute = () => `/references`
