@@ -2,6 +2,7 @@ import Path from 'server/models/Path'
 import Training from 'server/models/Training'
 import Trainer from 'server/models/Trainer'
 import TrainingSession from 'server/models/TrainingSession'
+import Testimonial from 'server/models/Testimonial'
 import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date'
 import { makeExecutableSchema } from 'graphql-tools'
 import graphqlFields from 'graphql-fields'
@@ -136,6 +137,23 @@ export const schema = makeExecutableSchema({
       name: String
     }
 
+    type Company {
+      id: ID!
+      color: String
+      name: String
+      logo: String
+    }
+
+    type Testimonial {
+      id: ID!
+      name: String
+      title: String
+      avatar: String
+      text: String
+      featured: Boolean
+      company: Company
+    }
+
     type Query {
       paths: [Path]
       training(slug: ID!): Training
@@ -147,6 +165,8 @@ export const schema = makeExecutableSchema({
 
       articles: [Article]
       article(slug: ID!): Article
+
+      testimonials: [Testimonial]
     }
   `,
   resolvers,
@@ -269,6 +289,11 @@ const eagerResolver = {
       )
     return eager.toQuery()
   },
+  testimonials(fields) {
+    const eager = new Eager()
+    if (fields.company) eager.add('company')
+    return eager.toQuery()
+  },
 }
 
 const enhanceQuery = (query, eagerQuery) => {
@@ -323,6 +348,14 @@ export const rootValue = {
         'trainings.updated_at desc, trainings.id desc',
       ),
       eagerResolver.trainings(graphqlFields(context)),
+    )
+  },
+
+  // Testimonials
+  testimonials(args, obj, context) {
+    return enhanceQuery(
+      Testimonial.query().orderBy('testimonials.rank', 'asc'),
+      eagerResolver.testimonials(graphqlFields(context)),
     )
   },
 

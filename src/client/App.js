@@ -3,19 +3,7 @@ import 'style/bootstrap'
 import React from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import {
-  Home,
-  Story,
-  Trainer,
-  Trainings,
-  Training,
-  TrainingPrint,
-  Session,
-  Contact,
-  Articles,
-  Article,
-  NoMatch,
-} from 'client/Routes'
+import * as Routes from 'client/Routes'
 import * as routePaths from 'modules/routePaths'
 import { completeUrl } from 'modules/urlUtil'
 
@@ -81,23 +69,25 @@ const App = ({ location }) => (
         content="Formations JavaScript, React et Node.js pour les entreprises et les développeurs."
       />
       <meta property="og:type" content="website" />
-      <meta
-        property="og:url"
-        content={completeUrl(location.pathname)}
-      />
+      <meta property="og:url" content={completeUrl(location.pathname)} />
       <meta name="twitter:site" content="@smooth_code" />
       <meta name="twitter:creator" content="@neoziro" />
       <meta name="twitter:card" content="summary" />
-      <meta
-        property="twitter:url"
-        content={completeUrl(location.pathname)}
+      <meta property="twitter:url" content={completeUrl(location.pathname)} />
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        href={completeUrl('/feed.xml')}
       />
-      <link rel="alternate" type="application/rss+xml" href={completeUrl('/feed.xml')} />
     </Helmet>
     <Switch>
-      <Route exact path={routePaths.homeRoute()} component={Home} />
-      <Route path={routePaths.storyRoute()} component={Story} />
-      <Route exact path={routePaths.trainingsRoute()} component={Trainings} />
+      <Route exact path={routePaths.homeRoute()} component={Routes.Home} />
+      <Route path={routePaths.storyRoute()} component={Routes.Story} />
+      <Route
+        exact
+        path={routePaths.trainingsRoute()}
+        component={Routes.Trainings}
+      />
       <Route
         exact
         path={routePaths.sessionRoute(
@@ -106,28 +96,39 @@ const App = ({ location }) => (
           ':city',
           ':month',
         )}
-        component={Session}
+        component={Routes.Session}
       />
       <Route
         exact
         path={routePaths.trainingRoute(':slug')}
-        component={Training}
+        component={Routes.Training}
       />
       <Route
         exact
         path={routePaths.trainingPrintRoute(':slug')}
-        component={TrainingPrint}
+        component={Routes.TrainingPrint}
       />
       <Route
         exact
         path={routePaths.trainerRoute(':slug')}
-        component={Trainer}
+        component={Routes.Trainer}
       />
-      <Route path={routePaths.contactRoute()} component={Contact} />
-      <Route exact path={routePaths.articlesRoute()} component={Articles} />
-      <Route path={routePaths.articleRoute(':slug')} component={Article} />
+      <Route path={routePaths.contactRoute()} component={Routes.Contact} />
+      <Route
+        exact
+        path={routePaths.articlesRoute()}
+        component={Routes.Articles}
+      />
+      <Route
+        path={routePaths.articleRoute(':slug')}
+        component={Routes.Article}
+      />
+      <Route
+        path={routePaths.testimonialsRoute()}
+        component={Routes.Testimonials}
+      />
       <Status code={404}>
-        <NoMatch />
+        <Routes.NoMatch />
       </Status>
     </Switch>
   </div>

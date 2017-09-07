@@ -1,6 +1,11 @@
-export const clUrl = (publicId, options, format) =>
+export const clUrl = (
+  publicId,
+  options,
+  format,
+  defaultOptions = 'q_auto,f_auto',
+) =>
   `//res.cloudinary.com/smooth/image/upload/${!format
-    ? 'q_auto,f_auto/'
+    ? defaultOptions ? `${defaultOptions}/` : ''
     : ''}${options ? `${options}/` : ''}v1497970667/${publicId}${format
     ? `.${format}`
     : ''}`
