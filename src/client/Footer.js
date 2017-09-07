@@ -9,6 +9,7 @@ import {
   contactRoute,
   trainingsRoute,
   articlesRoute,
+  testimonialsRoute,
 } from 'modules/routePaths'
 import FaFacebook from 'react-icons/lib/fa/facebook'
 import FaTwitter from 'react-icons/lib/fa/twitter'
@@ -155,6 +156,9 @@ const Footer = () => (
             </li>
             <li>
               <Link to={storyRoute()}>Notre histoire</Link>
+            </li>
+            <li>
+              <Link to={testimonialsRoute()}>Références</Link>
             </li>
             <li>
               <Link to={contactRoute()}>Nous contacter</Link>

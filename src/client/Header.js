@@ -10,6 +10,7 @@ import {
   contactRoute,
   trainingsRoute,
   articlesRoute,
+  testimonialsRoute,
 } from 'modules/routePaths'
 
 const Nav = styled.nav`
@@ -129,6 +130,7 @@ const Header = compose(
         <NavLink to={trainingsRoute()}>Formations</NavLink>
         <NavLink to={articlesRoute()}>Articles</NavLink>
         <NavLink to={storyRoute()}>Notre histoire</NavLink>
+        <NavLink to={testimonialsRoute()}>Références</NavLink>
         <RaisedNavLink to={contactRoute()}>Nous contacter</RaisedNavLink>
       </Links>
       <MenuToggle onClick={onToggle} />
