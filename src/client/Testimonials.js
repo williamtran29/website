@@ -13,7 +13,6 @@ import { clUrl } from 'modules/cloudinary'
 const Container = styled.div`
   flex: 1;
   margin: 20px auto;
-  max-width: 1000px;
   width: 100%;
   text-align: center;
 `
@@ -23,9 +22,15 @@ const Intro = styled.div`
   font-weight: 300;
   line-height: 24px;
   letter-spacing: 0.2px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 10px;
 `
 
 const TestimonialsList = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1300px;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
@@ -88,6 +93,7 @@ const TestimonialContainer = styled.div`
     rgba(0, 0, 0, 0.15) 100%
   );
   margin: 20px;
+  max-width: 500px;
 
   &.featured {
     color: ${theme.colors.grayDark};
@@ -97,6 +103,7 @@ const TestimonialContainer = styled.div`
     height: auto;
     background-color: transparent;
     background-image: none;
+    max-width: none;
 
     ${CompanyLogo} {
       height: 50px;
