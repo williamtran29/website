@@ -70,7 +70,7 @@ const Text = styled.div`
 `
 
 const TestimonialContainer = styled.div`
-  flex: 0 0 calc(50% - 40px);
+  flex: 0 0 auto;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -108,6 +108,10 @@ const TestimonialContainer = styled.div`
       font-size: 25px;
       line-height: 30px;
     }
+  }
+
+  @media (min-width: ${theme.medias.phablet}) {
+    flex: 0 0 calc(50% - 40px);
   }
 `
 
