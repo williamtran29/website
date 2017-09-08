@@ -53,12 +53,12 @@ export const sessionLd = ({ session, training, trainers }, { id } = {}) => ({
       description:
         'Assistez à une session de formation avec maximum 10 élèves.',
       category: 'Primary',
-      price: `${training.interPrice}.00`,
+      price: `${training.interPrice}`,
       priceCurrency: 'EUR',
       url: completeUrl(training.link),
       availability: session.inStock
         ? 'http://schema.org/InStock'
-        : 'http://schema.org/OutOfStock',
+        : 'http://schema.org/SoldOut',
       availabilityStarts: session.validFrom,
       validFrom: session.validFrom,
       inventoryLevel: {

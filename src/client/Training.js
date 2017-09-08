@@ -512,7 +512,7 @@ export default compose(
       <JsonLd>
         {breadcrumbLd({
           links: [
-            { url: completeUrl(trainingsRoute()), name: 'Nos formations' },
+            { url: completeUrl(trainingsRoute()), name: 'formations' },
             { url: completeUrl(training.link), name: training.title },
           ],
         })}
