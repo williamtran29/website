@@ -55,7 +55,7 @@ const Title = SecondaryTitle.extend`
   }
 `
 
-const Trainers = () =>
+const Trainers = () => (
   <Container>
     <Wrapper flexDirection="column" lgFlexDirection="row">
       <LazyLoad height={400} once offset={100}>
@@ -64,7 +64,7 @@ const Trainers = () =>
       <Content>
         <Title>Des formateurs, mais avant tout des développeurs.</Title>
         <Text>
-          En plus d’être pédagogue, à l’écoute et expérimentés, nos formateurs
+          En plus d’être pédagogues, à l’écoute et expérimentés, nos formateurs
           sont aussi des développeurs. Ils utilisent chaque jour en production
           les technologies enseignées dans nos formations. Ils vous font
           profiter de leur expérience de terrain et partagent avec vous leurs
@@ -73,5 +73,6 @@ const Trainers = () =>
       </Content>
     </Wrapper>
   </Container>
+)
 
 export default Trainers
