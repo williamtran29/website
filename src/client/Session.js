@@ -169,103 +169,103 @@ export default compose(
   }) => (
     <PageContainer>
       {session &&
-      training && (
-        <Helmet>
-          <title>{session.title}</title>
-          <meta name="title" content={session.title} />
-          <meta name="description" content={session.abstract} />
-          <meta property="og:title" content={session.title} />
-          <meta property="og:description" content={session.abstract} />
-          <meta property="og:image" content={training.socialPicture} />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:image" content={training.socialPicture} />
-        </Helmet>
-      )}
+        training && (
+          <Helmet>
+            <title>{session.title}</title>
+            <meta name="title" content={session.title} />
+            <meta name="description" content={session.abstract} />
+            <meta property="og:title" content={session.title} />
+            <meta property="og:description" content={session.abstract} />
+            <meta property="og:image" content={training.socialPicture} />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:image" content={training.socialPicture} />
+          </Helmet>
+        )}
       <Header transparent />
       {training && <TrainingHero {...training} />}
       <Container>
         {session &&
-        training && (
-          <Breadcrumb
-            links={[
-              {
-                url: trainingsRoute(),
-                name: 'Nos formations',
-              },
-              {
-                url: training.link,
-                name: training.title,
-              },
-              {
-                url: session.link,
-                name: `Session ${session.humanizedPeriod}`,
-              },
-            ]}
-          />
-        )}
+          training && (
+            <Breadcrumb
+              links={[
+                {
+                  url: trainingsRoute(),
+                  name: 'Nos formations',
+                },
+                {
+                  url: training.link,
+                  name: training.title,
+                },
+                {
+                  url: session.link,
+                  name: `Session ${session.humanizedPeriod}`,
+                },
+              ]}
+            />
+          )}
         {session &&
-        training && (
-          <Columns>
-            <ContactColumn>
-              {session.participants === 10 ? (
-                <Full>
-                  Désolé cette session est déjà complète,{' '}
-                  <StyledLink to={training.link}>
-                    consultez les autres sessions disponibles
-                  </StyledLink>.
-                </Full>
-              ) : (
-                <div>
-                  <Title>S’inscrire</Title>
-                  <ContactFormContainer>
-                    <ContactForm
-                      submitLabel="S'inscrire à la session"
-                      messageLabel="Commentaire"
-                      subject={`Inscription formation ${training.title} du ${session.humanizedPeriod}`}
-                    />
-                  </ContactFormContainer>
-                  <PhoneBlock>
-                    Pour toute question, n’hésitez pas à nous appeler au{' '}
-                    <Link href="tel:+33650588079">06 50 58 80 79</Link>, nous
-                    nous ferons une joie de vous répondre !
-                  </PhoneBlock>
-                </div>
-              )}
-            </ContactColumn>
-            <InfoColumn>
-              <Title>Date</Title>
-              <Info>{session.humanizedPeriod}</Info>
-              <Title>Prix</Title>
-              <Info>{training.interPrice}€ HT / pers.</Info>
-              <Title>Lieu</Title>
-              <Address>
-                {session.location.name}
-                <br />
-                {session.location.address}
-                <br />
-                {session.location.zipcode} {session.location.city}
-              </Address>
-              <Iframe
-                title={session.location.name}
-                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAivoHcnOYXoBJfO3vq_PmdADJTEOEcKrg&q=${encodeURIComponent(
-                  session.location.name,
-                )}`}
-              />
-            </InfoColumn>
-          </Columns>
-        )}
+          training && (
+            <Columns>
+              <ContactColumn>
+                {session.participants === 10 ? (
+                  <Full>
+                    Désolé cette session est déjà complète,{' '}
+                    <StyledLink to={training.link}>
+                      consultez les autres sessions disponibles
+                    </StyledLink>.
+                  </Full>
+                ) : (
+                  <div>
+                    <Title>S’inscrire</Title>
+                    <ContactFormContainer>
+                      <ContactForm
+                        submitLabel="S'inscrire à la session"
+                        messageLabel="Commentaire"
+                        subject={`Inscription formation ${training.title} du ${session.humanizedPeriod}`}
+                      />
+                    </ContactFormContainer>
+                    <PhoneBlock>
+                      Pour toute question, n’hésitez pas à nous appeler au{' '}
+                      <Link href="tel:+33650588079">06 50 58 80 79</Link>, nous
+                      nous ferons une joie de vous répondre !
+                    </PhoneBlock>
+                  </div>
+                )}
+              </ContactColumn>
+              <InfoColumn>
+                <Title>Date</Title>
+                <Info>{session.humanizedPeriod}</Info>
+                <Title>Prix</Title>
+                <Info>{training.interPrice}€ HT / pers.</Info>
+                <Title>Lieu</Title>
+                <Address>
+                  {session.location.name}
+                  <br />
+                  {session.location.address}
+                  <br />
+                  {session.location.zipcode} {session.location.city}
+                </Address>
+                <Iframe
+                  title={session.location.name}
+                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAivoHcnOYXoBJfO3vq_PmdADJTEOEcKrg&q=${encodeURIComponent(
+                    session.location.name,
+                  )}`}
+                />
+              </InfoColumn>
+            </Columns>
+          )}
       </Container>
       <Footer />
       {session &&
-      training && (
-        <JsonLd>
-          {sessionLd({
-            session,
-            training,
-            trainers: session.training.trainers,
-          })}
-        </JsonLd>
-      )}
+        training && (
+          <JsonLd>
+            {sessionLd({
+              session,
+              training,
+              trainers: session.training.trainers,
+            })}
+          </JsonLd>
+        )}
       <img
         alt="Google Tracking"
         src="//www.googleadservices.com/pagead/conversion/847457408/?label=egR2CPvqp3QQgNmMlAM&amp;guid=ON&amp;script=0"

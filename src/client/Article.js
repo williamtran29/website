@@ -455,14 +455,14 @@ export default compose(
         )}
       </Article>
       {article &&
-      article.mainPath && (
-        <Trainings>
-          <TrainingsTitle>
-            Découvrez nos formations {article.mainPath.title}
-          </TrainingsTitle>
-          <TrainingList trainings={article.mainPath.trainings} />
-        </Trainings>
-      )}
+        article.mainPath && (
+          <Trainings>
+            <TrainingsTitle>
+              Découvrez nos formations {article.mainPath.title}
+            </TrainingsTitle>
+            <TrainingList trainings={article.mainPath.trainings} />
+          </Trainings>
+        )}
       {essential && (
         <Comments>
           <Disqus

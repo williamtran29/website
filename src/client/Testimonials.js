@@ -236,13 +236,13 @@ const Testimonials = withTestimonials(({ data }) => (
         loin.
       </Intro>
       {data &&
-      data.testimonials && (
-        <TestimonialsList>
-          {data.testimonials.map(testimonial => (
-            <Testimonial key={testimonial.id} testimonial={testimonial} />
-          ))}
-        </TestimonialsList>
-      )}
+        data.testimonials && (
+          <TestimonialsList>
+            {data.testimonials.map(testimonial => (
+              <Testimonial key={testimonial.id} testimonial={testimonial} />
+            ))}
+          </TestimonialsList>
+        )}
     </Container>
     <Footer />
   </PageContainer>
