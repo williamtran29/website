@@ -127,6 +127,10 @@ const App = ({ location }) => (
         path={routePaths.testimonialsRoute()}
         component={Routes.Testimonials}
       />
+      <Route
+        path={routePaths.conditionsRoute()}
+        component={Routes.Conditions}
+      />
       <Status code={404}>
         <Routes.NoMatch />
       </Status>
