@@ -219,7 +219,7 @@ const eagerResolver = {
       eager.add(
         joinQuery(
           {
-            path: 'trainings',
+            path: 'trainings(orderByRank)',
             modifiers: {
               orderByRank(builder) {
                 return builder.orderBy('trainings.rank', 'asc')
