@@ -93,28 +93,24 @@ export default () => (
         </Introduction>
       </Wrapper>
       <Wrapper>
-        <SmallSecondaryTitle>Article 1 : PREAMBULE</SmallSecondaryTitle>
-
+        <SmallSecondaryTitle>Article 1 : PREAMBULE</SmallSecondaryTitle>
         <SmallParagraph>
           Le présent document, ci-après « Conditions Générales de Ventes » («
           CGV »), s’applique à toutes les offres de formation proposées par la
           société Smooth Code, dispensées en inter-entreprises ou en
           intra-entreprise.
         </SmallParagraph>
-
         <SmallParagraph>
           Le fait de s’inscrire à une formation implique adhésion entière et
           sans réserve du client aux présentes CGV, le client se portant fort de
           leur respect par l’ensemble de ses salariés, préposés et agents.
         </SmallParagraph>
-
         <SmallParagraph>
           Le client reconnaît à cet effet que, préalablement à la signature du
           formulaire d’inscription, il a bénéficié des informations et conseils
           suffisants, lui permettant de s’assurer de l’adéquation de l’offre de
           services à ses besoins.
         </SmallParagraph>
-
         <SmallParagraph>
           Smooth Code se réserve le droit de réviser les présentes conditions
           générales à tout moment, les nouvelles conditions s’appliquant à toute
@@ -131,14 +127,13 @@ export default () => (
           sur le site internet, envoyer un mail à
           <a href="mailto:contact@smooth-code.com">contact@smooth-code.com</a>
           ou contacter Smooth Code par téléphone. Le client doit fournir les
-          informations suivantes
+          informations suivantes :
         </SmallParagraph>
-
         <List>
-          <li>Date et sujet de la formation souhaitée,</li>
-          <li>Raison sociale,</li>
-          <li>Nom, prénom, niveau et qualité des participants,</li>
-          <li>Un numéro de téléphone de contact</li>
+          <li>Date et sujet de la formation souhaitée ;</li>
+          <li>Raison sociale ;</li>
+          <li>Nom, prénom, niveau et qualité des participants ;</li>
+          <li>Un numéro de téléphone de contact ;</li>
           <li>Une demande de subrogation éventuelle.</li>
         </List>
 
@@ -146,19 +141,19 @@ export default () => (
         <SmallParagraph>
           Les sessions de formation inter-entreprises dispensées par Smooth Code
           ont lieu à des dates fixes disponibles sur le site
-          <a href="http://www.smooth-code.com">www.smooth-code.com</a>.
+          www.smooth-code.com.
         </SmallParagraph>
         <SmallParagraph>
           En fonction du nombre de place disponible, Smooth Code valide
           l’inscription du client dans les meilleurs délais. Smooth Code lui
-          transmet ensuite : un bulletin d’inscription nominatif, faisant office
+          transmet ensuite : un bulletin d’inscription nominatif, faisant office
           de convention de formation, un exemplaire du programme de formation au
           format PDF et, si nécessaire, un devis formel.
         </SmallParagraph>
         <SmallParagraph>
           Afin de finaliser la réservation, le client doit retourner à Smooth
           Code le contrat d’inscription signé. L’inscription est considérée
-          comme définitive à la réception du paiement par chèque, virement.
+          comme définitive à la réception du paiement par chèque ou virement.
         </SmallParagraph>
 
         <SmallThirdTitle>2.2 session intra-entreprise</SmallThirdTitle>
@@ -169,18 +164,14 @@ export default () => (
         <SmallParagraph>
           À la réception de la demande client, Smooth Code s’engage à contacter
           le client dans les meilleurs délais afin d’avoir toutes les
-          informations nécessaires à la création d’un devis. Le client doit
+          informations nécessaires à l’établissement d’un devis. Le client doit
           alors faire savoir si des modifications du programme sont à prévoir.
           Smooth Code transmet ensuite un document reprenant le programme de la
           formation validé par les deux parties, une convention de formation
           ainsi qu’un devis.
         </SmallParagraph>
-        <SmallParagraph>
-          L’inscription est considérée comme définitive à la réception du devis
-          signé et tamponné (si le tampon existe) ou du paiement.
-        </SmallParagraph>
 
-        <SmallSecondaryTitle>ARTICLE 3 : Tarification</SmallSecondaryTitle>
+        <SmallSecondaryTitle>ARTICLE 3 : Tarifs</SmallSecondaryTitle>
         <SmallParagraph>
           L’inscription est effectuée au nom de la personne physique
           (participant) mais le client de la Smooth Code est l’entreprise ou
@@ -194,8 +185,8 @@ export default () => (
         </SmallParagraph>
         <SmallParagraph>Tous les prix sont indiqués en euros.</SmallParagraph>
         <SmallParagraph>
-          Toute formation commencée est dû en totalité à titre d’indemnité, même
-          si le participant ne s’est pas présenté.
+          Toute formation commencée est due en totalité à titre d’indemnité,
+          même si le participant ne s’est pas présenté.
         </SmallParagraph>
 
         <SmallThirdTitle>3.1 session inter-entreprises</SmallThirdTitle>
@@ -208,17 +199,16 @@ export default () => (
           la facture correspondante.
         </SmallParagraph>
 
-        <SmallThirdTitle>3.2 session inter-entreprises</SmallThirdTitle>
+        <SmallThirdTitle>3.2 session intra-entreprise</SmallThirdTitle>
         <SmallParagraph>
           Pour les formations intra-entreprises, le prix par participant est
           indiqué sur le site internet de Smooth Code. Le prix d’une session de
           formation ne dépasse jamais le prix équivalent à l’inscription de sept
           participants.
         </SmallParagraph>
-        <SmallParagraph />
         <SmallParagraph>
-          Le règlement se fera à la fin de chaque action de formation, dès
-          réception de la facture correspondante.
+          Le règlement se fera à la fin de chaque formation, dès réception de la
+          facture correspondante.
         </SmallParagraph>
         <SmallParagraph>
           En cas de prise en charge du coût de la formation par un tiers,
@@ -230,12 +220,10 @@ export default () => (
         <SmallSecondaryTitle>
           Article 4 : Méthode pédagogique
         </SmallSecondaryTitle>
-
         <SmallParagraph>
           Afin de permettre le meilleur encadrement possible, nos formations
           sont organisées pour des groupes de 4 à 10 participants
         </SmallParagraph>
-
         <SmallParagraph>
           La formation est ponctuée de présentations et d’exercices pratiques.
           Les supports de cours sous forme d’une présentation sont mis à
@@ -248,7 +236,6 @@ export default () => (
           Dans le cas d’une formation intra-entreprise, le client s’engage à
           nous fournir :
         </SmallParagraph>
-
         <List>
           <li>Une salle dédiée, sans interférence d’autres personnels ;</li>
           <li>
@@ -269,7 +256,6 @@ export default () => (
           Les modalités de règlement dépendent de la nature de la prise en
           charge.
         </SmallParagraph>
-
         <SmallThirdTitle>5.1. Paiement par le client</SmallThirdTitle>
         <SmallParagraph>
           Après validation du devis ou signature de la convention de formation,
@@ -277,11 +263,10 @@ export default () => (
         </SmallParagraph>
         <SmallParagraph>
           Les factures sont à régler au plus tard 30 (trente) jours calendaires
-          après la date de la facture. Une fois le règlement encaissé, Smooth
+          après la date de la facture. Une fois le règlçement encaissé, Smooth
           Code peut fournir au client, sur simple demande, une facture acquittée
           attestant du règlement.
         </SmallParagraph>
-
         <SmallThirdTitle>5.2. Financement par OPCA</SmallThirdTitle>
         <SmallParagraph>
           Les démarches de prise en charge OPCA sont à la charge du client.
@@ -301,11 +286,10 @@ export default () => (
           automatiquement redevable du solde en paiement direct.
         </SmallParagraph>
         <SmallParagraph>
-          À l’issue d’une session de formation, le client reçoit un scan de la
-          feuille de présence signé par demi-journée. Ce document vaut
+          À l’issue d’une session de formation, le client reçoit une copie de la
+          feuille de présence signée par demi-journée. Ce document vaut
           attestation de présence et preuve d’exécution de la prestation.
         </SmallParagraph>
-
         <SmallThirdTitle>5.3. Pénalités sur retard de paiement</SmallThirdTitle>
         <SmallParagraph>
           En cas de défaut d’encaissement à l’échéance prévue par la convention
@@ -326,9 +310,9 @@ export default () => (
           ARTICLE 6 : INEXÉCUTION DE LA CONVENTION
         </SmallSecondaryTitle>
         <SmallParagraph>
-          En cas d’inexécution de la convention par Smooth Code, ce dernier
-          s’engage à rembourser au client n’ont pas été effectivement dépensées
-          ou engagées.
+          En cas d’inexécution de la convention par Smooth Code, ce-dernier
+          s’engage à rembourser au client les sommes qui, n’ont pas été
+          effectivement dépensées ou engagées.
         </SmallParagraph>
         <SmallParagraph>
           En cas d’exécution partielle de la convention du fait de Smooth Code,
@@ -364,7 +348,6 @@ export default () => (
           faire l’objet d’un remboursement partiel, ou au contraire appeler une
           facturation complémentaire :
         </SmallParagraph>
-
         <Table>
           <tr>
             <th>Délai avant la prestation en jours calendaires</th>
@@ -403,9 +386,9 @@ export default () => (
           ARTICLE 8 : DIFFÉRENDS ÉVENTUELS
         </SmallSecondaryTitle>
         <SmallParagraph>
-          Si une contestation ou un différend n’ont pu être réglés suite à
-          la médiation, le tribunal de commerce de Paris sera seul compétent
-          pour régler le litige.
+          Si une contestation ou un différend ne peuvent être réglés à
+          l’amiable, le Tribunal de Paris sera seul compétent pour régler le
+          litige.
         </SmallParagraph>
       </Wrapper>
     </Content>
