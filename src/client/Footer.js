@@ -10,6 +10,7 @@ import {
   trainingsRoute,
   articlesRoute,
   testimonialsRoute,
+  conditionsRoute,
 } from 'modules/routePaths'
 import FaFacebook from 'react-icons/lib/fa/facebook'
 import FaTwitter from 'react-icons/lib/fa/twitter'
@@ -162,6 +163,9 @@ const Footer = () => (
             </li>
             <li>
               <Link to={contactRoute()}>Nous contacter</Link>
+            </li>
+            <li>
+              <Link to={conditionsRoute()}>Conditions générales</Link>
             </li>
           </Links>
           <Links>
