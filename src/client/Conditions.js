@@ -21,12 +21,14 @@ const SmallSecondaryTitle = styled(SecondaryTitle)`
   margin-top: 40px;
   padding-bottom: 5px;
   border-bottom: solid 1px ${theme.colors.grayLight};
+  text-transform: uppercase;
 `
 
 const SmallThirdTitle = styled(ThirdTitle)`
   font-size: 20px;
   margin-top: 30px;
   font-weight: 400;
+  text-transform: uppercase;
 `
 
 const Table = styled.table`
@@ -263,7 +265,7 @@ export default () => (
         </SmallParagraph>
         <SmallParagraph>
           Les factures sont à régler au plus tard 30 (trente) jours calendaires
-          après la date de la facture. Une fois le règlçement encaissé, Smooth
+          après la date de la facture. Une fois le règlement encaissé, Smooth
           Code peut fournir au client, sur simple demande, une facture acquittée
           attestant du règlement.
         </SmallParagraph>
@@ -344,9 +346,9 @@ export default () => (
           Toute annulation d’inscription du fait du client, y compris dans le
           cadre de son droit de rétractation (par LRAR conformément à l’article
           L6353-6 du Code du Travail) entraîne des frais d’annulation suivant le
-          barème ci-après. Selon qu’un acompte a été versé ou non, celui-ci peut
-          faire l’objet d’un remboursement partiel, ou au contraire appeler une
-          facturation complémentaire :
+          barème ci-après. Selon qu’un acompte ait été versé ou non, celui-ci
+          peut faire l’objet d’un remboursement partiel, ou au contraire appeler
+          une facturation complémentaire :
         </SmallParagraph>
         <Table>
           <tr>
