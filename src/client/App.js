@@ -131,6 +131,10 @@ const App = ({ location }) => (
         path={routePaths.conditionsRoute()}
         component={Routes.Conditions}
       />
+      <Route
+        path={routePaths.legalNoticeRoute()}
+        component={Routes.LegalNotice}
+      />
       <Status code={404}>
         <Routes.NoMatch />
       </Status>

@@ -121,7 +121,7 @@ const Introduction = styled.section`
 
   ${Paragraph} {
     font-size: 20px;
-    width: 700px;
+    max-width: 700px;
     margin: 0 auto;
   }
 `
@@ -135,7 +135,7 @@ export default () => (
     <Content>
       <Wrapper>
         <Introduction>
-          <MainTitle>Notre histoire</MainTitle>
+          <MainTitle>Notre&nbsp;histoire</MainTitle>
           <Paragraph>
             Smooth Code est le meilleur moyen de vous former sur les dernières
             librairies JavaScript. Nous proposons des formations

@@ -11,6 +11,7 @@ import {
   articlesRoute,
   testimonialsRoute,
   conditionsRoute,
+  legalNoticeRoute,
 } from 'modules/routePaths'
 import FaFacebook from 'react-icons/lib/fa/facebook'
 import FaTwitter from 'react-icons/lib/fa/twitter'
@@ -165,7 +166,10 @@ const Footer = () => (
               <Link to={contactRoute()}>Nous contacter</Link>
             </li>
             <li>
-              <Link to={conditionsRoute()}>Conditions générales</Link>
+              <Link to={conditionsRoute()}>Conditions Générales de Vente</Link>
+            </li>
+            <li>
+              <Link to={legalNoticeRoute()}>Mentions Légales</Link>
             </li>
           </Links>
           <Links>
@@ -203,6 +207,7 @@ const Footer = () => (
           <span>SIRET : 830511788 00010</span>
           <span>Numéro de déclaration d’activité : 11 75 56363 75</span>
         </Legal>
+
         <Social>
           <a href="https://www.facebook.com/smoothcodetraining/">
             <FaFacebook />

@@ -12,6 +12,7 @@ export const Articles = loadable(() => import('client/Articles'))
 export const Article = loadable(() => import('client/Article'))
 export const Testimonials = loadable(() => import('client/Testimonials'))
 export const Conditions = loadable(() => import('client/Conditions'))
+export const LegalNotice = loadable(() => import('client/LegalNotice'))
 export { default as NoMatch } from 'client/NoMatch'
 
 // Prefetch routes

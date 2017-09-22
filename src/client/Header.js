@@ -40,7 +40,7 @@ const Links = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(-100% - 70px);
+  top: calc(-100% - 90px);
   transform: ${props =>
     props.show ? 'translateY(calc(100% - 60px))' : 'translateY(0)'};
   opacity: ${props => (props.show ? 1 : 0)};
@@ -75,6 +75,7 @@ const NavLink = styled(Link)`
   margin: 5px 0;
   border: 1px solid rgba(0, 0, 0, 0);
   transition: color 200ms, background-color 200ms;
+  white-space: nowrap;
 
   &:hover {
     color: white;

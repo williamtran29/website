@@ -9,6 +9,7 @@ import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
 import List from 'modules/components/List'
+import Table from 'modules/components/Table'
 import theme from 'style/theme'
 
 const Content = styled.div`
@@ -31,33 +32,6 @@ const SmallThirdTitle = styled(ThirdTitle)`
   text-transform: uppercase;
 `
 
-const Table = styled.table`
-  width: 100%;
-  border: solid 1px ${theme.colors.grayLight};
-  border-collapse: collapse;
-
-  tr:nth-child(odd) {
-    background-color: ${theme.colors.grayLight};
-  }
-
-  th {
-    color: white;
-    background-color: ${theme.colors.primary};
-    border: solid 1px ${theme.colors.grayLight};
-    text-align: left;
-    padding-left: 10px;
-  }
-
-  td {
-    padding-left: 10px;
-    border: solid 1px ${theme.colors.grayLight};
-  }
-
-  td:nth-child(even) {
-    text-align: center;
-  }
-`
-
 const SmallParagraph = styled(Paragraph)`font-size: 18px;`
 
 const Wrapper = styled.div`
@@ -73,7 +47,7 @@ const Introduction = styled.section`
 
   ${Paragraph} {
     font-size: 20px;
-    width: 700px;
+    max-width: 700px;
     margin: 0 auto;
   }
 `
@@ -81,24 +55,24 @@ const Introduction = styled.section`
 export default () => (
   <PageContainer>
     <Helmet>
-      <title>Conditions générales de ventes</title>
+      <title>Conditions Générales de Vente</title>
     </Helmet>
     <Header />
     <Content>
       <Wrapper>
         <Introduction>
-          <MainTitle>Conditions Générales de Ventes</MainTitle>
-          <SmallParagraph>
-            Vous trouverez ci-dessous les conditions générales de ventes
+          <MainTitle>Conditions Générales de Vente</MainTitle>
+          <Paragraph>
+            Vous trouverez ci-dessous les conditions générales de vente
             applicables aux formations dispensées par Smooth Code.
-          </SmallParagraph>
+          </Paragraph>
         </Introduction>
       </Wrapper>
       <Wrapper>
         <SmallSecondaryTitle>Article 1 : PREAMBULE</SmallSecondaryTitle>
         <SmallParagraph>
-          Le présent document, ci-après « Conditions Générales de Ventes » («
-          CGV »), s’applique à toutes les offres de formation proposées par la
+          Le présent document, ci-après « Conditions Générales de Vente » (« CGV
+          »), s’applique à toutes les offres de formation proposées par la
           société Smooth Code, dispensées en inter-entreprises ou en
           intra-entreprise.
         </SmallParagraph>

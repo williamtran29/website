@@ -12,3 +12,4 @@ export const articlesRoute = () => '/articles'
 export const articleRoute = slug => `/articles/${slug}`
 export const testimonialsRoute = () => '/references'
 export const conditionsRoute = () => '/conditions-generales/'
+export const legalNoticeRoute = () => '/mention-legales/'
