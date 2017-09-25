@@ -10,21 +10,36 @@ import RouteChangeHook from 'modules/components/RouteChangeHook'
 import apolloClient from 'client/apolloClient'
 import store from 'client/store'
 import { loadComponents } from 'loadable-components'
+import * as intercom from 'modules/intercom'
 
+// Initialize GA
 ReactGA.initialize('UA-101358560-1')
 
 if (process.env.NODE_ENV !== 'production') {
   ReactGA.ga('set', 'sendHitTask', null)
 }
 
+// First pageview of GA
 ReactGA.pageview(`${window.location.pathname}${window.location.search}`)
 
+// Initialize Intercom
+intercom.initialize()
+setTimeout(() => window.Intercom('boot', { app_id: 'ur91us5p' }), 2000)
+
 function onUpdate(location) {
+  // Scroll top
   window.scrollTo(0, 0)
+
+  // Google Analytics
   const page = `${location.pathname}${location.search}`
   ReactGA.set({ page })
   ReactGA.pageview(page)
+
+  // Twitter tracker
   if (window.twq) window.twq('track', 'PageView')
+
+  // Update Intercom
+  intercom.update()
 }
 
 const App = require('client/App').default
