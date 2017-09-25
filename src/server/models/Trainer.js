@@ -28,6 +28,7 @@ export default class Trainer extends BaseModel {
         },
         to: 'trainings.id',
       },
+      modify: builder => builder.where('trainings.live', true),
     },
   }
 

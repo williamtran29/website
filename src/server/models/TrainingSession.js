@@ -24,6 +24,7 @@ export default class TrainingSession extends BaseModel {
         from: 'training_sessions.training_id',
         to: 'trainings.id',
       },
+      modify: builder => builder.where('trainings.live', true),
     },
     location: {
       relation: BaseModel.BelongsToOneRelation,
