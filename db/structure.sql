@@ -35,6 +35,43 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: companies; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE companies (
+    id bigint NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    color character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    logo character varying(255) NOT NULL
+);
+
+
+ALTER TABLE companies OWNER TO postgres;
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE companies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE companies_id_seq OWNER TO postgres;
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE companies_id_seq OWNED BY companies.id;
+
+
+--
 -- Name: courses; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -157,6 +194,47 @@ ALTER SEQUENCE paths_id_seq OWNED BY paths.id;
 
 
 --
+-- Name: testimonials; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE testimonials (
+    id bigint NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    rank integer DEFAULT 0,
+    text character varying(255) NOT NULL,
+    avatar character varying(255),
+    name character varying(255) NOT NULL,
+    title character varying(255) NOT NULL,
+    featured boolean DEFAULT false NOT NULL,
+    company_id bigint
+);
+
+
+ALTER TABLE testimonials OWNER TO postgres;
+
+--
+-- Name: testimonials_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE testimonials_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE testimonials_id_seq OWNER TO postgres;
+
+--
+-- Name: testimonials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE testimonials_id_seq OWNED BY testimonials.id;
+
+
+--
 -- Name: trainers; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -245,7 +323,8 @@ CREATE TABLE training_sessions (
     start_date date NOT NULL,
     end_date date NOT NULL,
     training_id bigint NOT NULL,
-    training_location_id bigint NOT NULL
+    training_location_id bigint NOT NULL,
+    participants integer DEFAULT 0 NOT NULL
 );
 
 
@@ -291,7 +370,8 @@ CREATE TABLE trainings (
     prerequisites text,
     social_title character varying(255),
     social_abstract character varying(255),
-    path_id bigint
+    path_id bigint,
+    live boolean DEFAULT false
 );
 
 
@@ -392,6 +472,13 @@ ALTER SEQUENCE trainings_trainers_id_seq OWNED BY trainings_trainers.id;
 
 
 --
+-- Name: companies id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY companies ALTER COLUMN id SET DEFAULT nextval('companies_id_seq'::regclass);
+
+
+--
 -- Name: courses id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -410,6 +497,13 @@ ALTER TABLE ONLY knex_migrations ALTER COLUMN id SET DEFAULT nextval('knex_migra
 --
 
 ALTER TABLE ONLY paths ALTER COLUMN id SET DEFAULT nextval('paths_id_seq'::regclass);
+
+
+--
+-- Name: testimonials id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY testimonials ALTER COLUMN id SET DEFAULT nextval('testimonials_id_seq'::regclass);
 
 
 --
@@ -455,6 +549,14 @@ ALTER TABLE ONLY trainings_trainers ALTER COLUMN id SET DEFAULT nextval('trainin
 
 
 --
+-- Name: companies companies_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY companies
+    ADD CONSTRAINT companies_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: courses courses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -484,6 +586,14 @@ ALTER TABLE ONLY paths
 
 ALTER TABLE ONLY paths
     ADD CONSTRAINT paths_slug_unique UNIQUE (slug);
+
+
+--
+-- Name: testimonials testimonials_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY testimonials
+    ADD CONSTRAINT testimonials_pkey PRIMARY KEY (id);
 
 
 --
@@ -562,6 +672,13 @@ CREATE INDEX courses_path_id_index ON courses USING btree (path_id);
 --
 
 CREATE INDEX paths_rank_index ON paths USING btree (rank);
+
+
+--
+-- Name: testimonials_company_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX testimonials_company_id_index ON testimonials USING btree (company_id);
 
 
 --
@@ -650,6 +767,14 @@ ALTER TABLE ONLY courses
 
 
 --
+-- Name: testimonials testimonials_company_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY testimonials
+    ADD CONSTRAINT testimonials_company_id_foreign FOREIGN KEY (company_id) REFERENCES companies(id);
+
+
+--
 -- Name: training_sessions training_sessions_training_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -719,3 +844,6 @@ INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170714122843
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170719091316_add_column_social_cloudinary_id_to_trainings.js', 1, NOW());
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170810111442_new_trainings.js', 1, NOW());
 INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170904090813_add_column_slug_to_path.js', 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170906143507_add_column_participants_to_session.js', 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170906175707_testimonials.js', 1, NOW());
+INSERT INTO knex_migrations(name, batch, migration_time) VALUES ('20170919121709_add_live_column_to_trainings.js', 1, NOW());

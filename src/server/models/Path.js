@@ -22,6 +22,7 @@ export default class Path extends BaseModel {
         from: 'paths.id',
         to: 'trainings.path_id',
       },
+      modify: builder => builder.where('trainings.live', true),
     },
   }
 }

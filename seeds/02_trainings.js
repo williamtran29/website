@@ -30,6 +30,7 @@ Un projet sera réalisé en fil rouge. Vous pourrez ainsi mettre en pratique les
 - Connaissance de JavaScript ES5
       `,
       icon: 'ES2017_Starter_ehl6lk',
+      live: true,
       slug: 'javascript-es2017-focus',
       path_id: js.id,
     },
@@ -62,6 +63,7 @@ Tout intégrateur ou développeur web utilisant JavaScript a normalement les con
 - une connaissance minimale de JavaScript : tableaux, objets et boucles
       `,
       icon: 'ES2017_Full_buu67y',
+      live: true,
       slug: 'javascript-es2017',
       path_id: js.id,
     },
@@ -95,6 +97,7 @@ Tout intégrateur ou développeur web utilisant JavaScript a normalement les con
 - une connaissance minimale de JavaScript : tableaux, objets et boucles
         `,
       icon: 'Node.js_Starter_wnfoll',
+      live: true,
       slug: 'nodejs-focus',
       path_id: node.id,
     },
@@ -134,6 +137,7 @@ Tout intégrateur ou développeur web utilisant JavaScript a normalement les con
 - une connaissance minimale de JavaScript : tableaux, objets et boucles
       `,
       icon: 'Node.js_Full_g6j9tm',
+      live: true,
       slug: 'nodejs',
       path_id: node.id,
     },
@@ -164,6 +168,7 @@ Tout intégrateur ou développeur web utilisant JavaScript a normalement les con
 - une connaissance minimale de JavaScript : tableaux, objets et boucles
       `,
       icon: 'React_knbxrb',
+      live: true,
       slug: 'react',
       path_id: react.id,
     },
@@ -195,6 +200,7 @@ Nos formations s’adressent aux développeurs web amenés à développer des ap
 - Connaissance de bases de React : composants, state, evenements (cf. formation [React](/formations/react))
         `,
       icon: 'Redux_zipijf',
+      live: true,
       slug: 'redux',
       path_id: react.id,
     },
@@ -233,6 +239,7 @@ Tout intégrateur ou développeur web utilisant JavaScript a normalement les con
 - une connaissance minimale de JavaScript : tableaux, objets et boucles
           `,
       icon: 'React_Redux_vuoqdy',
+      live: true,
       slug: 'react-redux',
       path_id: react.id,
     },
@@ -261,6 +268,7 @@ Plusieurs exercices concrets tout au long de la formation vous permettront de me
 - Niveau intermédiaire en JavaScript
       `,
       icon: 'RxJS_lgelp6',
+      live: true,
       slug: 'rxjs',
       path_id: rx.id,
     },
@@ -287,6 +295,7 @@ Un projet complet sera réalisé en fil rouge durant toute la formation, cela vo
 - Des bases en React
       `,
       icon: 'GraphQL_x4ahiv',
+      live: true,
       slug: 'graphql',
       path_id: graphql.id,
     },

@@ -311,18 +311,21 @@ export const rootValue = {
   training({ slug }, obj, context) {
     return enhanceQuery(
       Training.query()
-        .where({ 'trainings.slug': slug })
+        .where({ 'trainings.slug': slug, 'trainings.live': true })
         .first(),
       eagerResolver.trainings(graphqlFields(context)),
     )
   },
-  trainingSession({ id }, obj, context) {
-    return enhanceQuery(
+  async trainingSession({ id }, obj, context) {
+    const session = await enhanceQuery(
       TrainingSession.query()
         .where({ 'training_sessions.id': id })
         .first(),
       eagerResolver.sessions(graphqlFields(context)),
     )
+
+    if (!session.training) return null
+    return session
   },
   trainer({ slug }, obj, context) {
     return enhanceQuery(
@@ -344,9 +347,9 @@ export const rootValue = {
   },
   trainings(args, obj, context) {
     return enhanceQuery(
-      Training.query().orderByRaw(
-        'trainings.updated_at desc, trainings.id desc',
-      ),
+      Training.query()
+        .where('trainings.live', true)
+        .orderByRaw('trainings.updated_at desc, trainings.id desc'),
       eagerResolver.trainings(graphqlFields(context)),
     )
   },

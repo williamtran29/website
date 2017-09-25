@@ -14,8 +14,9 @@ import Breadcrumb from 'modules/components/Breadcrumb'
 import ContactForm from 'client/contact/ContactForm'
 import TrainingsQuery from 'client/queries/TrainingsQuery'
 import { sessionLd } from 'client/linkedData'
-import { trainingsRoute } from 'modules/routePaths'
+import { trainingsRoute, trainingRoute } from 'modules/routePaths'
 import theme from 'style/theme'
+import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
 
 const StyledLink = Link.withComponent(RRLink)
 
@@ -162,6 +163,16 @@ const Full = styled.div`
 export default compose(
   withTraining,
   withSession,
+  redirectIfNotFound({
+    key: 'trainingSession',
+    dataKey: 'trainingSessionData',
+    to: props => trainingRoute(props.match.params.trainingSlug),
+  }),
+  redirectIfNotFound({
+    key: 'training',
+    dataKey: 'trainingData',
+    to: trainingsRoute(),
+  }),
 )(
   ({
     trainingData: { training },

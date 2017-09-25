@@ -30,6 +30,7 @@ factory.define('training', Training, {
   icon: factory.chance('word'),
   slug: factory.chance('word'),
   path_id: factory.assoc('path', 'id'),
+  live: true,
 })
 
 export default factory

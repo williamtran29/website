@@ -25,6 +25,7 @@ import SessionCard from 'modules/components/SessionCard'
 import Markdown from 'modules/components/Markdown'
 import { trainingsRoute, contactRoute } from 'modules/routePaths'
 import { sessionLd, breadcrumbLd } from 'client/linkedData'
+import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
 
 const Container = styled.div`
   flex: 1;
@@ -347,6 +348,11 @@ const withComplete = graphql(COMPLETE_QUERY, {
 export default compose(
   withEssential,
   withComplete,
+  redirectIfNotFound({
+    key: 'training',
+    dataKey: 'essential',
+    to: trainingsRoute(),
+  }),
 )(({ essential: { training: essential }, complete: { training } }) => (
   <PageContainer>
     {training && (
