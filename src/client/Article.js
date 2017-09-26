@@ -26,6 +26,10 @@ const Container = styled.div`
   padding: 0 4vw;
 
   @media (min-width: ${theme.medias.phablet}) {
+    padding: 0 3vw;
+  }
+
+  @media (min-width: ${theme.medias.desktop}) {
     padding: 0 10vw;
   }
 `
@@ -192,13 +196,17 @@ const Content = styled.section`
   }
 
   @media (min-width: ${theme.medias.phablet}) {
-    padding: 70px 100px 0;
+    padding: 30px 50px 0;
     font-size: 21px;
     line-height: 28px;
 
     img {
       width: auto;
     }
+  }
+
+  @media (min-width: ${theme.medias.desktop}) {
+    padding: 70px 100px 0;
   }
 `
 
@@ -211,6 +219,10 @@ const Comments = styled.section`margin: 50px 0 100px;`
 
 const ArticleFooter = styled.footer`
   @media (min-width: ${theme.medias.phablet}) {
+    padding: 30px 50px 0;
+  }
+
+  @media (min-width: ${theme.medias.desktop}) {
     padding: 70px 100px 0;
   }
 `

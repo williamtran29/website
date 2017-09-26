@@ -36,7 +36,7 @@ const Container = styled.div`
   flex-direction: column;
   min-height: 500px;
 
-  @media (min-width: ${theme.medias.phablet}) {
+  @media (min-width: ${theme.medias.desktop}) {
     flex-direction: row;
   }
 `
@@ -53,7 +53,7 @@ const contentAnimation = keyframes`
 const Content = styled.div`
   flex: 1;
 
-  @media (min-width: ${theme.medias.phablet}) {
+  @media (min-width: ${theme.medias.desktop}) {
     animation: 400ms ${contentAnimation} ease-out;
     animation-fill-mode: backwards;
   }
@@ -64,7 +64,7 @@ const NavContainer = styled.div`
   padding: 0 20px;
   z-index: 20;
 
-  @media (min-width: ${theme.medias.phablet}) {
+  @media (min-width: ${theme.medias.desktop}) {
     padding: 0 50px 0 10px;
   }
 `
@@ -108,7 +108,7 @@ const Section = styled.section`
   border-bottom: 1px solid ${theme.colors.grayLight};
   margin: 0 20px;
 
-  @media (min-width: ${theme.medias.phablet}) {
+  @media (min-width: ${theme.medias.desktop}) {
     margin: 0 50px 0 10px;
   }
 `
@@ -152,7 +152,7 @@ const sidebarAnimation = keyframes`
 `
 
 const Sidebar = styled.aside`
-  @media (min-width: ${theme.medias.phablet}) {
+  @media (min-width: ${theme.medias.desktop}) {
     animation: 400ms ${sidebarAnimation} ease-out;
     animation-fill-mode: backwards;
     width: 374px;
@@ -161,12 +161,12 @@ const Sidebar = styled.aside`
 `
 
 const SidebarStickyContainer = styled(StickyContainer)`
-  @media (min-width: ${theme.medias.phablet}) {
+  @media (min-width: ${theme.medias.desktop}) {
     height: 100%;
     overflow: hidden;
   }
 
-  @media (max-width: ${theme.medias.phablet}) {
+  @media (max-width: ${theme.medias.desktop}) {
     div:first-child > div:first-child {
       padding-bottom: 0 !important;
     }
@@ -174,7 +174,7 @@ const SidebarStickyContainer = styled(StickyContainer)`
 `
 
 const SidebarSticky = styled.div`
-  @media (max-width: ${theme.medias.phablet}) {
+  @media (max-width: ${theme.medias.desktop}) {
     position: relative !important;
     top: 0 !important;
     left: 0 !important;
@@ -189,7 +189,7 @@ const SidebarSection = styled.div`
     border-bottom: 0;
   }
 
-  @media (min-width: ${theme.medias.phablet}) {
+  @media (min-width: ${theme.medias.desktop}) {
     padding: 20px 10px 30px 30px;
   }
 `
@@ -246,7 +246,7 @@ const Contact = styled.div`
   line-height: 20px;
   display: flex;
 
-  @media (min-width: ${theme.medias.phablet}) {
+  @media (min-width: ${theme.medias.desktop}) {
     font-size: 20px;
     line-height: 24px;
   }

@@ -13,6 +13,7 @@ export default {
   },
   medias: {
     phablet: '700px',
+    desktop: '992px',
     xl: '1440px',
   },
 }

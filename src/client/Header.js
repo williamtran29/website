@@ -40,7 +40,7 @@ const Links = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(-100% - 90px);
+  top: calc(-100% - 145px);
   transform: ${props =>
     props.show ? 'translateY(calc(100% - 60px))' : 'translateY(0)'};
   opacity: ${props => (props.show ? 1 : 0)};
@@ -68,10 +68,10 @@ const Links = styled.div`
 
 const NavLink = styled(Link)`
   line-height: 28px;
-  font-size: 18px;
+  font-size: 15px;
   text-decoration: none;
   color: white;
-  padding: 0 20px;
+  padding: 0 10px;
   margin: 5px 0;
   border: 1px solid rgba(0, 0, 0, 0);
   transition: color 200ms, background-color 200ms;
@@ -84,6 +84,11 @@ const NavLink = styled(Link)`
 
   @media (min-width: ${theme.medias.phablet}) {
     margin: 0;
+  }
+
+  @media (min-width: ${theme.medias.desktop}) {
+    font-size: 18px;
+    padding: 0 20px;
   }
 `
 
@@ -111,6 +116,7 @@ const MenuToggle = styled(FaBars)`
   width: auto;
   cursor: pointer;
   z-index: 4;
+
   @media (min-width: ${theme.medias.phablet}) {
     display: none;
   }
