@@ -189,7 +189,6 @@ const withTraining = graphql(
         abstract
         duration
         icon
-        interPrice
         objectives
         prerequisites
         description
@@ -245,10 +244,6 @@ export default withTraining(
                 <InfoContent>
                   {training.duration} {pluralize('jour', training.duration)}
                 </InfoContent>
-              </Info>
-              <Info>
-                <InfoLabel>Prix :</InfoLabel>
-                <InfoContent>{training.interPrice}€ HT / pers.</InfoContent>
               </Info>
             </Infos>
           </Intro>
