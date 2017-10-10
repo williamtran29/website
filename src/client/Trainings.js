@@ -1,10 +1,7 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
-import { lighten } from 'polished'
+import styled from 'styled-components'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
-import { Link as ScrollLink, Element as ScrollElement } from 'react-scroll'
-import { StickyContainer, Sticky } from 'react-sticky'
 import theme from 'style/theme'
 import { completeUrl } from 'modules/urlUtil'
 import TrainingList from 'modules/components/TrainingList'
@@ -29,78 +26,6 @@ const Title = styled.h1`
   font-weight: 300;
 `
 
-const Sidebar = styled(StickyContainer)`
-  display: none;
-  width: 200px;
-  border-right: 1px solid #e5e5e5;
-  padding-left: 20px;
-  flex-shrink: 0;
-
-  @media (min-width: ${theme.medias.phablet}) {
-    display: block;
-  }
-`
-
-const SidebarTitle = styled.h3`
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 30px;
-  margin: 40px 0;
-`
-
-const SidebarNavList = styled.ul`
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-`
-
-const navItemAnimation = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
-
-const SidebarNavItem = styled.li`
-  font-size: 18px;
-  line-height: 20px;
-  height: 20px;
-  border-left: 3px solid #fff;
-  padding-left: 10px;
-  margin-bottom: 16px;
-
-  @media (min-width: ${theme.medias.phablet}) {
-    animation: 400ms ${navItemAnimation} ease-out;
-    animation-fill-mode: backwards;
-    animation-delay: ${props => props['data-delay']}ms;
-  }
-`
-
-const SidebarNavLink = styled(ScrollLink).attrs({
-  activeClass: 'active',
-  spy: true,
-  smooth: true,
-})`
-  transition: colors 200ms;
-  will-change: color;
-  color: ${lighten(0.1, theme.colors.grayDark)};
-  cursor: pointer;
-
-  &:hover {
-     color: ${theme.colors.grayDark};
-  }
-
-  &.active {
-    color: ${theme.colors.grayDark};
-    font-weight: 600;
-    cursor: default;
-  }
-`
-
 const Main = styled.section`
   flex: 1;
   padding: 0 20px 40px;
@@ -108,36 +33,6 @@ const Main = styled.section`
   @media (min-width: ${theme.medias.phablet}) {
     padding: 0 0 0 40px;
   }
-`
-
-const PathColorLine = styled.div`
-  width: 30px;
-  height: 3px;
-  will-change: transform;
-  transition: transform 300ms;
-  transform-origin: left;
-  margin-bottom: 30px;
-`
-
-const PathBlock = styled(ScrollElement)`
-  padding-bottom: 90px;
-
-  &:hover ${PathColorLine} {
-    transform: scaleX(1.5);
-  }
-
-  @media (min-width: ${theme.medias.phablet}) {
-    animation: 400ms ${navItemAnimation} ease-out;
-    animation-fill-mode: backwards;
-    animation-delay: ${props => props['data-delay']}ms;
-  }
-`
-
-const PathTitle = styled.h2`
-  font-size: 34px;
-  font-weight: 300;
-  line-height: 40px;
-  margin: 0 0 10px;
 `
 
 export default graphql(gql`
@@ -173,37 +68,9 @@ export default graphql(gql`
     </Helmet>
     <Header />
     <Container>
-      <Sidebar>
-        <Sticky>
-          {({ style }) => (
-            <nav style={style}>
-              <SidebarTitle>Explorer</SidebarTitle>
-              <SidebarNavList>
-                {data.paths &&
-                  data.paths.map((path, index) => (
-                    <SidebarNavItem
-                      key={path.id}
-                      data-delay={index * 75}
-                      style={{ borderLeftColor: path.color }}
-                    >
-                      <SidebarNavLink to={path.id}>{path.title}</SidebarNavLink>
-                    </SidebarNavItem>
-                  ))}
-              </SidebarNavList>
-            </nav>
-          )}
-        </Sticky>
-      </Sidebar>
       <Main>
         <Title>Nos formations</Title>
-        {data.paths &&
-          data.paths.map((path, index) => (
-            <PathBlock name={path.id} key={path.id} data-delay={index * 75}>
-              <PathTitle>{path.title}</PathTitle>
-              <PathColorLine style={{ backgroundColor: path.color }} />
-              <TrainingList trainings={path.trainings} />
-            </PathBlock>
-          ))}
+        {data.paths && <TrainingList trainings={data.paths.reduce((all, path) => [...all, ...path.trainings], [])} />}
       </Main>
       {data.paths && (
         <JsonLd>

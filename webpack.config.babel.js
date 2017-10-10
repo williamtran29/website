@@ -29,6 +29,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.json'],
     modules: ['node_modules', 'src'],
+    alias: {
+      moment$: 'moment/moment.js',
+    },
   },
   devtool: 'inline-source-map',
   module: {
