@@ -120,6 +120,7 @@
     "babel-jest": "^21.2.0",
     "codecov": "^2.3.0",
     "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.1",
     "enzyme-to-json": "^3.1.2",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^16.0.0",
@@ -146,6 +147,10 @@
     "modulePaths": [
       "<rootDir>/src"
     ],
-    "coverageDirectory": "./coverage/"
+    "coverageDirectory": "./coverage/",
+    "setupFiles": [
+      "raf/polyfill",
+      "<rootDir>/src/test/setup.js"
+    ]
   }
 }
