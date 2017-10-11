@@ -149,7 +149,9 @@ const AuthorInfos = styled.div`
   }
 `
 
-const AuthorName = styled.div`font-weight: 600;`
+const AuthorName = styled.div`
+  font-weight: 600;
+`
 
 const AuthorTitle = styled.div``
 

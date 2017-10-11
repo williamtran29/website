@@ -25,7 +25,9 @@ const SmallSecondaryTitle = styled(SecondaryTitle)`
   text-transform: uppercase;
 `
 
-const SmallParagraph = styled(Paragraph)`font-size: 18px;`
+const SmallParagraph = styled(Paragraph)`
+  font-size: 18px;
+`
 
 const Wrapper = styled.div`
   width: 100%;

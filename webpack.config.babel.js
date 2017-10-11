@@ -11,16 +11,7 @@ const development =
 
 module.exports = {
   context: path.resolve(__dirname, 'src/client'),
-  entry: [
-    ...(development
-      ? [
-          'react-hot-loader/patch',
-          'webpack-dev-server/client?http://www.smooth-code.dev:8080',
-          'webpack/hot/only-dev-server',
-        ]
-      : []),
-    './main.js',
-  ],
+  entry: [...(development ? ['react-hot-loader/patch'] : []), './main.js'],
   output: {
     path: DIST_PATH,
     filename: production ? '[name]-bundle-[hash].js' : '[name].js',

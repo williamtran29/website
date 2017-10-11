@@ -17,7 +17,9 @@ const Container = styled.div`
   text-align: center;
 `
 
-const LinkContainer = styled.div`margin: 50px 0;`
+const LinkContainer = styled.div`
+  margin: 50px 0;
+`
 
 const Contact = () => (
   <PageContainer>

@@ -45,7 +45,7 @@ function onUpdate(location) {
 const App = require('client/App').default
 
 const render = Component => {
-  ReactDOM.render(
+  ReactDOM.hydrate(
     <ApolloProvider store={store} client={apolloClient}>
       <BrowserRouter>
         <RouteChangeHook onUpdate={onUpdate}>

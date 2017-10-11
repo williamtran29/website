@@ -17,7 +17,9 @@ import TrainingsQuery from 'client/queries/TrainingsQuery'
 import ArticlesQuery from 'client/queries/ArticlesQuery'
 import { trainerLd } from 'client/linkedData'
 
-const Content = styled.div`flex: 1;`
+const Content = styled.div`
+  flex: 1;
+`
 
 const Wrapper = styled.div`
   width: 100%;
@@ -62,7 +64,9 @@ const TrainerInfo = styled.div`
   }
 `
 
-const TrainingListContainer = styled.div`margin-top: 30px;`
+const TrainingListContainer = styled.div`
+  margin-top: 30px;
+`
 
 const ArticleListContainer = styled.div`
   display: flex;

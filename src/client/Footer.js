@@ -84,7 +84,9 @@ const Links = styled.ul`
   }
 `
 
-const Copyright = styled.div`font-size: 14px;`
+const Copyright = styled.div`
+  font-size: 14px;
+`
 
 const Contact = styled.div`
   font-size: 14px;

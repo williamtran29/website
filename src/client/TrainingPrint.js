@@ -80,7 +80,9 @@ const Subtitle = styled.div`
   font-weight: 300;
 `
 
-const Brand = styled.div`width: 160px;`
+const Brand = styled.div`
+  width: 160px;
+`
 
 const ColoredLogo = styled(Logo)`
   color: ${theme.colors.primary};
@@ -127,7 +129,9 @@ const Infos = styled.div`
   width: 160px;
 `
 
-const Info = styled.div`margin-bottom: 10px;`
+const Info = styled.div`
+  margin-bottom: 10px;
+`
 
 const InfoLabel = styled.div`
   margin-bottom: 5px;
@@ -136,7 +140,9 @@ const InfoLabel = styled.div`
   font-weight: 600;
 `
 
-const InfoContent = styled.div`font-size: 18px;`
+const InfoContent = styled.div`
+  font-size: 18px;
+`
 
 const coursesToDays = courses =>
   courses.reduce((days, course, index) => {
@@ -146,7 +152,9 @@ const coursesToDays = courses =>
     return days
   }, [])
 
-const CourseContainer = styled.div`margin: 10px 0;`
+const CourseContainer = styled.div`
+  margin: 10px 0;
+`
 const CourseTitle = styled.div`
   font-weight: 600;
   margin-bottom: 10px;

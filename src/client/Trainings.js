@@ -70,7 +70,14 @@ export default graphql(gql`
     <Container>
       <Main>
         <Title>Nos formations</Title>
-        {data.paths && <TrainingList trainings={data.paths.reduce((all, path) => [...all, ...path.trainings], [])} />}
+        {data.paths && (
+          <TrainingList
+            trainings={data.paths.reduce(
+              (all, path) => [...all, ...path.trainings],
+              [],
+            )}
+          />
+        )}
       </Main>
       {data.paths && (
         <JsonLd>

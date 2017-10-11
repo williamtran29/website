@@ -133,7 +133,9 @@ const DayTitle = styled.div`
   margin: 20px 0;
 `
 
-const TrainerCardContainer = styled.div`margin: 30px 0;`
+const TrainerCardContainer = styled.div`
+  margin: 30px 0;
+`
 
 const InnerNavItemSeparator = styled.span.attrs({ 'aria-hidden': true })`
   margin: 0 10px 0;
@@ -213,7 +215,9 @@ const Price = styled.div`
   display: flex;
 `
 
-const PriceDetail = styled.div`flex: 1;`
+const PriceDetail = styled.div`
+  flex: 1;
+`
 
 const PriceTotal = styled.div`
   flex: 1;
@@ -262,7 +266,9 @@ const Contact = styled.div`
   }
 `
 
-const Phone = styled(Link)`text-align: left;`
+const Phone = styled(Link)`
+  text-align: left;
+`
 const Email = styled(Link)`
   text-align: right;
   justify-content: flex-end;

@@ -17,7 +17,9 @@ import Rocket from 'client/story/Rocket'
 import Target from 'client/story/Target'
 import { clUrl } from 'modules/cloudinary'
 
-const Content = styled.div`flex: 1;`
+const Content = styled.div`
+  flex: 1;
+`
 
 const Wrapper = styled.div`
   width: 100%;

@@ -215,7 +215,9 @@ const Loader = styled.div`
   text-align: center;
 `
 
-const Comments = styled.section`margin: 50px 0 100px;`
+const Comments = styled.section`
+  margin: 50px 0 100px;
+`
 
 const ArticleFooter = styled.footer`
   @media (min-width: ${theme.medias.phablet}) {
@@ -261,7 +263,9 @@ const AuthorBio = styled.p`
   }
 `
 
-const Trainings = styled.section`margin: 50px 0;`
+const Trainings = styled.section`
+  margin: 50px 0;
+`
 
 const TrainingsTitle = styled.h3`
   font-size: 30px;
