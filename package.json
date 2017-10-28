@@ -24,8 +24,6 @@
     "db:reset": "yarn db:drop && yarn db:create && yarn db:load",
     "dev:client": "webpack-dev-server",
     "dev:server": "nodemon --watch src src/server/main.js",
-    "dev:admin": "nodemon --watch src src/server/admin.js",
-    "dev:admin:client": "webpack-dev-server --config webpack.admin.config.babel.js",
     "format": "prettier --write src/**/*.js *.js",
     "heroku-postbuild": "yarn build && yarn db:migrate",
     "lint": "eslint .",
@@ -36,7 +34,6 @@
     "node": "v8.8.1"
   },
   "dependencies": {
-    "admin-on-rest": "^1.3.2",
     "apollo-local-query": "^0.3.0",
     "apollo-server-koa": "^1.1.6",
     "assets-webpack-plugin": "^3.5.1",
