@@ -12,20 +12,6 @@ import store from 'client/store'
 import { loadComponents } from 'loadable-components'
 import * as intercom from 'modules/intercom'
 
-// Initialize GA
-ReactGA.initialize('UA-101358560-1')
-
-if (process.env.NODE_ENV !== 'production') {
-  ReactGA.ga('set', 'sendHitTask', null)
-}
-
-// First pageview of GA
-ReactGA.pageview(`${window.location.pathname}${window.location.search}`)
-
-// Initialize Intercom
-intercom.initialize()
-setTimeout(() => window.Intercom('boot', { app_id: 'ur91us5p' }), 2000)
-
 function onUpdate(location) {
   // Scroll top
   window.scrollTo(0, 0)
@@ -59,7 +45,23 @@ const render = Component => {
   )
 }
 
-loadComponents().then(() => render(App))
+loadComponents().then(() => {
+  render(App)
+
+  // Initialize GA
+  ReactGA.initialize('UA-101358560-1')
+
+  if (process.env.NODE_ENV !== 'production') {
+    ReactGA.ga('set', 'sendHitTask', null)
+  }
+
+  // First pageview of GA
+  ReactGA.pageview(`${window.location.pathname}${window.location.search}`)
+
+  // Initialize Intercom
+  intercom.initialize()
+  setTimeout(() => window.Intercom('boot', { app_id: 'ur91us5p' }), 2000)
+})
 
 if (module.hot) {
   module.hot.accept('./App', () => {
