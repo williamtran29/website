@@ -1,20 +1,15 @@
 import React from 'react'
+import { Route, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { compose, withHandlers, withState } from 'recompact'
-import theme from 'style/theme'
-import { Link } from 'react-router-dom'
-import Logo from 'client/Logo'
+import { Link as ScrollLink } from 'react-scroll'
 import FaBars from 'react-icons/lib/fa/bars'
-import {
-  storyRoute,
-  contactRoute,
-  trainingsRoute,
-  articlesRoute,
-  testimonialsRoute,
-} from 'modules/routePaths'
+import theme from 'style/theme'
+import Logo from 'client/Logo'
+import { homeRoute, articlesRoute } from 'modules/routePaths'
 
 const Nav = styled.nav`
-  padding: 0 10px;
+  padding: 0 20px;
   color: white;
   position: ${({ transparent }) => (transparent ? 'absolute' : 'relative')};
   background-color: ${({ transparent }) =>
@@ -27,7 +22,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  max-width: ${theme.medias.xl};
+  max-width: ${theme.medias.large};
   height: 55px;
   margin: 0 auto;
 `
@@ -47,7 +42,7 @@ const Links = styled.div`
   will-change: transform, opacity;
   transition: opacity 300ms, transform 300ms;
   padding-bottom: 10px;
-  padding-top: 50px;
+  padding-top: 70px;
   background-color: ${props =>
     props.transparent ? 'rgba(0, 0, 0, 0.9)' : theme.colors.primary};
   z-index: 3;
@@ -66,7 +61,7 @@ const Links = styled.div`
   }
 `
 
-const NavLink = styled(Link)`
+const NavLink = styled.a`
   line-height: 28px;
   font-size: 15px;
   text-decoration: none;
@@ -76,6 +71,7 @@ const NavLink = styled(Link)`
   border: 1px solid rgba(0, 0, 0, 0);
   transition: color 200ms, background-color 200ms;
   white-space: nowrap;
+  cursor: pointer;
 
   &:hover {
     color: white;
@@ -91,6 +87,9 @@ const NavLink = styled(Link)`
     padding: 0 20px;
   }
 `
+
+const RouterNavLink = NavLink.withComponent(Link)
+const ScrollNavLink = NavLink.withComponent(ScrollLink)
 
 const RaisedNavLink = styled(NavLink)`
   border-radius: 3px;
@@ -130,15 +129,27 @@ const Header = compose(
 )(({ onToggle, toggled, transparent }) => (
   <Nav transparent={transparent}>
     <Wrapper>
-      <LogoLink to="/">
+      <LogoLink to={homeRoute()}>
         <Logo />
       </LogoLink>
       <Links show={toggled} transparent={transparent}>
-        <NavLink to={trainingsRoute()}>Formations</NavLink>
-        <NavLink to={articlesRoute()}>Articles</NavLink>
-        <NavLink to={storyRoute()}>Notre histoire</NavLink>
-        <NavLink to={testimonialsRoute()}>Références</NavLink>
-        <RaisedNavLink to={contactRoute()}>Nous contacter</RaisedNavLink>
+        <Route exact path="/">
+          {({ match }) =>
+            match ? (
+              <ScrollNavLink to="workshops" spy smooth>
+                Workshops
+              </ScrollNavLink>
+            ) : (
+              <RouterNavLink to={homeRoute()}>Workshops</RouterNavLink>
+            )}
+        </Route>
+        <RouterNavLink to={articlesRoute()}>Articles</RouterNavLink>
+        <NavLink href="https://github.com/smooth-code" target="_blank">
+          Open Source
+        </NavLink>
+        <RaisedNavLink href="mailto:contact@smooth-code.com">
+          Contact
+        </RaisedNavLink>
       </Links>
       <MenuToggle onClick={onToggle} />
     </Wrapper>

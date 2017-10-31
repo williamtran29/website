@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Helmet } from 'react-helmet'
+import { gql, graphql } from 'react-apollo'
 import MainTitle from 'modules/components/MainTitle'
 import Lead from 'modules/components/Lead'
 import JsonLd from 'modules/components/JsonLd'
@@ -9,10 +10,9 @@ import ArticleCard from 'modules/components/ArticleCard'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
-import { gql, graphql } from 'react-apollo'
 import { clUrl } from 'modules/cloudinary'
 import { completeUrl } from 'modules/urlUtil'
-import ArticlesQuery from 'client/queries/ArticlesQuery'
+import { articleCardFragment } from 'modules/queries'
 
 const Container = styled.div`
   flex: 1;
@@ -60,13 +60,13 @@ const CoverShadow = styled.div`
 `
 
 export default graphql(gql`
-  query allArticles {
+  query {
     articles {
-      ...ArticleEssential
+      ...ArticleCard
     }
   }
 
-  ${ArticlesQuery.fragments.articleEssential}
+  ${articleCardFragment}
 `)(({ data }) => (
   <PageContainer>
     <Helmet>

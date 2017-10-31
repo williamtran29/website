@@ -21,9 +21,6 @@ function onUpdate(location) {
   ReactGA.set({ page })
   ReactGA.pageview(page)
 
-  // Twitter tracker
-  if (window.twq) window.twq('track', 'PageView')
-
   // Update Intercom
   intercom.update()
 }
@@ -32,15 +29,15 @@ const App = require('client/App').default
 
 const render = Component => {
   ReactDOM.hydrate(
-    <ApolloProvider store={store} client={apolloClient}>
-      <BrowserRouter>
-        <RouteChangeHook onUpdate={onUpdate}>
-          <AppContainer>
+    <AppContainer>
+      <ApolloProvider store={store} client={apolloClient}>
+        <BrowserRouter>
+          <RouteChangeHook onUpdate={onUpdate}>
             <Component />
-          </AppContainer>
-        </RouteChangeHook>
-      </BrowserRouter>
-    </ApolloProvider>,
+          </RouteChangeHook>
+        </BrowserRouter>
+      </ApolloProvider>
+    </AppContainer>,
     document.getElementById('main'),
   )
 }

@@ -14,6 +14,7 @@ export default {
   medias: {
     phablet: '700px',
     desktop: '992px',
+    large: '1140px',
     xl: '1440px',
   },
 }

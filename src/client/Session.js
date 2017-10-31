@@ -1,288 +1,484 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
+import intersperse from 'intersperse'
 import compose from 'recompact/compose'
 import { Helmet } from 'react-helmet'
 import { gql, graphql } from 'react-apollo'
+import { StickyContainer, Sticky } from 'react-sticky'
+import { darken } from 'polished'
+import { ScrollLinkButton } from 'modules/components/Button'
+import { getDatesBetween, shortDuration, longDuration } from 'modules/dateUtils'
+import moment from 'modules/moment'
+import { clUrl } from 'modules/cloudinary'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
 import JsonLd from 'modules/components/JsonLd'
-import TrainingHero from 'modules/components/TrainingHero'
-import { Link as RRLink } from 'react-router-dom'
-import Link from 'modules/components/Link'
-import Breadcrumb from 'modules/components/Breadcrumb'
-import ContactForm from 'client/contact/ContactForm'
-import TrainingsQuery from 'client/queries/TrainingsQuery'
+import Markdown from 'modules/components/Markdown'
+import TrainerCard from 'modules/components/TrainerCard'
+import SessionLink from 'modules/components/SessionLink'
+import { sessionCardFragment } from 'modules/queries'
 import { sessionLd } from 'client/linkedData'
-import { trainingsRoute, trainingRoute } from 'modules/routePaths'
+import { homeRoute } from 'modules/routePaths'
 import theme from 'style/theme'
 import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
+import { summarizeSession, generateSocialPicture } from 'modules/sessionUtil'
+import ContactForm from 'client/contact/ContactForm'
 
-const StyledLink = Link.withComponent(RRLink)
+const Cover = styled.div`
+  background-color: ${props => darken(0.1, props.bgColor)};
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.9) -20%,
+    rgba(255, 255, 255, 0.15) 120%
+  );
+  background-blend-mode: overlay;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px 30px;
+`
+
+const Picture = styled.div`
+  flex-shrink: 0;
+  height: 100px;
+  width: 100px;
+  ${props => css`
+    background-image: url(${clUrl(
+      props.cloudinaryId,
+      'c_scale,w_100,h_100,dpr_2',
+    )});
+  `} background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  margin-top: 10px;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    border: 5px solid #fff;
+    width: 150px;
+    height: 150px;
+    ${props => css`
+      background-image: url(${clUrl(
+        props.cloudinaryId,
+        'c_scale,w_150,h_150,dpr_2',
+      )});
+    `};
+  }
+`
+
+const Title = styled.h1`
+  margin: 20px 0 0;
+  font-size: 35px;
+  line-height: 40px;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 60px;
+    line-height: 70px;
+  }
+`
+
+const DateLocation = styled.div`
+  font-size: 24px;
+  line-height: 28px;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 40px;
+    line-height: 50px;
+  }
+`
 
 const Container = styled.div`
   flex: 1;
-  margin: 10px auto;
-  padding: 10px;
+  margin: 0 auto;
   max-width: 1034px;
-  min-height: 500px;
   width: 100%;
-`
-
-const Title = styled.div`
-  font-size: 18px;
-  font-weight: 300;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-`
-
-const Info = styled.div`
-  font-size: 30px;
-  line-height: 40px;
-  margin-bottom: 30px;
-`
-
-const ContactFormContainer = styled.div`
-  max-width: 600px;
-  width: 100%;
-`
-
-const Iframe = styled.iframe.attrs({
-  frameBorder: 0,
-})`
-  border: 0;
-  margin-bottom: 30px;
-  max-width: 600px;
-  height: 300px;
-  width: 100%;
-`
-
-const Columns = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
+  min-height: 500px;
 
-  @media (min-width: ${theme.medias.phablet}) {
+  @media (min-width: ${theme.medias.desktop}) {
     flex-direction: row;
   }
 `
 
-const ContactColumn = styled.div`
+const contentAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
+const Content = styled.div`
   flex: 1;
 
-  @media (min-width: ${theme.medias.phablet}) {
-    margin-right: 30px;
+  @media (min-width: ${theme.medias.desktop}) {
+    animation: 400ms ${contentAnimation} ease-out;
+    animation-fill-mode: backwards;
   }
 `
 
-const InfoColumn = styled.div`
-  flex-shrink: 0;
+const Section = styled.section`
+  border-bottom: 1px solid ${theme.colors.grayLight};
+  margin: 0 20px;
 
-  @media (min-width: ${theme.medias.phablet}) {
-    width: 350px;
+  @media (min-width: ${theme.medias.desktop}) {
+    margin: 0 50px 0 10px;
   }
 `
 
-const Address = styled.address`
-  font-style: normal;
-  font-size: 18px;
+const ContactSection = Section.extend`
+  border-bottom: 0;
+  padding-bottom: 50px;
+`
+
+const SectionTitle = styled.h2`
+  margin: 20px 0;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 40px;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 40px;
+    line-height: 50px;
+  }
+`
+
+const TrainerCardContainer = styled.div`
+  margin: 30px 0;
+`
+
+const sidebarAnimation = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
+const Sidebar = styled.aside`
+  @media (min-width: ${theme.medias.desktop}) {
+    animation: 400ms ${sidebarAnimation} ease-out;
+    animation-fill-mode: backwards;
+    width: 374px;
+    border-left: 1px solid ${theme.colors.grayLight};
+  }
+`
+
+const SidebarStickyContainer = styled(StickyContainer)`
+  @media (min-width: ${theme.medias.desktop}) {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  @media (max-width: ${theme.medias.desktop}) {
+    div:first-child > div:first-child {
+      padding-bottom: 0 !important;
+    }
+  }
+`
+
+const SidebarSticky = styled.div`
+  @media (max-width: ${theme.medias.desktop}) {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+`
+
+const SidebarSection = styled.div`
+  padding: 10px 20px 40px;
+
+  @media (min-width: ${theme.medias.desktop}) {
+    padding: 10px 10px 30px 30px;
+    border-bottom: 1px solid ${theme.colors.grayLight};
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+`
+
+const OtherWorkshops = styled(SidebarSection)`
+  display: none;
+
+  @media (min-width: ${theme.medias.desktop}) {
+    display: block;
+  }
+`
+
+const SidebarSectionTitle = styled.div`
+  margin: 20px 0 10px;
+  font-size: 24px;
+  line-height: 30px;
+`
+
+const SidebarSectionText = styled.div`
+  font-size: 20px;
+  line-height: 24px;
+  padding-left: 20px;
+`
+
+const Course = styled.div`
   margin-bottom: 20px;
 `
 
-const PhoneBlock = styled.div`
-  margin: 30px 0;
+const CourseTitle = styled.h3`
+  font-weight: 700;
   font-size: 20px;
-  font-weight: 300;
-  line-height: 1.3;
+  line-height: 30px;
+  margin: 0 0 10px;
 `
 
-const withTraining = graphql(
-  gql`
-    query trainingData($slug: ID!) {
-      training(slug: $slug) {
-        ...TrainingEssential
-      }
-    }
+const PriceBlock = styled.div`
+  margin: 20px 0 40px;
+`
 
-    ${TrainingsQuery.fragments.trainingEssential}
-  `,
-  {
-    name: 'trainingData',
-    options: ({ match }) => ({
-      variables: { slug: match.params.trainingSlug },
-    }),
-  },
-)
-
-const withSession = graphql(
-  gql`
-    query trainingSessionData($id: ID!) {
-      trainingSession(id: $id) {
-        id
-        title
-        abstract
-        humanizedPeriod
-        link
-        validFrom
-        startDate
-        endDate
-        participants
-        inStock
-        location {
-          id
-          name
-          address
-          city
-          zipcode
-        }
-        training {
-          slug
-          trainers {
-            slug
-            fullName
-            link
-            picture
-          }
-        }
-      }
-    }
-  `,
-  {
-    name: 'trainingSessionData',
-    options: ({ match }) => ({
-      variables: { id: match.params.sessionId },
-    }),
-  },
-)
-
-const Full = styled.div`
-  font-size: 30px;
-  line-height: 40px;
+const PriceDescription = styled.div`
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 30px;
+  margin-bottom: 10px;
   text-align: center;
 `
 
+const Price = styled.div`
+  font-size: 40px;
+  line-height: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+`
+
+const CARD_QUERY = gql`
+  query ($id: ID!) {
+    session(id: $id) {
+      ...SessionCard
+    }
+  }
+
+  ${sessionCardFragment}
+`
+
+const COMPLETE_QUERY = gql`
+  query ($id: ID!) {
+    session(id: $id) {
+      id
+      link
+      validFrom
+      startDate
+      endDate
+      participants
+      inStock
+      location {
+        id
+        name
+        address
+        city
+        zipcode
+      }
+      training {
+        slug
+        title
+        abstract
+        color
+        icon
+        price
+        objectives
+        prerequisites
+        courses {
+          title
+          content
+        }
+        trainers {
+          slug
+          fullName
+          description
+          link
+          picture
+        }
+      }
+    }
+
+    sessions {
+      ...SessionCard
+    }
+  }
+
+  ${sessionCardFragment}
+`
+
+const options = ({ match }) => ({
+  variables: { id: match.params.sessionId },
+})
+
 export default compose(
-  withTraining,
-  withSession,
-  redirectIfNotFound({
-    key: 'trainingSession',
-    dataKey: 'trainingSessionData',
-    to: props => trainingRoute(props.match.params.trainingSlug),
+  graphql(CARD_QUERY, {
+    name: 'cardData',
+    options,
+  }),
+  graphql(COMPLETE_QUERY, {
+    name: 'completeData',
+    options,
   }),
   redirectIfNotFound({
-    key: 'training',
-    dataKey: 'trainingData',
-    to: trainingsRoute(),
+    key: 'session',
+    dataKey: 'cardData',
+    to: homeRoute(),
+  }),
+  redirectIfNotFound({
+    key: 'session',
+    dataKey: 'completeData',
+    to: homeRoute(),
   }),
 )(
   ({
-    trainingData: { training },
-    trainingSessionData: { trainingSession: session },
+    cardData: { session: sessionCard },
+    completeData: { session, sessions: siblings },
   }) => (
     <PageContainer>
-      {session &&
-        training && (
-          <Helmet>
-            <title>{session.title}</title>
-            <meta name="title" content={session.title} />
-            <meta name="description" content={session.abstract} />
-            <meta property="og:title" content={session.title} />
-            <meta property="og:description" content={session.abstract} />
-            <meta property="og:image" content={training.socialPicture} />
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:image" content={training.socialPicture} />
-          </Helmet>
-        )}
+      {sessionCard && (
+        <Helmet>
+          <title>
+            {`Formation ${sessionCard.training.title} ${longDuration(
+              sessionCard.startDate,
+              sessionCard.endDate,
+            )} à ${sessionCard.location.city}`}
+          </title>
+          <meta name="description" content={sessionCard.training.abstract} />
+          <meta
+            property="og:title"
+            content={`Workshop ${sessionCard.training.title} | ${sessionCard
+              .location.city} | ${shortDuration(
+              sessionCard.startDate,
+              sessionCard.endDate,
+            )}`}
+          />
+          <meta
+            property="og:description"
+            content={sessionCard.training.abstract}
+          />
+          <meta
+            property="og:image"
+            content={generateSocialPicture(sessionCard)}
+          />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:image"
+            content={generateSocialPicture(sessionCard)}
+          />
+        </Helmet>
+      )}
       <Header transparent />
-      {training && <TrainingHero {...training} />}
+      {sessionCard && (
+        <Cover bgColor={sessionCard.training.color}>
+          <Picture cloudinaryId={sessionCard.training.icon} />
+          <Title>{sessionCard.training.title}</Title>
+          <DateLocation>{summarizeSession(sessionCard)}</DateLocation>
+        </Cover>
+      )}
       <Container>
-        {session &&
-          training && (
-            <Breadcrumb
-              links={[
-                {
-                  url: trainingsRoute(),
-                  name: 'Nos formations',
-                },
-                {
-                  url: training.link,
-                  name: training.title,
-                },
-                {
-                  url: session.link,
-                  name: `Session ${session.humanizedPeriod}`,
-                },
-              ]}
-            />
-          )}
-        {session &&
-          training && (
-            <Columns>
-              <ContactColumn>
-                {session.participants === 10 ? (
-                  <Full>
-                    Désolé cette session est déjà complète,{' '}
-                    <StyledLink to={training.link}>
-                      consultez les autres sessions disponibles
-                    </StyledLink>.
-                  </Full>
-                ) : (
-                  <div>
-                    <Title>S’inscrire</Title>
-                    <ContactFormContainer>
-                      <ContactForm
-                        submitLabel="S'inscrire à la session"
-                        messageLabel="Commentaire"
-                        subject={`Inscription formation ${training.title} du ${session.humanizedPeriod}`}
-                      />
-                    </ContactFormContainer>
-                    <PhoneBlock>
-                      Pour toute question, n’hésitez pas à nous appeler au{' '}
-                      <Link href="tel:+33650588079">06 50 58 80 79</Link>, nous
-                      nous ferons une joie de vous répondre !
-                    </PhoneBlock>
-                  </div>
+        {session ? (
+          <Content>
+            <Section>
+              <SectionTitle>Qu’allez-vous apprendre ?</SectionTitle>
+              {session.training.courses.map((course, index) => (
+                /* eslint-disable react/no-array-index-key */
+                <Course key={index}>
+                  <CourseTitle>{course.title}</CourseTitle>
+                  <Markdown source={course.content} />
+                </Course>
+                /* eslint-enable react/no-array-index-key */
+              ))}
+            </Section>
+            <Section>
+              <SectionTitle>Les Objectifs</SectionTitle>
+              <Markdown source={session.training.objectives} />
+            </Section>
+            <Section>
+              <SectionTitle>A qui s’adresse le Workshop ?</SectionTitle>
+              <Markdown source={session.training.prerequisites} />
+            </Section>
+            <Section>
+              <SectionTitle>Votre formateur</SectionTitle>
+              {session.training.trainers.map(trainer => (
+                <TrainerCardContainer key={trainer.slug}>
+                  <TrainerCard {...trainer} />
+                </TrainerCardContainer>
+              ))}
+            </Section>
+            <ContactSection id="contact">
+              <SectionTitle>S’inscrire</SectionTitle>
+              <ContactForm />
+            </ContactSection>
+          </Content>
+        ) : (
+          <Content />
+        )}
+        {sessionCard && (
+          <Sidebar>
+            <SidebarStickyContainer>
+              <Sticky>
+                {({ style }) => (
+                  <SidebarSticky style={style}>
+                    <SidebarSection>
+                      <PriceBlock>
+                        <PriceDescription>Prix par personne</PriceDescription>
+                        <Price>{sessionCard.training.price}€</Price>
+                        <ScrollLinkButton block spy smooth to="contact">
+                          S’inscrire
+                        </ScrollLinkButton>
+                      </PriceBlock>
+                      <SidebarSectionTitle>Dates</SidebarSectionTitle>
+                      <SidebarSectionText>
+                        {intersperse(
+                          getDatesBetween(
+                            sessionCard.startDate,
+                            sessionCard.endDate,
+                          ).map(date => (
+                            <div key={date.toString()}>
+                              {moment(date).format('DD/MM')} | 9h30 - 17h30
+                            </div>
+                          )),
+                        )}
+                      </SidebarSectionText>
+                      <SidebarSectionTitle>Lieu</SidebarSectionTitle>
+                      <SidebarSectionText>
+                        {sessionCard.location.name}
+                        <br />
+                        {sessionCard.location.address}
+                        <br />
+                        {sessionCard.location.zipcode}{' '}
+                        {sessionCard.location.city}
+                      </SidebarSectionText>
+                    </SidebarSection>
+                    <OtherWorkshops>
+                      <SidebarSectionTitle>Autres dates</SidebarSectionTitle>
+                      {siblings &&
+                        siblings
+                          .filter(({ id }) => id !== session.id)
+                          .map(sibling => (
+                            <SessionLink key={sibling.id} session={sibling} />
+                          ))}
+                    </OtherWorkshops>
+                  </SidebarSticky>
                 )}
-              </ContactColumn>
-              <InfoColumn>
-                <Title>Date</Title>
-                <Info>{session.humanizedPeriod}</Info>
-                <Title>Prix</Title>
-                <Info>{training.interPrice}€ HT / pers.</Info>
-                <Title>Lieu</Title>
-                <Address>
-                  {session.location.name}
-                  <br />
-                  {session.location.address}
-                  <br />
-                  {session.location.zipcode} {session.location.city}
-                </Address>
-                <Iframe
-                  title={session.location.name}
-                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAivoHcnOYXoBJfO3vq_PmdADJTEOEcKrg&q=${encodeURIComponent(
-                    session.location.name,
-                  )}`}
-                />
-              </InfoColumn>
-            </Columns>
-          )}
+              </Sticky>
+            </SidebarStickyContainer>
+          </Sidebar>
+        )}
       </Container>
       <Footer />
-      {session &&
-        training && (
-          <JsonLd>
-            {sessionLd({
-              session,
-              training,
-              trainers: session.training.trainers,
-            })}
-          </JsonLd>
-        )}
-      <img
-        alt="Google Tracking"
-        src="//www.googleadservices.com/pagead/conversion/847457408/?label=egR2CPvqp3QQgNmMlAM&amp;guid=ON&amp;script=0"
-        width="1"
-        height="1"
-      />
+      {session && <JsonLd>{sessionLd(session)}</JsonLd>}
     </PageContainer>
   ),
 )

@@ -7,7 +7,7 @@ import { LinkButton } from 'modules/components/Button'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
-import { trainingsRoute } from 'modules/routePaths'
+import { homeRoute } from 'modules/routePaths'
 
 const Container = styled.div`
   flex: 1;
@@ -31,7 +31,7 @@ const Contact = () => (
       <MainTitle>Page introuvable</MainTitle>
       <Lead>Vous vous êtes égarés, pas de panique !</Lead>
       <LinkContainer>
-        <LinkButton to={trainingsRoute()}>Consultez nos formations</LinkButton>
+        <LinkButton to={homeRoute()}>Consultez nos formations</LinkButton>
       </LinkContainer>
     </Container>
     <Footer />

@@ -1,20 +1,16 @@
-/* eslint-disable react/no-multi-comp, react/no-array-index-key */
+/* eslint-disable react/no-multi-comp, react/no-array-index-key, jsx-a11y/mouse-events-have-key-events, jsx-a11y/click-events-have-key-events */
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { lighten } from 'polished'
 import styled from 'styled-components'
 import pure from 'recompact/pure'
 import raf from 'raf'
-import MdArrowForward from 'react-icons/lib/md/arrow-forward'
-import SecondaryTitle from 'modules/components/SecondaryTitle'
 import { clUrl } from 'modules/cloudinary'
-import theme from 'style/theme'
-import { trainingsRoute } from 'modules/routePaths'
 
 const noop = () => {}
 
+const SIZE_COEFF = 0.8
 const ITEM_SIZE = 150
-const CONTAINER_WIDTH = 2330
+const CONTAINER_HEIGHT = 440 * SIZE_COEFF
+const CONTAINER_WIDTH = 2330 * SIZE_COEFF
 const X_SPEED = 0.4
 const Y_SPEED = 0.05
 const Y_SPEED_SCALE_COEFF = 0.05
@@ -91,76 +87,12 @@ const labels = [
   'RxJS',
 ]
 
-const Title = SecondaryTitle.extend`
-  margin: 0 10px 60px;
-  text-align: center;
-
-  @media (min-width: ${theme.medias.phablet}) {
-    margin-top: 70px;
-    text-align: center;
-  }
-`
-
-const Subtitle = styled.span`
-  color: ${theme.colors.primary};
-
-  @media (min-width: ${theme.medias.phablet}) {
-    display: block;
-  }
-`
-
-const Container = styled.div`
-  position: relative;
-  overflow: hidden;
-`
-
-const Background = styled.div`
-  position: absolute;
-  left: 0;
-  top: calc(50% + 180px);
-  right: 0;
-  transform: skewY(-12deg);
-  pointer-events: none;
-  z-index: -1;
-`
-
-const Stripe = styled.div`
-  position: absolute;
-  top: auto;
-  left: 0;
-  right: 0;
-  height: 200px;
-`
-
-const Stripe0 = Stripe.extend`
-  height: 5000px;
-  bottom: 200px;
-  background: linear-gradient(90deg, #f5ede4, #fff7f5);
-`
-
-const Stripe1 = Stripe.extend`
-  bottom: 0;
-  left: calc(50% + 220px);
-  background: linear-gradient(90deg, #fdf7f4, #fcf3ef);
-`
-
-const Stripe2 = Stripe.extend`
-  bottom: 200px;
-  right: calc(50% - 220px);
-  background: linear-gradient(90deg, #f0e3d6, #faeee7);
-`
-
-const Stripe3 = Stripe.extend`
-  bottom: 600px;
-  left: 10%;
-  right: calc(50% - 300px);
-  background: linear-gradient(90deg, #faf2ec, #f6ebe4);
-`
-
 const BubblesContainer = styled.div`
-  height: 440px;
+  height: ${CONTAINER_HEIGHT}px;
   width: ${CONTAINER_WIDTH}px;
-  position: relative;
+  top: 60px;
+  left: 0;
+  position: absolute;
 
   .bubble {
     border-radius: 50%;
@@ -184,7 +116,7 @@ const Label = pure(styled.div`
   bottom: -40px;
   padding: 5px 12px;
   background: #fff;
-  box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(0, 0, 0, .07);
+  box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
   border-radius: 50px;
   white-space: nowrap;
   font-size: 16px;
@@ -199,50 +131,9 @@ const Label = pure(styled.div`
   opacity: ${props => (props.show ? 1 : 0)};
   will-change: opacity, transform;
   transition-property: opacity, transform;
-  transition-duration: .25s;
+  transition-duration: 0.25s;
   transition-timing-function: ease-out;
 `)
-
-const Banner = styled.div`
-  font-size: 20px;
-  line-height: 1.4;
-  color: white;
-  text-align: center;
-  background: linear-gradient(
-    30deg,
-    ${theme.colors.primary},
-    ${lighten(0.1, theme.colors.primary)}
-  );
-  text-transform: uppercase;
-  font-size: 16px;
-  padding: 20px 10px;
-
-  a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-decoration: none;
-
-    svg {
-      margin-left: 10px;
-      display: inline-block;
-      will-change: transform;
-      transition: 300ms transform;
-    }
-
-    &:hover {
-      svg {
-        transform: translateX(10px);
-      }
-    }
-  }
-
-  @media (min-width: ${theme.medias.phablet}) {
-    font-size: 20px;
-    padding: 30px 10px;
-  }
-`
 
 class LabelledBubble extends React.Component {
   state = { showLabel: false }
@@ -267,9 +158,7 @@ class LabelledBubble extends React.Component {
         onMouseOver={this.handleMouseOver}
         style={style}
       >
-        <Label show={this.state.showLabel}>
-          {this.props.label}
-        </Label>
+        <Label show={this.state.showLabel}>{this.props.label}</Label>
       </div>
     )
     /* eslint-enable jsx-a11y/no-static-element-interactions */
@@ -288,7 +177,7 @@ class AnimatedBubble extends React.PureComponent {
     const { x, y, index, scale } = this.props
     this.ySpeed = Math.random() * 4
     this.initY = (y - 40) * 0.8 // Adjust y
-    const bgPositionX = index % NB_SPRITE_COLUMNS * SPRITE_SIZE
+    const bgPositionX = (index % NB_SPRITE_COLUMNS) * SPRITE_SIZE
     const bgPositionY = Math.floor(index / NB_SPRITE_COLUMNS) * SPRITE_SIZE
     this.bgPosition = `${-bgPositionX}px ${-bgPositionY}px`
     this.ySpeed = Math.random() * Y_SPEED + Y_SPEED_SCALE_COEFF * (1 - scale)
@@ -353,42 +242,23 @@ class AnimatedBubble extends React.PureComponent {
   }
 }
 
-const Technos = () => {
-  const indexes = Array.from(
-    new Array(settings.length),
-    (_, index) => index,
-  ).sort(() => Math.ceil(0.5 - Math.random()))
+const indexes = Array.from(
+  new Array(settings.length),
+  (_, index) => index,
+).sort(() => Math.ceil(0.5 - Math.random()))
 
-  return (
-    <Container>
-      <Background>
-        <Stripe0 />
-        <Stripe1 />
-        <Stripe2 />
-        <Stripe3 />
-      </Background>
-      <BubblesContainer>
-        {settings.map((props, index) =>
-          <AnimatedBubble
-            key={indexes[index]}
-            index={indexes[index]}
-            {...props}
-          />,
-        )}
-      </BubblesContainer>
-      <Title>
-        Explorez les technologies d’aujourd’hui.
-        <Subtitle>
-          Nos formations couvrent tout l’écosystème JavaScript.
-        </Subtitle>
-      </Title>
-      <Banner>
-        <Link to={trainingsRoute()}>
-          Consulter notre catalogue<MdArrowForward />
-        </Link>
-      </Banner>
-    </Container>
-  )
-}
+const Bubbles = () => (
+  <BubblesContainer>
+    {settings.map(({ scale, x, y }, index) => (
+      <AnimatedBubble
+        key={indexes[index]}
+        index={indexes[index]}
+        scale={scale * SIZE_COEFF}
+        x={x * SIZE_COEFF}
+        y={y * SIZE_COEFF}
+      />
+    ))}
+  </BubblesContainer>
+)
 
-export default Technos
+export default Bubbles

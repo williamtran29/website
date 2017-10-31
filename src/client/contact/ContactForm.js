@@ -87,10 +87,10 @@ const ContactForm = ({
   messageLabel = 'Message',
   submitLabel = 'Envoyer',
   success,
-}) =>
+}) => (
   <StyledForm className={className} onSubmit={onSubmit} model="forms.contact">
     <AlertMessage />
-    {!success &&
+    {!success && (
       <div>
         <FormRow>
           <FormGroup>
@@ -157,9 +157,7 @@ const ContactForm = ({
         </FormRow>
         <FormRow>
           <FormGroup>
-            <Label htmlFor="message">
-              {messageLabel}
-            </Label>
+            <Label htmlFor="message">{messageLabel}</Label>
             <Control
               component={Textarea}
               model=".message"
@@ -179,8 +177,10 @@ const ContactForm = ({
         <Button type="submit" style={{ marginTop: 20 }}>
           {submitLabel}
         </Button>
-      </div>}
+      </div>
+    )}
   </StyledForm>
+)
 
 const fetchContact = async values => {
   try {

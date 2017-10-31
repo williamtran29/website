@@ -20,10 +20,7 @@ const Status = ({ code, children }) => (
 
 const App = ({ location }) => (
   <div>
-    <Helmet
-      titleTemplate="Smooth Code - %s"
-      defaultTitle="Smooth Code : Formations JavaScript, React et Node.js"
-    >
+    <Helmet defaultTitle="Smooth Code - Formations JavaScript, React et GraphQL">
       <html lang="fr" />
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -82,26 +79,15 @@ const App = ({ location }) => (
     </Helmet>
     <Switch>
       <Route exact path={routePaths.homeRoute()} component={Routes.Home} />
-      <Route path={routePaths.storyRoute()} component={Routes.Story} />
-      <Route
-        exact
-        path={routePaths.trainingsRoute()}
-        component={Routes.Trainings}
-      />
       <Route
         exact
         path={routePaths.sessionRoute(
           ':trainingSlug',
-          ':sessionId',
           ':city',
-          ':month',
+          ':date',
+          ':sessionId',
         )}
         component={Routes.Session}
-      />
-      <Route
-        exact
-        path={routePaths.trainingRoute(':slug')}
-        component={Routes.Training}
       />
       <Route
         exact
@@ -113,7 +99,6 @@ const App = ({ location }) => (
         path={routePaths.trainerRoute(':slug')}
         component={Routes.Trainer}
       />
-      <Route path={routePaths.contactRoute()} component={Routes.Contact} />
       <Route
         exact
         path={routePaths.articlesRoute()}
@@ -122,10 +107,6 @@ const App = ({ location }) => (
       <Route
         path={routePaths.articleRoute(':slug')}
         component={Routes.Article}
-      />
-      <Route
-        path={routePaths.testimonialsRoute()}
-        component={Routes.Testimonials}
       />
       <Route
         path={routePaths.conditionsRoute()}
@@ -142,4 +123,6 @@ const App = ({ location }) => (
   </div>
 )
 
-export default withRouter(App)
+const AppWithRouter = withRouter(App)
+
+export default AppWithRouter
