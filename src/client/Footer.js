@@ -176,16 +176,15 @@ const Footer = () => (
           </Links>
           <Links>
             <li>
-              <Link to="/formations/react-redux">Formation React + Redux</Link>
+              <Link to="/formations/react-redux">Formation React Intense</Link>
             </li>
             <li>
-              <Link to="/formations/nodejs">Formation Node.js</Link>
+              <Link to="/formations/graphql">Formation GraphQL Intense</Link>
             </li>
             <li>
-              <Link to="/formations/rxjs">Formation RxJS</Link>
-            </li>
-            <li>
-              <Link to="/formations/graphql">Formation GraphQL</Link>
+              <Link to="/formations/javascript-es2017">
+                Formation JavaScript Moderne
+              </Link>
             </li>
           </Links>
         </LinkColumns>
