@@ -89,9 +89,8 @@ const HomePrice = () => (
             <p>
               Une journée de formation Smooth Code équivaut à 7 jours
               d’auto-formation. Partons du postulat que vous rapportez 500€ par
-              jour à votre société. Une journée de formation Smooth Code, vous
-              fait gagner 6 jours, soit 3000€. La formation 4 jours React
-              Intense, c’est 12&nbsp;000€&nbsp; d’économisé&nbsp;!
+              jour à votre société. La formation React Fondamental d’une journée
+              vous fait gagner 6 jours, soit 3000€.
             </p>
             <p>
               Ajoutons à ça le gain en productivité : augmenter votre efficacité
@@ -106,13 +105,13 @@ const HomePrice = () => (
         <Lead>
           <p>
             Nous sommes certifiés DataDock, ce qui signifie que votre formation
-            peut être financée à 100% par votre OPCA.
+            est finançable à 100% par votre OPCA.
           </p>
           <p>
             Pour en bénéficier, rien de plus facile&nbsp;!<br />
-            Dès l’inscription, vous recevrez votre convention de formation à
+            Dès l’inscription, vous recevrez une convention de formation à
             transmettre à votre OPCA. Une fois validée, on s’occupe du reste !
-            Vous n’avez plus qu’a profiter de votre Workshop.
+            Vous n’avez plus qu’à profiter de votre Workshop.
           </p>
         </Lead>
       </Text>

@@ -84,10 +84,10 @@ const HomePrice = () => (
             <FounderName>Greg Bergé</FounderName>
             <FounderTitle>Co-fondateur et Président</FounderTitle>
             <FounderDescription>
-              Développeur JavaScript depuis maintenant plus de 15 ans. Greg est
-              à la fois co-fondateur, président et formateur principal de Smooth
-              Code. Il est auteur de plusieurs librairies open-source à succès
-              comme Shipit, React Hot Loader ou SVGR.
+              Développeur JavaScript depuis maintenant plus de 15 ans, Greg est
+              le formateur expert de Smooth Code. Il est auteur de plusieurs
+              librairies open-source à succès comme Shipit, React Hot Loader ou
+              SVGR.
             </FounderDescription>
           </FounderText>
         </Founder>
@@ -103,10 +103,9 @@ const HomePrice = () => (
             <FounderName>Jeremy Sfez</FounderName>
             <FounderTitle>Co-fondateur et Directeur Général</FounderTitle>
             <FounderDescription>
-              Développeur et passionné de technologie, Jeremy est à la fois
-              co-fondateur, directeur général et directeur commercial de Smooth
-              Code. Il a su faire ses preuves chez BNP Paribas, Canal + et a
-              fait partie de l’équipe fondatrice de Doctolib.
+              Ancien de l’équipe fondatrice de Doctolib, Jeremy est le directeur
+              commercial de Smooth Code. Il est organisateur du Meetup GraphQL
+              et auteur de nombreux articles sur JavaScript et son écosystème.
             </FounderDescription>
           </FounderText>
         </Founder>

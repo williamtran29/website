@@ -91,11 +91,9 @@ const HomeWorkshops = ({ data: { sessions } }) => (
         <Coming>
           <ComingTitle>Toute les dates</ComingTitle>
           {sessions &&
-            sessions
-              .slice(4)
-              .map(session => (
-                <SessionLink key={session.id} light session={session} />
-              ))}
+            sessions.map(session => (
+              <SessionLink key={session.id} light session={session} />
+            ))}
         </Coming>
       </Content>
     </HomeWrapper>
