@@ -5,15 +5,12 @@ import { Link } from 'react-router-dom'
 import theme from 'style/theme'
 import Logo from 'client/Logo'
 import {
-  storyRoute,
-  contactRoute,
-  trainingsRoute,
+  homeRoute,
   articlesRoute,
-  testimonialsRoute,
   conditionsRoute,
   legalNoticeRoute,
 } from 'modules/routePaths'
-import FaFacebook from 'react-icons/lib/fa/facebook'
+import FaGitHub from 'react-icons/lib/fa/github'
 import FaTwitter from 'react-icons/lib/fa/twitter'
 import FaPhone from 'react-icons/lib/fa/phone'
 import FaEnvelope from 'react-icons/lib/fa/envelope'
@@ -31,12 +28,12 @@ const Container = styled.footer`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: ${theme.medias.xl};
+  max-width: ${theme.medias.large};
   justify-content: space-between;
   padding: 40px 20px 35px 20px;
   @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row;
-    padding: 60px 50px 55px 50px;
+    padding: 60px 10px 55px 10px;
     margin: 0 auto;
   }
 `
@@ -153,38 +150,16 @@ const Footer = () => (
         <LinkColumns>
           <Links>
             <li>
-              <Link to={trainingsRoute()}>Formations</Link>
+              <Link to={homeRoute()}>Workshops</Link>
             </li>
             <li>
               <Link to={articlesRoute()}>Articles</Link>
-            </li>
-            <li>
-              <Link to={storyRoute()}>Notre histoire</Link>
-            </li>
-            <li>
-              <Link to={testimonialsRoute()}>Références</Link>
-            </li>
-            <li>
-              <Link to={contactRoute()}>Nous contacter</Link>
             </li>
             <li>
               <Link to={conditionsRoute()}>Conditions Générales de Vente</Link>
             </li>
             <li>
               <Link to={legalNoticeRoute()}>Mentions Légales</Link>
-            </li>
-          </Links>
-          <Links>
-            <li>
-              <Link to="/formations/react-redux">Formation React Intense</Link>
-            </li>
-            <li>
-              <Link to="/formations/graphql">Formation GraphQL Intense</Link>
-            </li>
-            <li>
-              <Link to="/formations/javascript-es2017">
-                Formation JavaScript Moderne
-              </Link>
             </li>
           </Links>
         </LinkColumns>
@@ -210,8 +185,8 @@ const Footer = () => (
         </Legal>
 
         <Social>
-          <a href="https://www.facebook.com/smoothcodetraining/">
-            <FaFacebook />
+          <a href="https://github.com/smooth-code/">
+            <FaGitHub />
           </a>
           <a href="https://twitter.com/smooth_code">
             <FaTwitter />

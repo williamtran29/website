@@ -1,8 +1,0 @@
-export { default as Alert } from './Alert'
-export { default as Button } from './Button'
-export { default as Lead } from './Lead'
-export { default as Input } from './Input'
-export { default as MainTitle } from './MainTitle'
-export { default as OSXWindow } from './OSXWindow'
-export { default as SecondaryTitle } from './SecondaryTitle'
-export { default as Textarea } from './Textarea'

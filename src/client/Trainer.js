@@ -5,16 +5,13 @@ import { gql, graphql } from 'react-apollo'
 import theme from 'style/theme'
 import SecondaryTitle from 'modules/components/SecondaryTitle'
 import Markdown from 'modules/components/Markdown'
-import TrainingList from 'modules/components/TrainingList'
 import ArticleCard from 'modules/components/ArticleCard'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
 import JsonLd from 'modules/components/JsonLd'
 import { clUrl } from 'modules/cloudinary'
-import { pluralize } from 'modules/i18n'
-import TrainingsQuery from 'client/queries/TrainingsQuery'
-import ArticlesQuery from 'client/queries/ArticlesQuery'
+import { articleCardFragment } from 'modules/queries'
 import { trainerLd } from 'client/linkedData'
 
 const Content = styled.div`
@@ -64,58 +61,40 @@ const TrainerInfo = styled.div`
   }
 `
 
-const TrainingListContainer = styled.div`
-  margin-top: 30px;
-`
-
 const ArticleListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0 -20px;
 `
 
-const withTrainer = graphql(
-  gql`
-    query trainer($slug: ID!) {
-      trainer(slug: $slug) {
-        slug
-        fullName
-        description
-        link
-        picture
-        trainings {
-          ...TrainingEssential
-        }
-        articles {
-          ...ArticleEssential
-        }
+const QUERY = gql`
+  query trainer($slug: ID!) {
+    trainer(slug: $slug) {
+      slug
+      fullName
+      description
+      link
+      picture
+      articles {
+        ...ArticleCard
       }
     }
+  }
 
-    ${TrainingsQuery.fragments.trainingEssential}
-    ${ArticlesQuery.fragments.articleEssential}
-  `,
-  {
-    options: ({ match }) => ({
-      variables: { slug: match.params.slug },
-    }),
-  },
-)
+  ${articleCardFragment}
+`
 
-export default withTrainer(
+export default graphql(QUERY, {
+  options: ({ match }) => ({
+    variables: { slug: match.params.slug },
+  }),
+})(
   ({ data: { trainer } }) =>
     trainer ? (
       <PageContainer>
         <Helmet>
           <title>{`${trainer.fullName} - Formateur JavaScript`}</title>
-          <meta
-            name="description"
-            content={`${trainer.fullName} est formateur JavaScript pour Smooth Code, il donne des cours dans ${trainer
-              .trainings.length} ${pluralize(
-              'formation',
-              trainer.trainings.length,
-            )} JavaScript de haut niveau.`}
-          />
+          <meta name="description" content={trainer.description} />
           <meta
             property="og:title"
             content={`Smooth Code - ${trainer.fullName} - Formateur JavaScript`}
@@ -140,14 +119,6 @@ export default withTrainer(
                 <Markdown source={trainer.description} />
               </TrainerInfo>
             </Trainer>
-            {trainer.trainings.length > 0 && (
-              <SecondaryTitle>Formations dispensées</SecondaryTitle>
-            )}
-            {trainer.trainings.length > 0 && (
-              <TrainingListContainer>
-                <TrainingList trainings={trainer.trainings} />
-              </TrainingListContainer>
-            )}
             {trainer.articles.length > 0 && (
               <SecondaryTitle>Derniers articles</SecondaryTitle>
             )}

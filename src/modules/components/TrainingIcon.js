@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { clUrl } from 'modules/cloudinary'
 
@@ -9,11 +10,14 @@ const Container = styled.div`
   background-color: ${props => props.bgColor};
   background-image: linear-gradient(
     to bottom left,
-    rgba(0, 0, 0, 0.90) 0%,
+    rgba(0, 0, 0, 0.9) 0%,
     rgba(255, 255, 255, 0.15) 100%
   );
   background-blend-mode: overlay;
   -webkit-print-color-adjust: exact;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.07);
+  border-radius: 50%;
+  border: 4px solid #fff;
 `
 
 const Icon = styled.img`
@@ -22,9 +26,18 @@ const Icon = styled.img`
   height: 100%;
 `
 
-const TrainingIcon = ({ icon, path, title }) =>
-  <Container bgColor={path.color}>
-    <Icon src={clUrl(icon, null, 'svg')} alt={title} />
+const TrainingIcon = ({ training }) => (
+  <Container bgColor={training.color}>
+    <Icon src={clUrl(training.icon, null, 'svg')} alt={training.title} />
   </Container>
+)
+
+TrainingIcon.propTypes = {
+  training: PropTypes.shape({
+    color: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+}
 
 export default TrainingIcon

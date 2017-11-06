@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { gql, graphql } from 'react-apollo'
 import theme from 'style/theme'
 import moment from 'modules/moment'
+import Disqus from 'modules/components/Disqus'
 import JsonLd from 'modules/components/JsonLd'
 import Spinner from 'modules/components/Spinner'
 import PageContainer from 'client/PageContainer'
@@ -14,9 +15,9 @@ import Footer from 'client/Footer'
 import { clUrl } from 'modules/cloudinary'
 import { completeUrl } from 'modules/urlUtil'
 import compose from 'recompact/compose'
-import TrainingList from 'modules/components/TrainingList'
-import ArticlesQuery from 'client/queries/ArticlesQuery'
-import TrainingsQuery from 'client/queries/TrainingsQuery'
+import SessionCard from 'modules/components/SessionCard'
+import { articleCardFragment, sessionCardFragment } from 'modules/queries'
+import { distinctSessions } from 'modules/sessionUtil'
 
 const Container = styled.div`
   flex: 1;
@@ -239,6 +240,7 @@ const AuthorImage = styled.img`
   height: 100px;
   margin-right: 15px;
   border-radius: 50%;
+  flex-shrink: 0;
 `
 
 const AuthorCardContent = styled.section``
@@ -273,36 +275,29 @@ const TrainingsTitle = styled.h3`
   font-weight: 300;
 `
 
-class Disqus extends React.Component {
-  componentDidMount() {
-    window.disqus_config = function config() {
-      this.page.url = this.props.url
-      this.page.identifier = this.props.pageIdentifier
-    }
-    const d = document
-    const s = d.createElement('script')
-    s.src = 'https://smooth-code.disqus.com/embed.js'
-    s.setAttribute('data-timestamp', +new Date())
-    ;(d.head || d.body).appendChild(s)
-  }
+const SessionCards = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 980px;
 
-  render() {
-    return <div id="disqus_thread" />
+  > * {
+    margin-bottom: 40px;
   }
-}
+`
 
-const ESSENTIAL_QUERY = gql`
-  query articleEssential($slug: ID!) {
+const CARD_QUERY = gql`
+  query ($slug: ID!) {
     article(slug: $slug) {
-      ...ArticleEssential
+      ...ArticleCard
     }
   }
 
-  ${ArticlesQuery.fragments.articleEssential}
+  ${articleCardFragment}
 `
 
 const COMPLETE_QUERY = gql`
-  query complete($slug: ID!) {
+  query ($slug: ID!) {
     article(slug: $slug) {
       id
       slug
@@ -339,203 +334,209 @@ const COMPLETE_QUERY = gql`
         slug
         name
       }
-      mainPath {
-        id
-        title
-        trainings {
-          ...TrainingEssential
-        }
-      }
+    }
+
+    sessions {
+      ...SessionCard
     }
   }
 
-  ${TrainingsQuery.fragments.trainingEssential}
+  ${sessionCardFragment}
 `
 
 const options = ({ match }) => ({ variables: { slug: match.params.slug } })
 
-const withEssential = graphql(ESSENTIAL_QUERY, {
-  name: 'essential',
-  options,
-})
-
-const withComplete = graphql(COMPLETE_QUERY, {
-  name: 'complete',
-  options,
-})
-
 export default compose(
-  withEssential,
-  withComplete,
-)(({ essential: { article: essential }, complete: { article } }) => (
-  <PageContainer>
-    {article && (
-      <Helmet>
-        <title>{article.meta_title || article.title}</title>
-        <meta name="description" content={article.meta_description} />
-        <meta property="og:type" content="article" />
-        <meta
-          property="og:title"
-          content={article.og_title || article.meta_title || article.title}
-        />
-        <meta
-          property="og:description"
-          content={
-            article.description ||
-            article.meta_description ||
-            article.custom_excerpt
-          }
-        />
-        <meta property="og:image" content={article.feature_image.url} />
-        <meta property="og:image:width" content={article.feature_image.width} />
-        <meta
-          property="og:image:height"
-          content={article.feature_image.height}
-        />
-        <meta
-          property="article:published_time"
-          content={article.published_at}
-        />
-        <meta property="article:modified_time" content={article.updated_at} />
-        {article.tags.map(tag => (
-          <meta key={tag.name} property="article:tag" content={tag.name} />
-        ))}
-        <meta
-          property="article:publisher"
-          content="https://www.facebook.com/smoothcodetraining"
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content={
-            article.twitter_title ||
-            article.og_title ||
-            article.meta_title ||
-            article.title
-          }
-        />
-        <meta
-          name="twitter:description"
-          content={
-            article.twitter_description ||
-            article.og_description ||
-            article.meta_description ||
-            article.custom_excerpt
-          }
-        />
-        <meta name="twitter:image" content={article.feature_image.url} />
-        <meta name="twitter:site" content="@smooth_code" />
-        <meta name="twitter:creator" content={article.author.twitter} />
-        <link
-          rel="amphtml"
-          href="https://blog.smooth-code.com/developpez-plus-vite-avec-prettier/amp/"
-        />
-        <script async defer src="/prism/prism.js" />
-        <link rel="stylesheet" href="/prism/prism.css" />
-      </Helmet>
-    )}
-    <Header />
-    <Container>
-      <Article>
-        {essential && (
-          <ArticleHeader>
-            <Metadata>
-              <CreatedDate
-                datetime={moment(essential.published_at).format('YYYY-MM-DD')}
-              >
-                {moment(essential.published_at).format('DD MMMM YYYY')} /{' '}
-                {essential.tags[0].name}
-              </CreatedDate>
-            </Metadata>
-            <Title>{essential.title}</Title>
-          </ArticleHeader>
-        )}
-        {essential && <FullImage image={essential.feature_image.url} />}
-        {article ? (
-          <Content dangerouslySetInnerHTML={{ __html: article.html }} />
-        ) : (
-          <Loader>
-            <Spinner className="la-dark" />
-          </Loader>
-        )}
-        {article && (
-          <ArticleFooter>
-            <AuthorCardLink to={article.author.link}>
-              <AuthorImage src={article.author.profile_image.url} />
-              <AuthorCardContent>
-                <AuthorName>{article.author.name}</AuthorName>
-                <AuthorBio>{article.author.bio}</AuthorBio>
-              </AuthorCardContent>
-            </AuthorCardLink>
-          </ArticleFooter>
-        )}
-      </Article>
-      {article &&
-        article.mainPath && (
+  graphql(CARD_QUERY, {
+    name: 'cardData',
+    options,
+  }),
+  graphql(COMPLETE_QUERY, {
+    name: 'completeData',
+    options,
+  }),
+)(
+  ({
+    cardData: { article: articleCard },
+    completeData: { article, sessions },
+  }) => (
+    <PageContainer>
+      {article && (
+        <Helmet>
+          <title>{article.meta_title || article.title}</title>
+          <meta name="description" content={article.meta_description} />
+          <meta property="og:type" content="article" />
+          <meta
+            property="og:title"
+            content={article.og_title || article.meta_title || article.title}
+          />
+          <meta
+            property="og:description"
+            content={
+              article.description ||
+              article.meta_description ||
+              article.custom_excerpt
+            }
+          />
+          <meta property="og:image" content={article.feature_image.url} />
+          <meta
+            property="og:image:width"
+            content={article.feature_image.width}
+          />
+          <meta
+            property="og:image:height"
+            content={article.feature_image.height}
+          />
+          <meta
+            property="article:published_time"
+            content={article.published_at}
+          />
+          <meta property="article:modified_time" content={article.updated_at} />
+          {article.tags.map(tag => (
+            <meta key={tag.name} property="article:tag" content={tag.name} />
+          ))}
+          <meta
+            property="article:publisher"
+            content="https://www.facebook.com/smoothcodetraining"
+          />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:title"
+            content={
+              article.twitter_title ||
+              article.og_title ||
+              article.meta_title ||
+              article.title
+            }
+          />
+          <meta
+            name="twitter:description"
+            content={
+              article.twitter_description ||
+              article.og_description ||
+              article.meta_description ||
+              article.custom_excerpt
+            }
+          />
+          <meta name="twitter:image" content={article.feature_image.url} />
+          <meta name="twitter:site" content="@smooth_code" />
+          <meta name="twitter:creator" content={article.author.twitter} />
+          <script async defer src="/prism/prism.js" />
+          <link rel="stylesheet" href="/prism/prism.css" />
+        </Helmet>
+      )}
+      <Header />
+      <Container>
+        <Article>
+          {articleCard && (
+            <ArticleHeader>
+              <Metadata>
+                <CreatedDate
+                  datetime={moment(articleCard.published_at).format(
+                    'YYYY-MM-DD',
+                  )}
+                >
+                  {moment(articleCard.published_at).format('DD MMMM YYYY')} /{' '}
+                  {articleCard.tags[0].name}
+                </CreatedDate>
+              </Metadata>
+              <Title>{articleCard.title}</Title>
+            </ArticleHeader>
+          )}
+          {articleCard && <FullImage image={articleCard.feature_image.url} />}
+          {article ? (
+            <Content dangerouslySetInnerHTML={{ __html: article.html }} />
+          ) : (
+            <Loader>
+              <Spinner className="la-dark" />
+            </Loader>
+          )}
+          {article && (
+            <ArticleFooter>
+              <AuthorCardLink to={article.author.link}>
+                <AuthorImage src={article.author.profile_image.url} />
+                <AuthorCardContent>
+                  <AuthorName>{article.author.name}</AuthorName>
+                  <AuthorBio>{article.author.bio}</AuthorBio>
+                </AuthorCardContent>
+              </AuthorCardLink>
+            </ArticleFooter>
+          )}
+        </Article>
+        {sessions && (
           <Trainings>
-            <TrainingsTitle>
-              Découvrez nos formations {article.mainPath.title}
-            </TrainingsTitle>
-            <TrainingList trainings={article.mainPath.trainings} />
+            <TrainingsTitle>Découvrez nos Workshops</TrainingsTitle>
+            <SessionCards>
+              {sessions &&
+                distinctSessions(sessions)
+                  .slice(0, 4)
+                  .map(session => (
+                    <SessionCard key={session.id} session={session} />
+                  ))}
+            </SessionCards>
           </Trainings>
         )}
-      {essential && (
-        <Comments>
-          <Disqus
-            url={completeUrl(essential.link)}
-            pageIdentifier={`ghost-${essential.id}`}
-          />
-        </Comments>
-      )}
-    </Container>
-    <Footer />
-    {article && (
-      <JsonLd>
-        {{
-          '@context': 'https://schema.org',
-          '@type': 'Article',
-          publisher: {
-            '@type': 'Organization',
-            name: 'Smooth Code',
-            logo: {
-              '@type': 'ImageObject',
-              url: clUrl('bukcynjufd4tepjtpsgp', 'c_scale,w_473,h_60'),
-              width: 473,
-              height: 60,
+        {articleCard && (
+          <Comments>
+            <Disqus
+              url={completeUrl(articleCard.link)}
+              pageIdentifier={`ghost-${articleCard.id}`}
+            />
+          </Comments>
+        )}
+      </Container>
+      <Footer />
+      {article && (
+        <JsonLd>
+          {{
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            publisher: {
+              '@type': 'Organization',
+              name: 'Smooth Code',
+              logo: {
+                '@type': 'ImageObject',
+                url: clUrl('bukcynjufd4tepjtpsgp', 'c_scale,w_473,h_60'),
+                width: 473,
+                height: 60,
+              },
             },
-          },
-          author: {
-            '@type': 'Person',
-            name: article.author.name,
+            author: {
+              '@type': 'Person',
+              name: article.author.name,
+              image: {
+                '@type': 'ImageObject',
+                url: article.author.profile_image.url,
+                width: article.author.profile_image.width,
+                height: article.author.profile_image.height,
+              },
+              url: completeUrl(article.author.link),
+              sameAs: [
+                `https://twitter.com/${article.author.twitter.replace(
+                  /^@/,
+                  '',
+                )}`,
+              ],
+            },
+            headline: article.meta_title || article.title,
+            url: completeUrl(article.link),
+            datePublished: article.published_at,
+            dateModified: article.updated_at,
             image: {
               '@type': 'ImageObject',
-              url: article.author.profile_image.url,
-              width: article.author.profile_image.width,
-              height: article.author.profile_image.height,
+              url: article.feature_image.url,
+              width: article.feature_image.width,
+              height: article.feature_image.height,
             },
-            url: completeUrl(article.author.link),
-            sameAs: [
-              `https://twitter.com/${article.author.twitter.replace(/^@/, '')}`,
-            ],
-          },
-          headline: article.meta_title || article.title,
-          url: completeUrl(article.link),
-          datePublished: article.published_at,
-          dateModified: article.updated_at,
-          image: {
-            '@type': 'ImageObject',
-            url: article.feature_image.url,
-            width: article.feature_image.width,
-            height: article.feature_image.height,
-          },
-          keywords: article.tags.map(({ name }) => name).join(', '),
-          description: article.meta_description || article.custom_excerpt,
-          mainEntityOfPage: {
-            '@type': 'WebPage',
-            '@id': 'https://www.smooth-code.com/',
-          },
-        }}
-      </JsonLd>
-    )}
-  </PageContainer>
-))
+            keywords: article.tags.map(({ name }) => name).join(', '),
+            description: article.meta_description || article.custom_excerpt,
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': 'https://www.smooth-code.com/',
+            },
+          }}
+        </JsonLd>
+      )}
+    </PageContainer>
+  ),
+)

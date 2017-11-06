@@ -2,12 +2,10 @@ import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 import { darken } from 'polished'
 import theme from 'style/theme'
-import { clUrl } from 'modules/cloudinary'
 
 const Markdown = styled(ReactMarkdown)`
   font-size: 17px;
   line-height: 22px;
-  font-weight: 300;
   letter-spacing: 0.2px;
 
   a {
@@ -20,6 +18,10 @@ const Markdown = styled(ReactMarkdown)`
 
   p {
     margin: 20px 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   strong {
@@ -28,45 +30,19 @@ const Markdown = styled(ReactMarkdown)`
 
   ul {
     margin: 20px 0;
-    padding: 0;
+    padding: 0 0 0 30px;
   }
 
   ul p {
     margin: 0;
   }
 
-  li > ul {
-    margin: 5px 0;
-  }
-
   li {
     position: relative;
-    list-style-type: none;
-    padding-left: 28px;
+    list-style-type: disc;
+    padding: 0;
     font-size: 17px;
     line-height: 26px;
-
-    &:before {
-      content: url(${clUrl('lawyer-friendly-checkmark_hfplwq', null, 'svg')});
-      position: absolute;
-      top: 3px;
-      left: 0;
-      width: 19px
-    }
-  }
-
-  li > ul > li {
-    padding-left: 15px;
-    font-size: 14px;
-    line-height: 18px;
-
-    &:before {
-      content: '-';
-      position: absolute;
-      top: 3px;
-      left: 0;
-      width: 19px
-    }
   }
 `
 

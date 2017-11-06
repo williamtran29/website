@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import { articleRoute } from 'modules/routePaths'
-import { rootValue } from 'server/graphql'
 import Author from 'server/ghost/Author'
 import Image from 'server/ghost/Image'
 
@@ -14,16 +13,6 @@ class Post {
 
   link() {
     return articleRoute(this.slug)
-  }
-
-  async mainPath(...args) {
-    if (this.tags.length === 0) return null
-    const path = await rootValue
-      .paths(...args)
-      .limit(1)
-      .where({ slug: this.tags[0].slug })
-      .first()
-    return path || null
   }
 }
 

@@ -1,68 +1,110 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import moment from 'modules/moment'
-import { firstLetterUppercase } from 'modules/stringUtils'
+import theme from 'style/theme'
+import { LinkButton } from 'modules/components/Button'
+import TrainingIcon from 'modules/components/TrainingIcon'
+import { summarizeSession } from 'modules/sessionUtil'
 
 const Container = styled.div`
-  position: relative;
+  max-width: 330px;
+  min-width: 250px;
   display: flex;
   flex-direction: column;
-  width: 80px;
-  height: 100px;
-  border-radius: 3px;
-  text-align: center;
-  background-color: #fff;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 `
 
-const Month = styled.div`
-  background-color: #ef5656;
-  color: #fff;
-  font-size: 13px;
-  line-height: 16px;
-  padding: 4px 0;
-  border-radius: 4px 4px 0 0;
-  letter-spacing: 0.25px;
+const Header = styled.header`
+  display: flex;
+  margin-bottom: 20px;
 `
 
-const Day = styled.div`
-  font-size: 26px;
-  line-height: 30px;
-  margin: 12px 0 8px;
-`
-
-const Place = styled.div`
-  font-size: 14px;
+const Name = styled.div`
+  font-weight: 700;
+  font-size: 16px;
   line-height: 20px;
-`
-
-const Full = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 14px;
-  padding: 3px;
   text-transform: uppercase;
-  color: #ef5656;
-  border: 2px solid #ef5656;
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 2px;
-  font-weight: 600;
-  transform-origin: center;
-  transform: rotate(-20deg) translate(-50%, -50%);
-  user-select: none;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 20px;
+    line-height: 24px;
+  }
 `
 
-const SessionCard = ({ startDate, location, inStock }) => {
-  const mStartDate = moment.utc(startDate)
-  return (
-    <Container>
-      {!inStock ? <Full>Complet</Full> : null}
-      <Month>{firstLetterUppercase(mStartDate.format('MMMM'))}</Month>
-      <Day>{mStartDate.format('DD')}</Day>
-      <Place>{location.city}</Place>
-    </Container>
-  )
+const IconContainer = styled.div`
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    width: 60px;
+    height: 60px;
+  }
+`
+
+const HeaderText = styled.div`
+  margin-left: 10px;
+`
+
+const DateLocation = styled.div`
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  text-transform: uppercase;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 26px;
+    line-height: 32px;
+  }
+`
+
+const Description = styled.p`
+  font-size: 16px;
+  line-height: 20px;
+  margin: 20px 0 0;
+  opacity: 0.7;
+
+  @media (min-width: ${theme.medias.phablet}) {
+    font-size: 18px;
+    line-height: 22px;
+  }
+`
+
+const SessionCard = ({ session }) => (
+  <Container>
+    <Header>
+      <IconContainer>
+        <TrainingIcon training={session.training} />
+      </IconContainer>
+      <HeaderText>
+        <Name>{session.training.title}</Name>
+        <DateLocation>{summarizeSession(session)}</DateLocation>
+      </HeaderText>
+    </Header>
+    <div>
+      <LinkButton small to={session.link}>
+        S’inscrire
+      </LinkButton>
+    </div>
+    <Description>{session.training.abstract}</Description>
+  </Container>
+)
+
+SessionCard.propTypes = {
+  session: PropTypes.shape({
+    link: PropTypes.string.isRequired,
+    startDate: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]).isRequired,
+    endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
+      .isRequired,
+    training: PropTypes.shape({
+      abstract: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+      icon: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 }
 
 export default SessionCard

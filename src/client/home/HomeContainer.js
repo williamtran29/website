@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 import theme from 'style/theme'
 
-const SectionWrapper = styled.div`
+const HomeWrapper = styled.div`
   display: flex;
-  max-width: ${theme.medias.xl};
-  margin: 70px auto;
+  justify-content: center;
+  padding: 40px 20px 60px;
 
   @media (min-width: ${theme.medias.phablet}) {
-    margin: 100px auto;
+    padding: 60px 20px 100px;
   }
 `
 
-export default SectionWrapper
+export default HomeWrapper
