@@ -95,9 +95,9 @@ const ContactForm = ({
         <FormRow>
           <FormGroup>
             <Label htmlFor="name">Nom complet</Label>
-            <Control
+            <Control.input
               component={Input}
-              autocomplete="name"
+              autoComplete="name"
               model=".name"
               id="name"
               validators={{ required }}
@@ -111,9 +111,9 @@ const ContactForm = ({
           </FormGroup>
           <FormGroup>
             <Label htmlFor="company">Société</Label>
-            <Control
+            <Control.input
               component={Input}
-              autocomplete="organization"
+              autoComplete="organization"
               model=".company"
               id="company"
               mapProps={mapProps}
@@ -128,9 +128,9 @@ const ContactForm = ({
         <FormRow>
           <FormGroup>
             <Label htmlFor="email">Email</Label>
-            <Control
+            <Control.input
               type="email"
-              autocomplete="email"
+              autoComplete="email"
               component={Input}
               model=".email"
               id="email"
@@ -145,9 +145,9 @@ const ContactForm = ({
           </FormGroup>
           <FormGroup>
             <Label htmlFor="phone">Téléphone</Label>
-            <Control
+            <Control.input
               component={Input}
-              autocomplete="tel"
+              autoComplete="tel"
               model=".phone"
               id="phone"
               mapProps={mapProps}
@@ -162,7 +162,7 @@ const ContactForm = ({
         <FormRow>
           <FormGroup>
             <Label htmlFor="message">{messageLabel}</Label>
-            <Control
+            <Control.textarea
               component={Textarea}
               model=".message"
               id="message"
