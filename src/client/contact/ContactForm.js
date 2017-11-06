@@ -84,7 +84,7 @@ const ContactForm = ({
   onSubmit,
   initialMessage = '',
   messageRequired = false,
-  messageLabel = 'Message',
+  messageLabel = 'Commentaire',
   submitLabel = 'Envoyer',
   success,
 }) => (
@@ -94,9 +94,10 @@ const ContactForm = ({
       <div>
         <FormRow>
           <FormGroup>
-            <Label htmlFor="name">Nom</Label>
+            <Label htmlFor="name">Nom complet</Label>
             <Control
               component={Input}
+              autocomplete="name"
               model=".name"
               id="name"
               validators={{ required }}
@@ -112,6 +113,7 @@ const ContactForm = ({
             <Label htmlFor="company">Société</Label>
             <Control
               component={Input}
+              autocomplete="organization"
               model=".company"
               id="company"
               mapProps={mapProps}
@@ -128,6 +130,7 @@ const ContactForm = ({
             <Label htmlFor="email">Email</Label>
             <Control
               type="email"
+              autocomplete="email"
               component={Input}
               model=".email"
               id="email"
@@ -144,6 +147,7 @@ const ContactForm = ({
             <Label htmlFor="phone">Téléphone</Label>
             <Control
               component={Input}
+              autocomplete="tel"
               model=".phone"
               id="phone"
               mapProps={mapProps}

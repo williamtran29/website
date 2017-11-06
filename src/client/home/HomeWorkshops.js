@@ -89,7 +89,7 @@ const HomeWorkshops = ({ data: { sessions } }) => (
               ))}
         </Cards>
         <Coming>
-          <ComingTitle>Toute les dates</ComingTitle>
+          <ComingTitle>Toutes les dates</ComingTitle>
           {sessions &&
             sessions.map(session => (
               <SessionLink key={session.id} light session={session} />

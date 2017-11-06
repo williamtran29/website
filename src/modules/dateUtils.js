@@ -5,6 +5,8 @@ export const getDatesBetween = (startDate, endDate) => {
   let currDate = moment.utc(startDate).startOf('day')
   const lastDate = moment.utc(endDate).startOf('day')
 
+  dates.push(currDate.toDate())
+
   while (currDate.add(1, 'days').diff(lastDate) <= 0) {
     currDate = currDate.clone()
     dates.push(currDate.toDate())
