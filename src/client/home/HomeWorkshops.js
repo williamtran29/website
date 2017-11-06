@@ -14,6 +14,7 @@ const Container = HomeContainer.extend`
   background-color: #252525;
   color: #fff;
   padding: 40px 20px 30px;
+  display: block;
 
   @media (min-width: ${theme.medias.phablet}) {
     padding: 60px 20px 80px;
@@ -80,14 +81,16 @@ const HomeWorkshops = ({ data: { sessions } }) => (
     <HomeWrapper>
       <HomeSectionTitle>Workshops</HomeSectionTitle>
       <Content>
-        <Cards>
-          {sessions &&
-            distinctSessions(sessions)
-              .slice(0, 4)
-              .map(session => (
-                <SessionCard key={session.id} session={session} />
-              ))}
-        </Cards>
+        <div>
+          <Cards>
+            {sessions &&
+              distinctSessions(sessions)
+                .slice(0, 4)
+                .map(session => (
+                  <SessionCard key={session.id} session={session} />
+                ))}
+          </Cards>
+        </div>
         <Coming>
           <ComingTitle>Toutes les dates</ComingTitle>
           {sessions &&

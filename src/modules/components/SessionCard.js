@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import theme from 'style/theme'
+import { Link } from 'react-router-dom'
 import { LinkButton } from 'modules/components/Button'
 import TrainingIcon from 'modules/components/TrainingIcon'
 import { summarizeSession } from 'modules/sessionUtil'
@@ -41,7 +42,7 @@ const IconContainer = styled.div`
   }
 `
 
-const HeaderText = styled.div`
+const HeaderLink = styled(Link)`
   margin-left: 10px;
 `
 
@@ -75,10 +76,10 @@ const SessionCard = ({ session }) => (
       <IconContainer>
         <TrainingIcon training={session.training} />
       </IconContainer>
-      <HeaderText>
+      <HeaderLink to={session.link}>
         <Name>{session.training.title}</Name>
         <DateLocation>{summarizeSession(session)}</DateLocation>
-      </HeaderText>
+      </HeaderLink>
     </Header>
     <div>
       <LinkButton small to={session.link}>
