@@ -103,7 +103,7 @@ const HomeCover = () => (
     <Wrapper>
       <CoverText>
         <Title>
-          Formation<br />
+          Formations<br />
           JS & React
         </Title>
         <Subtitle>Formez-vous à l’excellence.</Subtitle>
