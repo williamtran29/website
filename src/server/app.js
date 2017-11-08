@@ -13,6 +13,7 @@ import mount from 'koa-mount'
 import { graphqlKoa, graphiqlKoa } from 'apollo-server-koa'
 import config from 'server/config'
 import ssr from 'server/middlewares/ssr'
+import redirect from 'server/middlewares/redirect'
 import generateSitemap from 'server/generateSitemap'
 import generateRssFeed from 'server/generateRssFeed'
 import sendEmail from 'server/email/sendEmail'
@@ -28,6 +29,67 @@ app.use(async (ctx, next) => {
   }
   await next()
 })
+
+app.use(
+  redirect([
+    {
+      match: /^\/references/,
+      redirect: '/',
+    },
+    {
+      match: /^\/contact/,
+      redirect: '/',
+    },
+    {
+      match: /^\/formations/,
+      redirect: '/',
+    },
+    {
+      match: /^\/formations\/nodejs/,
+      redirect: '/',
+    },
+    {
+      match: /^\/formations\/graphql/,
+      redirect: '/formation-graphql-intense/fevrier-paris-44',
+      status: 301,
+    },
+    {
+      match: /^\/notre-histoire/,
+      redirect: '/',
+    },
+    {
+      match: /^\/formations\/soir-react/,
+      redirect: '/formation-react-fondamental/decembre-paris-39',
+      status: 301,
+    },
+    {
+      match: /^\/formations\/react-redux/,
+      redirect: '/formation-react-fondamental/decembre-paris-39',
+      status: 301,
+    },
+    {
+      match: /^\/formations\/javascript-es2017/,
+      redirect: '/formation-javascript-moderne/janvier-paris-41',
+      status: 301,
+    },
+    {
+      match: /^\/creer-app-mac-avec-script-shell/,
+      redirect: '/articles/creer-app-mac-avec-script-shell',
+    },
+    {
+      match: /^\/developpez-plus-vite-avec-prettier/,
+      redirect: '/articles/developpez-plus-vite-avec-prettier',
+    },
+    {
+      match: /^\/pourquoi-react-est-il-si-populaire/,
+      redirect: '/articles/pourquoi-react-est-il-si-populaire',
+    },
+    {
+      match: /^\/articles\/la-license-de-react-est-il-une-menace/,
+      redirect: '/articles/la-license-de-react-est-elle-une-menace',
+    },
+  ]),
+)
 
 router.get('/sitemap.xml', async ctx => {
   ctx.response.type = 'xml'
