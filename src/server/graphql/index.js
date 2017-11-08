@@ -169,7 +169,7 @@ export const rootValue = {
       eagerResolvers.sessions(graphqlFields(context)),
     )
 
-    if (!session.training) return null
+    if (!session || !session.training) return null
     return session
   },
   trainer({ slug }, obj, context) {
