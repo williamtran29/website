@@ -33,15 +33,15 @@ app.use(async (ctx, next) => {
 app.use(
   redirect([
     {
-      match: /^\/references/,
+      match: /^\/references$/,
       redirect: '/',
     },
     {
-      match: /^\/contact/,
+      match: /^\/contact$/,
       redirect: '/',
     },
     {
-      match: /^\/formations/,
+      match: /^\/formations$/,
       redirect: '/',
     },
     {
