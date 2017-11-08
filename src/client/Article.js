@@ -465,7 +465,7 @@ export default compose(
         </Article>
         {sessions && (
           <Trainings>
-            <TrainingsTitle>Découvrez nos Workshops</TrainingsTitle>
+            <TrainingsTitle>Découvrez nos formations</TrainingsTitle>
             <SessionCards>
               {sessions &&
                 distinctSessions(sessions)

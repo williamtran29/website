@@ -103,12 +103,12 @@ const HomeCover = () => (
     <Wrapper>
       <CoverText>
         <Title>
-          Coaching<br />
+          Formation<br />
           JS & React
         </Title>
         <Subtitle>Formez-vous à l’excellence.</Subtitle>
         <ScrollLinkButton to="workshops" block spy smooth>
-          S’inscrire à un Workshop
+          S’inscrire à une Session
         </ScrollLinkButton>
         <CoverLink href="mailto:contact@smooth-code.com">
           Obtenir un devis sur mesure

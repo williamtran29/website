@@ -79,7 +79,7 @@ const QUERY = gql`
 const HomeWorkshops = ({ data: { sessions } }) => (
   <Container id="workshops">
     <HomeWrapper>
-      <HomeSectionTitle>Workshops</HomeSectionTitle>
+      <HomeSectionTitle>Sessions</HomeSectionTitle>
       <Content>
         <div>
           <Cards>

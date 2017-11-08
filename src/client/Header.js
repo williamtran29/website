@@ -137,10 +137,10 @@ const Header = compose(
           {({ match }) =>
             match ? (
               <ScrollNavLink to="workshops" spy smooth>
-                Workshops
+                Formations
               </ScrollNavLink>
             ) : (
-              <RouterNavLink to={homeRoute()}>Workshops</RouterNavLink>
+              <RouterNavLink to={homeRoute()}>Formations</RouterNavLink>
             )}
         </Route>
         <RouterNavLink to={articlesRoute()}>Articles</RouterNavLink>
