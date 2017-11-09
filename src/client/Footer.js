@@ -150,7 +150,7 @@ const Footer = () => (
         <LinkColumns>
           <Links>
             <li>
-              <Link to={homeRoute()}>Workshops</Link>
+              <Link to={homeRoute()}>Formations</Link>
             </li>
             <li>
               <Link to={articlesRoute()}>Articles</Link>
@@ -185,10 +185,18 @@ const Footer = () => (
         </Legal>
 
         <Social>
-          <a href="https://github.com/smooth-code/">
+          <a
+            href="https://github.com/smooth-code/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaGitHub />
           </a>
-          <a href="https://twitter.com/smooth_code">
+          <a
+            href="https://twitter.com/smooth_code"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaTwitter />
           </a>
           <FooterLogo />

@@ -144,7 +144,11 @@ const Header = compose(
             )}
         </Route>
         <RouterNavLink to={articlesRoute()}>Articles</RouterNavLink>
-        <NavLink href="https://github.com/smooth-code" target="_blank">
+        <NavLink
+          href="https://github.com/smooth-code"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Open Source
         </NavLink>
         <RaisedNavLink href="mailto:contact@smooth-code.com">
