@@ -75,7 +75,7 @@ const HomePrice = () => (
         <Founder>
           <FounderPicture
             src={clUrl(
-              'profile_greg_ihxwjo',
+              'profile-3_yfghdn',
               'c_fill,g_face,h_140,w_140,dpr_2,e_grayscale',
             )}
             alt="Greg Bergé"
