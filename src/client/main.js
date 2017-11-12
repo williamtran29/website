@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
+import { Provider } from 'react-redux'
 import ReactGA from 'react-ga'
 import RouteChangeHook from 'modules/components/RouteChangeHook'
 import apolloClient from 'client/apolloClient'
@@ -30,13 +31,15 @@ const App = require('client/App').default
 const render = Component => {
   ReactDOM.hydrate(
     <AppContainer>
-      <ApolloProvider store={store} client={apolloClient}>
-        <BrowserRouter>
-          <RouteChangeHook onUpdate={onUpdate}>
-            <Component />
-          </RouteChangeHook>
-        </BrowserRouter>
-      </ApolloProvider>
+      <Provider store={store}>
+        <ApolloProvider client={apolloClient}>
+          <BrowserRouter>
+            <RouteChangeHook onUpdate={onUpdate}>
+              <Component />
+            </RouteChangeHook>
+          </BrowserRouter>
+        </ApolloProvider>
+      </Provider>
     </AppContainer>,
     document.getElementById('main'),
   )

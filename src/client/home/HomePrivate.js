@@ -62,7 +62,7 @@ const HomePrivate = () => (
         <Lead>
           <p>
             Vous désirez vous former sur autre technologie&nbsp;?<br />Le format
-            Workshop ne vous convient pas&nbsp;?
+            session ne vous convient pas&nbsp;?
           </p>
           <p>
             <strong>La formation JavaScript est notre spécialité&nbsp;!</strong>

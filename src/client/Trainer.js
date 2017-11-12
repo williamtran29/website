@@ -1,7 +1,8 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
-import { gql, graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import { graphql, compose } from 'react-apollo'
 import theme from 'style/theme'
 import SecondaryTitle from 'modules/components/SecondaryTitle'
 import Markdown from 'modules/components/Markdown'
@@ -13,6 +14,8 @@ import JsonLd from 'modules/components/JsonLd'
 import { clUrl } from 'modules/cloudinary'
 import { articleCardFragment } from 'modules/queries'
 import { trainerLd } from 'client/linkedData'
+import { homeRoute } from 'modules/routePaths'
+import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
 
 const Content = styled.div`
   flex: 1;
@@ -84,11 +87,17 @@ const QUERY = gql`
   ${articleCardFragment}
 `
 
-export default graphql(QUERY, {
-  options: ({ match }) => ({
-    variables: { slug: match.params.slug },
+export default compose(
+  graphql(QUERY, {
+    options: ({ match }) => ({
+      variables: { slug: match.params.slug },
+    }),
   }),
-})(
+  redirectIfNotFound({
+    key: 'trainer',
+    to: homeRoute(),
+  }),
+)(
   ({ data: { trainer } }) =>
     trainer ? (
       <PageContainer>

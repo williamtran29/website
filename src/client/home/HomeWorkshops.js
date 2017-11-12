@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { gql, graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import { graphql } from 'react-apollo'
 import theme from 'style/theme'
 import SessionLink from 'modules/components/SessionLink'
 import SessionCard from 'modules/components/SessionCard'

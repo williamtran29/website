@@ -1,7 +1,6 @@
 import thunk from 'redux-thunk'
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 import { combineForms } from 'react-redux-form'
-import apolloClient from 'client/apolloClient'
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers =
@@ -28,7 +27,6 @@ export default createStore(
       },
       'forms',
     ),
-    apollo: apolloClient.reducer(),
   }),
   preloadedState,
   composeEnhancers(applyMiddleware(thunk)),

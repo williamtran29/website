@@ -31,7 +31,7 @@ const Name = styled.div`
   }
 `
 
-const IconContainer = styled.div`
+const IconLink = styled(Link)`
   flex-shrink: 0;
   width: 50px;
   height: 50px;
@@ -73,9 +73,9 @@ const Description = styled.p`
 const SessionCard = ({ session }) => (
   <Container>
     <Header>
-      <IconContainer>
+      <IconLink to={session.link}>
         <TrainingIcon training={session.training} />
-      </IconContainer>
+      </IconLink>
       <HeaderLink to={session.link}>
         <Name>{session.training.title}</Name>
         <DateLocation>{summarizeSession(session)}</DateLocation>

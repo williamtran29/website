@@ -5,16 +5,18 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 import { Helmet } from 'react-helmet'
-import { ApolloClient, ApolloProvider, getDataFromTree } from 'react-apollo'
-import { createLocalInterface } from 'apollo-local-query'
-import * as graphql from 'graphql'
+import { Provider } from 'react-redux'
+import { ApolloProvider, getDataFromTree } from 'react-apollo'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { cacheResolvers, dataIdFromObject } from 'modules/apollo'
+import LocalLink from 'server/LocalLink'
 import { schema, rootValue } from 'server/graphql'
 import config from 'server/config'
 import App from 'client/App'
 import Html from 'server/middlewares/Html'
 import store from 'client/store'
 import { getLoadableState } from 'loadable-components/server'
-import { customResolvers, dataIdFromObject } from 'modules/apollo'
 
 const PUBLIC = path.join(__dirname, '../../../public')
 const production = config.get('env') === 'production'
@@ -39,21 +41,23 @@ const getAssets = async () => {
 export default () => async ctx => {
   const apolloClient = new ApolloClient({
     ssrMode: true,
-    networkInterface: createLocalInterface(graphql, schema, {
-      rootValue,
+    link: new LocalLink({ schema, rootValue }),
+    cache: new InMemoryCache({
+      cacheResolvers,
+      dataIdFromObject,
     }),
-    customResolvers,
-    dataIdFromObject,
   })
 
   const context = {}
   const sheet = new ServerStyleSheet()
   const app = sheet.collectStyles(
-    <ApolloProvider store={store} client={apolloClient}>
-      <StaticRouter location={ctx.request.url} context={context}>
-        <App />
-      </StaticRouter>
-    </ApolloProvider>,
+    <Provider store={store}>
+      <ApolloProvider store={store} client={apolloClient}>
+        <StaticRouter location={ctx.request.url} context={context}>
+          <App />
+        </StaticRouter>
+      </ApolloProvider>
+    </Provider>,
   )
 
   await getDataFromTree(app)
@@ -62,7 +66,7 @@ export default () => async ctx => {
   const html = renderToString(app)
 
   const state = store.getState()
-  state.apollo = apolloClient.getInitialState()
+  const apolloState = apolloClient.cache.extract()
 
   const helmet = Helmet.renderStatic()
 
@@ -81,6 +85,7 @@ export default () => async ctx => {
         content={html}
         helmet={helmet}
         loadableState={loadableState}
+        apolloState={apolloState}
         sheet={sheet}
         state={state}
       />,

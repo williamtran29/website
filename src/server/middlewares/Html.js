@@ -1,7 +1,26 @@
 /* eslint-disable react/no-danger, jsx-a11y/html-has-lang */
 import React from 'react'
 
-const Html = ({ assets, content, helmet, sheet, loadableState, state }) => {
+const StateScript = ({ state, name }) => (
+  <script
+    dangerouslySetInnerHTML={{
+      __html: `window.${name} = ${JSON.stringify(state).replace(
+        /</g,
+        '\\u003c',
+      )};`,
+    }}
+  />
+)
+
+const Html = ({
+  assets,
+  content,
+  helmet,
+  sheet,
+  loadableState,
+  apolloState,
+  state,
+}) => {
   const htmlAttrs = helmet.htmlAttributes.toComponent()
   const bodyAttrs = helmet.bodyAttributes.toComponent()
   return (
@@ -15,13 +34,8 @@ const Html = ({ assets, content, helmet, sheet, loadableState, state }) => {
       <body {...bodyAttrs}>
         <div id="main" dangerouslySetInnerHTML={{ __html: content }} />
         {loadableState.getScriptElement()}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(
-              state,
-            ).replace(/</g, '\\u003c')};`,
-          }}
-        />
+        <StateScript state={state} name="__PRELOADED_STATE__" />
+        <StateScript state={apolloState} name="__APOLLO_STATE__" />
         <script src={assets.main.js} />
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" />
         <script

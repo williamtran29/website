@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { compose, withHandlers, withState } from 'recompact'
 import { Link as ScrollLink } from 'react-scroll'
 import FaBars from 'react-icons/lib/fa/bars'
+import FaGitHub from 'react-icons/lib/fa/github'
 import theme from 'style/theme'
 import Logo from 'client/Logo'
 import { homeRoute, articlesRoute } from 'modules/routePaths'
@@ -72,10 +73,16 @@ const NavLink = styled.a`
   transition: color 200ms, background-color 200ms;
   white-space: nowrap;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 
   &:hover {
     color: white;
     text-decoration: none;
+  }
+
+  > svg {
+    margin-right: 5px;
   }
 
   @media (min-width: ${theme.medias.phablet}) {
@@ -149,7 +156,7 @@ const Header = compose(
           target="_blank"
           rel="noopener noreferrer"
         >
-          Open Source
+          <FaGitHub /> Open Source
         </NavLink>
         <RaisedNavLink href="mailto:contact@smooth-code.com">
           Contact

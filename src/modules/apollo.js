@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { toIdValue } from 'react-apollo'
+import { toIdValue } from 'apollo-utilities'
 
 export const dataIdFromObject = result => {
   if (result.__typename) {
@@ -19,7 +19,7 @@ export const dataIdFromObject = result => {
   return null
 }
 
-export const customResolvers = {
+export const cacheResolvers = {
   Query: {
     session: (_, { id }) =>
       toIdValue(dataIdFromObject({ id, __typename: 'Session' })),

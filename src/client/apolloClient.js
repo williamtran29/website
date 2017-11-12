@@ -1,19 +1,18 @@
-import { ApolloClient, createNetworkInterface } from 'react-apollo'
-import { customResolvers, dataIdFromObject } from 'modules/apollo'
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { cacheResolvers, dataIdFromObject } from 'modules/apollo'
 
 /* eslint-disable no-underscore-dangle */
 const client = new ApolloClient({
-  initialState: typeof window === 'object' && {
-    apollo: window.__PRELOADED_STATE__.apollo,
-  },
-  networkInterface: createNetworkInterface({
+  link: new HttpLink({
     uri: '/graphql',
-    opts: {
-      credentials: 'same-origin',
-    },
+    credentials: 'same-origin',
   }),
-  customResolvers,
-  dataIdFromObject,
+  cache: new InMemoryCache({
+    cacheResolvers,
+    dataIdFromObject,
+  }).restore(window.__APOLLO_STATE__),
 })
 /* eslint-enable no-underscore-dangle */
 
