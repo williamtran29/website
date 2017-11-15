@@ -9,11 +9,11 @@ const Cover = styled.div`
   position: relative;
   background-color: #222;
   background-image: linear-gradient(180deg, #333 0%, #222 100%);
-  height: 400px;
+  height: 360px;
   overflow: hidden;
 
   @media (min-width: ${theme.medias.phablet}) {
-    height: 450px;
+    height: 430px;
   }
 `
 
@@ -52,7 +52,6 @@ const Title = styled.h1`
 `
 
 const Subtitle = styled.div`
-  font-weight: 700;
   font-size: 22px;
   line-height: 26px;
   color: #fff;
@@ -82,20 +81,6 @@ const CoverText = styled.div`
   }
 `
 
-const CoverLink = styled.a`
-  font-weight: 700;
-  font-size: 16px;
-  color: #fff;
-  text-transform: uppercase;
-  margin-top: 15px;
-  display: block;
-  text-align: center;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`
-
 const HomeCover = () => (
   <Cover>
     <HomeBubbles />
@@ -108,11 +93,8 @@ const HomeCover = () => (
         </Title>
         <Subtitle>Formez-vous à l’excellence</Subtitle>
         <ScrollLinkButton to="workshops" block spy smooth>
-          S’inscrire à une Session
+          Découvrir nos sessions
         </ScrollLinkButton>
-        <CoverLink href="mailto:contact@smooth-code.com">
-          Obtenir un devis sur mesure
-        </CoverLink>
       </CoverText>
     </Wrapper>
   </Cover>

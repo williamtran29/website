@@ -12,6 +12,7 @@ const Container = styled.div`
   min-width: 250px;
   display: flex;
   flex-direction: column;
+  margin: 0 20px;
 `
 
 const Header = styled.header`
@@ -83,10 +84,12 @@ const SessionCard = ({ session }) => (
     </Header>
     <div>
       <LinkButton small to={session.link}>
-        S’inscrire
+        Voir le programme
       </LinkButton>
     </div>
-    <Description>{session.training.abstract}</Description>
+    <Link to={session.link}>
+      <Description>{session.training.abstract}</Description>
+    </Link>
   </Container>
 )
 

@@ -171,7 +171,7 @@ const Sidebar = styled.aside`
   @media (min-width: ${theme.medias.desktop}) {
     animation: 400ms ${sidebarAnimation} ease-out;
     animation-fill-mode: backwards;
-    width: 374px;
+    width: 290px;
     border-left: 1px solid ${theme.colors.grayLight};
   }
 `
@@ -238,11 +238,11 @@ const CourseTitle = styled.h3`
   font-weight: 700;
   font-size: 20px;
   line-height: 30px;
-  margin: 0 0 10px;
+  margin: 30px 0 5px;
 `
 
 const PriceBlock = styled.div`
-  margin: 20px 0 40px;
+  margin: 20px 0 10px;
 `
 
 const PriceDescription = styled.div`
@@ -358,11 +358,9 @@ export default compose(
           <meta name="description" content={sessionCard.training.abstract} />
           <meta
             property="og:title"
-            content={`Workshop ${sessionCard.training.title} | ${sessionCard
-              .location.city} | ${shortDuration(
-              sessionCard.startDate,
-              sessionCard.endDate,
-            )}`}
+            content={`Workshop ${sessionCard.training.title} | ${
+              sessionCard.location.city
+            } | ${shortDuration(sessionCard.startDate, sessionCard.endDate)}`}
           />
           <meta
             property="og:description"
@@ -406,7 +404,7 @@ export default compose(
               <Markdown source={session.training.objectives} />
             </Section>
             <Section>
-              <SectionTitle>A qui s’adresse le Workshop ?</SectionTitle>
+              <SectionTitle>À qui s’adresse cette formation ?</SectionTitle>
               <Markdown source={session.training.prerequisites} />
             </Section>
             <Section>
@@ -418,7 +416,7 @@ export default compose(
               ))}
             </Section>
             <ContactSection id="contact">
-              <SectionTitle>S’inscrire</SectionTitle>
+              <SectionTitle>Formulaire d’inscription</SectionTitle>
               <ContactForm />
             </ContactSection>
           </Content>
@@ -439,6 +437,8 @@ export default compose(
                           S’inscrire
                         </ScrollLinkButton>
                       </PriceBlock>
+                    </SidebarSection>
+                    <SidebarSection>
                       <SidebarSectionTitle>Dates</SidebarSectionTitle>
                       <SidebarSectionText>
                         {intersperse(

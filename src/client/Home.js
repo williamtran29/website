@@ -9,6 +9,7 @@ import HomeWorkshops from 'client/home/HomeWorkshops'
 import HomePrivate from 'client/home/HomePrivate'
 import HomePrice from 'client/home/HomePrice'
 import HomeAboutUs from 'client/home/HomeAboutUs'
+import HomeTrainingPicture from 'client/home/HomeTrainingPicture'
 
 const Home = () => (
   <PageContainer>
@@ -18,6 +19,7 @@ const Home = () => (
     <HomeWorkshops />
     <HomePrivate />
     <HomePrice />
+    <HomeTrainingPicture />
     <HomeAboutUs />
     <Footer />
     <JsonLd>

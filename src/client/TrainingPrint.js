@@ -273,8 +273,8 @@ export default withTraining(
             <div>
               <strong>Une question ?</strong> Vous avez besoin d’un
               renseignement ou d’une formation personnalisée ? Nous nous ferons
-              un plaisir de répondre à vos questions. <strong>Tél. :</strong>{' '}
-              06 50 58 80 79 - <strong>Email :</strong> contact@smooth-code.com
+              un plaisir de répondre à vos questions. <strong>Tél. :</strong> 09
+              87 02 24 12 - <strong>Email :</strong> contact@smooth-code.com
             </div>
           </Footer>
         </Container>

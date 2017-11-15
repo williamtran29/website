@@ -61,18 +61,20 @@ const HomePrivate = () => (
         <HomeSectionTitle dark>Formation sur mesure</HomeSectionTitle>
         <Lead>
           <p>
-            Vous désirez vous former sur autre technologie&nbsp;?<br />Le format
-            session ne vous convient pas&nbsp;?
+            Nous proposons des formations privées sur RxJS, Webpack, React
+            Native ou Node.js.
           </p>
           <p>
-            <strong>La formation JavaScript est notre spécialité&nbsp;!</strong>
-            <br />
-            Nous formons sur React Native, Webpack, Node.js, RxJS et même
-            Git&nbsp;!
+            Besoin d’être rassuré sur vos choix d’architecture ? Nous réalisons
+            des audits techniques de votre stack.
+          </p>
+          <p>
+            Contactez-nous pour trouvez la formule la plus adaptée à votre
+            situation.
           </p>
         </Lead>
-        <BaseLinkButton href="mailto:contact@smooth-code.com">
-          Demander un devis
+        <BaseLinkButton href="mailto:contact@smooth-code.com?subject=Demande%20de%20devis&body=Bonjour%2C%0A%0AJe%20suis%20int%E9ress%E9%28e%29%20par...">
+          Obtenir un devis sur mesure
         </BaseLinkButton>
       </Text>
     </Wrapper>

@@ -2,6 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import theme from 'style/theme'
 import { clUrl } from 'modules/cloudinary'
+import FaGitHub from 'react-icons/lib/fa/github'
+import FaTwitter from 'react-icons/lib/fa/twitter'
+import FaLinkedin from 'react-icons/lib/fa/linkedin'
 import HomeSectionTitle from './HomeSectionTitle'
 import HomeWrapper from './HomeWrapper'
 import HomeContainer from './HomeContainer'
@@ -47,16 +50,15 @@ const FounderText = styled.div`
   max-width: 350px;
 `
 
+const FounderHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
 const FounderName = styled.div`
   font-weight: 300;
   font-size: 30px;
   line-height: 40px;
-`
-
-const FounderTitle = styled.div`
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 24px;
 `
 
 const FounderDescription = styled.p`
@@ -67,10 +69,22 @@ const FounderDescription = styled.p`
   text-align: justify;
 `
 
+const Social = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 28px;
+  justify-content: flex-start;
+  height: 35px;
+
+  a {
+    margin-left: 8px;
+  }
+`
+
 const HomePrice = () => (
   <Container>
     <HomeWrapper>
-      <HomeSectionTitle>Qui sommes-nous&nbsp;?</HomeSectionTitle>
+      <HomeSectionTitle>Un mot sur les fondateurs</HomeSectionTitle>
       <Founders>
         <Founder>
           <FounderPicture
@@ -81,13 +95,30 @@ const HomePrice = () => (
             alt="Greg Bergé"
           />
           <FounderText>
-            <FounderName>Greg Bergé</FounderName>
-            <FounderTitle>Co-fondateur et Président</FounderTitle>
+            <FounderHeader>
+              <FounderName>Greg Bergé</FounderName>
+              <Social>
+                <a
+                  href="https://github.com/neoziro"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaGitHub />
+                </a>
+                <a
+                  href="https://twitter.com/neoziro"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaTwitter />
+                </a>
+              </Social>
+            </FounderHeader>
             <FounderDescription>
-              Développeur JavaScript depuis maintenant plus de 15 ans, Greg est
-              le formateur expert de Smooth Code. Il est auteur de plusieurs
-              librairies open-source à succès comme Shipit, React Hot Loader ou
-              SVGR.
+              Greg est développeur JavaScript depuis le début des années 2000 et
+              auteur de plusieurs librairies open-source à succès comme Shipit,
+              React Hot Loader ou SVGR. Formateur à l’international, c’est
+              l’expert JavaScript de Smooth Code.
             </FounderDescription>
           </FounderText>
         </Founder>
@@ -100,12 +131,29 @@ const HomePrice = () => (
             alt="Jeremy Sfez"
           />
           <FounderText>
-            <FounderName>Jeremy Sfez</FounderName>
-            <FounderTitle>Co-fondateur et Directeur Général</FounderTitle>
+            <FounderHeader>
+              <FounderName>Jeremy Sfez</FounderName>
+              <Social>
+                <a
+                  href="https://fr.linkedin.com/in/jeremysfez"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaLinkedin />
+                </a>
+                <a
+                  href="https://twitter.com/SfezJeremy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaTwitter />
+                </a>
+              </Social>
+            </FounderHeader>
             <FounderDescription>
-              Ancien de l’équipe fondatrice de Doctolib, Jeremy est le directeur
-              commercial de Smooth Code. Il est organisateur du Meetup GraphQL
-              et auteur de nombreux articles sur JavaScript et son écosystème.
+              Jeremy est un ancien de l’équipe fondatrice de Doctolib,
+              développeur et formateur JavaScript. Il est organisateur du Meetup
+              GraphQL Paris et auteur de nombreux articles sur l’actualité tech.
             </FounderDescription>
           </FounderText>
         </Founder>

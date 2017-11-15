@@ -7,7 +7,7 @@ const HomeWrapper = styled.div`
   padding: 40px 20px 60px;
 
   @media (min-width: ${theme.medias.phablet}) {
-    padding: 60px 20px 100px;
+    padding: 60px 20px 80px;
   }
 `
 

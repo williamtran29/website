@@ -125,7 +125,7 @@ export default () => (
           </tr>
           <tr>
             <td>Téléphone</td>
-            <td>+(33)6 50 58 80 79</td>
+            <td>+(33)9 87 02 24 12</td>
           </tr>
           <tr>
             <td>Email de contact</td>

@@ -8,6 +8,7 @@ import FaGitHub from 'react-icons/lib/fa/github'
 import theme from 'style/theme'
 import Logo from 'client/Logo'
 import { homeRoute, articlesRoute } from 'modules/routePaths'
+import FaPhone from 'react-icons/lib/fa/phone'
 
 const Nav = styled.nav`
   padding: 0 20px;
@@ -108,6 +109,10 @@ const RaisedNavLink = styled(NavLink)`
   }
 `
 
+const BiggerLogo = styled(Logo)`
+  width: 140%;
+`
+
 const LogoLink = styled(Link)`
   flex: 0 0 150px;
   margin-right: auto;
@@ -137,7 +142,7 @@ const Header = compose(
   <Nav transparent={transparent}>
     <Wrapper>
       <LogoLink to={homeRoute()}>
-        <Logo />
+        <BiggerLogo />
       </LogoLink>
       <Links show={toggled} transparent={transparent}>
         <Route exact path="/">
@@ -148,7 +153,8 @@ const Header = compose(
               </ScrollNavLink>
             ) : (
               <RouterNavLink to={homeRoute()}>Formations</RouterNavLink>
-            )}
+            )
+          }
         </Route>
         <RouterNavLink to={articlesRoute()}>Articles</RouterNavLink>
         <NavLink
@@ -158,8 +164,8 @@ const Header = compose(
         >
           <FaGitHub /> Open Source
         </NavLink>
-        <RaisedNavLink href="mailto:contact@smooth-code.com">
-          Contact
+        <RaisedNavLink href="tel:+33987022412">
+          <FaPhone /> 09 87 02 24 12
         </RaisedNavLink>
       </Links>
       <MenuToggle onClick={onToggle} />

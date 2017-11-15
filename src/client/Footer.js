@@ -172,8 +172,8 @@ const Footer = () => (
           75003 Paris<br />
         </Address>
         <Contact>
-          <a href="tel:+33650588079">
-            <FaPhone /> 06 50 58 80 79
+          <a href="tel:+33987022412">
+            <FaPhone /> 09 87 02 24 12
           </a>
           <a href="mailto:contact@smooth-code.com">
             <FaEnvelope /> contact@smooth-code.com

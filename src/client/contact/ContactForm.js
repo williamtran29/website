@@ -49,6 +49,8 @@ const StyledErrors = styled(Errors)`
   margin: 10px 0;
 `
 
+const RequiredMark = () => <span style={{ color: theme.colors.danger }}>*</span>
+
 const AlertMessage = connect(state => ({
   status: state.forms.forms.contact.$form.pending
     ? 'PENDING'
@@ -94,7 +96,9 @@ const ContactForm = ({
       <div>
         <FormRow>
           <FormGroup>
-            <Label htmlFor="name">Nom complet</Label>
+            <Label htmlFor="name">
+              Nom complet <RequiredMark />
+            </Label>
             <Control.input
               component={Input}
               autoComplete="name"
@@ -127,7 +131,9 @@ const ContactForm = ({
         </FormRow>
         <FormRow>
           <FormGroup>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">
+              Email <RequiredMark />
+            </Label>
             <Control.input
               type="email"
               autoComplete="email"

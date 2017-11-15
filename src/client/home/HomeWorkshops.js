@@ -46,7 +46,7 @@ const Cards = styled.div`
 
   @media (min-width: ${theme.medias.phablet}) {
     margin-left: 30px;
-    margin-right: 60px;
+    margin-right: 40px;
     flex-direction: row;
   }
 `
@@ -80,7 +80,7 @@ const QUERY = gql`
 const HomeWorkshops = ({ data: { sessions } }) => (
   <Container id="workshops">
     <HomeWrapper>
-      <HomeSectionTitle>Sessions</HomeSectionTitle>
+      <HomeSectionTitle>Formations</HomeSectionTitle>
       <Content>
         <div>
           <Cards>

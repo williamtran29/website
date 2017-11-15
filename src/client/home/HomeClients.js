@@ -21,7 +21,8 @@ const Picture = styled.img`
   margin: 10px;
   max-height: 24px;
 
-  &:last-child {
+  &:nth-last-child(1),
+  &:nth-last-child(4) {
     display: none;
   }
 
@@ -29,7 +30,13 @@ const Picture = styled.img`
     margin: 0;
     max-height: none;
 
-    &:last-child {
+    &:nth-last-child(1) {
+      display: block;
+    }
+  }
+
+  @media (min-width: ${theme.medias.desktop}) {
+    &:nth-last-child(4) {
       display: block;
     }
   }
@@ -44,6 +51,7 @@ const HomeClients = () => (
       height={20}
       alt="Docapost Agility"
     />
+    <Picture src={clUrl('logo_BAP')} height={41} alt="Bureau à Partager" />
   </Wrapper>
 )
 

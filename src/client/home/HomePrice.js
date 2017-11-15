@@ -101,11 +101,11 @@ const HomePrice = () => (
         </Block>
       </div>
       <Text>
-        <HomeSectionTitle>Rien à débourser</HomeSectionTitle>
+        <HomeSectionTitle>Combien ça coûte ?</HomeSectionTitle>
         <Lead>
           <p>
             Nous sommes certifiés DataDock, ce qui signifie que votre formation
-            est finançable à 100% par votre OPCA.
+            peut être financée à 100% par votre OPCA.
           </p>
           <p>
             Pour en bénéficier, rien de plus facile&nbsp;!<br />
