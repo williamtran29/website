@@ -28,7 +28,7 @@ const Home = () => (
         '@type': 'WebSite',
         name: 'Smooth Code',
         description:
-          'Formations JavaScript, React et Node.js pour les entreprises et les développeurs.',
+          'Formations JavaScript, React et GraphQL pour les entreprises et les développeurs.',
         url: 'https://www.smooth-code.com',
         publisher: {
           '@type': 'Organization',

@@ -7,6 +7,8 @@ import SessionLink from 'modules/components/SessionLink'
 import SessionCard from 'modules/components/SessionCard'
 import { sessionCardFragment } from 'modules/queries'
 import { distinctSessions } from 'modules/sessionUtil'
+import JsonLd from 'modules/components/JsonLd'
+import { sessionLd, sessionLdFragment } from 'client/linkedData'
 import HomeWrapper from './HomeWrapper'
 import HomeSectionTitle from './HomeSectionTitle'
 import HomeContainer from './HomeContainer'
@@ -70,38 +72,46 @@ const ComingTitle = styled.div`
 const QUERY = gql`
   query {
     sessions {
-      ...SessionCard
+      ... SessionCard
+      ... SessionLd
     }
   }
 
   ${sessionCardFragment}
+  ${sessionLdFragment}
 `
 
-const HomeWorkshops = ({ data: { sessions } }) => (
+const HomeWorkshops = ({ sessions, headSessions }) => (
   <Container id="workshops">
     <HomeWrapper>
       <HomeSectionTitle>Formations</HomeSectionTitle>
       <Content>
         <div>
           <Cards>
-            {sessions &&
-              distinctSessions(sessions)
-                .slice(0, 4)
-                .map(session => (
-                  <SessionCard key={session.id} session={session} />
-                ))}
+            {headSessions.map(session => (
+              <SessionCard key={session.id} session={session} />
+            ))}
           </Cards>
         </div>
         <Coming>
           <ComingTitle>Toutes les dates</ComingTitle>
-          {sessions &&
-            sessions.map(session => (
-              <SessionLink key={session.id} light session={session} />
-            ))}
+          {sessions.map(session => (
+            <SessionLink key={session.id} light session={session} />
+          ))}
         </Coming>
       </Content>
+      {headSessions.map(session => (
+        <JsonLd key={session.id}>{sessionLd(session)}</JsonLd>
+      ))}
     </HomeWrapper>
   </Container>
 )
 
-export default graphql(QUERY)(HomeWorkshops)
+export default graphql(QUERY, {
+  props: ({ data }) => ({
+    sessions: data.sessions || [],
+    headSessions: data.sessions
+      ? data.sessions && distinctSessions(data.sessions).slice(0, 4)
+      : [],
+  }),
+})(HomeWorkshops)

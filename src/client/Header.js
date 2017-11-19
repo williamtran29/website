@@ -110,7 +110,7 @@ const RaisedNavLink = styled(NavLink)`
 `
 
 const BiggerLogo = styled(Logo)`
-  width: 140%;
+  width: 125%;
 `
 
 const LogoLink = styled(Link)`

@@ -19,7 +19,7 @@ import Markdown from 'modules/components/Markdown'
 import TrainerCard from 'modules/components/TrainerCard'
 import SessionLink from 'modules/components/SessionLink'
 import { sessionCardFragment } from 'modules/queries'
-import { sessionLd } from 'client/linkedData'
+import { sessionLd, sessionLdFragment } from 'client/linkedData'
 import { homeRoute } from 'modules/routePaths'
 import theme from 'style/theme'
 import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
@@ -308,14 +308,17 @@ const COMPLETE_QUERY = gql`
           picture
         }
       }
+
+      ... SessionLd
     }
 
     sessions {
-      ...SessionCard
+      ... SessionCard
     }
   }
 
   ${sessionCardFragment}
+  ${sessionLdFragment}
 `
 
 const options = ({ match }) => ({

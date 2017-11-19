@@ -46,7 +46,7 @@ const App = ({ location }) => (
       <meta name="theme-color" content="#ffffff" />
       <meta
         name="description"
-        content="Formations JavaScript, React et Node.js pour les entreprises et les développeurs."
+        content="Formations JavaScript, React et GraphQL pour les entreprises et les développeurs. Devenez opérationnel en quelques jours."
       />
       <meta
         name="keywords"
@@ -54,16 +54,16 @@ const App = ({ location }) => (
       />
       <meta
         name="author"
-        content="Smooth Code : Formations JavaScript, React et Node.js"
+        content="Smooth Code : Formations JavaScript, React et GraphQL"
       />
       <meta property="og:site_name" content="Smooth Code" />
       <meta
         property="og:title"
-        content="Smooth Code : Formations JavaScript, React et Node.js"
+        content="Smooth Code : Formations JavaScript, React et GraphQL"
       />
       <meta
         property="og:description"
-        content="Formations JavaScript, React et Node.js pour les entreprises et les développeurs."
+        content="Formations JavaScript, React et GraphQL pour les entreprises et les développeurs. Devenez opérationnel en quelques jours."
       />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={completeUrl(location.pathname)} />

@@ -1,3 +1,4 @@
+import gql from 'graphql-tag'
 import { absClUrl } from 'modules/cloudinary'
 import { completeUrl } from 'modules/urlUtil'
 
@@ -11,11 +12,19 @@ export const trainerLd = ({ trainer }, { id } = {}) => ({
   image: absClUrl(trainer.picture, 'dpr_2,c_fill,g_face,w_150,h_150'),
 })
 
+export const trainerLdFragment = gql`
+  fragment TrainerLd on Trainer {
+    fullName
+    picture
+    link
+  }
+`
+
 export const sessionLd = (session, { id } = {}) => ({
   '@context': 'http://schema.org',
   '@type': 'EducationEvent',
   ...(id ? { '@id': completeUrl(session.link) } : {}),
-  name: `Workshop ${session.training.title}`,
+  name: session.training.title,
   description: session.training.abstract,
   url: completeUrl(session.link),
   image: absClUrl(
@@ -27,7 +36,7 @@ export const sessionLd = (session, { id } = {}) => ({
   endDate: session.endDate,
   location: {
     '@type': 'Place',
-    name: session.location.name,
+    name: session.location.city,
     address: {
       '@type': 'PostalAddress',
       streetAddress: session.location.address,
@@ -65,3 +74,32 @@ export const sessionLd = (session, { id } = {}) => ({
     trainerLd({ trainer }, { id: true }),
   ),
 })
+
+export const sessionLdFragment = gql`
+  fragment SessionLd on Session {
+    link
+    inStock
+    startDate
+    endDate
+    validFrom
+    participants
+    training {
+      title
+      abstract
+      icon
+      color
+      price
+      trainers {
+        ... TrainerLd
+      }
+    }
+    location {
+      name
+      address
+      zipcode
+      city
+    }
+  }
+
+  ${trainerLdFragment}
+`

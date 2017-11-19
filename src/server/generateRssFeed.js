@@ -31,7 +31,7 @@ async function generateRss() {
 
   const feed = new RSS({
     title: 'Smooth Code',
-    description: 'Actualité JavaScript, React et Node.js.',
+    description: 'Actualité JavaScript, React et GraphQL.',
     generator: 'Smooth Code',
     feed_url: completeUrl('/feed.xml'),
     site_url: completeUrl(articlesRoute()),

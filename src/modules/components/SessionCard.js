@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import theme from 'style/theme'
 import { Link } from 'react-router-dom'
-import { LinkButton } from 'modules/components/Button'
+import Button from 'modules/components/Button'
 import TrainingIcon from 'modules/components/TrainingIcon'
 import { summarizeSession } from 'modules/sessionUtil'
 
-const Container = styled.div`
+const ContainerLink = styled(Link)`
   max-width: 330px;
   min-width: 250px;
   display: flex;
@@ -32,7 +32,7 @@ const Name = styled.div`
   }
 `
 
-const IconLink = styled(Link)`
+const Icon = styled.div`
   flex-shrink: 0;
   width: 50px;
   height: 50px;
@@ -43,7 +43,7 @@ const IconLink = styled(Link)`
   }
 `
 
-const HeaderLink = styled(Link)`
+const HeaderInfos = styled.div`
   margin-left: 10px;
 `
 
@@ -72,25 +72,21 @@ const Description = styled.p`
 `
 
 const SessionCard = ({ session }) => (
-  <Container>
+  <ContainerLink to={session.link}>
     <Header>
-      <IconLink to={session.link}>
+      <Icon>
         <TrainingIcon training={session.training} />
-      </IconLink>
-      <HeaderLink to={session.link}>
+      </Icon>
+      <HeaderInfos>
         <Name>{session.training.title}</Name>
         <DateLocation>{summarizeSession(session)}</DateLocation>
-      </HeaderLink>
+      </HeaderInfos>
     </Header>
     <div>
-      <LinkButton small to={session.link}>
-        Voir le programme
-      </LinkButton>
+      <Button small>Voir le programme</Button>
     </div>
-    <Link to={session.link}>
-      <Description>{session.training.abstract}</Description>
-    </Link>
-  </Container>
+    <Description>{session.training.abstract}</Description>
+  </ContainerLink>
 )
 
 SessionCard.propTypes = {
