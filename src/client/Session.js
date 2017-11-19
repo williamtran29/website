@@ -7,7 +7,7 @@ import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { darken } from 'polished'
-import { ScrollLinkButton } from 'modules/components/Button'
+import { BaseLinkButton, ScrollLinkButton } from 'modules/components/Button'
 import { getDatesBetween, shortDuration, longDuration } from 'modules/dateUtils'
 import moment from 'modules/moment'
 import { clUrl } from 'modules/cloudinary'
@@ -43,6 +43,13 @@ const Cover = styled.div`
   align-items: center;
   text-align: center;
   padding: 60px 20px 30px;
+
+  @media print {
+    padding: 0;
+    margin-bottom: 40px;
+    background: #fff;
+    color: ${theme.colors.gray};
+  }
 `
 
 const Picture = styled.div`
@@ -71,6 +78,10 @@ const Picture = styled.div`
         'c_scale,w_150,h_150,dpr_2',
       )});
     `};
+  }
+
+  @media print {
+    display: none;
   }
 `
 
@@ -134,17 +145,29 @@ const Section = styled.section`
   @media (min-width: ${theme.medias.desktop}) {
     margin: 0 50px 0 10px;
   }
+
+  @media print {
+    border: none;
+  }
+`
+
+const PrintButton = BaseLinkButton.extend`
+  margin-bottom: 20px;
 `
 
 const ContactSection = Section.extend`
   border-bottom: 0;
   padding-bottom: 50px;
+
+  @media print {
+    display: none;
+  }
 `
 
 const SectionTitle = styled.h2`
-  margin: 20px 0;
+  margin: 30px 0;
   font-weight: 300;
-  font-size: 30px;
+  font-size: 40px;
   line-height: 40px;
 
   @media (min-width: ${theme.medias.phablet}) {
@@ -173,6 +196,10 @@ const Sidebar = styled.aside`
     animation-fill-mode: backwards;
     width: 290px;
     border-left: 1px solid ${theme.colors.grayLight};
+  }
+
+  @media print {
+    display: none;
   }
 `
 
@@ -231,7 +258,7 @@ const SidebarSectionText = styled.div`
 `
 
 const Course = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `
 
 const CourseTitle = styled.h3`
@@ -239,6 +266,19 @@ const CourseTitle = styled.h3`
   font-size: 20px;
   line-height: 30px;
   margin: 30px 0 5px;
+
+  @media print {
+    margin: 10px 0 0;
+  }
+`
+
+const PrintableMarkdown = Markdown.extend`
+  @media print {
+    p,
+    ul {
+      margin: 5px 0;
+    }
+  }
 `
 
 const PriceBlock = styled.div`
@@ -251,6 +291,25 @@ const PriceDescription = styled.div`
   line-height: 30px;
   margin-bottom: 10px;
   text-align: center;
+`
+const NoPrintSection = Section.extend`
+  display: none;
+
+  ${SidebarSection} {
+    padding: 0;
+  }
+
+  ${SidebarSectionText} {
+    border-left: solid 1px black;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  @media print {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `
 
 const Price = styled.div`
@@ -391,16 +450,57 @@ export default compose(
       <Container>
         {session ? (
           <Content>
+            <NoPrintSection>
+              <SidebarSection>
+                <SidebarSectionTitle>Prix</SidebarSectionTitle>
+                <SidebarSectionText>
+                  {sessionCard.training.price}€
+                </SidebarSectionText>
+              </SidebarSection>
+              <SidebarSection>
+                <SidebarSectionTitle>Dates</SidebarSectionTitle>
+                <SidebarSectionText>
+                  {intersperse(
+                    getDatesBetween(
+                      sessionCard.startDate,
+                      sessionCard.endDate,
+                    ).map(date => (
+                      <div key={date.toString()}>
+                        {moment(date).format('DD/MM')} | 9h30 - 17h30
+                      </div>
+                    )),
+                  )}
+                </SidebarSectionText>
+              </SidebarSection>
+              <SidebarSection>
+                <SidebarSectionTitle>Lieu</SidebarSectionTitle>
+                <SidebarSectionText>
+                  {sessionCard.location.name}
+                  <br />
+                  {sessionCard.location.address}
+                  <br />
+                  {sessionCard.location.zipcode} {sessionCard.location.city}
+                </SidebarSectionText>
+              </SidebarSection>
+            </NoPrintSection>
             <Section>
               <SectionTitle>Qu’allez-vous apprendre ?</SectionTitle>
               {session.training.courses.map((course, index) => (
                 /* eslint-disable react/no-array-index-key */
                 <Course key={index}>
                   <CourseTitle>{course.title}</CourseTitle>
-                  <Markdown source={course.content} />
+                  <PrintableMarkdown source={course.content} />
                 </Course>
                 /* eslint-enable react/no-array-index-key */
               ))}
+              <PrintButton
+                href={`http://res.cloudinary.com/smooth/raw/upload/${
+                  sessionCard.training.slug
+                }.pdf`}
+                download
+              >
+                Télécharger le Programme
+              </PrintButton>
             </Section>
             <Section>
               <SectionTitle>Les Objectifs</SectionTitle>

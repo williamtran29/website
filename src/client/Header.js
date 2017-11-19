@@ -18,6 +18,10 @@ const Nav = styled.nav`
     transparent ? 'transparent' : theme.colors.primary};
   left: 0;
   right: 0;
+
+  @media print {
+    display: none;
+  }
 `
 
 const Wrapper = styled.div`

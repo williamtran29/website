@@ -23,6 +23,11 @@ const Container = styled.footer`
   font-size: 14px;
   line-height: 1.6;
   font-weight: 300;
+
+  @media print {
+    background-color: #fff;
+    color: #333;
+  }
 `
 
 const Wrapper = styled.div`
@@ -31,10 +36,15 @@ const Wrapper = styled.div`
   max-width: ${theme.medias.large};
   justify-content: space-between;
   padding: 40px 20px 35px 20px;
+
   @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row;
     padding: 60px 10px 55px 10px;
     margin: 0 auto;
+  }
+
+  @media print {
+    padding: 0 20px;
   }
 `
 
@@ -54,6 +64,10 @@ const LinkColumns = styled.div`
 
   @media (min-width: ${theme.medias.phablet}) {
     flex-direction: row;
+  }
+
+  @media print {
+    display: none;
   }
 `
 
@@ -83,6 +97,10 @@ const Links = styled.ul`
 
 const Copyright = styled.div`
   font-size: 14px;
+
+  @media print {
+    display: none;
+  }
 `
 
 const Contact = styled.div`
@@ -102,6 +120,13 @@ const Contact = styled.div`
       color: white;
     }
   }
+
+  @media print {
+    margin: 0;
+    a {
+      color: ${theme.colors.grayDark};
+    }
+  }
 `
 
 const Legal = styled.div`
@@ -110,12 +135,20 @@ const Legal = styled.div`
   flex-direction: column;
   align-items: flex-end;
   margin-bottom: 30px;
+
+  @media print {
+    display: none;
+  }
 `
 
 const Address = styled.address`
   font-style: normal;
   text-align: right;
   margin-bottom: 20px;
+
+  @media print {
+    display: none;
+  }
 `
 
 const Social = styled.div`
@@ -134,6 +167,10 @@ const Social = styled.div`
     &:hover {
       color: white;
     }
+  }
+
+  @media print {
+    display: none;
   }
 `
 

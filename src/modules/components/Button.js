@@ -29,6 +29,10 @@ const Button = styled.button`
     outline: none;
     text-decoration: none;
   }
+
+  @media print {
+    display: none;
+  }
 `
 
 export const LinkButton = Button.withComponent(
