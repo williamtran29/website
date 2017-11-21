@@ -25,6 +25,7 @@ import theme from 'style/theme'
 import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
 import { summarizeSession, generateSocialPicture } from 'modules/sessionUtil'
 import ContactForm from 'client/contact/ContactForm'
+import { connectBlackFriday } from 'client/BlackFriday'
 
 const Cover = styled.div`
   background-color: ${props => darken(0.1, props.bgColor)};
@@ -283,6 +284,7 @@ const PrintableMarkdown = Markdown.extend`
 
 const PriceBlock = styled.div`
   margin: 20px 0 10px;
+  position: relative;
 `
 
 const PriceDescription = styled.div`
@@ -292,7 +294,7 @@ const PriceDescription = styled.div`
   margin-bottom: 10px;
   text-align: center;
 `
-const NoPrintSection = Section.extend`
+const OnlyPrintSection = Section.extend`
   display: none;
 
   ${SidebarSection} {
@@ -317,6 +319,30 @@ const Price = styled.div`
   line-height: 50px;
   margin-bottom: 20px;
   text-align: center;
+  font-weight: 700;
+`
+
+const StrikedPrice = styled.div`
+  font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+  text-decoration: line-through;
+`
+
+const Discount = styled.div`
+  font-size: 25px;
+  font-weight: 700;
+  color: #fff;
+  background-color: ${theme.colors.primary};
+  border-radius: 50%;
+  position: absolute;
+  text-align: center;
+  height: 70px;
+  line-height: 70px;
+  width: 70px;
+  transform: rotate(15deg);
+  right: 0;
+  top: 60px;
 `
 
 const CARD_QUERY = gql`
@@ -403,10 +429,12 @@ export default compose(
     dataKey: 'completeData',
     to: homeRoute(),
   }),
+  connectBlackFriday,
 )(
   ({
     cardData: { session: sessionCard },
     completeData: { session, sessions: siblings },
+    blackFriday,
   }) => (
     <PageContainer>
       {sessionCard && (
@@ -450,7 +478,7 @@ export default compose(
       <Container>
         {session ? (
           <Content>
-            <NoPrintSection>
+            <OnlyPrintSection>
               <SidebarSection>
                 <SidebarSectionTitle>Prix</SidebarSectionTitle>
                 <SidebarSectionText>
@@ -482,7 +510,7 @@ export default compose(
                   {sessionCard.location.zipcode} {sessionCard.location.city}
                 </SidebarSectionText>
               </SidebarSection>
-            </NoPrintSection>
+            </OnlyPrintSection>
             <Section>
               <SectionTitle>Qu’allez-vous apprendre ?</SectionTitle>
               {session.training.courses.map((course, index) => (
@@ -534,8 +562,27 @@ export default compose(
                   <SidebarSticky style={style}>
                     <SidebarSection>
                       <PriceBlock>
-                        <PriceDescription>Prix par personne</PriceDescription>
-                        <Price>{sessionCard.training.price}€</Price>
+                        {blackFriday && <Discount>-50%</Discount>}
+                        <PriceDescription>
+                          {blackFriday ? (
+                            <strong style={{ textTransform: 'uppercase' }}>
+                              Prix spécial<br />
+                              Black Friday
+                            </strong>
+                          ) : (
+                            'Prix par personne'
+                          )}
+                        </PriceDescription>
+                        {blackFriday ? (
+                          <div>
+                            <StrikedPrice>
+                              {sessionCard.training.price}€
+                            </StrikedPrice>
+                            <Price>{sessionCard.training.price / 2}€</Price>
+                          </div>
+                        ) : (
+                          <Price>{sessionCard.training.price}€</Price>
+                        )}
                         <ScrollLinkButton block spy smooth to="contact">
                           S’inscrire
                         </ScrollLinkButton>
