@@ -22,6 +22,8 @@ module.exports = {
     'react/require-default-props': 'off',
 
     'import/prefer-default-export': 'off',
+    'import/no-unresolved': 'warning',
+    'import/extensions': 'warning',
 
     'class-methods-use-this': 'off',
 
