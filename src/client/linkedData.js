@@ -22,7 +22,7 @@ export const trainerLdFragment = gql`
 
 export const sessionLd = (session, { id } = {}) => ({
   '@context': 'http://schema.org',
-  '@type': 'EducationEvent',
+  '@type': 'Event',
   ...(id ? { '@id': completeUrl(session.link) } : {}),
   name: session.training.title,
   description: session.training.abstract,

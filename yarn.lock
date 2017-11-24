@@ -6105,9 +6105,9 @@ react-lazyload@^2.2.7:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-lazyload/-/react-lazyload-2.3.0.tgz#ccb134223012447074a96543954f44b055dc6185"
 
-react-markdown@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-markdown/-/react-markdown-3.0.1.tgz#46d70151d59ae873171bd698e3a19b92fddc99ba"
+react-markdown@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-markdown/-/react-markdown-3.0.2.tgz#e6e25a9c141a5dbada2fb016513cc5398515205c"
   dependencies:
     prop-types "^15.6.0"
     remark-parse "^4.0.0"
@@ -6166,11 +6166,10 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-scroll@^1.5.5:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.6.4.tgz#c5bca461771bce460a1bfb19550350512b9d076b"
+react-scroll@^1.6.7:
+  version "1.6.7"
+  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.6.7.tgz#23b55b1333411e729ea1a609686b1f87978ce77b"
   dependencies:
-    object-assign "^4.1.1"
     prop-types "^15.5.8"
 
 react-side-effect@^1.1.0:

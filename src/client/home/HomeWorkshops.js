@@ -100,9 +100,9 @@ const HomeWorkshops = ({ sessions, headSessions }) => (
           ))}
         </Coming>
       </Content>
-      {headSessions.map(session => (
-        <JsonLd key={session.id}>{sessionLd(session)}</JsonLd>
-      ))}
+      {headSessions
+        .slice(0, 3)
+        .map(session => <JsonLd key={session.id}>{sessionLd(session)}</JsonLd>)}
     </HomeWrapper>
   </Container>
 )
