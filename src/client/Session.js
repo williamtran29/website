@@ -25,7 +25,6 @@ import theme from 'style/theme'
 import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
 import { summarizeSession, generateSocialPicture } from 'modules/sessionUtil'
 import ContactForm from 'client/contact/ContactForm'
-import { connectBlackFriday } from 'client/BlackFriday'
 
 const Cover = styled.div`
   background-color: ${props => darken(0.1, props.bgColor)};
@@ -322,29 +321,6 @@ const Price = styled.div`
   font-weight: 700;
 `
 
-const StrikedPrice = styled.div`
-  font-size: 30px;
-  line-height: 40px;
-  text-align: center;
-  text-decoration: line-through;
-`
-
-const Discount = styled.div`
-  font-size: 25px;
-  font-weight: 700;
-  color: #fff;
-  background-color: ${theme.colors.primary};
-  border-radius: 50%;
-  position: absolute;
-  text-align: center;
-  height: 70px;
-  line-height: 70px;
-  width: 70px;
-  transform: rotate(15deg);
-  right: 0;
-  top: 60px;
-`
-
 const CARD_QUERY = gql`
   query ($id: ID!) {
     session(id: $id) {
@@ -429,12 +405,10 @@ export default compose(
     dataKey: 'completeData',
     to: homeRoute(),
   }),
-  connectBlackFriday,
 )(
   ({
     cardData: { session: sessionCard },
     completeData: { session, sessions: siblings },
-    blackFriday,
   }) => (
     <PageContainer>
       {sessionCard && (
@@ -562,27 +536,8 @@ export default compose(
                   <SidebarSticky style={style}>
                     <SidebarSection>
                       <PriceBlock>
-                        {blackFriday && <Discount>-50%</Discount>}
-                        <PriceDescription>
-                          {blackFriday ? (
-                            <strong style={{ textTransform: 'uppercase' }}>
-                              Prix spécial<br />
-                              Black Friday
-                            </strong>
-                          ) : (
-                            'Prix par personne'
-                          )}
-                        </PriceDescription>
-                        {blackFriday ? (
-                          <div>
-                            <StrikedPrice>
-                              {sessionCard.training.price}€
-                            </StrikedPrice>
-                            <Price>{sessionCard.training.price / 2}€</Price>
-                          </div>
-                        ) : (
-                          <Price>{sessionCard.training.price}€</Price>
-                        )}
+                        <PriceDescription>Prix par personne</PriceDescription>
+                        <Price>{sessionCard.training.price}€</Price>
                         <ScrollLinkButton block spy smooth to="contact">
                           S’inscrire
                         </ScrollLinkButton>
