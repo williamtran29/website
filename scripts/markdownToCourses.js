@@ -1,22 +1,5 @@
-/* eslint-disable no-cond-assign, no-console */
-async function getStdin() {
-  return new Promise((resolve, reject) => {
-    let data = ''
-    process.stdin.setEncoding('utf8')
-    process.stdin.on('error', reject)
-
-    process.stdin.on('readable', () => {
-      const chunk = process.stdin.read()
-      if (chunk !== null) {
-        data += chunk.toString()
-      }
-    })
-
-    process.stdin.on('end', () => {
-      resolve(data)
-    })
-  })
-}
+/* eslint-disable no-cond-assign */
+const getStdin = require('./getStdin')
 
 getStdin()
   .then(stdin => {
@@ -28,4 +11,4 @@ getStdin()
     }
     return courses
   })
-  .then(courses => console.log(JSON.stringify(courses)))
+  .then(courses => process.stdout.write(JSON.stringify(courses)))
