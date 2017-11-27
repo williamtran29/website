@@ -34,11 +34,16 @@ const Link = styled(omitProps('light')(RRLink))`
         `};
 `
 
+const Full = styled.div`
+  font-weight: 700;
+`
+
 const SessionLink = ({ light, session }) => (
   <Link to={session.link} light={light}>
     {session.training.title}
     <br />
     {summarizeSession(session)}
+    {!session.inStock ? <Full>Complet</Full> : null}
   </Link>
 )
 

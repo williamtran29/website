@@ -3,8 +3,8 @@ import { toIdValue } from 'apollo-utilities'
 
 export const dataIdFromObject = result => {
   if (result.__typename) {
-    if (result.url !== undefined) {
-      return `${result.__typename}:${result.url}`
+    if (result.link !== undefined) {
+      return `${result.__typename}:${result.link}`
     }
     if (result.slug !== undefined) {
       return `${result.__typename}:${result.slug}`

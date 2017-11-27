@@ -4,6 +4,7 @@ import intersperse from 'intersperse'
 import compose from 'recompact/compose'
 import { Helmet } from 'react-helmet'
 import gql from 'graphql-tag'
+import { Link } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { darken } from 'polished'
@@ -151,8 +152,8 @@ const Section = styled.section`
   }
 `
 
-const PrintButton = BaseLinkButton.extend`
-  margin-bottom: 20px;
+const DownloadButton = BaseLinkButton.extend`
+  margin: 10px 0 20px;
 `
 
 const ContactSection = Section.extend`
@@ -321,9 +322,40 @@ const Price = styled.div`
   font-weight: 700;
 `
 
+const Full = styled.div`
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+`
+
+const NextSession = styled(({ siblings = [], session, className }) => {
+  const nextSession = siblings.filter(
+    ({ id, training }) =>
+      id !== session.id && training.slug === session.training.slug,
+  )[0]
+  if (!nextSession) return null
+  return (
+    <div className={className}>
+      Prochaine session<br />
+      <Link to={nextSession.link}>{summarizeSession(nextSession)}</Link>
+    </div>
+  )
+})`
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+
+  a {
+    color: ${theme.colors.primary};
+  }
+`
+
 const CARD_QUERY = gql`
   query ($id: ID!) {
-    session(id: $id) {
+    sessionCard: session(id: $id) {
       ...SessionCard
     }
   }
@@ -373,7 +405,7 @@ const COMPLETE_QUERY = gql`
       ... SessionLd
     }
 
-    sessions {
+    siblings: sessions {
       ... SessionCard
     }
   }
@@ -405,186 +437,198 @@ export default compose(
     dataKey: 'completeData',
     to: homeRoute(),
   }),
-)(
-  ({
-    cardData: { session: sessionCard },
-    completeData: { session, sessions: siblings },
-  }) => (
-    <PageContainer>
-      {sessionCard && (
-        <Helmet>
-          <title>
-            {`Formation ${sessionCard.training.title} ${longDuration(
-              sessionCard.startDate,
-              sessionCard.endDate,
-            )} à ${sessionCard.location.city}`}
-          </title>
-          <meta name="description" content={sessionCard.training.abstract} />
-          <meta
-            property="og:title"
-            content={`Workshop ${sessionCard.training.title} | ${
-              sessionCard.location.city
-            } | ${shortDuration(sessionCard.startDate, sessionCard.endDate)}`}
-          />
-          <meta
-            property="og:description"
-            content={sessionCard.training.abstract}
-          />
-          <meta
-            property="og:image"
-            content={generateSocialPicture(sessionCard)}
-          />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta
-            name="twitter:image"
-            content={generateSocialPicture(sessionCard)}
-          />
-        </Helmet>
-      )}
-      <Header transparent />
-      {sessionCard && (
-        <Cover bgColor={sessionCard.training.color}>
-          <Picture cloudinaryId={sessionCard.training.icon} />
-          <Title>{sessionCard.training.title}</Title>
-          <DateLocation>{summarizeSession(sessionCard)}</DateLocation>
-        </Cover>
-      )}
-      <Container>
-        {session ? (
-          <Content>
-            <OnlyPrintSection>
-              <SidebarSection>
-                <SidebarSectionTitle>Prix</SidebarSectionTitle>
-                <SidebarSectionText>
-                  {sessionCard.training.price}€
-                </SidebarSectionText>
-              </SidebarSection>
-              <SidebarSection>
-                <SidebarSectionTitle>Dates</SidebarSectionTitle>
-                <SidebarSectionText>
-                  {intersperse(
-                    getDatesBetween(
-                      sessionCard.startDate,
-                      sessionCard.endDate,
-                    ).map(date => (
-                      <div key={date.toString()}>
-                        {moment(date).format('DD/MM')} | 9h30 - 17h30
-                      </div>
-                    )),
-                  )}
-                </SidebarSectionText>
-              </SidebarSection>
-              <SidebarSection>
-                <SidebarSectionTitle>Lieu</SidebarSectionTitle>
-                <SidebarSectionText>
-                  {sessionCard.location.name}
-                  <br />
-                  {sessionCard.location.address}
-                  <br />
-                  {sessionCard.location.zipcode} {sessionCard.location.city}
-                </SidebarSectionText>
-              </SidebarSection>
-            </OnlyPrintSection>
-            <Section>
-              <SectionTitle>Qu’allez-vous apprendre ?</SectionTitle>
-              {session.training.courses.map((course, index) => (
-                /* eslint-disable react/no-array-index-key */
-                <Course key={index}>
-                  <CourseTitle>{course.title}</CourseTitle>
-                  <PrintableMarkdown source={course.content} />
-                </Course>
-                /* eslint-enable react/no-array-index-key */
-              ))}
-              <PrintButton
-                href={`http://res.cloudinary.com/smooth/raw/upload/${
-                  sessionCard.training.slug
-                }.pdf`}
-                download
-              >
-                Télécharger le Programme
-              </PrintButton>
-            </Section>
-            <Section>
-              <SectionTitle>Les Objectifs</SectionTitle>
-              <Markdown source={session.training.objectives} />
-            </Section>
-            <Section>
-              <SectionTitle>À qui s’adresse cette formation ?</SectionTitle>
-              <Markdown source={session.training.prerequisites} />
-            </Section>
-            <Section>
-              <SectionTitle>Votre formateur</SectionTitle>
-              {session.training.trainers.map(trainer => (
-                <TrainerCardContainer key={trainer.slug}>
-                  <TrainerCard {...trainer} />
-                </TrainerCardContainer>
-              ))}
-            </Section>
-            <ContactSection id="contact">
+)(({ cardData: { sessionCard }, completeData: { session, siblings } }) => (
+  <PageContainer>
+    {sessionCard && (
+      <Helmet>
+        <title>
+          {`Formation ${sessionCard.training.title} ${longDuration(
+            sessionCard.startDate,
+            sessionCard.endDate,
+          )} à ${sessionCard.location.city}`}
+        </title>
+        <meta name="description" content={sessionCard.training.abstract} />
+        <meta
+          property="og:title"
+          content={`Workshop ${sessionCard.training.title} | ${
+            sessionCard.location.city
+          } | ${shortDuration(sessionCard.startDate, sessionCard.endDate)}`}
+        />
+        <meta
+          property="og:description"
+          content={sessionCard.training.abstract}
+        />
+        <meta
+          property="og:image"
+          content={generateSocialPicture(sessionCard)}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:image"
+          content={generateSocialPicture(sessionCard)}
+        />
+      </Helmet>
+    )}
+    <Header transparent />
+    {sessionCard && (
+      <Cover bgColor={sessionCard.training.color}>
+        <Picture cloudinaryId={sessionCard.training.icon} />
+        <Title>{sessionCard.training.title}</Title>
+        <DateLocation>{summarizeSession(sessionCard)}</DateLocation>
+      </Cover>
+    )}
+    <Container>
+      {session ? (
+        <Content>
+          <OnlyPrintSection>
+            <SidebarSection>
+              <SidebarSectionTitle>Prix</SidebarSectionTitle>
+              <SidebarSectionText>
+                {sessionCard.training.price}€
+              </SidebarSectionText>
+            </SidebarSection>
+            <SidebarSection>
+              <SidebarSectionTitle>Dates</SidebarSectionTitle>
+              <SidebarSectionText>
+                {intersperse(
+                  getDatesBetween(
+                    sessionCard.startDate,
+                    sessionCard.endDate,
+                  ).map(date => (
+                    <div key={date.toString()}>
+                      {moment(date).format('DD/MM')} | 9h30 - 17h30
+                    </div>
+                  )),
+                )}
+              </SidebarSectionText>
+            </SidebarSection>
+            <SidebarSection>
+              <SidebarSectionTitle>Lieu</SidebarSectionTitle>
+              <SidebarSectionText>
+                {sessionCard.location.name}
+                <br />
+                {sessionCard.location.address}
+                <br />
+                {sessionCard.location.zipcode} {sessionCard.location.city}
+              </SidebarSectionText>
+            </SidebarSection>
+          </OnlyPrintSection>
+          <Section>
+            <SectionTitle>Qu’allez-vous apprendre ?</SectionTitle>
+            {session.training.courses.map((course, index) => (
+              /* eslint-disable react/no-array-index-key */
+              <Course key={index}>
+                <CourseTitle>{course.title}</CourseTitle>
+                <PrintableMarkdown source={course.content} />
+              </Course>
+              /* eslint-enable react/no-array-index-key */
+            ))}
+            <DownloadButton
+              href={`http://res.cloudinary.com/smooth/raw/upload/${
+                sessionCard.training.slug
+              }.pdf`}
+              download
+            >
+              Télécharger le programme en PDF
+            </DownloadButton>
+          </Section>
+          <Section>
+            <SectionTitle>Les Objectifs</SectionTitle>
+            <Markdown source={session.training.objectives} />
+          </Section>
+          <Section>
+            <SectionTitle>À qui s’adresse cette formation ?</SectionTitle>
+            <Markdown source={session.training.prerequisites} />
+          </Section>
+          <Section>
+            <SectionTitle>Votre formateur</SectionTitle>
+            {session.training.trainers.map(trainer => (
+              <TrainerCardContainer key={trainer.slug}>
+                <TrainerCard {...trainer} />
+              </TrainerCardContainer>
+            ))}
+          </Section>
+          {session.inStock && (
+            <ContactSection>
               <SectionTitle>Formulaire d’inscription</SectionTitle>
               <ContactForm />
             </ContactSection>
-          </Content>
-        ) : (
-          <Content />
-        )}
-        {sessionCard && (
-          <Sidebar>
-            <SidebarStickyContainer>
-              <Sticky>
-                {({ style }) => (
-                  <SidebarSticky style={style}>
-                    <SidebarSection>
-                      <PriceBlock>
-                        <PriceDescription>Prix par personne</PriceDescription>
-                        <Price>{sessionCard.training.price}€</Price>
+          )}
+        </Content>
+      ) : (
+        <Content />
+      )}
+      {sessionCard && (
+        <Sidebar>
+          <SidebarStickyContainer>
+            <Sticky>
+              {({ style }) => (
+                <SidebarSticky style={style}>
+                  <SidebarSection>
+                    <PriceBlock>
+                      <PriceDescription>Prix par personne</PriceDescription>
+                      <Price>{sessionCard.training.price}€</Price>
+                      {sessionCard.inStock ? (
                         <ScrollLinkButton block spy smooth to="contact">
                           S’inscrire
                         </ScrollLinkButton>
-                      </PriceBlock>
-                    </SidebarSection>
-                    <SidebarSection>
-                      <SidebarSectionTitle>Dates</SidebarSectionTitle>
-                      <SidebarSectionText>
-                        {intersperse(
-                          getDatesBetween(
-                            sessionCard.startDate,
-                            sessionCard.endDate,
-                          ).map(date => (
-                            <div key={date.toString()}>
-                              {moment(date).format('DD/MM')} | 9h30 - 17h30
-                            </div>
-                          )),
-                        )}
-                      </SidebarSectionText>
-                      <SidebarSectionTitle>Lieu</SidebarSectionTitle>
-                      <SidebarSectionText>
-                        {sessionCard.location.name}
-                        <br />
-                        {sessionCard.location.address}
-                        <br />
-                        {sessionCard.location.zipcode}{' '}
-                        {sessionCard.location.city}
-                      </SidebarSectionText>
-                    </SidebarSection>
-                    <OtherWorkshops>
-                      <SidebarSectionTitle>Autres dates</SidebarSectionTitle>
-                      {siblings &&
-                        siblings
-                          .filter(({ id }) => id !== session.id)
-                          .map(sibling => (
-                            <SessionLink key={sibling.id} session={sibling} />
-                          ))}
-                    </OtherWorkshops>
-                  </SidebarSticky>
-                )}
-              </Sticky>
-            </SidebarStickyContainer>
-          </Sidebar>
-        )}
-      </Container>
-      <Footer />
-      {session && <JsonLd>{sessionLd(session)}</JsonLd>}
-    </PageContainer>
-  ),
-)
+                      ) : (
+                        [
+                          <Full key="full">
+                            <span role="img" aria-label="Attention">
+                              😓
+                            </span>{' '}
+                            Complet
+                          </Full>,
+                          <NextSession
+                            key="next"
+                            siblings={siblings}
+                            session={sessionCard}
+                          />,
+                        ]
+                      )}
+                    </PriceBlock>
+                  </SidebarSection>
+                  <SidebarSection>
+                    <SidebarSectionTitle>Dates</SidebarSectionTitle>
+                    <SidebarSectionText>
+                      {intersperse(
+                        getDatesBetween(
+                          sessionCard.startDate,
+                          sessionCard.endDate,
+                        ).map(date => (
+                          <div key={date.toString()}>
+                            {moment(date).format('DD/MM')} | 9h30 - 17h30
+                          </div>
+                        )),
+                      )}
+                    </SidebarSectionText>
+                    <SidebarSectionTitle>Lieu</SidebarSectionTitle>
+                    <SidebarSectionText>
+                      {sessionCard.location.name}
+                      <br />
+                      {sessionCard.location.address}
+                      <br />
+                      {sessionCard.location.zipcode} {sessionCard.location.city}
+                    </SidebarSectionText>
+                  </SidebarSection>
+                  <OtherWorkshops>
+                    <SidebarSectionTitle>Autres dates</SidebarSectionTitle>
+                    {siblings &&
+                      siblings
+                        .filter(({ id }) => id !== session.id)
+                        .map(sibling => (
+                          <SessionLink key={sibling.id} session={sibling} />
+                        ))}
+                  </OtherWorkshops>
+                </SidebarSticky>
+              )}
+            </Sticky>
+          </SidebarStickyContainer>
+        </Sidebar>
+      )}
+    </Container>
+    <Footer />
+    {session && <JsonLd>{sessionLd(session)}</JsonLd>}
+  </PageContainer>
+))

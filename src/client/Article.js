@@ -18,7 +18,7 @@ import { completeUrl } from 'modules/urlUtil'
 import compose from 'recompact/compose'
 import SessionCard from 'modules/components/SessionCard'
 import { articleCardFragment, sessionCardFragment } from 'modules/queries'
-import { distinctSessions } from 'modules/sessionUtil'
+import { validSessions } from 'modules/sessionUtil'
 
 const Container = styled.div`
   flex: 1;
@@ -469,11 +469,9 @@ export default compose(
             <TrainingsTitle>Découvrez nos formations</TrainingsTitle>
             <SessionCards>
               {sessions &&
-                distinctSessions(sessions)
-                  .slice(0, 4)
-                  .map(session => (
-                    <SessionCard key={session.id} session={session} />
-                  ))}
+                validSessions(sessions).map(session => (
+                  <SessionCard key={session.id} session={session} />
+                ))}
             </SessionCards>
           </Trainings>
         )}

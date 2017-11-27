@@ -6,6 +6,7 @@ export const sessionCardFragment = gql`
     startDate
     endDate
     link
+    inStock
     location {
       id
       name

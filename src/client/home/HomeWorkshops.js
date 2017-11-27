@@ -6,7 +6,7 @@ import theme from 'style/theme'
 import SessionLink from 'modules/components/SessionLink'
 import SessionCard from 'modules/components/SessionCard'
 import { sessionCardFragment } from 'modules/queries'
-import { distinctSessions } from 'modules/sessionUtil'
+import { validSessions } from 'modules/sessionUtil'
 import JsonLd from 'modules/components/JsonLd'
 import { sessionLd, sessionLdFragment } from 'client/linkedData'
 import HomeWrapper from './HomeWrapper'
@@ -111,7 +111,7 @@ export default graphql(QUERY, {
   props: ({ data }) => ({
     sessions: data.sessions || [],
     headSessions: data.sessions
-      ? data.sessions && distinctSessions(data.sessions).slice(0, 4)
+      ? data.sessions && validSessions(data.sessions)
       : [],
   }),
 })(HomeWorkshops)
