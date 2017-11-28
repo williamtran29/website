@@ -1,10 +1,11 @@
 import BaseModel, { mergeSchemas } from 'server/models/BaseModel'
+import { trainingPrintRoute } from 'modules/routePaths'
 
 export default class Training extends BaseModel {
   static tableName = 'trainings'
 
   static jsonSchema = mergeSchemas(BaseModel.jsonSchema, {
-    required: ['title', 'icon', 'slug'],
+    required: [],
     properties: {
       rank: { type: 'integer' },
       title: { type: 'string' },
@@ -19,6 +20,8 @@ export default class Training extends BaseModel {
       social_abstract: { type: 'string' },
       price: { type: 'integer' },
       courses: { type: 'array' },
+      duration: { type: 'integer' },
+      pdf: { type: 'string' },
     },
   })
 
@@ -55,5 +58,9 @@ export default class Training extends BaseModel {
 
   socialAbstract() {
     return this.social_abstract || this.abstract
+  }
+
+  printLink() {
+    return trainingPrintRoute(this.slug)
   }
 }

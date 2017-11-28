@@ -1,5 +1,5 @@
 import sm from 'sitemap'
-import { gql } from 'server/graphql'
+import { run } from 'server/graphql'
 import * as routePaths from 'modules/routePaths'
 
 const siteMapToString = sitemap =>
@@ -15,8 +15,8 @@ const siteMapToString = sitemap =>
   })
 
 async function generateSitemap() {
-  const { data, errors } = await gql`
-    {
+  const data = await run(/* GraphQL */ `
+    query sitemap {
       sessions {
         updatedAt
         link
@@ -26,12 +26,7 @@ async function generateSitemap() {
         updated_at
       }
     }
-  `
-
-  if (errors) {
-    console.error(errors) // eslint-disable-line no-console
-    throw new Error('Error during sitemap generation')
-  }
+  `)
 
   return siteMapToString(
     sm.createSitemap({

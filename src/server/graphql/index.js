@@ -15,7 +15,7 @@ const resolvers = {
 }
 
 export const schema = makeExecutableSchema({
-  typeDefs: `
+  typeDefs: /* GraphQL */ `
     scalar Date
     scalar DateTime
 
@@ -34,6 +34,7 @@ export const schema = makeExecutableSchema({
     }
 
     type Training {
+      id: ID!
       slug: ID!
       updatedAt: DateTime
       title: String
@@ -47,6 +48,9 @@ export const schema = makeExecutableSchema({
       prerequisites: String
       outline: String
       color: String
+      duration: Int
+      printLink: String
+      pdf: String
       courses: [Course]
       trainers: [Trainer]
       sessions: [Session]
@@ -153,7 +157,7 @@ export const schema = makeExecutableSchema({
 })
 
 export const rootValue = {
-  training({ slug }, obj, context) {
+  async training({ slug }, obj, context) {
     return enhanceQuery(
       Training.query()
         .where({ 'trainings.slug': slug, 'trainings.live': true })
@@ -172,7 +176,7 @@ export const rootValue = {
     if (!session || !session.training) return null
     return session
   },
-  trainer({ slug }, obj, context) {
+  async trainer({ slug }, obj, context) {
     return enhanceQuery(
       Trainer.query()
         .where({ 'trainers.slug': slug })
@@ -181,8 +185,15 @@ export const rootValue = {
     )
   },
 
+  async trainings(args, obj, context) {
+    return enhanceQuery(
+      Training.query().where({ 'trainings.live': true }),
+      eagerResolvers.trainings(graphqlFields(context)),
+    )
+  },
+
   // Sitemap
-  sessions(args, obj, context) {
+  async sessions(args, obj, context) {
     return enhanceQuery(
       TrainingSession.query()
         .joinRelation('training')
@@ -193,7 +204,7 @@ export const rootValue = {
   },
 
   // Testimonials
-  testimonials(args, obj, context) {
+  async testimonials(args, obj, context) {
     return enhanceQuery(
       Testimonial.query().orderBy('testimonials.rank', 'asc'),
       eagerResolvers.testimonials(graphqlFields(context)),
@@ -201,15 +212,24 @@ export const rootValue = {
   },
 
   // Blog
-  articles() {
+  async articles() {
     return ghostApi.getPosts({
       status: 'published',
       include: 'author,tags',
     })
   },
-  article({ slug }) {
+  async article({ slug }) {
     return ghostApi.getPost(slug, { include: 'author,tags' })
   },
 }
 
-export const gql = lines => graphql(schema, lines.join(''), rootValue)
+export const run = async query => {
+  const { data, errors } = await graphql(schema, query, rootValue)
+  if (errors && errors.length) {
+    /* eslint-disable no-console */
+    console.error(errors)
+    /* eslint-enable no-console */
+    throw new Error('Error during GraphQL request')
+  }
+  return data
+}

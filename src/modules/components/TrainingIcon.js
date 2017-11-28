@@ -18,6 +18,10 @@ const Container = styled.div`
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.07);
   border-radius: 50%;
   border: 4px solid #fff;
+
+  @media print {
+    box-shadow: none;
+  }
 `
 
 const Icon = styled.img`

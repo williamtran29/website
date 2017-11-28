@@ -389,6 +389,7 @@ const COMPLETE_QUERY = gql`
         price
         objectives
         prerequisites
+        pdf
         courses {
           title
           content
@@ -523,14 +524,11 @@ export default compose(
               </Course>
               /* eslint-enable react/no-array-index-key */
             ))}
-            <DownloadButton
-              href={`http://res.cloudinary.com/smooth/raw/upload/${
-                sessionCard.training.slug
-              }.pdf`}
-              download
-            >
-              Télécharger le programme en PDF
-            </DownloadButton>
+            {session.training.pdf ? (
+              <DownloadButton href={session.training.pdf} download>
+                Télécharger le programme en PDF
+              </DownloadButton>
+            ) : null}
           </Section>
           <Section>
             <SectionTitle>Les Objectifs</SectionTitle>
@@ -549,7 +547,7 @@ export default compose(
             ))}
           </Section>
           {session.inStock && (
-            <ContactSection>
+            <ContactSection id="contact">
               <SectionTitle>Formulaire d’inscription</SectionTitle>
               <ContactForm />
             </ContactSection>

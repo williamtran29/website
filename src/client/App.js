@@ -81,6 +81,11 @@ const App = ({ location }) => (
       <Route exact path={routePaths.homeRoute()} component={Routes.Home} />
       <Route
         exact
+        path={routePaths.trainingPrintRoute(':slug')}
+        component={Routes.TrainingPrint}
+      />
+      <Route
+        exact
         path={routePaths.sessionRoute(
           ':trainingSlug',
           ':city',
@@ -88,11 +93,6 @@ const App = ({ location }) => (
           ':sessionId',
         )}
         component={Routes.Session}
-      />
-      <Route
-        exact
-        path={routePaths.trainingPrintRoute(':slug')}
-        component={Routes.TrainingPrint}
       />
       <Route
         exact

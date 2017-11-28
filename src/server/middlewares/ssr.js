@@ -10,7 +10,7 @@ import { ApolloProvider, getDataFromTree } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { cacheResolvers, dataIdFromObject } from 'modules/apollo'
-import LocalLink from 'server/LocalLink'
+import LocalLink from 'server/graphql/LocalLink'
 import { schema, rootValue } from 'server/graphql'
 import config from 'server/config'
 import App from 'client/App'
@@ -47,7 +47,6 @@ export default () => async ctx => {
       dataIdFromObject,
     }),
   })
-
   const context = {}
   const sheet = new ServerStyleSheet()
   const app = sheet.collectStyles(
@@ -60,35 +59,30 @@ export default () => async ctx => {
     </Provider>,
   )
 
-  await getDataFromTree(app)
-  const loadableState = await getLoadableState(app)
-
-  const html = renderToString(app)
-
-  const state = store.getState()
-  const apolloState = apolloClient.cache.extract()
-
-  const helmet = Helmet.renderStatic()
-
-  if (context.status) {
-    ctx.status = context.status
-  }
-
+  if (context.status) ctx.status = context.status
   if (context.url) {
     ctx.status = 301
     ctx.redirect(context.url)
-  } else {
-    const assets = await getAssets()
-    ctx.body = `<!DOCTYPE html>${renderToString(
-      <Html
-        assets={assets}
-        content={html}
-        helmet={helmet}
-        loadableState={loadableState}
-        apolloState={apolloState}
-        sheet={sheet}
-        state={state}
-      />,
-    )}`
+    return
   }
+
+  const loadableState = await getLoadableState(app)
+  await getDataFromTree(app)
+  const html = renderToString(app)
+  const state = store.getState()
+  const apolloState = apolloClient.cache.extract()
+  const helmet = Helmet.renderStatic()
+  const assets = await getAssets()
+
+  ctx.body = `<!DOCTYPE html>${renderToString(
+    <Html
+      assets={assets}
+      content={html}
+      helmet={helmet}
+      loadableState={loadableState}
+      apolloState={apolloState}
+      sheet={sheet}
+      state={state}
+    />,
+  )}`
 }

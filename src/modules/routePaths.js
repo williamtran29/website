@@ -1,6 +1,6 @@
 export const homeRoute = () => '/'
 export const contactRoute = () => '/contact'
-export const trainingPrintRoute = slug => `/formations/${slug}/print`
+export const trainingPrintRoute = slug => `/formation-${slug}/print`
 export const sessionRoute = (trainingSlug, date, city, sessionId) =>
   `/formation-${trainingSlug}/${date}-${city}-${sessionId}`
 export const trainerRoute = slug => `/formateurs/${slug}`

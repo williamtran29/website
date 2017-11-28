@@ -1,11 +1,11 @@
 import RSS from 'rss'
-import { gql } from 'server/graphql'
+import { run } from 'server/graphql'
 import { articlesRoute } from 'modules/routePaths'
 import { completeUrl } from 'modules/urlUtil'
 import { absClUrl } from 'modules/cloudinary'
 
 async function generateRss() {
-  const { data, errors } = await gql`
+  const data = await run(/* GraphQL */ `
     {
       articles {
         title
@@ -22,12 +22,7 @@ async function generateRss() {
         }
       }
     }
-  `
-
-  if (errors) {
-    console.error(errors) // eslint-disable-line no-console
-    throw new Error('Error during rss generation')
-  }
+  `)
 
   const feed = new RSS({
     title: 'Smooth Code',

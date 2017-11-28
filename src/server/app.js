@@ -11,7 +11,6 @@ import error from 'koa-error'
 import Router from 'koa-router'
 import mount from 'koa-mount'
 import { graphqlKoa, graphiqlKoa } from 'apollo-server-koa'
-import puppeteer from 'puppeteer'
 import config from 'server/config'
 import ssr from 'server/middlewares/ssr'
 import redirect from 'server/middlewares/redirect'
@@ -91,28 +90,6 @@ app.use(
     },
   ]),
 )
-
-router.get('/pdf', async ctx => {
-  const browser = await puppeteer.launch()
-  const page = await browser.newPage()
-  await page.goto(
-    'https://smooth-code-website.herokuapp.com/formation-javascript-moderne/janvier-paris-41',
-    { waitUntil: 'networkidle2' },
-  )
-  ctx.type = 'pdf'
-  ctx.attachment(`smooth-code.pdf`)
-  ctx.body = await page.pdf({
-    format: 'A4',
-    margin: {
-      top: '20px',
-      right: '20px',
-      bottom: '20px',
-      left: '20px',
-    },
-  })
-
-  await browser.close()
-})
 
 router.get('/sitemap.xml', async ctx => {
   ctx.response.type = 'xml'

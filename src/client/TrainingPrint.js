@@ -18,12 +18,12 @@ const Container = styled.div`
 `
 const Section = styled.div`
   margin-bottom: 20px;
-  page-break-inside: avoid;
 `
+
 const SectionTitle = styled.div`
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
-  line-height: 20px;
+  line-height: 22px;
   margin-bottom: 10px;
   color: ${theme.colors.primary};
 `
@@ -95,98 +95,27 @@ const Website = styled.div`
   font-weight: 300;
 `
 
-const Planning = styled.div`
-  display: flex;
+const Courses = styled.div`
   margin: 10px 0 20px;
 `
 
-const Day = styled.div`
-  flex: 1;
-  margin-right: 5px;
-  font-size: 12px;
-
-  &:last-child {
-    margin-right: 0;
-  }
+const Course = styled.div`
+  margin: 10px 0;
+  page-break-inside: avoid;
 `
-const DayTitle = styled.div`
-  border-left: 4px ${theme.colors.primary} solid;
-  padding-left: 10px;
-  font-size: 14px;
+
+const CourseTitle = styled.div`
+  font-size: 16px;
   line-height: 20px;
   font-weight: 600;
-`
-const Intro = styled.div`
-  display: flex;
-
-  ${Section} {
-    flex: 1;
-    margin-right: 20px;
-  }
+  margin: 0 0 10px;
 `
 
-const Infos = styled.div`
-  flex-shrink: 0;
-  width: 160px;
-`
-
-const Info = styled.div`
-  margin-bottom: 10px;
-`
-
-const InfoLabel = styled.div`
-  margin-bottom: 5px;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 600;
-`
-
-const InfoContent = styled.div`
-  font-size: 18px;
-`
-
-const coursesToDays = courses =>
-  courses.reduce((days, course, index) => {
-    const dayIndex = Math.ceil((index + 1) / 2) - 1
-    days[dayIndex] = days[dayIndex] || [] // eslint-disable-line no-param-reassign
-    days[dayIndex].push(course)
-    return days
-  }, [])
-
-const CourseContainer = styled.div`
-  margin: 10px 0;
-`
-const CourseTitle = styled.div`
-  font-weight: 600;
-  margin-bottom: 10px;
-`
-
-const CourseOutline = Markdown.extend`
+const CourseContent = Markdown.extend`
   ul > li > ul {
     display: none;
   }
 `
-
-const Course = ({ outline, title }) => (
-  <CourseContainer>
-    <CourseTitle>{title}</CourseTitle>
-    <CourseOutline source={outline} />
-  </CourseContainer>
-)
-
-const Outline = ({ courses }) => {
-  const days = coursesToDays(courses)
-  return (
-    <Planning>
-      {days.map((dayCourses, dayIndex) => (
-        <Day key={dayIndex}>
-          <DayTitle>Jour {dayIndex + 1}</DayTitle>
-          {dayCourses.map(course => <Course key={course.id} {...course} />)}
-        </Day>
-      ))}
-    </Planning>
-  )
-}
 
 const withTraining = graphql(
   gql`
@@ -194,21 +123,16 @@ const withTraining = graphql(
       training(slug: $slug) {
         slug
         title
-        longTitle
         abstract
         duration
         icon
         objectives
         prerequisites
-        description
-        path {
-          id
-          color
-        }
+        color
+        icon
         courses {
-          id
           title
-          outline
+          content
         }
       }
     }
@@ -218,66 +142,62 @@ const withTraining = graphql(
   },
 )
 
-export default withTraining(
-  ({ data: { training } }) =>
-    training ? (
-      <PageContainer>
-        <Helmet>
-          <title>{training.longTitle}</title>
-          <meta name="robots" content="noindex" />
-        </Helmet>
-        <Container>
-          <Header>
-            <HeaderMain>
-              <HeaderPicture>
-                <TrainingIcon {...training} />
-              </HeaderPicture>
-              <div>
-                <Title>{training.longTitle}</Title>
-                <Subtitle>{training.abstract}</Subtitle>
-              </div>
-            </HeaderMain>
-            <Brand>
-              <ColoredLogo />
-              <Website>www.smooth-code.com</Website>
-            </Brand>
-          </Header>
-          <Intro>
-            <Section>
-              <SectionTitle>Objectifs</SectionTitle>
-              <Markdown source={training.objectives} />
-            </Section>
-            <Infos>
-              <Info>
-                <InfoLabel>Durée :</InfoLabel>
-                <InfoContent>
-                  {training.duration} {pluralize('jour', training.duration)}
-                </InfoContent>
-              </Info>
-            </Infos>
-          </Intro>
-          <Section>
-            <SectionTitle>Pré-requis</SectionTitle>
-            <Markdown source={training.prerequisites} />
-          </Section>
-          <Section>
-            <SectionTitle>Programme</SectionTitle>
-            <Outline courses={training.courses} />
-          </Section>
-          <Section>
-            <SectionTitle>Description</SectionTitle>
-            <Markdown source={training.description} />
-          </Section>
-          <Footer>
-            <Separator style={{ width: 250, margin: '10px auto' }} />
+const TrainingPrint = ({ data: { training } }) =>
+  training ? (
+    <PageContainer>
+      <Helmet>
+        <title>{training.longTitle}</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
+      <Container>
+        <Header>
+          <HeaderMain>
+            <HeaderPicture>
+              <TrainingIcon training={training} />
+            </HeaderPicture>
             <div>
-              <strong>Une question ?</strong> Vous avez besoin d’un
-              renseignement ou d’une formation personnalisée ? Nous nous ferons
-              un plaisir de répondre à vos questions. <strong>Tél. :</strong> 09
-              87 02 24 12 - <strong>Email :</strong> contact@smooth-code.com
+              <Title>
+                {training.title} • {training.duration}{' '}
+                {pluralize('jour', training.duration)}
+              </Title>
+              <Subtitle>{training.abstract}</Subtitle>
             </div>
-          </Footer>
-        </Container>
-      </PageContainer>
-    ) : null,
-)
+          </HeaderMain>
+          <Brand>
+            <ColoredLogo />
+            <Website>www.smooth-code.com</Website>
+          </Brand>
+        </Header>
+        <Section>
+          <SectionTitle>Les Objectifs</SectionTitle>
+          <Markdown source={training.objectives} />
+        </Section>
+        <Section>
+          <SectionTitle>A qui s’adresse cette formation ?</SectionTitle>
+          <Markdown source={training.prerequisites} />
+        </Section>
+        <Section>
+          <SectionTitle>Qu’allez-vous apprendre ?</SectionTitle>
+          <Courses>
+            {training.courses.map(course => (
+              <Course>
+                <CourseTitle>{course.title}</CourseTitle>
+                <CourseContent source={course.content} />
+              </Course>
+            ))}
+          </Courses>
+        </Section>
+        <Footer>
+          <Separator style={{ width: 250, margin: '10px auto' }} />
+          <div>
+            <strong>Une question ?</strong> Vous avez besoin d’un renseignement
+            ou d’une formation personnalisée ? Nous nous ferons un plaisir de
+            répondre à vos questions. <strong>Tél. :</strong> 09 87 02 24 12 -{' '}
+            <strong>Email :</strong> contact@smooth-code.com
+          </div>
+        </Footer>
+      </Container>
+    </PageContainer>
+  ) : null
+
+export default withTraining(TrainingPrint)
