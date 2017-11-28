@@ -26,7 +26,7 @@
     "dev:server": "nodemon --watch src src/server/main.js",
     "format": "prettier --write src/**/*.js *.js",
     "heroku-postbuild": "yarn build && yarn db:migrate",
-    "generate-pdf": "babel-node scripts/generatePdf.js",
+    "generate-pdf": "NODE_ENV=production DATABASE_URL=$PRODUCTION_DATABASE_URL babel-node scripts/generatePdf.js",
     "lint": "eslint .",
     "storybook": "start-storybook -p 6006",
     "test": "jest --runInBand --forceExit"

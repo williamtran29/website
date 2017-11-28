@@ -7,7 +7,7 @@ import Training from '../src/server/models/Training'
 import { connect, disconnect } from '../src/server/services/database'
 import { run } from '../src/server/graphql'
 
-const completeUrl = link => `http://localhost:8080${link}`
+const completeUrl = path => `https://smooth-code-website.herokuapp.com${path}`
 
 const upload = async (publicId, buffer) =>
   new Promise((resolve, reject) => {
