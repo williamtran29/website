@@ -59,13 +59,6 @@ export default () => async ctx => {
     </Provider>,
   )
 
-  if (context.status) ctx.status = context.status
-  if (context.url) {
-    ctx.status = 301
-    ctx.redirect(context.url)
-    return
-  }
-
   const loadableState = await getLoadableState(app)
   await getDataFromTree(app)
   const html = renderToString(app)
@@ -73,6 +66,16 @@ export default () => async ctx => {
   const apolloState = apolloClient.cache.extract()
   const helmet = Helmet.renderStatic()
   const assets = await getAssets()
+
+  if (context.status) {
+    ctx.status = context.status
+  }
+
+  if (context.url) {
+    ctx.status = 301
+    ctx.redirect(context.url)
+    return
+  }
 
   ctx.body = `<!DOCTYPE html>${renderToString(
     <Html
