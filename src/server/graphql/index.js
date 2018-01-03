@@ -197,7 +197,7 @@ export const rootValue = {
     return enhanceQuery(
       TrainingSession.query()
         .joinRelation('training')
-        .whereRaw("training_sessions.start_date > now() + interval '7 day'")
+        .whereRaw("training_sessions.start_date > now() + interval '1 day'")
         .orderBy('training_sessions.start_date', 'asc'),
       eagerResolvers.sessions(graphqlFields(context)),
     )
