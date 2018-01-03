@@ -22,10 +22,12 @@ exports.seed = async knex => {
       .first()
     if (!trainer) throw new Error(`Trainer ${trainerSlug} not found`)
     await knex('trainings_trainers').insert(
+      /* eslint-disable camelcase */
       trainings.map(({ id: training_id }) => ({
         training_id,
         trainer_id: trainer.id,
       })),
+      /* eslint-enable camelcase */
     )
   }
 

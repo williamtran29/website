@@ -193,19 +193,15 @@ const ContactForm = ({
 )
 
 const fetchContact = async values => {
-  try {
-    const result = await fetch('/api/contact', {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    })
-    if (result.statusCode !== 200) {
-      throw new Error('Error while fetching contact')
-    }
-  } catch (error) {
-    return Promise.reject(false)
+  const result = await fetch('/api/contact', {
+    method: 'post',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(values),
+  })
+  if (result.statusCode !== 200) {
+    throw new Error('Error while fetching contact')
   }
 
   return true
