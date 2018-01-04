@@ -28,7 +28,10 @@ export async function get(resource, query) {
 
 export async function getPosts(options) {
   const result = await get('posts', options)
-  return result.posts.map(post => new Post(post))
+  return {
+    ...result,
+    posts: result.posts.map(post => new Post(post)),
+  }
 }
 
 export async function getPost(slug, options) {
