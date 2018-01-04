@@ -25,7 +25,7 @@
     "db:reset": "yarn db:drop && yarn db:create && yarn db:load",
     "dev:client": "webpack-dev-server",
     "dev:server": "nodemon --watch src src/server/main.js",
-    "format": "prettier --write src/**/*.js *.js",
+    "format": "prettier --write \"**/*.{js,json}\"",
     "heroku-postbuild": "yarn build && yarn db:migrate",
     "generate-pdf": "NODE_ENV=production DATABASE_URL=$PRODUCTION_DATABASE_URL babel-node scripts/generatePdf.js",
     "lint": "eslint .",
