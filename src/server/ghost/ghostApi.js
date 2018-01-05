@@ -9,12 +9,18 @@ const credentials = {
   client_secret: config.get('ghost.clientSecret'),
 }
 
-export async function get(resource, query) {
+export async function get(resource, query = {}) {
+  const fields = Object.keys(query).reduce((accu, field) => {
+    if (query[field] !== undefined) {
+      return Object.assign(accu, { [field]: query[field] })
+    }
+    return accu
+  }, {})
   const url = formatUrl({
     protocol: 'https',
     hostname: config.get('ghost.host'),
     pathname: `/ghost/api/v0.1/${resource}/`,
-    query: { ...credentials, ...query },
+    query: { ...credentials, ...fields },
   })
 
   const result = await fetch(url, {
