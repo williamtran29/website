@@ -63,7 +63,9 @@ const CoverShadow = styled.div`
 export default graphql(gql`
   query {
     articles {
-      ...ArticleCard
+      posts {
+        ...ArticleCard
+      }
     }
   }
 
@@ -86,7 +88,7 @@ export default graphql(gql`
     </Cover>
     <Container>
       {data.articles ? (
-        data.articles.map(article => (
+        data.articles.posts.map(article => (
           <ArticleCard key={article.slug} article={article} featuring />
         ))
       ) : (
@@ -101,7 +103,7 @@ export default graphql(gql`
         {{
           '@context': 'http://schema.org',
           '@type': 'ItemList',
-          itemListElement: data.articles.map((article, index) => ({
+          itemListElement: data.articles.posts.map((article, index) => ({
             '@type': 'ListItem',
             position: index + 1,
             url: completeUrl(article.link),

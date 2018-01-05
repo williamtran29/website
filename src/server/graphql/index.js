@@ -139,6 +139,21 @@ export const schema = makeExecutableSchema({
       company: Company
     }
 
+    type Pagination {
+      page: Int!
+      limit: Int!
+      total: Int!
+    }
+
+    type Meta {
+      pagination: Pagination!
+    }
+
+    type ArticlesResult {
+      posts: [Article]!
+      meta:  Meta!
+    }
+
     type Query {
       training(slug: ID!): Training
       session(id: ID!): Session
@@ -147,7 +162,7 @@ export const schema = makeExecutableSchema({
       sessions: [Session]
       trainings: [Training]
 
-      articles: [Article]
+      articles: ArticlesResult!
       article(slug: ID!): Article
 
       testimonials: [Testimonial]
