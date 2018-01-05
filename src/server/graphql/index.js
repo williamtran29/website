@@ -162,7 +162,7 @@ export const schema = makeExecutableSchema({
       sessions: [Session]
       trainings: [Training]
 
-      articles: ArticlesResult!
+      articles(limit: Int, page: Int): ArticlesResult!
       article(slug: ID!): Article
 
       testimonials: [Testimonial]
@@ -227,10 +227,12 @@ export const rootValue = {
   },
 
   // Blog
-  async articles() {
+  async articles({ limit, page }) {
     return ghostApi.getPosts({
       status: 'published',
       include: 'author,tags',
+      limit,
+      page,
     })
   },
   async article({ slug }) {

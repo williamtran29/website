@@ -11,7 +11,7 @@ describe('ghostApi', () => {
     it('should return the posts and their total number', async () => {
       const result = await ghostApi.getPosts()
       expect(result.posts).toBeDefined()
-      expect(result.meta.pagination.total > 3).toBe(true)
+      expect(result.meta.pagination.total).toBeGreaterThan(5)
     })
   })
 })
