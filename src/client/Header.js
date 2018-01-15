@@ -164,7 +164,8 @@ const Header = compose(
         <NavLink
           href="https://github.com/smooth-code"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           <FaGitHub /> Open Source
         </NavLink>
         <RaisedNavLink href="tel:+33987022412">
