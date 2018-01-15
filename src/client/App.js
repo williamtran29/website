@@ -101,7 +101,7 @@ const App = ({ location }) => (
       />
       <Route
         exact
-        path={routePaths.articlesRoute()}
+        path={routePaths.articlesRoute(':slug')}
         component={Routes.Articles}
       />
       <Route

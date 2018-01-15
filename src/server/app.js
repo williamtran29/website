@@ -73,6 +73,10 @@ app.use(
       status: 301,
     },
     {
+      match: /^\/articles\/?$/,
+      redirect: '/articles/page-1',
+    },
+    {
       match: /^\/creer-app-mac-avec-script-shell/,
       redirect: '/articles/creer-app-mac-avec-script-shell',
     },

@@ -8,6 +8,7 @@ import Lead from 'modules/components/Lead'
 import JsonLd from 'modules/components/JsonLd'
 import Spinner from 'modules/components/Spinner'
 import ArticleCard from 'modules/components/ArticleCard'
+import Paging from 'modules/components/Paging'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
@@ -19,7 +20,7 @@ const Container = styled.div`
   flex: 1;
   max-width: 1034px;
   width: 100%;
-  margin: 30px auto 100px;
+  margin: 30px auto 0px;
   display: flex;
   flex-wrap: wrap;
 `
@@ -59,18 +60,30 @@ const CoverShadow = styled.div`
   background-image: linear-gradient(0, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
   z-index: 0;
 `
-
-export default graphql(gql`
-  query {
-    articles {
+const QUERY = gql`
+  query($slug: Int) {
+    articles(page: $slug, limit: 10) {
       posts {
         ...ArticleCard
+      }
+      meta {
+        pagination {
+          limit
+          page
+          total
+        }
       }
     }
   }
 
   ${articleCardFragment}
-`)(({ data }) => (
+`
+
+export default graphql(QUERY, {
+  options: ({ match }) => ({
+    variables: { slug: match.params.slug },
+  }),
+})(({ data }) => (
   <PageContainer>
     <Helmet>
       <title>Actualité et articles JavaScript</title>
@@ -87,6 +100,7 @@ export default graphql(gql`
       <Lead>Retrouvez toute l’actualité de JavaScript, React et GraphQL.</Lead>
     </Cover>
     <Container>
+      {console.log(`data : ${data.articles}`)}
       {data.articles ? (
         data.articles.posts.map(article => (
           <ArticleCard key={article.slug} article={article} featuring />
@@ -97,6 +111,13 @@ export default graphql(gql`
         </Loader>
       )}
     </Container>
+    {data.articles ? (
+      <Paging data={data} />
+    ) : (
+      <Loader>
+        <Spinner className="la-dark" />
+      </Loader>
+    )}
     <Footer />
     {data.articles && (
       <JsonLd>

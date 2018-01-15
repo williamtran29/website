@@ -28,7 +28,6 @@ export async function get(resource, query = {}) {
       Accept: 'application/json',
     },
   })
-
   return result.json()
 }
 

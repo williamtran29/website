@@ -225,15 +225,13 @@ const Footer = () => (
           <a
             href="https://github.com/smooth-code/"
             target="_blank"
-            rel="noopener noreferrer"
-          >
+            rel="noopener noreferrer">
             <FaGitHub />
           </a>
           <a
             href="https://twitter.com/smooth_code"
             target="_blank"
-            rel="noopener noreferrer"
-          >
+            rel="noopener noreferrer">
             <FaTwitter />
           </a>
           <FooterLogo />
