@@ -6,7 +6,7 @@ import theme from 'style/theme'
 import Logo from 'client/Logo'
 import {
   homeRoute,
-  articlesRoute,
+  latestArticlesRoute,
   conditionsRoute,
   legalNoticeRoute,
 } from 'modules/routePaths'
@@ -190,7 +190,7 @@ const Footer = () => (
               <Link to={homeRoute()}>Formations</Link>
             </li>
             <li>
-              <Link to={articlesRoute()}>Articles</Link>
+              <Link to={latestArticlesRoute()}>Articles</Link>
             </li>
             <li>
               <Link to={conditionsRoute()}>Conditions Générales de Vente</Link>

@@ -1,6 +1,6 @@
 import RSS from 'rss'
 import { run } from 'server/graphql'
-import { articlesRoute } from 'modules/routePaths'
+import { latestArticlesRoute } from 'modules/routePaths'
 import { completeUrl } from 'modules/urlUtil'
 import { absClUrl } from 'modules/cloudinary'
 
@@ -29,7 +29,7 @@ async function generateRss() {
     description: 'Actualité JavaScript, React et GraphQL.',
     generator: 'Smooth Code',
     feed_url: completeUrl('/feed.xml'),
-    site_url: completeUrl(articlesRoute()),
+    site_url: completeUrl(latestArticlesRoute()),
     image_url: absClUrl('ujjxt9mthnloobzvxfpa', 'q_auto'),
     managingEditor: 'contact@smooth-code.com',
     language: 'fr',

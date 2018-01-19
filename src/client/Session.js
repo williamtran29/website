@@ -354,7 +354,7 @@ const NextSession = styled(({ siblings = [], session, className }) => {
 `
 
 const CARD_QUERY = gql`
-  query ($id: ID!) {
+  query($id: ID!) {
     sessionCard: session(id: $id) {
       ...SessionCard
     }
@@ -364,7 +364,7 @@ const CARD_QUERY = gql`
 `
 
 const COMPLETE_QUERY = gql`
-  query ($id: ID!) {
+  query($id: ID!) {
     session(id: $id) {
       id
       link
@@ -403,11 +403,11 @@ const COMPLETE_QUERY = gql`
         }
       }
 
-      ... SessionLd
+      ...SessionLd
     }
 
     siblings: sessions {
-      ... SessionCard
+      ...SessionCard
     }
   }
 

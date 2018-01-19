@@ -7,7 +7,7 @@ import FaBars from 'react-icons/lib/fa/bars'
 import FaGitHub from 'react-icons/lib/fa/github'
 import theme from 'style/theme'
 import Logo from 'client/Logo'
-import { homeRoute, articlesRoute } from 'modules/routePaths'
+import { homeRoute, latestArticlesRoute } from 'modules/routePaths'
 import FaPhone from 'react-icons/lib/fa/phone'
 
 const Nav = styled.nav`
@@ -160,7 +160,7 @@ const Header = compose(
             )
           }
         </Route>
-        <RouterNavLink to={articlesRoute()}>Articles</RouterNavLink>
+        <RouterNavLink to={latestArticlesRoute()}>Articles</RouterNavLink>
         <NavLink
           href="https://github.com/smooth-code"
           target="_blank"

@@ -9,13 +9,17 @@ const credentials = {
   client_secret: config.get('ghost.clientSecret'),
 }
 
+const filterUndefinedValues = object =>
+  Object.keys(object).reduce(
+    (result, field) =>
+      object[field] !== undefined
+        ? { ...result, [field]: object[field] }
+        : result,
+    {},
+  )
+
 export async function get(resource, query = {}) {
-  const fields = Object.keys(query).reduce((accu, field) => {
-    if (query[field] !== undefined) {
-      return Object.assign(accu, { [field]: query[field] })
-    }
-    return accu
-  }, {})
+  const fields = filterUndefinedValues(query)
   const url = formatUrl({
     protocol: 'https',
     hostname: config.get('ghost.host'),

@@ -90,7 +90,7 @@ export const sessionLdFragment = gql`
       color
       price
       trainers {
-        ... TrainerLd
+        ...TrainerLd
       }
     }
     location {
