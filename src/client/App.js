@@ -99,21 +99,20 @@ const App = ({ location }) => (
         path={routePaths.trainerRoute(':slug')}
         component={Routes.Trainer}
       />
-      <Switch>
-        <Redirect
-          from={routePaths.articlesRoute(1)}
-          to={routePaths.latestArticlesRoute()}
-        />
-        <Route
-          exact
-          path={routePaths.latestArticlesRoute()}
-          component={Routes.Articles}
-        />
-        <Route
-          path={routePaths.articlesRoute(':page')}
-          component={Routes.Articles}
-        />
-      </Switch>
+      <Redirect
+        from={routePaths.articlesRoute(1)}
+        to={routePaths.latestArticlesRoute()}
+      />
+      <Route
+        exact
+        path={routePaths.latestArticlesRoute()}
+        component={Routes.Articles}
+      />
+      <Route
+        exact
+        path={routePaths.articlesRoute(':page')}
+        component={Routes.Articles}
+      />
       <Route
         path={routePaths.articleRoute(':slug')}
         component={Routes.Article}
