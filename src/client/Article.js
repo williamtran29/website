@@ -288,7 +288,7 @@ const SessionCards = styled.div`
 `
 
 const CARD_QUERY = gql`
-  query ($slug: ID!) {
+  query($slug: ID!) {
     article(slug: $slug) {
       ...ArticleCard
     }
@@ -298,7 +298,7 @@ const CARD_QUERY = gql`
 `
 
 const COMPLETE_QUERY = gql`
-  query ($slug: ID!) {
+  query($slug: ID!) {
     article(slug: $slug) {
       id
       slug

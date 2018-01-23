@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import 'style/bootstrap'
 import React from 'react'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import * as Routes from 'client/Routes'
 import * as routePaths from 'modules/routePaths'
@@ -99,11 +99,21 @@ const App = ({ location }) => (
         path={routePaths.trainerRoute(':slug')}
         component={Routes.Trainer}
       />
-      <Route
-        exact
-        path={routePaths.articlesRoute()}
-        component={Routes.Articles}
-      />
+      <Switch>
+        <Redirect
+          from={routePaths.articlesRoute(1)}
+          to={routePaths.latestArticlesRoute()}
+        />
+        <Route
+          exact
+          path={routePaths.latestArticlesRoute()}
+          component={Routes.Articles}
+        />
+        <Route
+          path={routePaths.articlesRoute(':page')}
+          component={Routes.Articles}
+        />
+      </Switch>
       <Route
         path={routePaths.articleRoute(':slug')}
         component={Routes.Article}

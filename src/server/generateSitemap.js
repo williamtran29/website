@@ -22,8 +22,10 @@ async function generateSitemap() {
         link
       }
       articles {
-        link
-        updated_at
+        posts {
+          link
+          updated_at
+        }
       }
     }
   `)
@@ -40,7 +42,7 @@ async function generateSitemap() {
           changefreq: 'weekly',
           priority: 0.9,
         })),
-        ...data.articles.map(article => ({
+        ...data.articles.posts.map(article => ({
           url: article.link,
           lastmodISO: article.updated_at,
           changefreq: 'weekly',

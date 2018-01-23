@@ -8,18 +8,20 @@ import Lead from 'modules/components/Lead'
 import JsonLd from 'modules/components/JsonLd'
 import Spinner from 'modules/components/Spinner'
 import ArticleCard from 'modules/components/ArticleCard'
+import Paginator from 'modules/components/Paginator'
 import PageContainer from 'client/PageContainer'
 import Header from 'client/Header'
 import Footer from 'client/Footer'
 import { clUrl } from 'modules/cloudinary'
 import { completeUrl } from 'modules/urlUtil'
 import { articleCardFragment } from 'modules/queries'
+import { articlesRoute, latestArticlesRoute } from 'modules/routePaths'
 
 const Container = styled.div`
   flex: 1;
   max-width: 1034px;
   width: 100%;
-  margin: 30px auto 100px;
+  margin: 30px auto 0px;
   display: flex;
   flex-wrap: wrap;
 `
@@ -59,55 +61,87 @@ const CoverShadow = styled.div`
   background-image: linear-gradient(0, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
   z-index: 0;
 `
-
-export default graphql(gql`
-  query {
-    articles {
-      ...ArticleCard
+const QUERY = gql`
+  query($page: Int) {
+    articles(page: $page, limit: 10) {
+      posts {
+        ...ArticleCard
+      }
+      meta {
+        pagination {
+          limit
+          page
+          total
+        }
+      }
     }
   }
 
   ${articleCardFragment}
-`)(({ data }) => (
-  <PageContainer>
-    <Helmet>
-      <title>Actualité et articles JavaScript</title>
-      <meta
-        name="description"
-        content="Retrouvez toute l’actualité de JavaScript, React et GraphQL avec Smooth Code."
-      />
-      <meta property="og:title" content="Les articles Smooth Code" />
-    </Helmet>
-    <Header transparent />
-    <Cover>
-      <CoverShadow />
-      <MainTitle>Nos articles</MainTitle>
-      <Lead>Retrouvez toute l’actualité de JavaScript, React et GraphQL.</Lead>
-    </Cover>
-    <Container>
+`
+
+export default graphql(QUERY, {
+  options: ({ match }) => ({
+    variables: { page: Number(match.params.page || 1) },
+  }),
+})(({ data }) => {
+  const route = pageIndex =>
+    pageIndex === 1 ? latestArticlesRoute() : articlesRoute(pageIndex)
+  return (
+    <PageContainer>
+      <Helmet>
+        <title>Actualité et articles JavaScript</title>
+        <meta
+          name="description"
+          content="Retrouvez toute l’actualité de JavaScript, React et GraphQL avec Smooth Code."
+        />
+        <meta property="og:title" content="Les articles Smooth Code" />
+      </Helmet>
+      <Header transparent />
+      <Cover>
+        <CoverShadow />
+        <MainTitle>Nos articles</MainTitle>
+        <Lead>
+          Retrouvez toute l’actualité de JavaScript, React et GraphQL.
+        </Lead>
+      </Cover>
+      <Container>
+        {data.articles ? (
+          data.articles.posts.map(article => (
+            <ArticleCard key={article.slug} article={article} featuring />
+          ))
+        ) : (
+          <Loader>
+            <Spinner className="la-dark" />
+          </Loader>
+        )}
+      </Container>
       {data.articles ? (
-        data.articles.map(article => (
-          <ArticleCard key={article.slug} article={article} featuring />
-        ))
+        <Paginator
+          itemPerPage={data.articles.meta.pagination.limit}
+          currentPage={data.articles.meta.pagination.page}
+          itemCount={data.articles.meta.pagination.total}
+          route={route}
+        />
       ) : (
         <Loader>
           <Spinner className="la-dark" />
         </Loader>
       )}
-    </Container>
-    <Footer />
-    {data.articles && (
-      <JsonLd>
-        {{
-          '@context': 'http://schema.org',
-          '@type': 'ItemList',
-          itemListElement: data.articles.map((article, index) => ({
-            '@type': 'ListItem',
-            position: index + 1,
-            url: completeUrl(article.link),
-          })),
-        }}
-      </JsonLd>
-    )}
-  </PageContainer>
-))
+      <Footer />
+      {data.articles && (
+        <JsonLd>
+          {{
+            '@context': 'http://schema.org',
+            '@type': 'ItemList',
+            itemListElement: data.articles.posts.map((article, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              url: completeUrl(article.link),
+            })),
+          }}
+        </JsonLd>
+      )}
+    </PageContainer>
+  )
+})
