@@ -119,7 +119,7 @@ const CourseContent = Markdown.extend`
 
 const withTraining = graphql(
   gql`
-    query trainingData($slug: ID!) {
+    query trainingData($slug: String!) {
       training(slug: $slug) {
         slug
         title

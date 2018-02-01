@@ -2,7 +2,7 @@
 
 exports[`SecondaryTitle should render a h2 1`] = `
 <h2
-  className="SecondaryTitle-s1o6tp06-0 irQbez"
+  className="SecondaryTitle-s1xe5dts-0 jyEaKI"
 >
   Hello
 </h2>

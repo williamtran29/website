@@ -6,17 +6,8 @@ import { Helmet } from 'react-helmet'
 import * as Routes from 'client/Routes'
 import * as routePaths from 'modules/routePaths'
 import { completeUrl } from 'modules/urlUtil'
+import { Status } from 'modules/reactRouter'
 
-const Status = ({ code, children }) => (
-  <Route
-    render={({ staticContext }) => {
-      /* eslint-disable no-param-reassign */
-      if (staticContext) staticContext.status = code
-      /* eslint-enable no-param-reassign */
-      return children
-    }}
-  />
-)
 
 const App = ({ location }) => (
   <div>

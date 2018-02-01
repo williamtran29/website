@@ -71,7 +71,7 @@ const ArticleListContainer = styled.div`
 `
 
 const QUERY = gql`
-  query trainer($slug: ID!) {
+  query trainer($slug: String!) {
     trainer(slug: $slug) {
       slug
       fullName

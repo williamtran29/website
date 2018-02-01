@@ -35,7 +35,7 @@ export const schema = makeExecutableSchema({
 
     type Training {
       id: ID!
-      slug: ID!
+      slug: String!
       updatedAt: DateTime
       title: String
       abstract: String
@@ -57,7 +57,8 @@ export const schema = makeExecutableSchema({
     }
 
     type Trainer {
-      slug: ID!
+      id: ID!
+      slug: String!
       fullName: String
       description: String
       picture: String
@@ -81,14 +82,14 @@ export const schema = makeExecutableSchema({
     }
 
     type Image {
-      url: ID!
+      url: String!
       width: Int
       height: Int
     }
 
     type Article {
       id: ID!
-      slug: ID!
+      slug: String!
       title: String
       html: String
       feature_image: Image
@@ -109,7 +110,7 @@ export const schema = makeExecutableSchema({
     }
 
     type Author {
-      slug: ID!
+      slug: String!
       name: String
       profile_image: Image
       twitter: String
@@ -118,7 +119,7 @@ export const schema = makeExecutableSchema({
     }
 
     type Tag {
-      slug: ID!
+      slug: String!
       name: String
     }
 
@@ -155,15 +156,15 @@ export const schema = makeExecutableSchema({
     }
 
     type Query {
-      training(slug: ID!): Training
+      training(slug: String!): Training
       session(id: ID!): Session
-      trainer(slug: ID!): Trainer
+      trainer(slug: String!): Trainer
 
       sessions: [Session]
       trainings: [Training]
 
       articles(limit: Int, page: Int): ArticlesResult!
-      article(slug: ID!): Article
+      article(slug: String!): Article
 
       testimonials: [Testimonial]
     }
@@ -181,6 +182,7 @@ export const rootValue = {
     )
   },
   async session({ id }, obj, context) {
+    if (!Number.isInteger(Number(id))) return null
     const session = await enhanceQuery(
       TrainingSession.query()
         .where({ 'training_sessions.id': id })

@@ -41,9 +41,11 @@ export default class Trainer extends BaseModel {
   }
 
   async articles() {
-    return ghostApi.getPosts({
+    const articles = await ghostApi.getPosts({
       filter: `author:${this.slug}`,
       include: 'author,tags',
     })
+
+    return articles.posts
   }
 }

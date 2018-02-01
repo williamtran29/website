@@ -2,7 +2,7 @@
 
 exports[`Alert should render a div 1`] = `
 <div
-  className="Alert-jnx1ih-0 dumxOA"
+  className="Alert-vc760a-0 bgOmeP"
 >
   Hello
 </div>
@@ -10,7 +10,7 @@ exports[`Alert should render a div 1`] = `
 
 exports[`Alert should render with ui: success 1`] = `
 <div
-  className="Alert-jnx1ih-0 bOuUyQ"
+  className="Alert-vc760a-0 hDyBgs"
 >
   Hello
 </div>

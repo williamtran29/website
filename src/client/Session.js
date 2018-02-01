@@ -354,7 +354,7 @@ const NextSession = styled(({ siblings = [], session, className }) => {
 `
 
 const CARD_QUERY = gql`
-  query($id: ID!) {
+  query SessionCardQuery($id: ID!) {
     sessionCard: session(id: $id) {
       ...SessionCard
     }
@@ -364,7 +364,7 @@ const CARD_QUERY = gql`
 `
 
 const COMPLETE_QUERY = gql`
-  query($id: ID!) {
+  query SessionQuery($id: ID!) {
     session(id: $id) {
       id
       link
@@ -381,6 +381,7 @@ const COMPLETE_QUERY = gql`
         zipcode
       }
       training {
+        id
         slug
         title
         abstract
@@ -395,6 +396,7 @@ const COMPLETE_QUERY = gql`
           content
         }
         trainers {
+          id
           slug
           fullName
           description
@@ -417,6 +419,7 @@ const COMPLETE_QUERY = gql`
 
 const options = ({ match }) => ({
   variables: { id: match.params.sessionId },
+  fetchPolicy: 'cache-and-network',
 })
 
 export default compose(
@@ -484,33 +487,30 @@ export default compose(
           <OnlyPrintSection>
             <SidebarSection>
               <SidebarSectionTitle>Prix</SidebarSectionTitle>
-              <SidebarSectionText>
-                {sessionCard.training.price}€
-              </SidebarSectionText>
+              <SidebarSectionText>{session.training.price}€</SidebarSectionText>
             </SidebarSection>
             <SidebarSection>
               <SidebarSectionTitle>Dates</SidebarSectionTitle>
               <SidebarSectionText>
                 {intersperse(
-                  getDatesBetween(
-                    sessionCard.startDate,
-                    sessionCard.endDate,
-                  ).map(date => (
-                    <div key={date.toString()}>
-                      {moment(date).format('DD/MM')} | 9h30 - 17h30
-                    </div>
-                  )),
+                  getDatesBetween(session.startDate, session.endDate).map(
+                    date => (
+                      <div key={date.toString()}>
+                        {moment(date).format('DD/MM')} | 9h30 - 17h30
+                      </div>
+                    ),
+                  ),
                 )}
               </SidebarSectionText>
             </SidebarSection>
             <SidebarSection>
               <SidebarSectionTitle>Lieu</SidebarSectionTitle>
               <SidebarSectionText>
-                {sessionCard.location.name}
+                {session.location.name}
                 <br />
-                {sessionCard.location.address}
+                {session.location.address}
                 <br />
-                {sessionCard.location.zipcode} {sessionCard.location.city}
+                {session.location.zipcode} {session.location.city}
               </SidebarSectionText>
             </SidebarSection>
           </OnlyPrintSection>
@@ -540,8 +540,8 @@ export default compose(
           </Section>
           <Section>
             <SectionTitle>Votre formateur</SectionTitle>
-            {session.training.trainers.map(trainer => (
-              <TrainerCardContainer key={trainer.slug}>
+            {session.training.trainers.map((trainer, index) => (
+              <TrainerCardContainer key={index}>
                 <TrainerCard {...trainer} />
               </TrainerCardContainer>
             ))}
@@ -571,19 +571,18 @@ export default compose(
                           S’inscrire
                         </ScrollLinkButton>
                       ) : (
-                        [
-                          <Full key="full">
+                        <React.Fragment>
+                          <Full>
                             <span role="img" aria-label="Attention">
                               😓
                             </span>{' '}
                             Complet
-                          </Full>,
+                          </Full>
                           <NextSession
-                            key="next"
                             siblings={siblings}
                             session={sessionCard}
-                          />,
-                        ]
+                          />
+                        </React.Fragment>
                       )}
                     </PriceBlock>
                   </SidebarSection>

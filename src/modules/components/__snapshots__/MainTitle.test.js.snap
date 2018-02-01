@@ -2,7 +2,7 @@
 
 exports[`MainTitle should render a h1 1`] = `
 <h1
-  className="MainTitle-s16cs97g-0 fJrOuI"
+  className="MainTitle-t06k78-0 fhKEiU"
 >
   Hello
 </h1>
