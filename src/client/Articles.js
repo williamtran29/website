@@ -14,6 +14,8 @@ import Header from 'client/Header'
 import Footer from 'client/Footer'
 import { clUrl } from 'modules/cloudinary'
 import { completeUrl } from 'modules/urlUtil'
+import { Status } from 'modules/reactRouter'
+import { NoMatch } from 'client/Routes'
 import { articleCardFragment } from 'modules/queries'
 import { articlesRoute, latestArticlesRoute } from 'modules/routePaths'
 
@@ -85,6 +87,18 @@ export default graphql(QUERY, {
     variables: { page: Number(match.params.page || 1) },
   }),
 })(({ data }) => {
+  if (
+    data &&
+    data.articles &&
+    data.articles.posts &&
+    data.articles.posts.length === 0
+  )
+    return (
+      <Status code={404}>
+        <NoMatch />
+      </Status>
+    )
+
   const route = pageIndex =>
     pageIndex === 1 ? latestArticlesRoute() : articlesRoute(pageIndex)
   return (

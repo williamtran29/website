@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import theme from 'style/theme'
+import { Status } from 'modules/reactRouter'
 import moment from 'modules/moment'
 import Disqus from 'modules/components/Disqus'
 import JsonLd from 'modules/components/JsonLd'
@@ -17,6 +18,7 @@ import { clUrl } from 'modules/cloudinary'
 import { completeUrl } from 'modules/urlUtil'
 import compose from 'recompact/compose'
 import SessionCard from 'modules/components/SessionCard'
+import { NoMatch } from 'client/Routes'
 import { articleCardFragment, sessionCardFragment } from 'modules/queries'
 import { validSessions } from 'modules/sessionUtil'
 
@@ -288,7 +290,7 @@ const SessionCards = styled.div`
 `
 
 const CARD_QUERY = gql`
-  query($slug: ID!) {
+  query($slug: String!) {
     article(slug: $slug) {
       ...ArticleCard
     }
@@ -298,7 +300,7 @@ const CARD_QUERY = gql`
 `
 
 const COMPLETE_QUERY = gql`
-  query($slug: ID!) {
+  query($slug: String!) {
     article(slug: $slug) {
       id
       slug
@@ -356,11 +358,17 @@ export default compose(
     name: 'completeData',
     options,
   }),
-)(
-  ({
-    cardData: { article: articleCard },
-    completeData: { article, sessions },
-  }) => (
+)(({ cardData, completeData: { article, sessions } }) => {
+  if (cardData.loading === false && !cardData.article)
+    return (
+      <Status code={404}>
+        <NoMatch />
+      </Status>
+    )
+
+  const { article: articleCard } = cardData
+
+  return (
     <PageContainer>
       {article && (
         <Helmet>
@@ -537,5 +545,5 @@ export default compose(
         </JsonLd>
       )}
     </PageContainer>
-  ),
-)
+  )
+})

@@ -45,6 +45,7 @@ export async function getPosts(options) {
 
 export async function getPost(slug, options) {
   const result = await get(`posts/slug/${slug}`, options)
+  if (!result.posts) return null
   return new Post(result.posts[0])
 }
 

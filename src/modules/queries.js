@@ -15,6 +15,7 @@ export const sessionCardFragment = gql`
       city
     }
     training {
+      id
       slug
       title
       abstract
