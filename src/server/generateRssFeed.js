@@ -8,17 +8,19 @@ async function generateRss() {
   const data = await run(/* GraphQL */ `
     {
       articles {
-        title
-        link
-        published_at
-        author {
-          name
-        }
-        tags {
-          name
-        }
-        feature_image {
-          url
+        posts {
+          title
+          link
+          published_at
+          author {
+            name
+          }
+          tags {
+            name
+          }
+          feature_image {
+            url
+          }
         }
       }
     }
@@ -35,7 +37,7 @@ async function generateRss() {
     language: 'fr',
   })
 
-  data.articles.forEach(article =>
+  data.articles.posts.forEach(article =>
     feed.item({
       title: article.title,
       description: article.custom_excerpt,
