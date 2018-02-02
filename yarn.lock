@@ -5177,9 +5177,11 @@ load-json-file@^2.0.0:
     pify "^2.0.0"
     strip-bom "^3.0.0"
 
-loadable-components@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/loadable-components/-/loadable-components-0.4.0.tgz#4470107bfaf02cc2278a3fc0d4040899f7afd10e"
+loadable-components@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/loadable-components/-/loadable-components-1.0.0.tgz#010a844ba3be7825720c37337303719e17ed4eb6"
+  dependencies:
+    babel-plugin-syntax-dynamic-import "^6.18.0"
 
 loader-runner@^2.3.0:
   version "2.3.0"
@@ -5890,9 +5892,9 @@ node-zopfli@^2.0.2:
     nan "^2.0.0"
     node-pre-gyp "^0.6.4"
 
-nodemon@^1.14.11:
-  version "1.14.11"
-  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.14.11.tgz#cc0009dd8d82f126f3aba50ace7e753827a8cebc"
+nodemon@^1.14.12:
+  version "1.14.12"
+  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.14.12.tgz#fe059424b15ebdb107696287a558d9cf53a63999"
   dependencies:
     chokidar "^2.0.0"
     debug "^3.1.0"

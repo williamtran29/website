@@ -49,7 +49,15 @@ module.exports = {
               ],
             ],
             plugins: [
-              'syntax-dynamic-import',
+              [
+                "module-resolver",
+                {
+                  "root": [
+                    "./src"
+                  ]
+                }
+              ],
+              'loadable-components/babel',
               'transform-object-rest-spread',
               'transform-class-properties',
               ['lodash', { id: 'recompact' }],

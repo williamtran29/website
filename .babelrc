@@ -24,6 +24,7 @@
     ["styled-components", {
       "ssr": true,
     }],
+    "loadable-components/babel",
     "dynamic-import-node",
     "transform-object-rest-spread",
     "transform-class-properties"
