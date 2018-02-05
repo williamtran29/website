@@ -89,6 +89,7 @@ const ContactForm = ({
   messageLabel = 'Commentaire',
   submitLabel = 'Envoyer',
   success,
+  pending,
 }) => (
   <StyledForm className={className} onSubmit={onSubmit} model="forms.contact">
     <AlertMessage />
@@ -184,7 +185,7 @@ const ContactForm = ({
             />
           </FormGroup>
         </FormRow>
-        <Button type="submit" style={{ marginTop: 20 }}>
+        <Button type="submit" style={{ marginTop: 20 }} disabled={pending}>
           {submitLabel}
         </Button>
       </div>
@@ -200,7 +201,8 @@ const fetchContact = async values => {
     },
     body: JSON.stringify(values),
   })
-  if (result.statusCode !== 200) {
+
+  if (result.status !== 200) {
     throw new Error('Error while fetching contact')
   }
 
@@ -210,6 +212,7 @@ const fetchContact = async values => {
 export default recompact.compose(
   connect(
     state => ({
+      pending: state.forms.forms.contact.$form.pending,
       success: state.forms.forms.contact.$form.validity === true,
     }),
     (dispatch, props) => ({

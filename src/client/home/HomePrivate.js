@@ -73,7 +73,7 @@ const HomePrivate = () => (
             situation.
           </p>
         </Lead>
-        <BaseLinkButton href="mailto:contact@smooth-code.com?subject=Demande%20de%20devis&body=Bonjour%2C%0A%0AJe%20suis%20int%E9ress%E9%28e%29%20par...">
+        <BaseLinkButton href="mailto:contact@smooth-code.com?subject=Demande%20de%20devis&body=Bonjour%20je%20suis%20intéressé%20par...">
           Obtenir un devis sur mesure
         </BaseLinkButton>
       </Text>

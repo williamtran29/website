@@ -549,7 +549,11 @@ export default compose(
           {session.inStock && (
             <ContactSection id="contact">
               <SectionTitle>Formulaire d’inscription</SectionTitle>
-              <ContactForm />
+              <ContactForm
+                subject={`Formation ${session.training.title} du ${moment(
+                  session.startDate,
+                ).format('DD/MM/YYYY')} @ smooth-code.com`}
+              />
             </ContactSection>
           )}
         </Content>
