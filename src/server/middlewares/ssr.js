@@ -72,7 +72,7 @@ export default () => async ctx => {
   }
 
   if (context.url) {
-    ctx.status = 301
+    ctx.status = context.status || 301
     ctx.redirect(context.url)
     return
   }

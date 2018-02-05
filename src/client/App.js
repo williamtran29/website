@@ -8,7 +8,6 @@ import * as routePaths from 'modules/routePaths'
 import { completeUrl } from 'modules/urlUtil'
 import { Status } from 'modules/reactRouter'
 
-
 const App = ({ location }) => (
   <div>
     <Helmet defaultTitle="Smooth Code - Formations JavaScript, React et GraphQL">
@@ -74,6 +73,11 @@ const App = ({ location }) => (
         exact
         path={routePaths.trainingPrintRoute(':slug')}
         component={Routes.TrainingPrint}
+      />
+      <Route
+        exact
+        path={routePaths.trainingRoute(':slug')}
+        component={Routes.Training}
       />
       <Route
         exact
