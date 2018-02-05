@@ -33,6 +33,10 @@ export default class Training extends BaseModel {
         from: 'trainings.id',
         to: 'training_sessions.training_id',
       },
+      modify: builder =>
+        builder
+          .whereRaw("training_sessions.start_date > now() + interval '1 day'")
+          .orderBy('training_sessions.start_date', 'asc'),
     },
     trainers: {
       relation: BaseModel.ManyToManyRelation,
