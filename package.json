@@ -13,11 +13,12 @@
     "build:client": "rm -rf public/dist && webpack",
     "build-storybook": "build-storybook",
     "ci": "yarn lint && NODE_ENV=test yarn db:load && yarn test",
-    "db:console": "docker-compose run postgres psql --host postgres --username postgres",
-    "db:create": "babel-node scripts/db/create.js",
-    "db:drop": "babel-node scripts/db/drop.js",
-    "db:dump": "babel-node scripts/db/dump.js",
-    "db:load": "babel-node scripts/db/load.js",
+    "db:console":
+      "docker-compose run postgres psql --host postgres --username postgres",
+    "db:create": "knex-scripts create",
+    "db:drop": "knex-scripts drop",
+    "db:dump": "knex-scripts dump",
+    "db:load": "knex-scripts load",
     "db:migrate": "babel-node node_modules/.bin/knex migrate:latest",
     "db:rollback": "babel-node node_modules/.bin/knex migrate:rollback",
     "db:truncate": "babel-node scripts/db/truncate.js",
@@ -27,7 +28,8 @@
     "dev:server": "nodemon --watch src src/server/main.js",
     "format": "prettier --write src/**/*.js *.js",
     "heroku-postbuild": "yarn build && yarn db:migrate",
-    "generate-pdf": "NODE_ENV=production DATABASE_URL=$PRODUCTION_DATABASE_URL babel-node scripts/generatePdf.js",
+    "generate-pdf":
+      "NODE_ENV=production DATABASE_URL=$PRODUCTION_DATABASE_URL babel-node scripts/generatePdf.js",
     "lint": "eslint .",
     "storybook": "start-storybook -p 6006",
     "test": "jest --runInBand --forceExit"
@@ -135,6 +137,7 @@
     "eslint-plugin-react": "^7.6.1",
     "factory-girl": "^5.0.2",
     "jest": "^22.1.4",
+    "knex-scripts": "^0.0.1",
     "nock": "^9.1.6",
     "nodemon": "^1.14.12",
     "prettier": "^1.10.2",
@@ -147,16 +150,9 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "modulePaths": [
-      "<rootDir>/src"
-    ],
+    "roots": ["<rootDir>/src"],
+    "modulePaths": ["<rootDir>/src"],
     "coverageDirectory": "./coverage/",
-    "setupFiles": [
-      "raf/polyfill",
-      "<rootDir>/src/test/setup.js"
-    ]
+    "setupFiles": ["raf/polyfill", "<rootDir>/src/test/setup.js"]
   }
 }

@@ -4,6 +4,9 @@ const maxConnectionsAllowed = 20
 const freeConnectionsForThierdTools = 2
 
 const config = {
+  knexScripts: {
+    docker: process.env.TRAVIS !== 'true',
+  },
   development: {
     debug: false,
     client: 'postgresql',

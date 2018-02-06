@@ -1,11 +1,12 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { truncate } from 'knex-scripts'
+import knex from 'knex'
 import * as database from 'server/services/database'
-import { truncateAll } from 'server/dbUtils'
+import knexConfig from '../../../knexfile'
 
 function useDatabase() {
-  let knex
-
   beforeAll(async () => {
-    knex = database.connect()
+    database.connect()
   })
 
   afterAll(async () => {
@@ -13,7 +14,7 @@ function useDatabase() {
   })
 
   beforeEach(async () => {
-    await truncateAll(knex)
+    await truncate({ getKnex: () => knex(knexConfig.test) })
   })
 }
 
