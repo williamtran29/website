@@ -142,6 +142,22 @@ const withTraining = graphql(
   },
 )
 
+const pedagogy = `La formation est animée en présentiel par un formateur Smooth Code
+qui alterne entre explications théoriques et exercices
+d’application. Les exercices font partie d’un projet de
+développement qui permet aux participants de mettre pratique les
+nouveautés présentées. Le support de cours au format PDF est
+partagé avec les participants au premier jour. Le formateur
+présente les supports de cours grâce à un vidéoprojecteur.
+
+Suite à la formation, une attestion sanctionnant l’acquisition des
+compétences visées est envoyée aux participants.`
+
+const prerequisites = `
+  - Les participants doivent maitriser des bases de la programmation JavaScript.
+  - Les participants doivent venir avec leur ordinateur.
+`
+
 const TrainingPrint = ({ data: { training } }) =>
   training ? (
     <PageContainer>
@@ -186,6 +202,14 @@ const TrainingPrint = ({ data: { training } }) =>
               </Course>
             ))}
           </Courses>
+        </Section>
+        <Section>
+          <SectionTitle>Pédagogie et Évaluation</SectionTitle>
+          <Markdown source={pedagogy} />
+        </Section>
+        <Section>
+          <SectionTitle>Prérequis</SectionTitle>
+          <Markdown source={prerequisites} />
         </Section>
         <Footer>
           <Separator style={{ width: 250, margin: '10px auto' }} />
