@@ -13,8 +13,7 @@
     "build:client": "rm -rf public/dist && webpack",
     "build-storybook": "build-storybook",
     "ci": "yarn lint && NODE_ENV=test yarn db:load && yarn test",
-    "db:console":
-      "docker-compose run postgres psql --host postgres --username postgres",
+    "db:console": "docker-compose run postgres psql --host postgres --username postgres",
     "db:create": "knex-scripts create",
     "db:drop": "knex-scripts drop",
     "db:dump": "knex-scripts dump",
@@ -28,8 +27,7 @@
     "dev:server": "nodemon --watch src src/server/main.js",
     "format": "prettier --write src/**/*.js *.js",
     "heroku-postbuild": "yarn build && yarn db:migrate",
-    "generate-pdf":
-      "NODE_ENV=production DATABASE_URL=$PRODUCTION_DATABASE_URL babel-node scripts/generatePdf.js",
+    "generate-pdf": "NODE_ENV=production DATABASE_URL=$PRODUCTION_DATABASE_URL babel-node scripts/generatePdf.js",
     "lint": "eslint .",
     "storybook": "start-storybook -p 6006",
     "test": "jest --runInBand --forceExit"
@@ -99,7 +97,7 @@
     "react-dom": "^16.2.0",
     "react-ga": "^2.4.1",
     "react-helmet": "^5.2.0",
-    "react-hot-loader": "4.0.0-beta.22",
+    "react-hot-loader": "4.0.0",
     "react-icons": "^2.2.7",
     "react-lazyload": "^2.2.7",
     "react-markdown": "^3.1.5",
@@ -150,9 +148,16 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "roots": ["<rootDir>/src"],
-    "modulePaths": ["<rootDir>/src"],
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "modulePaths": [
+      "<rootDir>/src"
+    ],
     "coverageDirectory": "./coverage/",
-    "setupFiles": ["raf/polyfill", "<rootDir>/src/test/setup.js"]
+    "setupFiles": [
+      "raf/polyfill",
+      "<rootDir>/src/test/setup.js"
+    ]
   }
 }

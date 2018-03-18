@@ -3856,6 +3856,10 @@ hoist-non-react-statics@^2.2.0, hoist-non-react-statics@^2.2.1, hoist-non-react-
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
 
+hoist-non-react-statics@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -6949,13 +6953,13 @@ react-helmet@^5.2.0:
     prop-types "^15.5.4"
     react-side-effect "^1.1.0"
 
-react-hot-loader@4.0.0-beta.22:
-  version "4.0.0-beta.22"
-  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.0.0-beta.22.tgz#a0596395dc46c416c52ea9c7565bd2e8ff3ca964"
+react-hot-loader@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.0.0.tgz#3452fa9bc0d0ba9dfc5b0ccfa25101ca8dbd2de2"
   dependencies:
     fast-levenshtein "^2.0.6"
     global "^4.3.0"
-    hoist-non-react-statics "^2.3.1"
+    hoist-non-react-statics "^2.5.0"
     prop-types "^15.6.0"
     shallowequal "^1.0.2"
 
