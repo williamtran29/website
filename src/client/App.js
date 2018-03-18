@@ -3,6 +3,7 @@ import 'style/bootstrap'
 import React from 'react'
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import { hot } from 'react-hot-loader'
 import * as Routes from 'client/Routes'
 import * as routePaths from 'modules/routePaths'
 import { completeUrl } from 'modules/urlUtil'
@@ -129,4 +130,4 @@ const App = ({ location }) => (
 
 const AppWithRouter = withRouter(App)
 
-export default AppWithRouter
+export default hot(module)(AppWithRouter)
