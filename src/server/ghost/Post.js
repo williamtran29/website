@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { articleRoute } from 'modules/routePaths'
+import { articleRoute } from 'shared/routePaths'
 import Author from 'server/ghost/Author'
 import Image from 'server/ghost/Image'
 

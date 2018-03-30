@@ -1,4 +1,4 @@
-import imageSize from 'modules/imageSize'
+import { getSize } from 'server/utils/image'
 
 class Image {
   constructor(url) {
@@ -7,7 +7,7 @@ class Image {
 
   async getDimensions() {
     if (this.dimensions) return this.dimensions
-    this.dimensions = imageSize(this.url)
+    this.dimensions = getSize(this.url)
     return this.dimensions
   }
 

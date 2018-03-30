@@ -1,5 +1,6 @@
 import path from 'path'
 import convict from 'convict'
+import { getAssets } from 'server/utils/webpack'
 
 const config = convict({
   env: {
@@ -33,6 +34,26 @@ const config = convict({
       format: ['dev', 'combined', 'common', 'short', 'tiny', ''],
       default: 'dev',
     },
+    publicPath: {
+      doc: 'The public path',
+      format: String,
+      default: path.join(__dirname, '../../public'),
+    },
+    assets: {
+      webpackAssets: {
+        doc: 'Use webpack-assets.json file',
+        format: Boolean,
+        default: false,
+        env: 'WEBPACK_ASSETS',
+      },
+      main: {
+        js: {
+          doc: 'Public JS file',
+          format: String,
+          default: '/dist/main.js',
+        },
+      },
+    },
   },
   sendgrid: {
     apiKey: {
@@ -62,10 +83,24 @@ const config = convict({
       env: 'GHOST_CLIENT_SECRET',
     },
   },
+  graphql: {
+    graphiql: {
+      doc: 'Enable GraphiQL',
+      format: Boolean,
+      default: false,
+    },
+  },
 })
 
 const env = config.get('env')
 config.loadFile(path.join(__dirname, `../../config/${env}.json`))
 config.validate()
+
+if (config.get('server.assets.webpackAssets')) {
+  config.set(
+    'server.assets',
+    getAssets({ publicPath: config.get('server.publicPath') }),
+  )
+}
 
 export default config

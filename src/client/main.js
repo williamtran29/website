@@ -1,17 +1,19 @@
 /* eslint-disable no-underscore-dangle */
-import 'regenerator-runtime/runtime'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
 import ReactGA from 'react-ga'
-import RouteChangeHook from 'modules/components/RouteChangeHook'
-import apolloClient from 'client/apolloClient'
-import store from 'client/store'
 import { loadComponents } from 'loadable-components'
-import * as intercom from 'modules/intercom'
-import App from 'client/App'
+import RouteChangeHook from 'client/components/RouteChangeHook'
+import apolloClient from 'client/utils/apolloClient'
+import * as intercom from 'client/services/intercom'
+import { injectGlobalStyle } from 'client/style/global'
+import { configure as configureMoment } from 'shared/moment'
+import App from './App'
+
+configureMoment()
+injectGlobalStyle()
 
 function onUpdate(location) {
   // Scroll top
@@ -26,23 +28,17 @@ function onUpdate(location) {
   intercom.update()
 }
 
-const render = Component => {
+loadComponents().then(() => {
   ReactDOM.hydrate(
-    <Provider store={store}>
-      <ApolloProvider client={apolloClient}>
-        <BrowserRouter>
-          <RouteChangeHook onUpdate={onUpdate}>
-            <Component />
-          </RouteChangeHook>
-        </BrowserRouter>
-      </ApolloProvider>
-    </Provider>,
+    <ApolloProvider client={apolloClient}>
+      <BrowserRouter>
+        <RouteChangeHook onUpdate={onUpdate}>
+          <App />
+        </RouteChangeHook>
+      </BrowserRouter>
+    </ApolloProvider>,
     document.getElementById('main'),
   )
-}
-
-loadComponents().then(() => {
-  render(App)
 
   // Initialize GA
   ReactGA.initialize('UA-101358560-1')

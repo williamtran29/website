@@ -1,5 +1,5 @@
 import BaseModel, { mergeSchemas } from 'server/models/BaseModel'
-import { trainerRoute } from 'modules/routePaths'
+import { trainerRoute } from 'shared/routePaths'
 import * as ghostApi from 'server/ghost/ghostApi'
 
 export default class Trainer extends BaseModel {

@@ -1,7 +1,7 @@
 import slug from 'slug'
-import BaseModel, { mergeSchemas } from 'server/models/BaseModel'
-import moment from 'modules/moment'
-import { sessionRoute } from 'modules/routePaths'
+import moment from 'moment'
+import { sessionRoute } from 'shared/routePaths'
+import BaseModel, { mergeSchemas } from './BaseModel'
 
 export default class TrainingSession extends BaseModel {
   static tableName = 'training_sessions'

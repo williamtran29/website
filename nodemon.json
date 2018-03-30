@@ -1,4 +1,5 @@
 {
+  "ignore": ["client/**/*.js"],
   "execMap": {
     "js": "babel-node"
   }
