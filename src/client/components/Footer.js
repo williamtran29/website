@@ -1,8 +1,7 @@
 import React from 'react'
-import { lighten } from 'polished'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
-import theme from 'client/style/legacyTheme'
+import { th, upTo } from 'smooth-ui'
 import {
   homeRoute,
   latestArticlesRoute,
@@ -13,141 +12,87 @@ import FaGitHub from 'react-icons/lib/fa/github'
 import FaTwitter from 'react-icons/lib/fa/twitter'
 import FaPhone from 'react-icons/lib/fa/phone'
 import FaEnvelope from 'react-icons/lib/fa/envelope'
+import BaseWrapper from './Wrapper'
 import Logo from './Logo'
 
-const textColor = lighten(0.6, theme.colors.grayDark)
-
 const Container = styled.footer`
-  background-color: ${theme.colors.grayDark};
-  color: ${textColor};
+  background-color: ${th('gray800')};
+  color: ${th('gray200')};
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 22px;
   font-weight: 300;
 
-  @media print {
-    background-color: #fff;
-    color: #333;
+  a {
+    color: ${th('gray200')};
+    text-decoration: none;
+
+    &:hover {
+      color: ${th('white')};
+    }
   }
 `
 
-const Wrapper = styled.div`
+const Wrapper = BaseWrapper.extend`
   display: flex;
   flex-direction: column;
-  max-width: ${theme.medias.large};
   justify-content: space-between;
   padding: 40px 20px 35px 20px;
 
-  @media (min-width: ${theme.medias.phablet}) {
-    flex-direction: row;
-    padding: 60px 10px 55px 10px;
-    margin: 0 auto;
-  }
-
-  @media print {
-    padding: 0 20px;
-  }
+  ${upTo(
+    'md',
+    css`
+      flex-direction: row;
+      padding: 60px 10px 55px 10px;
+    `,
+  )};
 `
 
 const Left = styled.div`
   padding-bottom: 20px;
-  border-bottom: 1px solid ${lighten(0.1, theme.colors.grayDark)};
+  border-bottom: 1px solid ${th('gray700')};
 
-  @media (min-width: ${theme.medias.phablet}) {
-    padding-bottom: 0;
-    border: 0;
-  }
+  ${upTo(
+    'md',
+    css`
+      padding-bottom: 0;
+      border: 0;
+    `,
+  )};
 `
 
-const LinkColumns = styled.div`
+const Links = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 0 0 30px 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 30px;
 
-  @media (min-width: ${theme.medias.phablet}) {
-    flex-direction: row;
-  }
-
-  @media print {
-    display: none;
-  }
+  ${upTo(
+    'md',
+    css`
+      margin: 0 10vw 30px 0;
+    `,
+  )};
 `
 
 const Right = styled.div`
   padding-top: 20px;
-  @media (min-width: ${theme.medias.phablet}) {
-    padding-top: 0;
-  }
-`
-
-const Links = styled.ul`
-  list-style-type: none;
-  margin: 0 0 30px 0;
-  padding: 0;
-
-  a {
-    font-size: 16px;
-    color: ${textColor};
-    line-height: 30px;
-    text-decoration: none;
-  }
-
-  @media (min-width: ${theme.medias.phablet}) {
-    margin: 0 10vw 30px 0;
-  }
-`
-
-const Copyright = styled.div`
-  font-size: 14px;
-
-  @media print {
-    display: none;
-  }
-`
-
-const Contact = styled.div`
-  font-size: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-bottom: 30px;
-
-  a {
-    text-decoration: none;
-    color: ${textColor};
-    will-change: color;
-    transition: 300ms color;
-
-    &:hover {
-      color: white;
-    }
-  }
-
-  @media print {
-    margin: 0;
-    a {
-      color: ${theme.colors.grayDark};
-    }
-  }
-`
-
-const Legal = styled.div`
-  font-size: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-bottom: 30px;
-
-  @media print {
-    display: none;
-  }
-`
-
-const Address = styled.address`
-  font-style: normal;
   text-align: right;
+
+  ${upTo(
+    'md',
+    css`
+      padding-top: 0;
+    `,
+  )};
+`
+
+const Section = styled.div`
   margin-bottom: 20px;
 
-  @media print {
-    display: none;
+  address {
+    font-style: normal;
   }
 `
 
@@ -160,22 +105,16 @@ const Social = styled.div`
 
   a {
     margin-left: 8px;
-    color: ${textColor};
-    will-change: color;
     transition: 300ms color;
 
     &:hover {
       color: white;
     }
   }
-
-  @media print {
-    display: none;
-  }
 `
 
 const FooterLogo = styled(Logo)`
-  color: white;
+  color: ${th('white')};
   width: 150px;
   margin-left: 20px;
 `
@@ -184,43 +123,35 @@ const Footer = () => (
   <Container>
     <Wrapper>
       <Left>
-        <LinkColumns>
-          <Links>
-            <li>
-              <Link to={homeRoute()}>Formations</Link>
-            </li>
-            <li>
-              <Link to={latestArticlesRoute()}>Articles</Link>
-            </li>
-            <li>
-              <Link to={conditionsRoute()}>Conditions Générales de Vente</Link>
-            </li>
-            <li>
-              <Link to={legalNoticeRoute()}>Mentions Légales</Link>
-            </li>
-          </Links>
-        </LinkColumns>
-        <Copyright>© Smooth Code</Copyright>
+        <Links>
+          <Link to={homeRoute()}>Formations</Link>
+          <Link to={latestArticlesRoute()}>Articles</Link>
+          <Link to={conditionsRoute()}>Conditions Générales de Vente</Link>
+          <Link to={legalNoticeRoute()}>Mentions Légales</Link>
+        </Links>
+        <div>© Smooth Code</div>
       </Left>
       <Right>
-        <Address>
-          Smooth Code<br />
-          41 rue Réaumur<br />
-          75003 Paris<br />
-        </Address>
-        <Contact>
+        <Section>
+          <address>
+            Smooth Code<br />
+            41 rue Réaumur<br />
+            75003 Paris
+          </address>
+        </Section>
+        <Section>
           <a href="tel:+33987022412">
             <FaPhone /> 09 87 02 24 12
           </a>
+          <br />
           <a href="mailto:contact@smooth-code.com">
             <FaEnvelope /> contact@smooth-code.com
           </a>
-        </Contact>
-        <Legal>
-          <span>SIRET : 830511788 00010</span>
-          <span>Numéro de déclaration d’activité : 11 75 56363 75</span>
-        </Legal>
-
+        </Section>
+        <Section>
+          SIRET : 830511788 00010<br />
+          Numéro de déclaration d’activité : 11 75 56363 75
+        </Section>
         <Social>
           <a
             href="https://github.com/smooth-code/"
