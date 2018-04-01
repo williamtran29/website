@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Lead should render a p 1`] = `
-<p
-  className="Lead-yu6jry-0 jMREKm"
->
-  Hello
-</p>
-`;

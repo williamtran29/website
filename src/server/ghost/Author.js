@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { trainerRoute } from 'modules/routePaths'
+import { trainerRoute } from 'shared/routePaths'
 import Image from 'server/ghost/Image'
 import Post from 'server/ghost/Post'
 

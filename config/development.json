@@ -1,5 +1,8 @@
 {
   "server": {
     "externalUrl": "http://localhost:8080"
+  },
+  "graphql": {
+    "graphiql": true
   }
 }

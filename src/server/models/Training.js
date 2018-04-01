@@ -1,5 +1,5 @@
-import BaseModel, { mergeSchemas } from 'server/models/BaseModel'
-import { trainingPrintRoute } from 'modules/routePaths'
+import { trainingPrintRoute } from 'shared/routePaths'
+import BaseModel, { mergeSchemas } from './BaseModel'
 
 export default class Training extends BaseModel {
   static tableName = 'trainings'

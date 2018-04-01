@@ -3,8 +3,8 @@ import { Model } from 'objection'
 import config from 'server/config'
 import knexConfig from '../../../knexfile'
 
+// Cache knex connection
 let knex
-
 export function connect() {
   if (!knex) {
     knex = Knex(knexConfig[config.get('env')])
@@ -21,7 +21,7 @@ export async function disconnect() {
       return
     }
 
-    knex.destroy((error) => {
+    knex.destroy(error => {
       if (error) {
         reject(error)
       } else {

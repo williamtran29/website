@@ -1,4 +1,4 @@
-import { run } from './index.js'
+import { run } from './index'
 
 describe('graphql', () => {
   describe('#articles', () => {

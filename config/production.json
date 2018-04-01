@@ -1,1 +1,7 @@
-{}
+{
+  "server": {
+    "assets": {
+      "webpackAssets": true
+    }
+  }
+}

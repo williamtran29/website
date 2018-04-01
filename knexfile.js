@@ -5,12 +5,13 @@ const freeConnectionsForThierdTools = 2
 
 const config = {
   knexScripts: {
-    docker: process.env.TRAVIS !== 'true',
+    docker: process.env.CI !== 'true',
   },
   development: {
     debug: false,
     client: 'postgresql',
     connection: {
+      host: 'localhost',
       user: 'postgres',
       database: 'development',
       timezone: 'utc',
@@ -22,6 +23,7 @@ const config = {
   test: {
     client: 'postgresql',
     connection: {
+      host: 'localhost',
       user: 'postgres',
       database: 'test',
       timezone: 'utc',
