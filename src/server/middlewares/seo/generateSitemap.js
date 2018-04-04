@@ -1,4 +1,5 @@
 import sm from 'sitemap'
+import _ from 'lodash'
 import { run } from 'server/graphql'
 import * as routePaths from 'shared/routePaths'
 
@@ -17,7 +18,7 @@ const siteMapToString = sitemap =>
 async function generateSitemap() {
   const data = await run(/* GraphQL */ `
     query sitemap {
-      training {
+      trainings {
         updatedAt
         link
       }
@@ -36,12 +37,14 @@ async function generateSitemap() {
       cacheTime: 600000,
       urls: [
         { url: routePaths.homeRoute(), changefreq: 'weekly', priority: 1 },
-        ...data.trainings.map(training => ({
-          url: training.link,
-          lastmodISO: training.updatedAt,
-          changefreq: 'weekly',
-          priority: 0.9,
-        })),
+        ..._.sortBy(data.trainings, 'updatedAt')
+          .reverse()
+          .map(training => ({
+            url: training.link,
+            lastmodISO: training.updatedAt,
+            changefreq: 'weekly',
+            priority: 0.9,
+          })),
         ...data.articles.posts.map(article => ({
           url: article.link,
           lastmodISO: article.updated_at,
