@@ -1,431 +1,125 @@
 import React from 'react'
-import styled, { css, keyframes } from 'styled-components'
-import intersperse from 'intersperse'
 import compose from 'recompact/compose'
 import { Helmet } from 'react-helmet'
 import gql from 'graphql-tag'
-import { Link } from 'react-router-dom'
 import { graphql } from 'react-apollo'
-import { StickyContainer, Sticky } from 'react-sticky'
-import { darken } from 'polished'
-import BaseLinkButton from 'client/components/BaseLinkButton'
-import ScrollLinkButton from 'client/components/ScrollLinkButton'
-import { getDatesBetween, shortDuration, longDuration } from 'shared/date'
 import moment from 'moment'
-import { cl } from 'shared/cloudinary'
+import { homeRoute } from 'shared/routePaths'
+import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
+import {
+  getSocialPicture,
+  sessionSocialPictureFragment,
+  getSessionTitle,
+  sessionTitleFragment,
+  getSessionSummary,
+  sessionSummaryFragment,
+} from 'shared/session'
+import ContactForm from 'client/components/ContactForm'
+import TrainingProgram, {
+  trainingProgramFragment,
+} from 'client/components/TrainingProgram'
+import TwoColsContainer from 'client/components/TwoColsContainer'
+import TwoColsMain from 'client/components/TwoColsMain'
+import TwoColsSidebar from 'client/components/TwoColsSidebar'
+import TwoColsStickySidebar from 'client/components/TwoColsStickySidebar'
+import MainSection from 'client/components/MainSection'
+import MainSectionTitle from 'client/components/MainSectionTitle'
+import SidebarSection from 'client/components/SidebarSection'
+import SidebarSectionTitle from 'client/components/SidebarSectionTitle'
+import SidebarSectionText from 'client/components/SidebarSectionText'
+import SessionCoverSummary, {
+  sessionCoverSummaryFragment,
+} from 'client/components/SessionCoverSummary'
+import SessionPrice, {
+  sessionPriceFragment,
+  sessionPriceSiblingFragment,
+} from 'client/components/SessionPrice'
+import LocationAddress, {
+  locationAddressFragment,
+} from 'client/components/LocationAddress'
+import SessionDates, {
+  sessionDatesFragment,
+} from 'client/components/SessionDates'
 import PageContainer from 'client/components/PageContainer'
+import TrainingCover, {
+  trainingCoverFragment,
+} from 'client/components/TrainingCover'
 import Header from 'client/components/Header'
 import Footer from 'client/components/Footer'
-import JsonLd from 'client/components/JsonLd'
-import Markdown from 'client/components/Markdown'
-import TrainerCard from 'client/components/TrainerCard'
-import SessionLink from 'client/components/SessionLink'
-import { sessionCardFragment } from 'client/components/SessionCard'
-import { sessionLd, sessionLdFragment } from 'client/utils/linkedData'
-import { homeRoute } from 'shared/routePaths'
-import theme from 'client/style/legacyTheme'
-import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
-import { summarizeSession, generateSocialPicture } from 'shared/session'
-import ContactForm from 'client/components/ContactForm'
+import SessionLink, { sessionLinkFragment } from 'client/components/SessionLink'
 
-const Cover = styled.div`
-  background-color: ${props => darken(0.1, props.bgColor)};
-  background-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.9) -20%,
-    rgba(255, 255, 255, 0.15) 120%
-  );
-  background-blend-mode: overlay;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 700;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 60px 20px 30px;
-
-  @media print {
-    padding: 0;
-    margin-bottom: 40px;
-    background: #fff;
-    color: ${theme.colors.gray};
+export const sessionPreviewFragment = gql`
+  fragment SessionPreview on Session {
+    id
+    training {
+      title
+      abstract
+      ...TrainingCover
+    }
+    location {
+      ...LocationAddress
+    }
+    ...SessionTitle
+    ...SessionSummary
+    ...SessionSocialPicture
+    ...SessionPrice
+    ...SessionDates
+    ...SessionCoverSummary
   }
+
+  ${sessionTitleFragment}
+  ${sessionSummaryFragment}
+  ${sessionSocialPictureFragment}
+  ${trainingCoverFragment}
+  ${locationAddressFragment}
+  ${sessionPriceFragment}
+  ${sessionDatesFragment}
+  ${sessionCoverSummaryFragment}
 `
 
-const Picture = styled.div`
-  flex-shrink: 0;
-  height: 100px;
-  width: 100px;
-  ${props => css`
-    background-image: url(${cl(
-      props.cloudinaryId,
-      'c_scale,w_100,h_100,dpr_2',
-    )});
-  `} background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  border: 3px solid #fff;
-  border-radius: 50%;
-  margin-top: 10px;
-
-  @media (min-width: ${theme.medias.phablet}) {
-    border: 5px solid #fff;
-    width: 150px;
-    height: 150px;
-    ${props => css`
-      background-image: url(${cl(
-        props.cloudinaryId,
-        'c_scale,w_150,h_150,dpr_2',
-      )});
-    `};
-  }
-
-  @media print {
-    display: none;
-  }
-`
-
-const Title = styled.h1`
-  margin: 20px 0 0;
-  font-size: 35px;
-  line-height: 40px;
-
-  @media (min-width: ${theme.medias.phablet}) {
-    font-size: 60px;
-    line-height: 70px;
-  }
-`
-
-const DateLocation = styled.div`
-  font-size: 24px;
-  line-height: 28px;
-
-  @media (min-width: ${theme.medias.phablet}) {
-    font-size: 40px;
-    line-height: 50px;
-  }
-`
-
-const Container = styled.div`
-  flex: 1;
-  margin: 0 auto;
-  max-width: 1034px;
-  width: 100%;
-  display: flex;
-  flex-direction: column-reverse;
-  min-height: 500px;
-
-  @media (min-width: ${theme.medias.desktop}) {
-    flex-direction: row;
-  }
-`
-
-const contentAnimation = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const Content = styled.div`
-  flex: 1;
-
-  @media (min-width: ${theme.medias.desktop}) {
-    animation: 400ms ${contentAnimation} ease-out;
-    animation-fill-mode: backwards;
-  }
-`
-
-const Section = styled.section`
-  border-bottom: 1px solid ${theme.colors.grayLight};
-  margin: 0 20px;
-
-  @media (min-width: ${theme.medias.desktop}) {
-    margin: 0 50px 0 10px;
-  }
-
-  @media print {
-    border: none;
-  }
-`
-
-const DownloadButton = BaseLinkButton.extend`
-  margin: 10px 0 20px;
-`
-
-const ContactSection = Section.extend`
-  border-bottom: 0;
-  padding-bottom: 50px;
-
-  @media print {
-    display: none;
-  }
-`
-
-const SectionTitle = styled.h2`
-  margin: 30px 0;
-  font-weight: 300;
-  font-size: 40px;
-  line-height: 40px;
-
-  @media (min-width: ${theme.medias.phablet}) {
-    font-size: 40px;
-    line-height: 50px;
-  }
-`
-
-const TrainerCardContainer = styled.div`
-  margin: 30px 0;
-`
-
-const sidebarAnimation = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const Sidebar = styled.aside`
-  @media (min-width: ${theme.medias.desktop}) {
-    animation: 400ms ${sidebarAnimation} ease-out;
-    animation-fill-mode: backwards;
-    width: 290px;
-    border-left: 1px solid ${theme.colors.grayLight};
-  }
-
-  @media print {
-    display: none;
-  }
-`
-
-const SidebarStickyContainer = styled(StickyContainer)`
-  @media (min-width: ${theme.medias.desktop}) {
-    height: 100%;
-    overflow: hidden;
-  }
-
-  @media (max-width: ${theme.medias.desktop}) {
-    div:first-child > div:first-child {
-      padding-bottom: 0 !important;
+const PREVIEW_QUERY = gql`
+  query SessionPreviewQuery($id: ID!) {
+    sessionPreview: session(id: $id) {
+      ...SessionPreview
     }
   }
-`
-
-const SidebarSticky = styled.div`
-  @media (max-width: ${theme.medias.desktop}) {
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
-  }
-`
-
-const SidebarSection = styled.div`
-  padding: 10px 20px 40px;
-
-  @media (min-width: ${theme.medias.desktop}) {
-    padding: 10px 10px 30px 30px;
-    border-bottom: 1px solid ${theme.colors.grayLight};
-
-    &:last-child {
-      border-bottom: 0;
-    }
-  }
-`
-
-const OtherWorkshops = styled(SidebarSection)`
-  display: none;
-
-  @media (min-width: ${theme.medias.desktop}) {
-    display: block;
-  }
-`
-
-const SidebarSectionTitle = styled.div`
-  margin: 20px 0 10px;
-  font-size: 24px;
-  line-height: 30px;
-`
-
-const SidebarSectionText = styled.div`
-  font-size: 20px;
-  line-height: 24px;
-  padding-left: 20px;
-`
-
-const Course = styled.div`
-  margin-bottom: 10px;
-`
-
-const CourseTitle = styled.h3`
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 30px;
-  margin: 30px 0 5px;
-
-  @media print {
-    margin: 10px 0 0;
-  }
-`
-
-const PrintableMarkdown = Markdown.extend`
-  @media print {
-    p,
-    ul {
-      margin: 5px 0;
-    }
-  }
-`
-
-const PriceBlock = styled.div`
-  margin: 20px 0 10px;
-  position: relative;
-`
-
-const PriceDescription = styled.div`
-  font-weight: 300;
-  font-size: 24px;
-  line-height: 30px;
-  margin-bottom: 10px;
-  text-align: center;
-`
-const OnlyPrintSection = Section.extend`
-  display: none;
-
-  ${SidebarSection} {
-    padding: 0;
-  }
-
-  ${SidebarSectionText} {
-    border-left: solid 1px black;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-
-  @media print {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-`
-
-const Price = styled.div`
-  font-size: 40px;
-  line-height: 50px;
-  margin-bottom: 20px;
-  text-align: center;
-  font-weight: 700;
-`
-
-const Full = styled.div`
-  font-size: 30px;
-  font-weight: 700;
-  text-align: center;
-  text-transform: uppercase;
-`
-
-const NextSession = styled(({ siblings = [], session, className }) => {
-  const nextSession = siblings.filter(
-    ({ id, training }) =>
-      id !== session.id && training.slug === session.training.slug,
-  )[0]
-  if (!nextSession) return null
-  return (
-    <div className={className}>
-      Prochaine session<br />
-      <Link to={nextSession.link}>{summarizeSession(nextSession)}</Link>
-    </div>
-  )
-})`
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 16px;
-  line-height: 24px;
-
-  a {
-    color: ${theme.colors.primary};
-  }
-`
-
-const CARD_QUERY = gql`
-  query SessionCardQuery($id: ID!) {
-    sessionCard: session(id: $id) {
-      ...SessionCard
-    }
-  }
-
-  ${sessionCardFragment}
+  ${sessionPreviewFragment}
 `
 
 const COMPLETE_QUERY = gql`
-  query SessionQuery($id: ID!) {
+  query SessionQuery($id: ID!, $trainingSlug: String!) {
     session(id: $id) {
       id
-      link
-      validFrom
-      startDate
-      endDate
-      participants
-      inStock
-      location {
-        id
-        name
-        address
-        city
-        zipcode
-      }
       training {
-        id
-        slug
-        title
-        abstract
-        color
-        icon
-        price
-        objectives
-        prerequisites
-        pdf
-        courses {
-          title
-          content
-        }
-        trainers {
-          id
-          slug
-          fullName
-          description
-          link
-          picture
-        }
+        ...TrainingProgram
       }
-
-      ...SessionLd
+      ...SessionPreview
     }
 
-    siblings: sessions {
-      ...SessionCard
+    siblings: sessions(trainingSlug: $trainingSlug) {
+      id
+      ...SessionPriceSibling
+      ...SessionLink
     }
   }
 
-  ${sessionCardFragment}
-  ${sessionLdFragment}
+  ${sessionPreviewFragment}
+  ${trainingProgramFragment}
+  ${sessionPriceSiblingFragment}
+  ${sessionLinkFragment}
 `
 
 const options = ({ match }) => ({
-  variables: { id: match.params.sessionId },
+  variables: {
+    id: match.params.sessionId,
+    trainingSlug: match.params.trainingSlug,
+  },
   fetchPolicy: 'cache-and-network',
 })
 
 export default compose(
-  graphql(CARD_QUERY, {
-    name: 'cardData',
+  graphql(PREVIEW_QUERY, {
+    name: 'previewData',
     options,
   }),
   graphql(COMPLETE_QUERY, {
@@ -434,7 +128,7 @@ export default compose(
   }),
   redirectIfNotFound({
     key: 'session',
-    dataKey: 'cardData',
+    dataKey: 'previewData',
     to: homeRoute(),
   }),
   redirectIfNotFound({
@@ -442,200 +136,92 @@ export default compose(
     dataKey: 'completeData',
     to: homeRoute(),
   }),
-)(({ cardData: { sessionCard }, completeData: { session, siblings } }) => (
-  <PageContainer>
-    {sessionCard && (
-      <Helmet>
-        <title>
-          {`Formation ${sessionCard.training.title} ${longDuration(
-            sessionCard.startDate,
-            sessionCard.endDate,
-          )} à ${sessionCard.location.city}`}
-        </title>
-        <meta name="description" content={sessionCard.training.abstract} />
-        <meta
-          property="og:title"
-          content={`Workshop ${sessionCard.training.title} | ${
-            sessionCard.location.city
-          } | ${shortDuration(sessionCard.startDate, sessionCard.endDate)}`}
-        />
-        <meta
-          property="og:description"
-          content={sessionCard.training.abstract}
-        />
-        <meta
-          property="og:image"
-          content={generateSocialPicture(sessionCard)}
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:image"
-          content={generateSocialPicture(sessionCard)}
-        />
-      </Helmet>
-    )}
-    <Header transparent />
-    {sessionCard && (
-      <Cover bgColor={sessionCard.training.color}>
-        <Picture cloudinaryId={sessionCard.training.icon} />
-        <Title>{sessionCard.training.title}</Title>
-        <DateLocation>{summarizeSession(sessionCard)}</DateLocation>
-      </Cover>
-    )}
-    <Container>
-      {session ? (
-        <Content>
-          <OnlyPrintSection>
-            <SidebarSection>
-              <SidebarSectionTitle>Prix</SidebarSectionTitle>
-              <SidebarSectionText>{session.training.price}€</SidebarSectionText>
-            </SidebarSection>
-            <SidebarSection>
-              <SidebarSectionTitle>Dates</SidebarSectionTitle>
-              <SidebarSectionText>
-                {intersperse(
-                  getDatesBetween(session.startDate, session.endDate).map(
-                    date => (
-                      <div key={date.toString()}>
-                        {moment(date).format('DD/MM')} | 9h30 - 17h30
-                      </div>
-                    ),
-                  ),
-                )}
-              </SidebarSectionText>
-            </SidebarSection>
-            <SidebarSection>
-              <SidebarSectionTitle>Lieu</SidebarSectionTitle>
-              <SidebarSectionText>
-                {session.location.name}
-                <br />
-                {session.location.address}
-                <br />
-                {session.location.zipcode} {session.location.city}
-              </SidebarSectionText>
-            </SidebarSection>
-          </OnlyPrintSection>
-          <Section>
-            <SectionTitle>Qu’allez-vous apprendre ?</SectionTitle>
-            {session.training.courses.map((course, index) => (
-              /* eslint-disable react/no-array-index-key */
-              <Course key={index}>
-                <CourseTitle>{course.title}</CourseTitle>
-                <PrintableMarkdown source={course.content} />
-              </Course>
-              /* eslint-enable react/no-array-index-key */
-            ))}
-            {session.training.pdf ? (
-              <DownloadButton href={session.training.pdf} download>
-                Télécharger le programme en PDF
-              </DownloadButton>
-            ) : null}
-          </Section>
-          <Section>
-            <SectionTitle>Les Objectifs</SectionTitle>
-            <Markdown source={session.training.objectives} />
-          </Section>
-          <Section>
-            <SectionTitle>À qui s’adresse cette formation ?</SectionTitle>
-            <Markdown source={session.training.prerequisites} />
-          </Section>
-          <Section>
-            <SectionTitle>Votre formateur</SectionTitle>
-            {session.training.trainers.map((trainer, index) => (
-              <TrainerCardContainer key={index}>
-                <TrainerCard {...trainer} />
-              </TrainerCardContainer>
-            ))}
-          </Section>
-          {session.inStock && (
-            <ContactSection id="contact">
-              <SectionTitle>Formulaire d’inscription</SectionTitle>
-              <ContactForm
-                subject={`Formation ${session.training.title} du ${moment(
-                  session.startDate,
-                ).format('DD/MM/YYYY')} @ smooth-code.com`}
-              />
-            </ContactSection>
-          )}
-        </Content>
-      ) : (
-        <Content />
+)(
+  ({
+    previewData: { sessionPreview },
+    completeData: { session, siblings },
+  }) => (
+    <PageContainer>
+      {sessionPreview && (
+        <Helmet>
+          <title>{getSessionTitle(sessionPreview)}</title>
+          <meta name="description" content={sessionPreview.training.abstract} />
+          <meta
+            property="og:title"
+            content={`Formation ${
+              sessionPreview.training.title
+            } | ${getSessionSummary(sessionPreview)}`}
+          />
+          <meta
+            property="og:description"
+            content={sessionPreview.training.abstract}
+          />
+          <meta
+            property="og:image"
+            content={getSocialPicture(sessionPreview)}
+          />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:image"
+            content={getSocialPicture(sessionPreview)}
+          />
+          <meta name="robots" content="noindex" />
+        </Helmet>
       )}
-      {sessionCard && (
-        <Sidebar>
-          <SidebarStickyContainer>
-            <Sticky>
-              {({ style }) => (
-                <SidebarSticky style={style}>
-                  <SidebarSection>
-                    <PriceBlock>
-                      <PriceDescription>Prix par personne</PriceDescription>
-                      <Price>{sessionCard.training.price}€</Price>
-                      {sessionCard.inStock ? (
-                        <ScrollLinkButton
-                          style={{ width: '100%', textAlign: 'center' }}
-                          spy
-                          smooth
-                          to="contact"
-                        >
-                          S’inscrire
-                        </ScrollLinkButton>
-                      ) : (
-                        <React.Fragment>
-                          <Full>
-                            <span role="img" aria-label="Attention">
-                              😓
-                            </span>{' '}
-                            Complet
-                          </Full>
-                          <NextSession
-                            siblings={siblings}
-                            session={sessionCard}
-                          />
-                        </React.Fragment>
-                      )}
-                    </PriceBlock>
-                  </SidebarSection>
-                  <SidebarSection>
-                    <SidebarSectionTitle>Dates</SidebarSectionTitle>
-                    <SidebarSectionText>
-                      {intersperse(
-                        getDatesBetween(
-                          sessionCard.startDate,
-                          sessionCard.endDate,
-                        ).map(date => (
-                          <div key={date.toString()}>
-                            {moment(date).format('DD/MM')} | 9h30 - 17h30
-                          </div>
-                        )),
-                      )}
-                    </SidebarSectionText>
-                    <SidebarSectionTitle>Lieu</SidebarSectionTitle>
-                    <SidebarSectionText>
-                      {sessionCard.location.name}
-                      <br />
-                      {sessionCard.location.address}
-                      <br />
-                      {sessionCard.location.zipcode} {sessionCard.location.city}
-                    </SidebarSectionText>
-                  </SidebarSection>
-                  <OtherWorkshops>
-                    <SidebarSectionTitle>Autres dates</SidebarSectionTitle>
-                    {siblings &&
-                      siblings
-                        .filter(({ id }) => id !== session.id)
-                        .map(sibling => (
-                          <SessionLink key={sibling.id} session={sibling} />
-                        ))}
-                  </OtherWorkshops>
-                </SidebarSticky>
+      <Header transparent />
+      {sessionPreview && (
+        <TrainingCover training={sessionPreview.training}>
+          <SessionCoverSummary session={sessionPreview} />
+        </TrainingCover>
+      )}
+      <TwoColsContainer>
+        <TwoColsMain>
+          {session && (
+            <React.Fragment>
+              <TrainingProgram training={session.training} />
+              {session.inStock && (
+                <MainSection id="contact">
+                  <MainSectionTitle>Formulaire d’inscription</MainSectionTitle>
+                  <ContactForm
+                    subject={`Formation ${session.training.title} du ${moment(
+                      session.startDate,
+                    ).format('DD/MM/YYYY')} @ smooth-code.com`}
+                  />
+                </MainSection>
               )}
-            </Sticky>
-          </SidebarStickyContainer>
-        </Sidebar>
-      )}
-    </Container>
-    <Footer />
-    {session && <JsonLd>{sessionLd(session)}</JsonLd>}
-  </PageContainer>
-))
+            </React.Fragment>
+          )}
+        </TwoColsMain>
+        {sessionPreview && (
+          <TwoColsSidebar>
+            <TwoColsStickySidebar>
+              <SidebarSection>
+                <SessionPrice session={sessionPreview} siblings={siblings} />
+              </SidebarSection>
+              <SidebarSection>
+                <SidebarSectionTitle>Dates</SidebarSectionTitle>
+                <SidebarSectionText>
+                  <SessionDates session={sessionPreview} />
+                </SidebarSectionText>
+                <SidebarSectionTitle>Lieu</SidebarSectionTitle>
+                <SidebarSectionText>
+                  <LocationAddress location={sessionPreview.location} />
+                </SidebarSectionText>
+              </SidebarSection>
+              <SidebarSection>
+                <SidebarSectionTitle>Autres dates</SidebarSectionTitle>
+                {siblings &&
+                  siblings
+                    .filter(({ id }) => id !== session.id)
+                    .map(sibling => (
+                      <SessionLink key={sibling.id} session={sibling} />
+                    ))}
+              </SidebarSection>
+            </TwoColsStickySidebar>
+          </TwoColsSidebar>
+        )}
+      </TwoColsContainer>
+      <Footer />
+    </PageContainer>
+  ),
+)

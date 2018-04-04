@@ -1,46 +1,26 @@
+import React from 'react'
 import gql from 'graphql-tag'
-import { absCl } from 'shared/cloudinary'
 import { completeUrl } from 'shared/url'
-
-export const trainerLd = ({ trainer }, { id } = {}) => ({
-  '@context': 'http://schema.org',
-  '@type': 'Person',
-  ...(id ? { '@id': completeUrl(trainer.link) } : {}),
-  gender: 'http://schema.org/Male',
-  name: trainer.fullName,
-  url: completeUrl(trainer.link),
-  image: absCl(trainer.picture, 'dpr_2,c_fill,g_face,w_150,h_150'),
-})
-
-export const trainerLdFragment = gql`
-  fragment TrainerLd on Trainer {
-    fullName
-    picture
-    link
-  }
-`
+import { getSocialPicture, sessionSocialPictureFragment } from 'shared/session'
+import JsonLd from './JsonLd'
+import { trainerLd, trainerLdFragment } from './TrainerLd'
 
 export const sessionLd = (session, { id } = {}) => ({
   '@context': 'http://schema.org',
-  '@type': 'Event',
+  '@type': 'EducationEvent',
   ...(id ? { '@id': completeUrl(session.link) } : {}),
   name: session.training.title,
   description: session.training.abstract,
   url: completeUrl(session.link),
-  image: absCl(
-    session.training.icon,
-    `b_rgb:${session.training.color},c_scale,w_150,h_150,dpr_2`,
-  ),
+  image: getSocialPicture(session),
   eventStatus: 'http://schema.org/EventScheduled',
   startDate: session.startDate,
   endDate: session.endDate,
   location: {
     '@type': 'Place',
-    name: session.location.city,
+    name: 'Smooth Code',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: session.location.address,
-      postalCode: session.location.zipcode,
       addressLocality: session.location.city,
       addressCountry: {
         '@type': 'Country',
@@ -71,7 +51,7 @@ export const sessionLd = (session, { id } = {}) => ({
     },
   ],
   performers: session.training.trainers.map(trainer =>
-    trainerLd({ trainer }, { id: true }),
+    trainerLd(trainer, { id: true }),
   ),
 })
 
@@ -95,11 +75,17 @@ export const sessionLdFragment = gql`
     }
     location {
       name
-      address
-      zipcode
       city
     }
+    ...SessionSocialPicture
   }
 
   ${trainerLdFragment}
+  ${sessionSocialPictureFragment}
 `
+
+const SessionLd = ({ session, options }) => (
+  <JsonLd>{sessionLd(session, options)}</JsonLd>
+)
+
+export default SessionLd

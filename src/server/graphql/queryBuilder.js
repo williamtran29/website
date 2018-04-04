@@ -61,7 +61,7 @@ export const eagerResolvers = {
   trainings(fields) {
     const eager = new Eager()
     if (fields.trainers) eager.add('trainers')
-    if (fields.sessions)
+    if (fields.nextSession || fields.sessions)
       eager.add(
         joinQuery(
           {
@@ -77,7 +77,10 @@ export const eagerResolvers = {
               },
             },
           },
-          eagerResolvers.sessions(fields.sessions),
+          eagerResolvers.sessions({
+            ...fields.nextSession,
+            ...fields.sessions,
+          }),
         ),
       )
     return eager.toQuery()

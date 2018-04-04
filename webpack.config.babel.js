@@ -26,6 +26,7 @@ export default {
       {
         test: /\.js$/,
         exclude: /node_modules/,
+        sideEffects: false,
         use: {
           loader: 'babel-loader',
           options: {

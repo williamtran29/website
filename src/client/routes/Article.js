@@ -20,7 +20,8 @@ import compose from 'recompact/compose'
 import { articleCardFragment } from 'client/components/ArticleCard'
 import SessionCard, { sessionCardFragment } from 'client/components/SessionCard'
 import { NoMatch } from 'client/routes'
-import { validSessions } from 'shared/session'
+import { getMainSessions } from 'shared/session'
+import { sessionPreviewFragment } from 'client/routes/Session'
 
 const Container = styled.div`
   flex: 1;
@@ -340,11 +341,14 @@ const COMPLETE_QUERY = gql`
     }
 
     sessions {
+      id
       ...SessionCard
+      ...SessionPreview
     }
   }
 
   ${sessionCardFragment}
+  ${sessionPreviewFragment}
 `
 
 const options = ({ match }) => ({ variables: { slug: match.params.slug } })
@@ -477,7 +481,7 @@ export default compose(
             <TrainingsTitle>Découvrez nos formations</TrainingsTitle>
             <SessionCards>
               {sessions &&
-                validSessions(sessions).map(session => (
+                getMainSessions(sessions).map(session => (
                   <SessionCard key={session.id} session={session} />
                 ))}
             </SessionCards>
