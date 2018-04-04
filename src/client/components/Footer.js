@@ -1,7 +1,9 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
-import { th, upTo } from 'smooth-ui'
+import { th, upTo, Col, Row } from 'smooth-ui'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 import {
   homeRoute,
   latestArticlesRoute,
@@ -67,6 +69,7 @@ const Links = styled.div`
   padding: 0;
   font-size: 16px;
   line-height: 30px;
+  white-space: nowrap;
 
   ${upTo(
     'md',
@@ -119,16 +122,30 @@ const FooterLogo = styled(Logo)`
   margin-left: 20px;
 `
 
-const Footer = () => (
+const Footer = ({ data: { trainings } }) => (
   <Container>
     <Wrapper>
       <Left>
-        <Links>
-          <Link to={homeRoute()}>Formations</Link>
-          <Link to={latestArticlesRoute()}>Articles</Link>
-          <Link to={conditionsRoute()}>Conditions Générales de Vente</Link>
-          <Link to={legalNoticeRoute()}>Mentions Légales</Link>
-        </Links>
+        <Row>
+          <Col md={6}>
+            <Links>
+              <Link to={homeRoute()}>Formations</Link>
+              <Link to={latestArticlesRoute()}>Articles</Link>
+              <Link to={conditionsRoute()}>Conditions Générales</Link>
+              <Link to={legalNoticeRoute()}>Mentions Légales</Link>
+            </Links>
+          </Col>
+          <Col md={6}>
+            <Links>
+              {trainings &&
+                trainings.map(training => (
+                  <Link key={training.id} to={training.link}>
+                    Formation {training.title}
+                  </Link>
+                ))}
+            </Links>
+          </Col>
+        </Row>
         <div>© Smooth Code</div>
       </Left>
       <Right>
@@ -174,4 +191,14 @@ const Footer = () => (
   </Container>
 )
 
-export default Footer
+const QUERY = gql`
+  query Trainings {
+    trainings {
+      id
+      title
+      link
+    }
+  }
+`
+
+export default graphql(QUERY)(Footer)

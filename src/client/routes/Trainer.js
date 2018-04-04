@@ -7,9 +7,8 @@ import theme from 'client/style/legacyTheme'
 import SecondaryTitle from 'client/components/SecondaryTitle'
 import Markdown from 'client/components/Markdown'
 import ArticleCard, { articleCardFragment } from 'client/components/ArticleCard'
-import JsonLd from 'client/components/JsonLd'
+import TrainerLd, { trainerLdFragment } from 'client/components/TrainerLd'
 import { cl } from 'shared/cloudinary'
-import { trainerLd } from 'client/utils/linkedData'
 import { homeRoute } from 'shared/routePaths'
 import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
 import PageContainer from 'client/components/PageContainer'
@@ -80,10 +79,12 @@ const QUERY = gql`
       articles {
         ...ArticleCard
       }
+      ...TrainerLd
     }
   }
 
   ${articleCardFragment}
+  ${trainerLdFragment}
 `
 
 export default compose(
@@ -140,7 +141,7 @@ export default compose(
           </Wrapper>
         </Content>
         <Footer />
-        <JsonLd>{trainerLd({ trainer })}</JsonLd>
+        {trainer && <TrainerLd trainer={trainer} />}
       </PageContainer>
     ) : null,
 )

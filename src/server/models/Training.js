@@ -1,4 +1,4 @@
-import { trainingPrintRoute } from 'shared/routePaths'
+import { trainingPrintRoute, trainingRoute } from 'shared/routePaths'
 import BaseModel, { mergeSchemas } from './BaseModel'
 
 export default class Training extends BaseModel {
@@ -64,7 +64,19 @@ export default class Training extends BaseModel {
     return this.social_abstract || this.abstract
   }
 
+  link() {
+    return trainingRoute(this.slug)
+  }
+
   printLink() {
     return trainingPrintRoute(this.slug)
+  }
+
+  nextSession() {
+    if (!this.sessions) {
+      throw new Error('sessions is missing')
+    }
+
+    return this.sessions.find(session => session.inStock())
   }
 }

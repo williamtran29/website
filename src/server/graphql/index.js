@@ -37,23 +37,24 @@ export const schema = makeExecutableSchema({
       id: ID!
       slug: String!
       updatedAt: DateTime
-      title: String
-      abstract: String
-      socialTitle: String
-      socialAbstract: String
-      icon: String
-      link: String
-      price: Int
-      objectives: String
-      prerequisites: String
-      outline: String
-      color: String
-      duration: Int
-      printLink: String
+      title: String!
+      abstract: String!
+      socialTitle: String!
+      socialAbstract: String!
+      icon: String!
+      link: String!
+      printLink: String!
+      price: Int!
+      objectives: String!
+      prerequisites: String!
+      outline: String!
+      color: String!
+      duration: Int!
       pdf: String
-      courses: [Course]
-      trainers: [Trainer]
-      sessions: [Session]
+      courses: [Course!]!
+      trainers: [Trainer!]!
+      sessions: [Session!]!
+      nextSession: Session
     }
 
     type Trainer {
@@ -160,13 +161,13 @@ export const schema = makeExecutableSchema({
       session(id: ID!): Session
       trainer(slug: String!): Trainer
 
-      sessions: [Session]
-      trainings: [Training]
+      sessions(trainingSlug: String): [Session!]!
+      trainings: [Training!]!
 
       articles(limit: Int, page: Int): ArticlesResult!
       article(slug: String!): Article
 
-      testimonials: [Testimonial]
+      testimonials: [Testimonial!]!
     }
   `,
   resolvers,
@@ -210,14 +211,17 @@ export const rootValue = {
   },
 
   // Sitemap
-  async sessions(args, obj, context) {
-    return enhanceQuery(
-      TrainingSession.query()
-        .joinRelation('training')
-        .whereRaw("training_sessions.start_date > now() + interval '1 day'")
-        .orderBy('training_sessions.start_date', 'asc'),
-      eagerResolvers.sessions(graphqlFields(context)),
-    )
+  async sessions({ trainingSlug }, obj, context) {
+    let query = TrainingSession.query()
+      .joinRelation('training')
+      .whereRaw("training_sessions.start_date > now() + interval '1 day'")
+      .orderBy('training_sessions.start_date', 'asc')
+
+    if (trainingSlug) {
+      query = query.where('training.slug', trainingSlug)
+    }
+
+    return enhanceQuery(query, eagerResolvers.sessions(graphqlFields(context)))
   },
 
   // Testimonials

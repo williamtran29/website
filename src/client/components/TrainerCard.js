@@ -1,20 +1,14 @@
 import React from 'react'
-import styled from 'styled-components'
+import gql from 'graphql-tag'
+import styled, { css } from 'styled-components'
+import { upTo } from 'smooth-ui'
 import { Link } from 'react-router-dom'
-import theme from 'client/style/legacyTheme'
 import { cl } from 'shared/cloudinary'
 import Markdown from 'client/components/Markdown'
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  @media (min-width: ${theme.medias.phablet}) {
-    flex-direction: row;
-  }
+const PictureContainer = styled.div`
+  text-align: center;
 `
-
-const PictureContainer = styled.div`text-align: center;`
 
 const Picture = styled.img`
   flex-shrink: 0;
@@ -24,7 +18,6 @@ const Picture = styled.img`
 const PictureLink = styled(Link)`
   display: inline-block;
   transition: transform 300ms;
-  will-change: transform;
 
   &:hover {
     transform: scale(1.05);
@@ -34,9 +27,12 @@ const PictureLink = styled(Link)`
 const Infos = styled.div`
   margin: 20px 0 0;
 
-  @media (min-width: ${theme.medias.phablet}) {
-    margin: 0 0 0 30px;
-  }
+  ${upTo(
+    'md',
+    css`
+      margin: 0 0 0 30px;
+    `,
+  )};
 `
 
 const Name = styled.h4`
@@ -46,26 +42,46 @@ const Name = styled.h4`
   margin: 0 0 10px;
 `
 
-const TrainerCard = ({ fullName, description, picture, link }) =>
-  <Container>
+const TrainerCardComponent = ({ trainer, ...props }) => (
+  <div {...props}>
     <PictureContainer>
-      <PictureLink to={link}>
+      <PictureLink to={trainer.link}>
         <Picture
           width={150}
           height={150}
-          src={cl(picture, 'dpr_2,c_fill,g_face,w_150,h_150')}
-          alt={fullName}
+          src={cl(trainer.picture, 'dpr_2,c_fill,g_face,w_150,h_150')}
+          alt={trainer.fullName}
         />
       </PictureLink>
     </PictureContainer>
     <Infos>
-      <Link to={link}>
-        <Name>
-          {fullName}
-        </Name>
+      <Link to={trainer.link}>
+        <Name>{trainer.fullName}</Name>
       </Link>
-      <Markdown source={description} />
+      <Markdown source={trainer.description} />
     </Infos>
-  </Container>
+  </div>
+)
+
+const TrainerCard = styled(TrainerCardComponent)`
+  display: flex;
+  flex-direction: column;
+
+  ${upTo(
+    'md',
+    css`
+      flex-direction: row;
+    `,
+  )};
+`
+
+export const trainerCardFragment = gql`
+  fragment TrainerCard on Trainer {
+    link
+    picture
+    fullName
+    description
+  }
+`
 
 export default TrainerCard

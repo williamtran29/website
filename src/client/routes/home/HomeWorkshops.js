@@ -3,11 +3,11 @@ import styled from 'styled-components'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import theme from 'client/style/legacyTheme'
-import SessionLink from 'client/components/SessionLink'
+import { getMainSessions, mainSessionFragment } from 'shared/session'
+import SessionLink, { sessionLinkFragment } from 'client/components/SessionLink'
 import SessionCard, { sessionCardFragment } from 'client/components/SessionCard'
-import { validSessions } from 'shared/session'
-import JsonLd from 'client/components/JsonLd'
-import { sessionLd, sessionLdFragment } from 'client/utils/linkedData'
+import SessionLd, { sessionLdFragment } from 'client/components/SessionLd'
+import { sessionPreviewFragment } from 'client/routes/Session'
 import HomeWrapper from './HomeWrapper'
 import HomeSectionTitle from './HomeSectionTitle'
 import HomeContainer from './HomeContainer'
@@ -71,13 +71,20 @@ const ComingTitle = styled.div`
 const QUERY = gql`
   query {
     sessions {
+      id
       ...SessionCard
       ...SessionLd
+      ...SessionLink
+      ...MainSession
+      ...SessionPreview
     }
   }
 
   ${sessionCardFragment}
   ${sessionLdFragment}
+  ${sessionLinkFragment}
+  ${mainSessionFragment}
+  ${sessionPreviewFragment}
 `
 
 const HomeWorkshops = ({ sessions, headSessions }) => (
@@ -95,13 +102,19 @@ const HomeWorkshops = ({ sessions, headSessions }) => (
         <Coming>
           <ComingTitle>Toutes les dates</ComingTitle>
           {sessions.map(session => (
-            <SessionLink key={session.id} light session={session} />
+            <SessionLink key={session.id} variant="light" session={session} />
           ))}
         </Coming>
       </Content>
       {headSessions
         .slice(0, 3)
-        .map(session => <JsonLd key={session.id}>{sessionLd(session)}</JsonLd>)}
+        .map(session => (
+          <SessionLd
+            key={session.id}
+            session={session}
+            options={{ id: true }}
+          />
+        ))}
     </HomeWrapper>
   </Container>
 )
@@ -110,7 +123,7 @@ export default graphql(QUERY, {
   props: ({ data }) => ({
     sessions: data.sessions || [],
     headSessions: data.sessions
-      ? data.sessions && validSessions(data.sessions)
+      ? data.sessions && getMainSessions(data.sessions)
       : [],
   }),
 })(HomeWorkshops)

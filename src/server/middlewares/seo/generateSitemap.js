@@ -17,7 +17,7 @@ const siteMapToString = sitemap =>
 async function generateSitemap() {
   const data = await run(/* GraphQL */ `
     query sitemap {
-      sessions {
+      training {
         updatedAt
         link
       }
@@ -36,9 +36,9 @@ async function generateSitemap() {
       cacheTime: 600000,
       urls: [
         { url: routePaths.homeRoute(), changefreq: 'weekly', priority: 1 },
-        ...data.sessions.map(session => ({
-          url: session.link,
-          lastmodISO: session.updatedAt,
+        ...data.trainings.map(training => ({
+          url: training.link,
+          lastmodISO: training.updatedAt,
           changefreq: 'weekly',
           priority: 0.9,
         })),

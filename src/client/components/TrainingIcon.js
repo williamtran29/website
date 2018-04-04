@@ -1,6 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import gql from 'graphql-tag'
 import styled from 'styled-components'
+import { th } from 'smooth-ui'
 import { cl } from 'shared/cloudinary'
 
 const Container = styled.div`
@@ -17,11 +18,7 @@ const Container = styled.div`
   -webkit-print-color-adjust: exact;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.07);
   border-radius: 50%;
-  border: 4px solid #fff;
-
-  @media print {
-    box-shadow: none;
-  }
+  border: 4px solid ${th('white')};
 `
 
 const Icon = styled.img`
@@ -36,12 +33,12 @@ const TrainingIcon = ({ training }) => (
   </Container>
 )
 
-TrainingIcon.propTypes = {
-  training: PropTypes.shape({
-    color: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
-}
+export const trainingIconFragment = gql`
+  fragment TrainingIcon on Training {
+    color
+    icon
+    title
+  }
+`
 
 export default TrainingIcon

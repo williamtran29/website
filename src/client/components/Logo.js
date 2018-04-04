@@ -1,12 +1,12 @@
 /* eslint-disable max-len */
 import React from 'react'
 
-const Logo = ({ className }) => (
+const Logo = props => (
   <svg
     preserveAspectRatio="xMidYMid meet"
     style={{ verticalAlign: 'middle' }}
     viewBox="0 0 394 60"
-    className={className}
+    {...props}
   >
     <title>Smooth Code</title>
     <path

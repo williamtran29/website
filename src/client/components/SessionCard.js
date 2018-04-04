@@ -1,48 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { upTo } from 'smooth-ui'
 import gql from 'graphql-tag'
-import theme from 'client/style/legacyTheme'
 import { Link } from 'react-router-dom'
-import Button from 'client/components/Button'
-import TrainingIcon from 'client/components/TrainingIcon'
-import { summarizeSession } from 'shared/session'
-
-export const sessionCardFragment = gql`
-  fragment SessionCard on Session {
-    id
-    startDate
-    endDate
-    link
-    inStock
-    location {
-      id
-      name
-      address
-      zipcode
-      city
-    }
-    training {
-      id
-      slug
-      title
-      abstract
-      socialTitle
-      socialAbstract
-      icon
-      color
-      price
-    }
-  }
-`
-
-const ContainerLink = styled(Link)`
-  max-width: 330px;
-  min-width: 250px;
-  display: flex;
-  flex-direction: column;
-  margin: 0 20px;
-`
+import { getSessionSummary, sessionSummaryFragment } from 'shared/session'
+import Button from './Button'
+import TrainingIcon, { trainingIconFragment } from './TrainingIcon'
 
 const Header = styled.header`
   display: flex;
@@ -55,10 +18,13 @@ const Name = styled.div`
   line-height: 20px;
   text-transform: uppercase;
 
-  @media (min-width: ${theme.medias.phablet}) {
-    font-size: 20px;
-    line-height: 24px;
-  }
+  ${upTo(
+    'md',
+    css`
+      font-size: 20px;
+      line-height: 24px;
+    `,
+  )};
 `
 
 const Icon = styled.div`
@@ -66,10 +32,13 @@ const Icon = styled.div`
   width: 50px;
   height: 50px;
 
-  @media (min-width: ${theme.medias.phablet}) {
-    width: 60px;
-    height: 60px;
-  }
+  ${upTo(
+    'md',
+    css`
+      width: 60px;
+      height: 60px;
+    `,
+  )};
 `
 
 const HeaderInfos = styled.div`
@@ -82,10 +51,13 @@ const DateLocation = styled.div`
   line-height: 24px;
   text-transform: uppercase;
 
-  @media (min-width: ${theme.medias.phablet}) {
-    font-size: 26px;
-    line-height: 32px;
-  }
+  ${upTo(
+    'md',
+    css`
+      font-size: 26px;
+      line-height: 32px;
+    `,
+  )};
 `
 
 const Description = styled.p`
@@ -94,46 +66,54 @@ const Description = styled.p`
   margin: 20px 0 0;
   opacity: 0.7;
 
-  @media (min-width: ${theme.medias.phablet}) {
-    font-size: 18px;
-    line-height: 22px;
-  }
+  ${upTo(
+    'md',
+    css`
+      font-size: 18px;
+      line-height: 22px;
+    `,
+  )};
 `
 
-const SessionCard = ({ session }) => (
-  <ContainerLink to={session.link}>
+const SessionCardComponent = ({ session, ...props }) => (
+  <Link to={session.link} {...props}>
     <Header>
       <Icon>
         <TrainingIcon training={session.training} />
       </Icon>
       <HeaderInfos>
         <Name>{session.training.title}</Name>
-        <DateLocation>{summarizeSession(session)}</DateLocation>
+        <DateLocation>{getSessionSummary(session)}</DateLocation>
       </HeaderInfos>
     </Header>
     <div>
       <Button size="sm">Voir le programme</Button>
     </div>
     <Description>{session.training.abstract}</Description>
-  </ContainerLink>
+  </Link>
 )
 
-SessionCard.propTypes = {
-  session: PropTypes.shape({
-    link: PropTypes.string.isRequired,
-    startDate: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date),
-    ]).isRequired,
-    endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
-      .isRequired,
-    training: PropTypes.shape({
-      abstract: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired,
-      icon: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-}
+const SessionCard = styled(SessionCardComponent)`
+  max-width: 330px;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+`
+
+export const sessionCardFragment = gql`
+  fragment SessionCard on Session {
+    link
+    training {
+      title
+      abstract
+      ...TrainingIcon
+    }
+    ...SessionSummary
+  }
+
+  ${trainingIconFragment}
+  ${sessionSummaryFragment}
+`
 
 export default SessionCard

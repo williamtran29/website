@@ -1,4 +1,5 @@
-import { shortDuration } from 'shared/date'
+import gql from 'graphql-tag'
+import { shortDuration, longDuration } from 'shared/date'
 import { absCl, createText } from 'shared/cloudinary'
 
 const distinctSessions = sessions =>
@@ -9,16 +10,54 @@ const distinctSessions = sessions =>
     return all
   }, [])
 
-export const validSessions = sessions =>
+export const getMainSessions = sessions =>
   distinctSessions(sessions.filter(session => session.inStock)).slice(0, 4)
 
-export const summarizeSession = session =>
+export const mainSessionFragment = gql`
+  fragment MainSession on Session {
+    inStock
+    training {
+      slug
+    }
+  }
+`
+
+export const getSessionTitle = session =>
+  `Formation ${session.training.title} ${longDuration(
+    session.startDate,
+    session.endDate,
+  )} à ${session.location.city}`
+
+export const sessionTitleFragment = gql`
+  fragment SessionTitle on Session {
+    training {
+      title
+    }
+    location {
+      city
+    }
+    startDate
+    endDate
+  }
+`
+
+export const getSessionSummary = session =>
   `${session.location.city} | ${shortDuration(
     session.startDate,
     session.endDate,
   )}`
 
-export const generateSocialPicture = session => {
+export const sessionSummaryFragment = gql`
+  fragment SessionSummary on Session {
+    startDate
+    endDate
+    location {
+      city
+    }
+  }
+`
+
+export const getSocialPicture = session => {
   const size = 'c_scale,w_1200,h_628'
   const title = createText(
     `Workshop\n${session.training.title}`.toUpperCase(),
@@ -47,3 +86,18 @@ export const generateSocialPicture = session => {
     [size, title, abstract, summary, brand, icon].join('/'),
   )
 }
+
+export const sessionSocialPictureFragment = gql`
+  fragment SessionSocialPicture on Session {
+    startDate
+    endDate
+    location {
+      city
+    }
+    training {
+      icon
+      title
+      socialAbstract
+    }
+  }
+`
