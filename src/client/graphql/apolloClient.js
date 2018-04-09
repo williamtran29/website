@@ -4,16 +4,15 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { cacheRedirects, dataIdFromObject } from 'shared/apollo'
 
 /* eslint-disable no-underscore-dangle */
-const client = new ApolloClient({
-  link: new HttpLink({
-    uri: '/graphql',
-    credentials: 'same-origin',
-  }),
-  cache: new InMemoryCache({
-    cacheRedirects,
-    dataIdFromObject,
-  }).restore(window.__APOLLO_STATE__),
-})
+export const createApolloClient = () =>
+  new ApolloClient({
+    link: new HttpLink({
+      uri: '/graphql',
+      credentials: 'same-origin',
+    }),
+    cache: new InMemoryCache({
+      cacheRedirects,
+      dataIdFromObject,
+    }).restore(window.__APOLLO_STATE__),
+  })
 /* eslint-enable no-underscore-dangle */
-
-export default client

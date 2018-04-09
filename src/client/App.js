@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom'
-import { Helmet } from 'react-helmet'
+import Helmet from 'react-helmet-async'
 import { hot } from 'react-hot-loader'
 import { ThemeProvider } from 'styled-components'
 import * as Routes from 'client/routes'

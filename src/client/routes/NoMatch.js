@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Helmet } from 'react-helmet'
+import Helmet from 'react-helmet-async'
 import MainTitle from 'client/components/MainTitle'
 import Lead from 'client/components/Lead'
 import LinkButton from 'client/components/LinkButton'

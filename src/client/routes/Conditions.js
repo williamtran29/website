@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet } from 'react-helmet'
+import Helmet from 'react-helmet-async'
 import MainTitle from 'client/components/MainTitle'
 import PageContainer from 'client/components/PageContainer'
 import Header from 'client/components/Header'

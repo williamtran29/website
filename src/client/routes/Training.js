@@ -1,6 +1,6 @@
 import React from 'react'
 import compose from 'recompact/compose'
-import { Helmet } from 'react-helmet'
+import Helmet from 'react-helmet-async'
 import gql from 'graphql-tag'
 import moment from 'moment'
 import { graphql } from 'react-apollo'

@@ -1,20 +1,17 @@
 import { ServerStyleSheet } from 'styled-components'
 import React from 'react'
-import { renderToString } from 'react-dom/server'
+import { renderToString, renderToNodeStream } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
-import { Helmet } from 'react-helmet'
+import { HelmetProvider } from 'react-helmet-async'
 import { ApolloProvider, getDataFromTree } from 'react-apollo'
-import { ApolloClient } from 'apollo-client'
-import { InMemoryCache } from 'apollo-cache-inmemory'
 import { getLoadableState } from 'loadable-components/server'
-import { cacheRedirects, dataIdFromObject } from 'shared/apollo'
 import { clearCache as clearRequireCache } from 'server/utils/require'
-import LocalLink from 'server/graphql/LocalLink'
-import { schema, rootValue } from 'server/graphql'
 import config from 'server/config'
-import Html from 'server/components/Html'
+import Head from 'server/components/Head'
+import Body from 'server/components/Body'
 import { asyncMiddleware } from 'server/utils/express'
 import { injectGlobalStyle } from 'client/style/global'
+import { createApolloClient } from 'server/graphql/apolloClient'
 
 injectGlobalStyle()
 
@@ -27,48 +24,64 @@ const ssr = asyncMiddleware(async (req, res) => {
   const App = require('client/App').default
   /* eslint-enable global-require */
 
-  const apolloClient = new ApolloClient({
-    ssrMode: true,
-    link: new LocalLink({ schema, rootValue }),
-    cache: new InMemoryCache({ cacheRedirects, dataIdFromObject }),
-  })
+  const apolloClient = createApolloClient()
   const routerContext = {}
-  const sheet = new ServerStyleSheet()
-  const app = sheet.collectStyles(
+  const helmetContext = {}
+
+  const app = (
     <ApolloProvider client={apolloClient}>
-      <StaticRouter location={req.url} context={routerContext}>
-        <App />
-      </StaticRouter>
-    </ApolloProvider>,
+      <HelmetProvider context={helmetContext}>
+        <StaticRouter location={req.url} context={routerContext}>
+          <App />
+        </StaticRouter>
+      </HelmetProvider>
+    </ApolloProvider>
   )
 
+  // Loadable components
   const loadableState = await getLoadableState(app)
-  await getDataFromTree(app)
-  const html = renderToString(app)
-  const apolloState = apolloClient.cache.extract()
-  const helmet = Helmet.renderStatic()
 
+  // Styled components
+  const sheet = new ServerStyleSheet()
+  const jsx = sheet.collectStyles(app)
+
+  // Apollo
+  await getDataFromTree(app)
+  const apolloState = apolloClient.cache.extract()
+
+  // Handle React router status
   if (routerContext.status) {
     res.status(routerContext.status)
   }
 
+  // Handle React Router redirection
   if (routerContext.url) {
-    res.redirect(routerContext.url)
+    const status = routerContext.status === 301 ? 301 : 302
+    res.redirect(status, routerContext.url)
     return
   }
 
-  res.send(
-    `<!DOCTYPE html>${renderToString(
-      <Html
+  const { helmet } = helmetContext
+  const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx))
+
+  const head = renderToString(<Head helmet={helmet} />)
+  res.write(
+    `<!DOCTYPE html><html ${helmet.htmlAttributes}><head>${head}</head><body ${
+      helmet.bodyAttributes
+    }><div id="main">`,
+  )
+  stream.pipe(res, { end: false })
+  stream.on('end', () => {
+    const body = renderToString(
+      <Body
         assets={config.get('server.assets')}
-        content={html}
         helmet={helmet}
         loadableState={loadableState}
         apolloState={apolloState}
-        sheet={sheet}
       />,
-    )}`,
-  )
+    )
+    res.end(`</div>${body}</body></html>`)
+  })
 })
 
 export default ssr
