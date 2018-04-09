@@ -1,8 +1,5 @@
 # smooth-code-website
 
-[![Build Status](https://travis-ci.org/smooth-code/website.svg?branch=master)](https://travis-ci.org/smooth-code/website)
-[![codecov](https://codecov.io/gh/smooth-code/website/branch/master/graph/badge.svg)](https://codecov.io/gh/smooth-code/website)
-
 ## Install
 
 ```

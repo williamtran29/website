@@ -76,7 +76,7 @@ const Description = styled.p`
 `
 
 const SessionCardComponent = ({ session, ...props }) => (
-  <Link to={session.link} {...props}>
+  <Link to={session.training.link} {...props}>
     <Header>
       <Icon>
         <TrainingIcon training={session.training} />
@@ -103,10 +103,10 @@ const SessionCard = styled(SessionCardComponent)`
 
 export const sessionCardFragment = gql`
   fragment SessionCard on Session {
-    link
     training {
       title
       abstract
+      link
       ...TrainingIcon
     }
     ...SessionSummary

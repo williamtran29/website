@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 import styled from 'styled-components'
-import { Helmet } from 'react-helmet'
+import Helmet from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'

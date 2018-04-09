@@ -3,10 +3,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import ReactGA from 'react-ga'
 import { loadComponents } from 'loadable-components'
 import RouteChangeHook from 'client/components/RouteChangeHook'
-import apolloClient from 'client/utils/apolloClient'
+import { createApolloClient } from 'client/graphql/apolloClient'
 import * as intercom from 'client/services/intercom'
 import { injectGlobalStyle } from 'client/style/global'
 import { configure as configureMoment } from 'shared/moment'
@@ -30,12 +31,14 @@ function onUpdate(location) {
 
 loadComponents().then(() => {
   ReactDOM.hydrate(
-    <ApolloProvider client={apolloClient}>
-      <BrowserRouter>
-        <RouteChangeHook onUpdate={onUpdate}>
-          <App />
-        </RouteChangeHook>
-      </BrowserRouter>
+    <ApolloProvider client={createApolloClient()}>
+      <HelmetProvider>
+        <BrowserRouter>
+          <RouteChangeHook onUpdate={onUpdate}>
+            <App />
+          </RouteChangeHook>
+        </BrowserRouter>
+      </HelmetProvider>
     </ApolloProvider>,
     document.getElementById('main'),
   )
