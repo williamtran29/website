@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 
 const Description = styled.div`
   font-weight: 300;
@@ -28,10 +28,12 @@ const TrainingPrice = styled(TrainingPriceComponent)`
   margin-top: 20px;
 `
 
-export const trainingPriceFragment = gql`
-  fragment TrainingPrice on Training {
-    price
-  }
-`
+TrainingPrice.fragments = {
+  training: gql`
+    fragment _ on Training {
+      price
+    }
+  `,
+}
 
 export default TrainingPrice

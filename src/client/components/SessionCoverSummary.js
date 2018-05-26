@@ -1,5 +1,5 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import styled, { css } from 'styled-components'
 import { up } from 'smooth-ui'
 import { getSessionSummary, sessionSummaryFragment } from 'shared/session'
@@ -21,12 +21,12 @@ const SessionCoverSummary = styled(SessionCoverSummaryComponent)`
   )};
 `
 
-export const sessionCoverSummaryFragment = gql`
-  fragment SessionCoverSummary on Session {
-    ...SessionSummary
-  }
-
-  ${sessionSummaryFragment}
-`
+SessionCoverSummary.fragments = {
+  session: gql`
+    fragment _ on Session {
+      ${sessionSummaryFragment}
+    }
+  `,
+}
 
 export default SessionCoverSummary

@@ -1,7 +1,7 @@
 import React from 'react'
 import compose from 'recompact/compose'
 import Helmet from 'react-helmet-async'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import moment from 'moment'
 import { graphql } from 'react-apollo'
 import { homeRoute } from 'shared/routePaths'
@@ -12,9 +12,7 @@ import {
   getMainSessions,
   mainSessionFragment,
 } from 'shared/session'
-import TrainingProgram, {
-  trainingProgramFragment,
-} from 'client/components/TrainingProgram'
+import TrainingProgram from 'client/components/TrainingProgram'
 import TwoColsContainer from 'client/components/TwoColsContainer'
 import TwoColsMain from 'client/components/TwoColsMain'
 import TwoColsSidebar from 'client/components/TwoColsSidebar'
@@ -23,30 +21,19 @@ import PageContainer from 'client/components/PageContainer'
 import SidebarSection from 'client/components/SidebarSection'
 import SidebarSectionTitle from 'client/components/SidebarSectionTitle'
 import SidebarSectionText from 'client/components/SidebarSectionText'
-import LocationAddress, {
-  locationAddressFragment,
-} from 'client/components/LocationAddress'
-import SessionDates, {
-  sessionDatesFragment,
-} from 'client/components/SessionDates'
-import SessionPrice, {
-  sessionPriceFragment,
-  sessionPriceSiblingFragment,
-} from 'client/components/SessionPrice'
-import TrainingCover, {
-  trainingCoverFragment,
-} from 'client/components/TrainingCover'
-import SessionCoverSummary, {
-  sessionCoverSummaryFragment,
-} from 'client/components/SessionCoverSummary'
-import SessionLink, { sessionLinkFragment } from 'client/components/SessionLink'
+import LocationAddress from 'client/components/LocationAddress'
+import SessionDates from 'client/components/SessionDates'
+import SessionPrice from 'client/components/SessionPrice'
+import TrainingCover from 'client/components/TrainingCover'
+import SessionCoverSummary from 'client/components/SessionCoverSummary'
+import SessionLink from 'client/components/SessionLink'
 import Header from 'client/components/Header'
 import Footer from 'client/components/Footer'
 import MainSection from 'client/components/MainSection'
 import MainSectionTitle from 'client/components/MainSectionTitle'
 import ContactForm from 'client/components/ContactForm'
-import TrainingLd, { trainingLdFragment } from 'client/components/TrainingLd'
-import SessionLd, { sessionLdFragment } from 'client/components/SessionLd'
+import TrainingLd from 'client/components/TrainingLd'
+import SessionLd from 'client/components/SessionLd'
 
 const COMPLETE_QUERY = gql`
   query TrainingQuery($slug: String!) {
@@ -58,23 +45,23 @@ const COMPLETE_QUERY = gql`
       nextSession {
         id
         location {
-          ...LocationAddress
+          ${LocationAddress.fragments.location}
         }
-        ...SessionPrice
-        ...SessionDates
-        ...SessionCoverSummary
-        ...SessionSocialPicture
+        ${SessionPrice.fragments.session}
+        ${SessionDates.fragments.session}
+        ${SessionCoverSummary.fragments.session}
+        ${sessionSocialPictureFragment}
       }
-      ...TrainingProgram
-      ...TrainingCover
-      ...TrainingLd
+      ${TrainingProgram.fragments.training}
+      ${TrainingCover.fragments.training}
+      ${TrainingLd.fragments.training}
     }
 
     sessions(trainingSlug: $slug) {
       id
-      ...SessionPriceSibling
-      ...SessionLink
-      ...SessionLd
+      ${SessionPrice.fragments.siblings}
+      ${SessionLink.fragments.session}
+      ${SessionLd.fragments.session}
     }
 
     allSessions: sessions {
@@ -82,23 +69,10 @@ const COMPLETE_QUERY = gql`
       training {
         slug
       }
-      ...SessionLink
-      ...MainSession
+      ${SessionLink.fragments.session}
+      ${mainSessionFragment}
     }
   }
-
-  ${trainingProgramFragment}
-  ${trainingCoverFragment}
-  ${trainingLdFragment}
-  ${sessionSocialPictureFragment}
-  ${sessionPriceFragment}
-  ${sessionPriceSiblingFragment}
-  ${sessionDatesFragment}
-  ${locationAddressFragment}
-  ${sessionLinkFragment}
-  ${sessionCoverSummaryFragment}
-  ${mainSessionFragment}
-  ${sessionLdFragment}
 `
 
 export default compose(

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import { shortDuration, longDuration } from 'shared/date'
 import { absCl, createText } from 'shared/cloudinary'
 
@@ -14,7 +14,7 @@ export const getMainSessions = sessions =>
   distinctSessions(sessions.filter(session => session.inStock)).slice(0, 4)
 
 export const mainSessionFragment = gql`
-  fragment MainSession on Session {
+  fragment _ on Session {
     inStock
     training {
       slug
@@ -29,7 +29,7 @@ export const getSessionTitle = session =>
   )} à ${session.location.city}`
 
 export const sessionTitleFragment = gql`
-  fragment SessionTitle on Session {
+  fragment _ on Session {
     training {
       title
     }
@@ -48,7 +48,7 @@ export const getSessionSummary = session =>
   )}`
 
 export const sessionSummaryFragment = gql`
-  fragment SessionSummary on Session {
+  fragment _ on Session {
     startDate
     endDate
     location {
@@ -88,7 +88,7 @@ export const getSocialPicture = session => {
 }
 
 export const sessionSocialPictureFragment = gql`
-  fragment SessionSocialPicture on Session {
+  fragment _ on Session {
     startDate
     endDate
     location {

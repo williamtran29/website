@@ -1,11 +1,11 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { up } from 'smooth-ui'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import { Link } from 'react-router-dom'
 import { getSessionSummary, sessionSummaryFragment } from 'shared/session'
 import Button from './Button'
-import TrainingIcon, { trainingIconFragment } from './TrainingIcon'
+import TrainingIcon from './TrainingIcon'
 
 const Header = styled.header`
   display: flex;
@@ -101,19 +101,18 @@ const SessionCard = styled(SessionCardComponent)`
   margin: 0 20px;
 `
 
-export const sessionCardFragment = gql`
-  fragment SessionCard on Session {
-    training {
-      title
-      abstract
-      link
-      ...TrainingIcon
+SessionCard.fragments = {
+  session: gql`
+    fragment _ on Session {
+      training {
+        title
+        abstract
+        link
+        ${TrainingIcon.fragments.training}
+      }
+      ${sessionSummaryFragment}
     }
-    ...SessionSummary
-  }
-
-  ${trainingIconFragment}
-  ${sessionSummaryFragment}
-`
+  `,
+}
 
 export default SessionCard

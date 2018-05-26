@@ -1,5 +1,5 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import styled, { css } from 'styled-components'
 import { darken } from 'polished'
 import { th, up } from 'smooth-ui'
@@ -71,12 +71,14 @@ const TrainingCover = styled(TrainingCoverComponent)`
   padding: 60px 20px 30px;
 `
 
-export const trainingCoverFragment = gql`
-  fragment TrainingCover on Training {
-    color
-    icon
-    title
-  }
-`
+TrainingCover.fragments = {
+  training: gql`
+    fragment _ on Training {
+      color
+      icon
+      title
+    }
+  `,
+}
 
 export default TrainingCover

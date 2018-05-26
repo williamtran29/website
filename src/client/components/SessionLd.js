@@ -1,9 +1,9 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import { completeUrl } from 'shared/url'
 import { getSocialPicture, sessionSocialPictureFragment } from 'shared/session'
+import TrainerLd, { trainerLd } from './TrainerLd'
 import JsonLd from './JsonLd'
-import { trainerLd, trainerLdFragment } from './TrainerLd'
 
 export const sessionLd = (session, { id } = {}) => ({
   '@context': 'http://schema.org',
@@ -55,37 +55,36 @@ export const sessionLd = (session, { id } = {}) => ({
   ),
 })
 
-export const sessionLdFragment = gql`
-  fragment SessionLd on Session {
-    link
-    inStock
-    startDate
-    endDate
-    validFrom
-    participants
-    training {
-      title
-      abstract
-      icon
-      color
-      price
-      trainers {
-        ...TrainerLd
-      }
-    }
-    location {
-      name
-      city
-    }
-    ...SessionSocialPicture
-  }
-
-  ${trainerLdFragment}
-  ${sessionSocialPictureFragment}
-`
-
 const SessionLd = ({ session, options }) => (
   <JsonLd>{sessionLd(session, options)}</JsonLd>
 )
+
+SessionLd.fragments = {
+  session: gql`
+    fragment _ on Session {
+      link
+      inStock
+      startDate
+      endDate
+      validFrom
+      participants
+      training {
+        title
+        abstract
+        icon
+        color
+        price
+        trainers {
+          ${TrainerLd.fragments.trainer}
+        }
+      }
+      location {
+        name
+        city
+      }
+      ${sessionSocialPictureFragment}
+    }
+  `,
+}
 
 export default SessionLd

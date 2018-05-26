@@ -1,5 +1,5 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import styled, { css } from 'styled-components'
 import { up } from 'smooth-ui'
 import { Link } from 'react-router-dom'
@@ -75,13 +75,15 @@ const TrainerCard = styled(TrainerCardComponent)`
   )};
 `
 
-export const trainerCardFragment = gql`
-  fragment TrainerCard on Trainer {
-    link
-    picture
-    fullName
-    description
-  }
-`
+TrainerCard.fragments = {
+  trainer: gql`
+    fragment _ on Trainer {
+      link
+      picture
+      fullName
+      description
+    }
+  `,
+}
 
 export default TrainerCard

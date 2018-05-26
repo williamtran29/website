@@ -1,11 +1,11 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import BaseLinkButton from './BaseLinkButton'
 import Markdown from './Markdown'
-import TrainerCard, { trainerCardFragment } from './TrainerCard'
+import TrainerCard from './TrainerCard'
 import MainSection from './MainSection'
 import MainSectionTitle from './MainSectionTitle'
-import TrainingCourse, { trainingCourseFragment } from './TrainingCourse'
+import TrainingCourse from './TrainingCourse'
 
 const TrainingProgram = ({ training }) => (
   <React.Fragment>
@@ -45,21 +45,20 @@ const TrainingProgram = ({ training }) => (
   </React.Fragment>
 )
 
-export const trainingProgramFragment = gql`
-  fragment TrainingProgram on Training {
-    courses {
-      ...TrainingCourse
+TrainingProgram.fragments = {
+  training: gql`
+    fragment _ on Training {
+      courses {
+        ${TrainingCourse.fragments.course}
+      }
+      pdf
+      objectives
+      prerequisites
+      trainers {
+        ${TrainerCard.fragments.trainer}
+      }
     }
-    pdf
-    objectives
-    prerequisites
-    trainers {
-      ...TrainerCard
-    }
-  }
-
-  ${trainingCourseFragment}
-  ${trainerCardFragment}
-`
+  `,
+}
 
 export default TrainingProgram

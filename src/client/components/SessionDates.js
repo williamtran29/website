@@ -1,5 +1,5 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import moment from 'moment'
 import { getDatesBetween } from 'shared/date'
 
@@ -13,11 +13,13 @@ const SessionDates = ({ session }) => (
   </React.Fragment>
 )
 
-export const sessionDatesFragment = gql`
-  fragment SessionDates on Session {
-    startDate
-    endDate
-  }
-`
+SessionDates.fragments = {
+  session: gql`
+    fragment _ on Session {
+      startDate
+      endDate
+    }
+  `,
+}
 
 export default SessionDates

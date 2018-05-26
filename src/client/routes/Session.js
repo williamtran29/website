@@ -1,7 +1,7 @@
 import React from 'react'
 import compose from 'recompact/compose'
 import Helmet from 'react-helmet-async'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import { graphql } from 'react-apollo'
 import moment from 'moment'
 import { homeRoute } from 'shared/routePaths'
@@ -15,9 +15,7 @@ import {
   sessionSummaryFragment,
 } from 'shared/session'
 import ContactForm from 'client/components/ContactForm'
-import TrainingProgram, {
-  trainingProgramFragment,
-} from 'client/components/TrainingProgram'
+import TrainingProgram from 'client/components/TrainingProgram'
 import TwoColsContainer from 'client/components/TwoColsContainer'
 import TwoColsMain from 'client/components/TwoColsMain'
 import TwoColsSidebar from 'client/components/TwoColsSidebar'
@@ -27,63 +25,42 @@ import MainSectionTitle from 'client/components/MainSectionTitle'
 import SidebarSection from 'client/components/SidebarSection'
 import SidebarSectionTitle from 'client/components/SidebarSectionTitle'
 import SidebarSectionText from 'client/components/SidebarSectionText'
-import SessionCoverSummary, {
-  sessionCoverSummaryFragment,
-} from 'client/components/SessionCoverSummary'
-import SessionPrice, {
-  sessionPriceFragment,
-  sessionPriceSiblingFragment,
-} from 'client/components/SessionPrice'
-import LocationAddress, {
-  locationAddressFragment,
-} from 'client/components/LocationAddress'
-import SessionDates, {
-  sessionDatesFragment,
-} from 'client/components/SessionDates'
+import SessionCoverSummary from 'client/components/SessionCoverSummary'
+import SessionPrice from 'client/components/SessionPrice'
+import LocationAddress from 'client/components/LocationAddress'
+import SessionDates from 'client/components/SessionDates'
 import PageContainer from 'client/components/PageContainer'
-import TrainingCover, {
-  trainingCoverFragment,
-} from 'client/components/TrainingCover'
+import TrainingCover from 'client/components/TrainingCover'
 import Header from 'client/components/Header'
 import Footer from 'client/components/Footer'
-import SessionLink, { sessionLinkFragment } from 'client/components/SessionLink'
+import SessionLink from 'client/components/SessionLink'
 
 export const sessionPreviewFragment = gql`
-  fragment SessionPreview on Session {
+  fragment _ on Session {
     id
     training {
       title
       abstract
-      ...TrainingCover
+      ${TrainingCover.fragments.training}
     }
     location {
-      ...LocationAddress
+      ${LocationAddress.fragments.location}
     }
-    ...SessionTitle
-    ...SessionSummary
-    ...SessionSocialPicture
-    ...SessionPrice
-    ...SessionDates
-    ...SessionCoverSummary
+    ${SessionPrice.fragments.session}
+    ${SessionDates.fragments.session}
+    ${SessionCoverSummary.fragments.session}
+    ${sessionTitleFragment}
+    ${sessionSummaryFragment}
+    ${sessionSocialPictureFragment}
   }
-
-  ${sessionTitleFragment}
-  ${sessionSummaryFragment}
-  ${sessionSocialPictureFragment}
-  ${trainingCoverFragment}
-  ${locationAddressFragment}
-  ${sessionPriceFragment}
-  ${sessionDatesFragment}
-  ${sessionCoverSummaryFragment}
 `
 
 const PREVIEW_QUERY = gql`
   query SessionPreviewQuery($id: ID!) {
     sessionPreview: session(id: $id) {
-      ...SessionPreview
+      ${sessionPreviewFragment}
     }
   }
-  ${sessionPreviewFragment}
 `
 
 const COMPLETE_QUERY = gql`
@@ -91,22 +68,17 @@ const COMPLETE_QUERY = gql`
     session(id: $id) {
       id
       training {
-        ...TrainingProgram
+        ${TrainingProgram.fragments.training}
       }
-      ...SessionPreview
+      ${sessionPreviewFragment}
     }
 
     siblings: sessions(trainingSlug: $trainingSlug) {
       id
-      ...SessionPriceSibling
-      ...SessionLink
+      ${SessionPrice.fragments.siblings}
+      ${SessionLink.fragments.session}
     }
   }
-
-  ${sessionPreviewFragment}
-  ${trainingProgramFragment}
-  ${sessionPriceSiblingFragment}
-  ${sessionLinkFragment}
 `
 
 const options = ({ match }) => ({

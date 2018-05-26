@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { th, up, Col, Row } from 'smooth-ui'
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import {
   homeRoute,
   latestArticlesRoute,

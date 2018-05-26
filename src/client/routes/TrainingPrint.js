@@ -2,7 +2,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Helmet from 'react-helmet-async'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import { graphql } from 'react-apollo'
 import ReactMarkdown from 'react-markdown'
 import theme from 'client/style/legacyTheme'
