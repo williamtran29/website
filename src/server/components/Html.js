@@ -29,6 +29,11 @@ const Html = ({
         {helmet.meta.toComponent()}
         {helmet.link.toComponent()}
         {sheet.getStyleElement()}
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,700"
+          as="style"
+        />
       </head>
       <body {...bodyAttrs}>
         <div id="main" dangerouslySetInnerHTML={{ __html: content }} />
