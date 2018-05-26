@@ -4,6 +4,7 @@ import { up } from 'smooth-ui'
 import gql from 'fraql'
 import { Link } from 'react-router-dom'
 import { getSessionSummary, sessionSummaryFragment } from 'shared/session'
+import { trainingPreviewFragment } from 'client/routes/Training'
 import Button from './Button'
 import TrainingIcon from './TrainingIcon'
 
@@ -109,6 +110,7 @@ SessionCard.fragments = {
         abstract
         link
         ${TrainingIcon.fragments.training}
+        ${trainingPreviewFragment}
       }
       ${sessionSummaryFragment}
     }
