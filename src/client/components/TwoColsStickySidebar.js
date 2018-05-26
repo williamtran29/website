@@ -1,10 +1,10 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { upTo } from 'smooth-ui'
+import { up, down } from 'smooth-ui'
 import { StickyContainer as BaseStickyContainer, Sticky } from 'react-sticky'
 
 const StickyContainer = styled(BaseStickyContainer)`
-  ${upTo(
+  ${up(
     'md',
     css`
       height: 100%;
@@ -12,25 +12,25 @@ const StickyContainer = styled(BaseStickyContainer)`
     `,
   )};
 
-  ${({ theme }) => css`
-    @media (max-width: ${theme.breakPoints.md}px) {
+  ${down(
+    'md',
+    css`
       div:first-child > div:first-child {
         padding-bottom: 0 !important;
       }
-    }
-  `};
+    `,
+  )};
 `
 
 const SidebarSticky = styled.div`
-  ${({ theme }) => css`
-    @media (max-width: ${theme.breakPoints.md}px) {
-      ${'' /* display: flex;
-      flex-direction: row;
-      flex-wrap: wrap; */} position: relative !important;
+  ${down(
+    'md',
+    css`
+      position: relative !important;
       top: 0 !important;
       left: 0 !important;
-    }
-  `};
+    `,
+  )};
 `
 
 const TwoColsStickySidebar = ({ children }) => (

@@ -1,7 +1,7 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import styled, { css } from 'styled-components'
-import { upTo } from 'smooth-ui'
+import { up } from 'smooth-ui'
 import { Link } from 'react-router-dom'
 import { cl } from 'shared/cloudinary'
 import Markdown from 'client/components/Markdown'
@@ -27,7 +27,7 @@ const PictureLink = styled(Link)`
 const Infos = styled.div`
   margin: 20px 0 0;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       margin: 0 0 0 30px;
@@ -67,7 +67,7 @@ const TrainerCard = styled(TrainerCardComponent)`
   display: flex;
   flex-direction: column;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       flex-direction: row;

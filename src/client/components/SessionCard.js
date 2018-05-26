@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { upTo } from 'smooth-ui'
+import { up } from 'smooth-ui'
 import gql from 'graphql-tag'
 import { Link } from 'react-router-dom'
 import { getSessionSummary, sessionSummaryFragment } from 'shared/session'
@@ -18,7 +18,7 @@ const Name = styled.div`
   line-height: 20px;
   text-transform: uppercase;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       font-size: 20px;
@@ -32,7 +32,7 @@ const Icon = styled.div`
   width: 50px;
   height: 50px;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       width: 60px;
@@ -51,7 +51,7 @@ const DateLocation = styled.div`
   line-height: 24px;
   text-transform: uppercase;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       font-size: 26px;
@@ -66,7 +66,7 @@ const Description = styled.p`
   margin: 20px 0 0;
   opacity: 0.7;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       font-size: 18px;
