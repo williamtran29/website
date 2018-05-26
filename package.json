@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn build:server && yarn build:client",
-    "build:server": "rm -rf lib/ && cp -R src/ lib/ && babel -d lib src",
+    "build:server": "rm -rf lib/ && cp -R src/ lib/ && babel -d lib src --ignore \"*.test.js\"",
     "build:client": "rm -rf public/dist && webpack",
     "build-storybook": "build-storybook",
     "ci": "yarn lint && NODE_ENV=test yarn db:load && yarn test",
