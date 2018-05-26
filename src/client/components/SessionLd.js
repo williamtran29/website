@@ -8,10 +8,10 @@ import JsonLd from './JsonLd'
 export const sessionLd = (session, { id } = {}) => ({
   '@context': 'http://schema.org',
   '@type': 'EducationEvent',
-  ...(id ? { '@id': completeUrl(session.link) } : {}),
-  name: session.training.title,
+  ...(id ? { '@id': completeUrl(session.training.link) } : {}),
+  name: 'Paris',
   description: session.training.abstract,
-  url: completeUrl(session.link),
+  url: completeUrl(session.training.link),
   image: getSocialPicture(session),
   eventStatus: 'http://schema.org/EventScheduled',
   startDate: session.startDate,
@@ -35,7 +35,7 @@ export const sessionLd = (session, { id } = {}) => ({
       category: 'Primary',
       price: `${session.training.price}`,
       priceCurrency: 'EUR',
-      url: completeUrl(session.link),
+      url: completeUrl(session.training.link),
       availability: session.inStock
         ? 'http://schema.org/InStock'
         : 'http://schema.org/SoldOut',
@@ -43,7 +43,7 @@ export const sessionLd = (session, { id } = {}) => ({
       validFrom: session.validFrom,
       inventoryLevel: {
         '@type': 'QuantitativeValue',
-        value: session.participants,
+        value: 10 - session.participants,
         minValue: 0,
         maxValue: 10,
         unitText: 'place',
@@ -62,7 +62,6 @@ const SessionLd = ({ session, options }) => (
 SessionLd.fragments = {
   session: gql`
     fragment _ on Session {
-      link
       inStock
       startDate
       endDate
@@ -74,6 +73,7 @@ SessionLd.fragments = {
         icon
         color
         price
+        link
         trainers {
           ${TrainerLd.fragments.trainer}
         }
