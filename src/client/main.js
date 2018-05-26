@@ -8,7 +8,7 @@ import ReactGA from 'react-ga'
 import { loadComponents } from 'loadable-components'
 import RouteChangeHook from 'client/components/RouteChangeHook'
 import { createApolloClient } from 'client/graphql/apolloClient'
-import * as intercom from 'client/services/intercom'
+// import * as intercom from 'client/services/intercom'
 import { injectGlobalStyle } from 'client/style/global'
 import { configure as configureMoment } from 'shared/moment'
 import App from './App'
@@ -26,7 +26,7 @@ function onUpdate(location) {
   ReactGA.pageview(page)
 
   // Update Intercom
-  intercom.update()
+  // intercom.update()
 }
 
 loadComponents().then(() => {
@@ -54,6 +54,6 @@ loadComponents().then(() => {
   ReactGA.pageview(`${window.location.pathname}${window.location.search}`)
 
   // Initialize Intercom
-  intercom.initialize()
+  // intercom.initialize()
   setTimeout(() => window.Intercom('boot', { app_id: 'ur91us5p' }), 2000)
 })
