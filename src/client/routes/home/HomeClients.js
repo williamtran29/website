@@ -46,11 +46,7 @@ const HomeClients = () => (
   <Wrapper>
     <Picture src={cl('Doctolib_meresa')} height={41} alt="Doctolib" />
     <Picture src={cl('Le_Monde_utfsk9')} height={36} alt="Le Monde" />
-    <Picture
-      src={cl('Docapost_s4wmx1')}
-      height={20}
-      alt="Docapost Agility"
-    />
+    <Picture src={cl('Docapost_s4wmx1')} height={20} alt="Docapost Agility" />
     <Picture src={cl('logo_BAP')} height={41} alt="Bureau à Partager" />
   </Wrapper>
 )
