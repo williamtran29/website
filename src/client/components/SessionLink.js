@@ -1,5 +1,5 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import styled, { css } from 'styled-components'
 import { th } from 'smooth-ui'
 import { Link } from 'react-router-dom'
@@ -42,17 +42,17 @@ const SessionLink = styled(SessionLinkComponent)`
     `};
 `
 
-export const sessionLinkFragment = gql`
-  fragment SessionLink on Session {
-    link
-    inStock
-    training {
-      title
+SessionLink.fragments = {
+  session: gql`
+    fragment SessionLink on Session {
+      link
+      inStock
+      training {
+        title
+      }
+      ${sessionSummaryFragment}
     }
-    ...SessionSummary
-  }
-
-  ${sessionSummaryFragment}
-`
+  `,
+}
 
 export default SessionLink

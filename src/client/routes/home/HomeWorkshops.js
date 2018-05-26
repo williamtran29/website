@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import { graphql } from 'react-apollo'
 import theme from 'client/style/legacyTheme'
 import { getMainSessions, mainSessionFragment } from 'shared/session'
-import SessionLink, { sessionLinkFragment } from 'client/components/SessionLink'
-import SessionCard, { sessionCardFragment } from 'client/components/SessionCard'
-import SessionLd, { sessionLdFragment } from 'client/components/SessionLd'
 import { sessionPreviewFragment } from 'client/routes/Session'
+import SessionLink from 'client/components/SessionLink'
+import SessionCard from 'client/components/SessionCard'
+import SessionLd from 'client/components/SessionLd'
 import HomeWrapper from './HomeWrapper'
 import HomeSectionTitle from './HomeSectionTitle'
 import HomeContainer from './HomeContainer'
@@ -72,19 +72,13 @@ const QUERY = gql`
   query {
     sessions {
       id
-      ...SessionCard
-      ...SessionLd
-      ...SessionLink
-      ...MainSession
-      ...SessionPreview
+      ${SessionCard.fragments.session}
+      ${SessionLd.fragments.session}
+      ${SessionLink.fragments.session}
+      ${mainSessionFragment}
+      ${sessionPreviewFragment}
     }
   }
-
-  ${sessionCardFragment}
-  ${sessionLdFragment}
-  ${sessionLinkFragment}
-  ${mainSessionFragment}
-  ${sessionPreviewFragment}
 `
 
 const HomeWorkshops = ({ sessions, headSessions }) => (

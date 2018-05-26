@@ -1,11 +1,12 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { upTo } from 'smooth-ui'
-import gql from 'graphql-tag'
+import { up } from 'smooth-ui'
+import gql from 'fraql'
 import { Link } from 'react-router-dom'
 import { getSessionSummary, sessionSummaryFragment } from 'shared/session'
+import { trainingPreviewFragment } from 'client/routes/Training'
 import Button from './Button'
-import TrainingIcon, { trainingIconFragment } from './TrainingIcon'
+import TrainingIcon from './TrainingIcon'
 
 const Header = styled.header`
   display: flex;
@@ -18,7 +19,7 @@ const Name = styled.div`
   line-height: 20px;
   text-transform: uppercase;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       font-size: 20px;
@@ -32,7 +33,7 @@ const Icon = styled.div`
   width: 50px;
   height: 50px;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       width: 60px;
@@ -51,7 +52,7 @@ const DateLocation = styled.div`
   line-height: 24px;
   text-transform: uppercase;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       font-size: 26px;
@@ -66,7 +67,7 @@ const Description = styled.p`
   margin: 20px 0 0;
   opacity: 0.7;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       font-size: 18px;
@@ -101,19 +102,19 @@ const SessionCard = styled(SessionCardComponent)`
   margin: 0 20px;
 `
 
-export const sessionCardFragment = gql`
-  fragment SessionCard on Session {
-    training {
-      title
-      abstract
-      link
-      ...TrainingIcon
+SessionCard.fragments = {
+  session: gql`
+    fragment _ on Session {
+      training {
+        title
+        abstract
+        link
+        ${TrainingIcon.fragments.training}
+        ${trainingPreviewFragment}
+      }
+      ${sessionSummaryFragment}
     }
-    ...SessionSummary
-  }
-
-  ${trainingIconFragment}
-  ${sessionSummaryFragment}
-`
+  `,
+}
 
 export default SessionCard

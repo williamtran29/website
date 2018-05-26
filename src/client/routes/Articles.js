@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import Helmet from 'react-helmet-async'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import { graphql } from 'react-apollo'
 import MainTitle from 'client/components/MainTitle'
 import Lead from 'client/components/Lead'
 import JsonLd from 'client/components/JsonLd'
 import Spinner from 'client/components/Spinner'
-import ArticleCard, { articleCardFragment } from 'client/components/ArticleCard'
+import ArticleCard from 'client/components/ArticleCard'
 import Paginator from 'client/components/Paginator'
 import PageContainer from 'client/components/PageContainer'
 import Header from 'client/components/Header'
@@ -66,7 +66,7 @@ const QUERY = gql`
   query($page: Int) {
     articles(page: $page, limit: 10) {
       posts {
-        ...ArticleCard
+        ${ArticleCard.fragments.article}
       }
       meta {
         pagination {
@@ -77,8 +77,6 @@ const QUERY = gql`
       }
     }
   }
-
-  ${articleCardFragment}
 `
 
 export default graphql(QUERY, {

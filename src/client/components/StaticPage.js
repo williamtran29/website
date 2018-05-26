@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { th, upTo } from 'smooth-ui'
+import { th, up } from 'smooth-ui'
 
 const StaticPage = styled.div`
   flex: 1;
@@ -58,7 +58,7 @@ const StaticPage = styled.div`
     }
   }
 
-  ${upTo(
+  ${up(
     'md',
     css`
       font-size: 18px;

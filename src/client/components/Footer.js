@@ -1,9 +1,9 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
-import { th, upTo, Col, Row } from 'smooth-ui'
+import { th, up, Col, Row } from 'smooth-ui'
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import {
   homeRoute,
   latestArticlesRoute,
@@ -40,7 +40,7 @@ const Wrapper = BaseWrapper.extend`
   justify-content: space-between;
   padding: 40px 20px 35px 20px;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       flex-direction: row;
@@ -53,7 +53,7 @@ const Left = styled.div`
   padding-bottom: 20px;
   border-bottom: 1px solid ${th('gray700')};
 
-  ${upTo(
+  ${up(
     'md',
     css`
       padding-bottom: 0;
@@ -71,7 +71,7 @@ const Links = styled.div`
   line-height: 30px;
   white-space: nowrap;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       margin: 0 10vw 30px 0;
@@ -83,7 +83,7 @@ const Right = styled.div`
   padding-top: 20px;
   text-align: right;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       padding-top: 0;

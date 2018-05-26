@@ -1,5 +1,5 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import styled from 'styled-components'
 import { th } from 'smooth-ui'
 import { cl } from 'shared/cloudinary'
@@ -33,12 +33,14 @@ const TrainingIcon = ({ training }) => (
   </Container>
 )
 
-export const trainingIconFragment = gql`
-  fragment TrainingIcon on Training {
-    color
-    icon
-    title
-  }
-`
+TrainingIcon.fragments = {
+  training: gql`
+    fragment _ on Training {
+      color
+      icon
+      title
+    }
+  `,
+}
 
 export default TrainingIcon

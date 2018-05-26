@@ -23,6 +23,8 @@ export const cacheRedirects = {
   Query: {
     session: (_, { id }) =>
       toIdValue(dataIdFromObject({ id, __typename: 'Session' })),
+    training: (_, { slug }) =>
+      toIdValue(dataIdFromObject({ slug, __typename: 'Training' })),
     article: (_, { slug }) =>
       toIdValue(dataIdFromObject({ slug, __typename: 'Article' })),
   },

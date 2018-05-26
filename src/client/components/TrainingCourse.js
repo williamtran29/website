@@ -1,5 +1,5 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import styled from 'styled-components'
 import Markdown from './Markdown'
 
@@ -21,11 +21,13 @@ const TrainingCourse = styled(TrainingCourseComponent)`
   margin-bottom: 10px;
 `
 
-export const trainingCourseFragment = gql`
-  fragment TrainingCourse on Course {
-    title
-    content
-  }
-`
+TrainingCourse.fragments = {
+  course: gql`
+    fragment _ on Course {
+      title
+      content
+    }
+  `,
+}
 
 export default TrainingCourse

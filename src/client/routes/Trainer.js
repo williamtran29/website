@@ -1,13 +1,13 @@
 import React from 'react'
 import Helmet from 'react-helmet-async'
 import styled from 'styled-components'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import { graphql, compose } from 'react-apollo'
 import theme from 'client/style/legacyTheme'
 import SecondaryTitle from 'client/components/SecondaryTitle'
 import Markdown from 'client/components/Markdown'
-import ArticleCard, { articleCardFragment } from 'client/components/ArticleCard'
-import TrainerLd, { trainerLdFragment } from 'client/components/TrainerLd'
+import ArticleCard from 'client/components/ArticleCard'
+import TrainerLd from 'client/components/TrainerLd'
 import { cl } from 'shared/cloudinary'
 import { homeRoute } from 'shared/routePaths'
 import redirectIfNotFound from 'client/hoc/redirectIfNotFound'
@@ -77,14 +77,11 @@ const QUERY = gql`
       link
       picture
       articles {
-        ...ArticleCard
+        ${ArticleCard.fragments.article}
       }
-      ...TrainerLd
+      ${TrainerLd.fragments.trainer}
     }
   }
-
-  ${articleCardFragment}
-  ${trainerLdFragment}
 `
 
 export default compose(

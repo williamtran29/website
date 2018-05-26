@@ -1,5 +1,5 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import styled from 'styled-components'
 
 const LocationAddressComponent = ({ location, ...props }) => (
@@ -16,13 +16,15 @@ const LocationAddress = styled(LocationAddressComponent)`
   font-style: normal;
 `
 
-export const locationAddressFragment = gql`
-  fragment LocationAddress on Location {
-    name
-    address
-    zipcode
-    city
-  }
-`
+LocationAddress.fragments = {
+  location: gql`
+    fragment _ on Location {
+      name
+      address
+      zipcode
+      city
+    }
+  `,
+}
 
 export default LocationAddress

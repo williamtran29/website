@@ -1,35 +1,9 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import styled from 'styled-components'
 import { lighten } from 'polished'
 import { Link } from 'react-router-dom'
 import theme from 'client/style/legacyTheme'
-
-export const articleCardFragment = gql`
-  fragment ArticleCard on Article {
-    id
-    slug
-    link
-    title
-    published_at
-    feature_image {
-      url
-    }
-    custom_excerpt
-    author {
-      slug
-      name
-      profile_image {
-        url
-      }
-      link
-    }
-    tags {
-      slug
-      name
-    }
-  }
-`
 
 const Tag = styled.div`
   margin-bottom: 5px;
@@ -85,7 +59,9 @@ const Excerpt = styled.section`
   }
 `
 
-const Footer = styled.footer`padding: 0 25px 25px;`
+const Footer = styled.footer`
+  padding: 0 25px 25px;
+`
 
 const AuthorImage = styled.img`
   width: 25px;
@@ -208,5 +184,33 @@ const ArticleCard = ({ article, featuring }) => (
     </Content>
   </Article>
 )
+
+ArticleCard.fragments = {
+  article: gql`
+    fragment _ on Article {
+      id
+      slug
+      link
+      title
+      published_at
+      feature_image {
+        url
+      }
+      custom_excerpt
+      author {
+        slug
+        name
+        profile_image {
+          url
+        }
+        link
+      }
+      tags {
+        slug
+        name
+      }
+    }
+  `,
+}
 
 export default ArticleCard

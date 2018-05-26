@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
-import { th, upTo } from 'smooth-ui'
+import { th, up } from 'smooth-ui'
 import { Link as ScrollLink } from 'react-scroll'
 import FaBars from 'react-icons/lib/fa/bars'
 import FaGitHub from 'react-icons/lib/fa/github'
@@ -48,7 +48,7 @@ const Links = styled.div`
     props.transparent ? 'rgba(0, 0, 0, 0.9)' : th('primary')};
   z-index: 3;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       position: initial;
@@ -88,14 +88,14 @@ const NavLink = styled.a`
     margin-right: 5px;
   }
 
-  ${upTo(
+  ${up(
     'md',
     css`
       margin: 0;
     `,
   )};
 
-  ${upTo(
+  ${up(
     'lg',
     css`
       font-size: 18px;
@@ -136,7 +136,7 @@ const MenuToggle = styled(FaBars)`
   cursor: pointer;
   z-index: 4;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       display: none;

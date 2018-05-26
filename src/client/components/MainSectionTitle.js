@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { upTo } from 'smooth-ui'
+import { up } from 'smooth-ui'
 
 const MainSectionTitle = styled.h2`
   margin: 30px 0;
@@ -7,7 +7,7 @@ const MainSectionTitle = styled.h2`
   font-size: 40px;
   line-height: 40px;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       font-size: 40px;

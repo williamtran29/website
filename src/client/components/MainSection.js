@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { th, upTo } from 'smooth-ui'
+import { th, up } from 'smooth-ui'
 
 const MainSection = styled.section`
   border-bottom: 1px solid ${th('gray200')};
@@ -10,7 +10,7 @@ const MainSection = styled.section`
     padding-bottom: 50px;
   }
 
-  ${upTo(
+  ${up(
     'md',
     css`
       margin: 0 50px 0 10px;

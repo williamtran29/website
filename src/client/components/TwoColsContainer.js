@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { th, upTo } from 'smooth-ui'
+import { th, up } from 'smooth-ui'
 
 const TwoColsContainer = styled.div`
   flex: 1;
@@ -10,7 +10,7 @@ const TwoColsContainer = styled.div`
   flex-direction: column-reverse;
   min-height: 500px;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       flex-direction: row;

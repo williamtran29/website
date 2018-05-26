@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from 'styled-components'
-import { upTo } from 'smooth-ui'
+import { up } from 'smooth-ui'
 
 const animation = keyframes`
   0% { opacity: 0; }
@@ -9,7 +9,7 @@ const animation = keyframes`
 const TwoColsMain = styled.main`
   flex: 1;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       animation: 400ms ${animation} ease-out;

@@ -1,8 +1,8 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import styled, { css } from 'styled-components'
 import { darken } from 'polished'
-import { th, upTo } from 'smooth-ui'
+import { th, up } from 'smooth-ui'
 import { cl } from 'shared/cloudinary'
 
 const Picture = styled.div`
@@ -18,7 +18,7 @@ const Picture = styled.div`
   border-radius: 50%;
   margin-top: 10px;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       border: 5px solid ${th('white')};
@@ -36,7 +36,7 @@ const Title = styled.h1`
   font-size: 35px;
   line-height: 40px;
 
-  ${upTo(
+  ${up(
     'md',
     css`
       font-size: 60px;
@@ -71,12 +71,14 @@ const TrainingCover = styled(TrainingCoverComponent)`
   padding: 60px 20px 30px;
 `
 
-export const trainingCoverFragment = gql`
-  fragment TrainingCover on Training {
-    color
-    icon
-    title
-  }
-`
+TrainingCover.fragments = {
+  training: gql`
+    fragment _ on Training {
+      color
+      icon
+      title
+    }
+  `,
+}
 
 export default TrainingCover

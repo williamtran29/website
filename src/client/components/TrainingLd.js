@@ -1,5 +1,5 @@
 import React from 'react'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import { completeUrl } from 'shared/url'
 import JsonLd from './JsonLd'
 
@@ -26,17 +26,19 @@ export const trainingLd = (training, { id } = {}) => ({
   ],
 })
 
-export const trainingLdFragment = gql`
-  fragment TrainingLd on Training {
-    link
-    title
-    abstract
-    price
-  }
-`
-
 const TrainingLd = ({ training, options }) => (
   <JsonLd>{trainingLd(training, options)}</JsonLd>
 )
+
+TrainingLd.fragments = {
+  training: gql`
+    fragment _ on Training {
+      link
+      title
+      abstract
+      price
+    }
+  `,
+}
 
 export default TrainingLd

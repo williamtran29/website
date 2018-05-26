@@ -1,5 +1,5 @@
 import styled, { keyframes, css } from 'styled-components'
-import { th, upTo } from 'smooth-ui'
+import { th, up } from 'smooth-ui'
 
 const animation = keyframes`
   0% {
@@ -14,7 +14,7 @@ const animation = keyframes`
 `
 
 const TwoColsSidebar = styled.aside`
-  ${upTo(
+  ${up(
     'md',
     css`
       animation: 400ms ${animation} ease-out;

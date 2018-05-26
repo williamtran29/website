@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { th } from 'smooth-ui'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import ScrollLinkButton from './ScrollLinkButton'
-import TrainingPrice, { trainingPriceFragment } from './TrainingPrice'
-import SessionLink, { sessionLinkFragment } from './SessionLink'
+import TrainingPrice from './TrainingPrice'
+import SessionLink from './SessionLink'
 
 const NextSessionComponent = ({ siblings = [], session, ...props }) => {
   const nextSession = siblings.filter(
@@ -74,29 +74,26 @@ const SessionPrice = styled(SessionPriceComponent)`
   position: relative;
 `
 
-export const sessionPriceFragment = gql`
-  fragment SessionPrice on Session {
-    id
-    inStock
-    training {
-      slug
-      ...TrainingPrice
+SessionPrice.fragments = {
+  session: gql`
+    fragment _ on Session {
+      id
+      inStock
+      training {
+        slug
+        ${TrainingPrice.fragments.training}
+      }
     }
-  }
-
-  ${trainingPriceFragment}
-`
-
-export const sessionPriceSiblingFragment = gql`
-  fragment SessionPriceSibling on Session {
-    id
-    training {
-      slug
+  `,
+  siblings: gql`
+    fragment _ on Session {
+      id
+      training {
+        slug
+      }
+      ${SessionLink.fragments.session}
     }
-    ...SessionLink
-  }
-
-  ${sessionLinkFragment}
-`
+  `,
+}
 
 export default SessionPrice

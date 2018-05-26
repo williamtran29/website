@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Helmet from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import gql from 'graphql-tag'
+import gql from 'fraql'
 import { graphql } from 'react-apollo'
 import theme from 'client/style/legacyTheme'
 import Status from 'client/components/Status'
@@ -17,8 +17,8 @@ import Footer from 'client/components/Footer'
 import { cl } from 'shared/cloudinary'
 import { completeUrl } from 'shared/url'
 import compose from 'recompact/compose'
-import { articleCardFragment } from 'client/components/ArticleCard'
-import SessionCard, { sessionCardFragment } from 'client/components/SessionCard'
+import ArticleCard from 'client/components/ArticleCard'
+import SessionCard from 'client/components/SessionCard'
 import { NoMatch } from 'client/routes'
 import { getMainSessions } from 'shared/session'
 import { sessionPreviewFragment } from 'client/routes/Session'
@@ -293,11 +293,9 @@ const SessionCards = styled.div`
 const CARD_QUERY = gql`
   query($slug: String!) {
     article(slug: $slug) {
-      ...ArticleCard
+      ${ArticleCard.fragments.article}
     }
   }
-
-  ${articleCardFragment}
 `
 
 const COMPLETE_QUERY = gql`
@@ -342,13 +340,10 @@ const COMPLETE_QUERY = gql`
 
     sessions {
       id
-      ...SessionCard
-      ...SessionPreview
+      ${SessionCard.fragments.session}
+      ${sessionPreviewFragment}
     }
   }
-
-  ${sessionCardFragment}
-  ${sessionPreviewFragment}
 `
 
 const options = ({ match }) => ({ variables: { slug: match.params.slug } })
