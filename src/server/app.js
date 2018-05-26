@@ -23,6 +23,7 @@ app.use(
     maxage: 31536000000,
   }),
 )
+
 app.use(compression())
 
 if (config.get('env') !== 'test') {

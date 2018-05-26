@@ -65,6 +65,7 @@ const ssr = asyncMiddleware(async (req, res) => {
   const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx))
 
   const head = renderToString(<Head helmet={helmet} />)
+  res.set('content-type', 'text/html')
   res.write(
     `<!DOCTYPE html><html ${helmet.htmlAttributes}><head>${head}</head><body ${
       helmet.bodyAttributes
